@@ -1,0 +1,89 @@
+# ---- Unity 缓存与生成目录 ----
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+
+# ---- Unity 自动生成文件 ----
+*.pidb
+*.booproj
+*.svd
+*.user
+*.userprefs
+
+# ---- IDE 工程文件 ----
+.vscode/
+.idea/
+*.csproj
+*.unityproj
+*.suo
+*.tmp
+*.db
+*.opendb
+*.VC.db
+*.sln
+
+# ---- 操作系统文件 ----
+.DS_Store
+Thumbs.db
+
+# ---- 图片（保留 meta）----
+*.png
+!*.png.meta
+*.jpg
+!*.jpg.meta
+*.jpeg
+!*.jpeg.meta
+*.tga
+!*.tga.meta
+*.psd
+!*.psd.meta
+
+# ---- 模型（保留 meta）----
+*.fbx
+!*.fbx.meta
+*.obj
+!*.obj.meta
+*.blend
+!*.blend.meta
+*.dae
+!*.dae.meta
+*.spa
+
+# ---- 音频（保留 meta）----
+*.mp3
+!*.mp3.meta
+*.wav
+!*.wav.meta
+*.ogg
+!*.ogg.meta
+
+# ---- 视频（保留 meta）----
+*.mp4
+!*.mp4.meta
+*.mov
+!*.mov.meta
+*.avi
+!*.avi.meta
+*.webm
+!*.webm.meta
+
+# ---- 压缩/镜像（保留 meta）----
+*.zip
+!*.zip.meta
+*.7z
+!*.7z.meta
+*.tar
+!*.tar.meta
+*.gz
+!*.gz.meta
+*.iso
+!*.iso.meta
+
+.plastic
+ignore.conf
+*.private.*
