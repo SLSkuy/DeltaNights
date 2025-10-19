@@ -2,13 +2,16 @@
 
 三脚猫行动：卡丘方舟
 
-> 搜不出、打不赢、撤不了的二次元搜打撤
+> 搜不到、打不赢、撤不了的二次元搜打撤
 
 <div align="center">
-<img src="https://github.com/user-attachments/assets/c437d848-e1e8-4cf1-983b-a0ff06563e1e" 
-     width="80%" 
-     style="border-radius: 8px; border: 1px solid #ddd;"
-     alt="欸嘿，洗大锅">
+  <figure>
+    <img src="https://github.com/user-attachments/assets/c437d848-e1e8-4cf1-983b-a0ff06563e1e" 
+         width="75%" 
+         style="border-radius: 8px; border: 1px solid #ddd;"
+         alt="哈基米哦南北绿豆">
+    <figcaption><em>欸嘿，洗大锅</em></figcaption>
+  </figure>
 </div>
 
 ---
