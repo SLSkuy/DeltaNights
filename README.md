@@ -23,6 +23,10 @@
 - Meshes：模型网格文件
 - Scenes：游戏场景文件
 - Scripts：脚本文件
+  - UIFramework：UI框架
+    - Core：框架核心代码，管理所有UI界面
+    - Panel：面板类UI控制代码
+    - Window：窗口类UI控制代码
 - Settings：渲染管线设置
 - Shader：着色器相关文件
 - InputSystem_Actions.inputactions：输入配置文件
