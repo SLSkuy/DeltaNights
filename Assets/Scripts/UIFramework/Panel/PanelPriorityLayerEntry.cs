@@ -18,8 +18,8 @@ namespace UIFramework.Panel
         
         #region 暴露属性
 
-        public Transform LayerRootTransform { get => subLayerRootTransformTransform; set => subLayerRootTransformTransform = value; }
         public PanelPriority Priority { get => priority; set => priority = value; }
+        public Transform LayerRootTransform { get => subLayerRootTransformTransform; set => subLayerRootTransformTransform = value; }
         
         #endregion
 
