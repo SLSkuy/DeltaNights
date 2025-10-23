@@ -9,6 +9,6 @@ namespace UIFramework.Panel
     /// </summary>
     public interface IPanelController : IUIController
     {
-        
+        PanelPriority Priority { get;}
     }
 }

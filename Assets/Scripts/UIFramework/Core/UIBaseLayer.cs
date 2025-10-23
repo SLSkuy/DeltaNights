@@ -107,13 +107,14 @@ namespace UIFramework.Core
         /// </summary>
         /// <param name="controller">UI界面控制器</param>
         /// <param name="uiTransform">UI界面Transform</param>
-        public virtual void ReParentUI(T controller, Transform uiTransform)
+        public virtual void ReParentUI(IUIController controller, Transform uiTransform)
         {
             uiTransform.SetParent(this.transform);
         }
 
         /// <summary>
         /// 在当前Layer注册指定ID的UI界面
+        /// 封装注册逻辑
         /// </summary>
         /// <param name="uiControllerID">UI界面ID</param>
         /// <param name="controller">UI界面控制器参数</param>
@@ -131,6 +132,7 @@ namespace UIFramework.Core
 
         /// <summary>
         /// 在当前Layer注销指定ID的UI界面
+        /// 封装注销逻辑
         /// </summary>
         /// <param name="uiControllerID">UI界面ID</param>
         /// <param name="controller">UI界面控制器参数</param>
