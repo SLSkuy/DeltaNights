@@ -26,7 +26,7 @@ namespace UIFramework
         #region 暴露属性
         
         public Canvas MainCanvas { get { if (!_mainCanvas)_mainCanvas = _mainCanvas.GetComponent<Canvas>(); return _mainCanvas; } }
-        public Camera CanvasCamera { get => _mainCanvas.worldCamera; }
+        public Camera CanvasCamera => _mainCanvas.worldCamera;
 
         #endregion
         

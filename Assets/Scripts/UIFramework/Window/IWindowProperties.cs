@@ -9,6 +9,9 @@ namespace UIFramework.Window
     /// </summary>
     public interface IWindowProperties : IUIProperties
     {
-        
+        WindowPriority Priority { get; set; }   // 窗口优先级
+        bool HideOnForegroundLost { get; set; } // 是否能够被覆盖
+        bool IsPopup { get; set; }  // 是否是弹窗
+        bool SuppressPrefabProperties { get; set; } // 是否要覆盖当前窗口的属性
     }
 }

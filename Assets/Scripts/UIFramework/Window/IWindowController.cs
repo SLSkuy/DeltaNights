@@ -9,6 +9,8 @@ namespace UIFramework.Window
     /// </summary>
     public interface IWindowController : IUIController
     {
-        
+        WindowPriority Priority { get; }    // 窗口优先级
+        bool HideOnForegroundLost { get;}   // 是否能够被覆盖
+        bool IsPopup { get;}    // 是否是弹窗
     }
 }
