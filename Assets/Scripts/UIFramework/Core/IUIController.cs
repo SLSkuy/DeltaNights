@@ -15,6 +15,7 @@ namespace UIFramework.Core
         /// 每个UI界面控制器的唯一ID
         /// </summary>
         string UIControllerID { get; set; }
+        bool IsVisible { get; set; }
         
         #endregion
         
@@ -27,8 +28,9 @@ namespace UIFramework.Core
 
         #region 回调函数
 
-        event Action<IUIController> OnTransitionInFinished;
-        event Action<IUIController> OnTransitionOutFinished;
+        event Action<IUIController> UIDestroyed;
+        event Action<IUIController> TransitionInFinished;
+        event Action<IUIController> TransitionOutFinished;
 
         #endregion
     }
