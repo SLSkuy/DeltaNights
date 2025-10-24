@@ -133,9 +133,9 @@ namespace UIFramework.Core
         /// </summary>
         /// <param name="uiControllerID">UI界面ID</param>
         /// <param name="controller">UI界面控制器参数</param>
-        public virtual void RegisterUIController(string uiControllerID, T controller)
+        public void RegisterUIController(string uiControllerID, T controller)
         {
-            if (!RegisteredUIControllers.ContainsKey(uiControllerID))
+            if (!IsRegistered(uiControllerID))
             {
                 ProcessUIRegister(uiControllerID, controller);
             }
@@ -151,7 +151,7 @@ namespace UIFramework.Core
         /// </summary>
         /// <param name="uiControllerID">UI界面ID</param>
         /// <param name="controller">UI界面控制器参数</param>
-        public virtual void UnregisterUIController(string uiControllerID, T controller)
+        public void UnregisterUIController(string uiControllerID, T controller)
         {
             if (RegisteredUIControllers.ContainsKey(uiControllerID))
             {
