@@ -21,11 +21,17 @@
 项目文件夹
 - Animation：动画相关文件
 - Meshes：模型网格文件
+- Prefabs：存储预制体
+  - UI：单个UI界面预制体
+- Resources：动态加载资源文件
 - Scenes：游戏场景文件
+- ScriptableObjects：数据配置文件
+  - UISettings：UI配置文件
 - Scripts：脚本文件
   - UIFramework：UI框架
     - Core：框架核心代码，管理所有UI界面
     - Panel：面板类UI控制代码
+    - UIAnimation：UI界面过渡动画
     - Window：窗口类UI控制代码
 - Settings：渲染管线设置
 - Shader：着色器相关文件
