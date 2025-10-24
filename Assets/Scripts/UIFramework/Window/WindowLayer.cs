@@ -22,7 +22,8 @@ namespace UIFramework.Window
         [SerializeField] private WindowPriorityLayer priorityLayerWindow;
 
         public IWindowController CurrentWindow { get; private set; }
-        
+
+        private List<string> _readyToShow;
         private Queue<WindowHistoryEntry> _windowQueue;
         private Stack<WindowHistoryEntry> _windowHistory;
         
@@ -46,6 +47,13 @@ namespace UIFramework.Window
             IWindowProperties windowProperties = props as IWindowProperties;
             if(ShouldEnqueue(controller, windowProperties))
             {
+                // 当前队列已经存在对应窗口，不再加入队列
+                if (_readyToShow.Contains(controller.UIControllerID) || CurrentWindow == controller)
+                {
+                    Debug.Log($"[WindowLayer] {controller.UIControllerID} is already in queue or showing");
+                    return;
+                }
+                
                 Enqueue(controller, windowProperties);
             }
             else
@@ -60,6 +68,7 @@ namespace UIFramework.Window
             {
                 CurrentWindow = null;
                 _windowHistory.Pop();
+                _readyToShow.Remove(controller.UIControllerID);
                 AddTransition(controller);
                 controller.Hide();
 
@@ -96,6 +105,7 @@ namespace UIFramework.Window
             _windowQueue = new Queue<WindowHistoryEntry>();
             _windowHistory = new Stack<WindowHistoryEntry>();
             _uiTransitions = new HashSet<IUIController>();
+            _readyToShow = new List<string>();
         }
         
         public override void ReParentUI(IUIController controller, Transform uiTransform)
@@ -160,6 +170,7 @@ namespace UIFramework.Window
 
         private void Enqueue(IWindowController controller, IWindowProperties properties)
         {
+            _readyToShow.Add(controller.UIControllerID);
             _windowQueue.Enqueue(new WindowHistoryEntry(controller, properties));
         }
 
@@ -193,7 +204,8 @@ namespace UIFramework.Window
                 Debug.LogWarning($"[WindowLayer] {controller.UIControllerID} is already show");
                 return;
             }
-            else if(CurrentWindow != null && CurrentWindow.HideOnForegroundLost && !controller.IsPopup)
+            
+            if(CurrentWindow != null && CurrentWindow.HideOnForegroundLost && !controller.IsPopup)
             {
                 CurrentWindow.Hide();
             }
