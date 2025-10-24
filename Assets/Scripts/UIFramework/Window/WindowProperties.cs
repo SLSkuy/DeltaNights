@@ -36,12 +36,11 @@ namespace UIFramework.Window
         #endregion
 
         public WindowProperties(WindowPriority priority = WindowPriority.ForceForeground,
-            bool hideOnForegroundLost = true, bool isPopup = false, bool suppressPrefabProperties = false)
+            bool hideOnForegroundLost = true, bool isPopup = false)
         {
             this.priority = priority;
             this.hideOnForegroundLost = hideOnForegroundLost;
             this.isPopup = isPopup;
-            this.SuppressPrefabProperties = suppressPrefabProperties;
         }
     }
 }

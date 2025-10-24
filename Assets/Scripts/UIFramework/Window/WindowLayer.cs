@@ -43,14 +43,14 @@ namespace UIFramework.Window
 
         public override void ShowUI<TProps>(IWindowController controller, TProps props)
         {
-            IWindowProperties propsWindow = props as IWindowProperties;
-            if(ShouldEnqueue(controller, propsWindow))
+            IWindowProperties windowProperties = props as IWindowProperties;
+            if(ShouldEnqueue(controller, windowProperties))
             {
-                Enqueue(controller, propsWindow);
+                Enqueue(controller, windowProperties);
             }
             else
             {
-                DoShow(controller, propsWindow);
+                DoShow(controller, windowProperties);
             }
         }
 
