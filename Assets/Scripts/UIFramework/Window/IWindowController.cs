@@ -10,7 +10,7 @@ namespace UIFramework.Window
     public interface IWindowController : IUIController
     {
         WindowPriority Priority { get; }    // 窗口优先级
-        bool HideOnForegroundLost { get;}   // 是否能够被覆盖
+        bool HideOnForegroundLost { get;}   // 当前窗口被其他窗口覆盖时，是否隐藏当前窗口
         bool IsPopup { get;}    // 是否是弹窗
     }
 }

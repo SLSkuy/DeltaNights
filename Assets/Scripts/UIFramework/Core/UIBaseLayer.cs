@@ -22,9 +22,24 @@ namespace UIFramework.Core
 
         #region UI界面控制器方法
 
-        // 基类控制器方法，由子类具体实现UI界面显示逻辑
+        /// <summary>
+        /// 对外显示UI接口，由子类实现
+        /// </summary>
+        /// <param name="controller"></param>
         public abstract void ShowUI(T controller);
+        
+        /// <summary>
+        /// 对外带参数显示UI接口，由子类实现
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="props"></param>
+        /// <typeparam name="TProps"></typeparam>
         public abstract void ShowUI<TProps>(T controller, TProps props) where TProps : IUIProperties;
+        
+        /// <summary>
+        /// 兑现隐藏UI接口，由子类实现
+        /// </summary>
+        /// <param name="controller"></param>
         public abstract void HideUI(T controller);
 
         /// <summary>
@@ -81,7 +96,7 @@ namespace UIFramework.Core
         /// 隐藏所有UI界面
         /// </summary>
         /// <param name="isAnimate">是否播放动画</param>
-        public void HideAllUI(bool isAnimate = true)
+        public virtual void HideAllUI(bool isAnimate = true)
         {
             foreach (T controller in RegisteredUIControllers.Values)
             {

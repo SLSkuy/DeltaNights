@@ -50,8 +50,13 @@ namespace UIFramework.Panel
             }
             else
             {
-                base.ReParentUI(controller, uiTransform);
+                Debug.LogError("[PanelLayer] Reparent failed, controller is null");
+                return;
             }
+            
+            // 未知类型处理
+            base.ReParentUI(controller, uiTransform);
+            Debug.Log("[PanelLayer] Unknown controller type");
         }
 
         /// <summary>

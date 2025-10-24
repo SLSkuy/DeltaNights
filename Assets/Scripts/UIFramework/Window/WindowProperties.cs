@@ -1,5 +1,9 @@
 namespace UIFramework.Window
 {
+    /// <summary>
+    /// 窗口属性
+    /// 可以创建新的对象覆写窗口原属性
+    /// </summary>
     public class WindowProperties : IWindowProperties
     {
         protected WindowPriority priority = WindowPriority.ForceForeground;
@@ -20,16 +24,24 @@ namespace UIFramework.Window
         public bool HideOnForegroundLost { get => hideOnForegroundLost; set => hideOnForegroundLost = value; }
 
         /// <summary>
-        /// 当在显示UI方法调用时，是否覆盖窗口原有属性
+        /// 当通过带参数显示UI方法调用时，是否覆盖窗口原有属性
         /// </summary>
         public bool SuppressPrefabProperties { get; set; }
-        
+
         /// <summary>
-        /// 是否弹窗，显示在所有窗口之上并启用蒙黑覆盖其他窗口
+        /// 是否为弹窗，显示在所有窗口之上并启用蒙黑覆盖其他窗口
         /// </summary>
-        public  bool IsPopup { get => isPopup; set => isPopup = value; }
+        public bool IsPopup { get => isPopup; set => isPopup = value; }
 
         #endregion
-        
+
+        public WindowProperties(WindowPriority priority = WindowPriority.ForceForeground,
+            bool hideOnForegroundLost = true, bool isPopup = false, bool suppressPrefabProperties = false)
+        {
+            this.priority = priority;
+            this.hideOnForegroundLost = hideOnForegroundLost;
+            this.isPopup = isPopup;
+            this.SuppressPrefabProperties = suppressPrefabProperties;
+        }
     }
 }

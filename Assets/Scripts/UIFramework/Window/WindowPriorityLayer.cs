@@ -28,7 +28,8 @@ namespace UIFramework.Window
         }
 
         /// <summary>
-        /// 辅助界面显示时，打开蒙黑面板限制只能与辅助界面交互
+        /// 刷新蒙黑层位置，若当前没有弹窗等则关闭蒙黑显示
+        /// 若还有弹窗，则调整蒙黑的位置防止覆盖当前弹窗
         /// </summary>
         public void RefreshDarken()
         {

@@ -29,8 +29,9 @@ namespace UIFramework.Core
         #region 回调函数
 
         event Action<IUIController> UIDestroyed;
-        event Action<IUIController> TransitionInFinished;
-        event Action<IUIController> TransitionOutFinished;
+        event Action<IUIController> InTransitionFinished;
+        event Action<IUIController> OutTransitionFinished;
+        event Action<IUIController> CloseRequested;
 
         #endregion
     }

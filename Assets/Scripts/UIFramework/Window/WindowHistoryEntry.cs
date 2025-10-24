@@ -12,6 +12,13 @@ namespace UIFramework.Window
         private IWindowController _windowController;
         private IWindowProperties _windowProperties;
 
+        #region 暴露属性
+
+        public IWindowController WindowController { get =>  _windowController; set => _windowController = value; }
+        public IWindowProperties WindowProperties { get => _windowProperties; set => _windowProperties = value; }
+
+        #endregion
+
         public WindowHistoryEntry(IWindowController windowController, IWindowProperties windowProperties)
         {
             _windowController = windowController;

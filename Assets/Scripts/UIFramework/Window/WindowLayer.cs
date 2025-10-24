@@ -25,18 +25,66 @@ namespace UIFramework.Window
         
         private Queue<WindowHistoryEntry> _windowQueue;
         private Stack<WindowHistoryEntry> _windowHistory;
-        private HashSet<IUIController> _uiTransitioning;
+        
+        private HashSet<IUIController> _uiTransitions;
+        private bool _isUITransitionInProgress;
 
         public event Action RequestedScreenBlock;
-        public event Action RequestedScrennUnBlock;
+        public event Action RequestedScreenUnBlock;
         
         #endregion
         
         #region 窗口控制器方法
+        
+        public override void ShowUI(IWindowController controller)
+        {
+            ShowUI<IWindowProperties>(controller, null);    
+        }
 
-        public override void ShowUI(IWindowController controller) => controller.Show();
-        public override void ShowUI<TProps>(IWindowController controller, TProps props) => controller.Show(props);
-        public override void HideUI(IWindowController controller) => controller.Hide();
+        public override void ShowUI<TProps>(IWindowController controller, TProps props)
+        {
+            IWindowProperties propsWindow = props as IWindowProperties;
+            if(ShouldEnqueue(controller, propsWindow))
+            {
+                Enqueue(controller, propsWindow);
+            }
+            else
+            {
+                DoShow(controller, propsWindow);
+            }
+        }
+
+        public override void HideUI(IWindowController controller)
+        {
+            if (controller == CurrentWindow)
+            {
+                CurrentWindow = null;
+                _windowHistory.Pop();
+                AddTransition(controller);
+                controller.Hide();
+
+                if (_windowQueue.Count > 0)
+                {
+                    ShowNextInQueue();
+                }
+                else if(_windowHistory.Count > 0)
+                {
+                    ShowPreviousInHistory();
+                }
+            }
+            else
+            {
+                Debug.LogError($"[WindowLayer] Hide requested on WindowID {controller.UIControllerID}, but it is not the current Window");
+            }
+        }
+
+        public override void HideAllUI(bool isAnimate = true)
+        {
+            base.HideAllUI(isAnimate);
+            CurrentWindow = null;
+            priorityLayerWindow.RefreshDarken();
+            _windowHistory.Clear();
+        }
 
         #endregion
         
@@ -47,14 +95,155 @@ namespace UIFramework.Window
             base.Initialize();
             _windowQueue = new Queue<WindowHistoryEntry>();
             _windowHistory = new Stack<WindowHistoryEntry>();
-            _uiTransitioning = new HashSet<IUIController>();
+            _uiTransitions = new HashSet<IUIController>();
         }
         
         public override void ReParentUI(IUIController controller, Transform uiTransform)
         {
-            
+            // 判断是否为弹窗，若是则添加到辅助层进行管理
+            if (controller is IWindowController { IsPopup: true })
+            {
+                priorityLayerWindow.AddUI(uiTransform);
+            }
+            else if(controller is IWindowController)
+            {
+                // 普通窗口
+                base.ReParentUI(controller,uiTransform);
+            }
+            else
+            {
+                Debug.LogError($"[WindowLayer] ReParent failed, controller is null");
+            }
         }
 
+        public override void RegisterUIController(string uiControllerID, IWindowController controller)
+        {
+            base.RegisterUIController(uiControllerID, controller);
+            controller.InTransitionFinished += OnInAnimationFinished;
+            controller.OutTransitionFinished += OnOutAnimationFinished;
+            controller.CloseRequested += OnCloseRequested;
+        }
+
+        private void OnCloseRequested(IUIController controller)
+        {
+            HideUI(controller as IWindowController);
+        }
+        
+        private bool ShouldEnqueue(IWindowController controller, IWindowProperties properties)
+        {
+            if (CurrentWindow == null && _windowQueue.Count == 0)
+            {
+                return false;
+            }
+
+            // 是否使用覆写属性
+            if (properties != null && properties.SuppressPrefabProperties)
+            {
+                return properties.Priority == WindowPriority.Enqueue;
+            }
+
+            if (controller.Priority == WindowPriority.Enqueue)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void Enqueue(IWindowController controller, IWindowProperties properties)
+        {
+            _windowQueue.Enqueue(new WindowHistoryEntry(controller, properties));
+        }
+
+        private void ShowNextInQueue()
+        {
+            if (_windowQueue.Count > 0)
+            {
+                WindowHistoryEntry entry = _windowQueue.Dequeue();
+                DoShow(entry.WindowController, entry.WindowProperties);
+            }
+        }
+
+        private void ShowPreviousInHistory()
+        {
+            if (_windowHistory.Count > 0)
+            {
+                WindowHistoryEntry entry = _windowHistory.Pop();
+                DoShow(entry.WindowController, entry.WindowProperties);
+            }
+        }
+
+        /// <summary>
+        /// 处理窗口显示逻辑
+        /// </summary>
+        /// <param name="controller">窗口控制器</param>
+        /// <param name="properties">窗口属性</param>
+        private void DoShow(IWindowController controller, IWindowProperties properties)
+        {
+            if (controller == CurrentWindow)
+            {
+                Debug.LogWarning($"[WindowLayer] {controller.UIControllerID} is already show");
+            }
+            else if(CurrentWindow != null && CurrentWindow.HideOnForegroundLost && !controller.IsPopup)
+            {
+                CurrentWindow.Hide();
+            }
+            
+            // 将当前窗口加载到窗口历史中
+            _windowHistory.Push(new WindowHistoryEntry(controller, properties));
+            AddTransition(controller);
+
+            // 启用蒙黑层
+            if (controller.IsPopup)
+            {
+                priorityLayerWindow.DarkenBg();
+            }
+            
+            controller.Show();
+            CurrentWindow = controller;
+        }
+        
+        /// <summary>
+        /// 添加待处理窗口动画
+        /// </summary>
+        private void AddTransition(IUIController controller)
+        {
+            _uiTransitions.Add(controller);
+            RequestedScreenBlock?.Invoke();
+        }
+
+        /// <summary>
+        /// 移除窗口动画
+        /// </summary>
+        private void RemoveTransition(IUIController controller)
+        {
+            _uiTransitions.Remove(controller);
+            if (!_isUITransitionInProgress)
+            {
+                RequestedScreenUnBlock?.Invoke();
+            }
+        }
+        
+        /// <summary>
+        /// 进入窗口动画播放完毕回调
+        /// </summary>
+        private void OnInAnimationFinished(IUIController controller)
+        {
+            RemoveTransition(controller);
+        }
+
+        /// <summary>
+        /// 隐藏窗口动画播放完毕回调
+        /// </summary>
+        private void OnOutAnimationFinished(IUIController controller)
+        {
+            RemoveTransition(controller);
+            if (controller is IWindowController { IsPopup: true })
+            {
+                priorityLayerWindow.RefreshDarken();
+            }
+        }
+        
         #endregion
     }
 }
