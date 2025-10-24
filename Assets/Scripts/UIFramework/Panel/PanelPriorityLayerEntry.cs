@@ -14,19 +14,19 @@ namespace UIFramework.Panel
         [SerializeField] [Tooltip("指定当前子面板层的优先级")]
         private PanelPriority priority;
         [SerializeField] [Tooltip("指定当前子面板层管理的所有子对象的父节点")]
-        private Transform subLayerRootTransformTransform;
+        private Transform subLayerRootTransform;
         
         #region 暴露属性
 
         public PanelPriority Priority { get => priority; set => priority = value; }
-        public Transform LayerRootTransform { get => subLayerRootTransformTransform; set => subLayerRootTransformTransform = value; }
+        public Transform LayerRootTransform { get => subLayerRootTransform; set => subLayerRootTransform = value; }
         
         #endregion
 
-        public PanelPriorityLayerEntry(PanelPriority priority, Transform subLayerRootTransformTransform)
+        public PanelPriorityLayerEntry(PanelPriority priority, Transform subLayerRootTransform)
         { 
             this.priority = priority;
-            this.subLayerRootTransformTransform = subLayerRootTransformTransform;
+            this.subLayerRootTransform = subLayerRootTransform;
         }
     }
 }

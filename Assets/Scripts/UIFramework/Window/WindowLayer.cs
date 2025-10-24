@@ -17,8 +17,9 @@ namespace UIFramework.Window
 
         /// <summary>
         /// 辅助界面用于显示弹窗等窗口
+        /// 带蒙黑
         /// </summary>
-        [SerializeField] private WindowPriorityLayer priorityLayer;
+        [SerializeField] private WindowPriorityLayer priorityLayerWindow;
 
         public IWindowController CurrentWindow { get; private set; }
         
