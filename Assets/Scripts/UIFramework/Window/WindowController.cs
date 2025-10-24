@@ -5,7 +5,7 @@ namespace UIFramework.Window
     /// <summary>
     /// 窗口控制器
     /// </summary>
-    public class WindowController : UIController<IWindowProperties>, IWindowController
+    public class WindowController : UIController<WindowProperties>, IWindowController
     {
         #region 暴露属性
         
@@ -17,7 +17,7 @@ namespace UIFramework.Window
         
         #region 控制器方法
 
-        protected sealed override void SetProperties(IWindowProperties properties)
+        protected sealed override void SetProperties(WindowProperties properties)
         {
             if (properties != null)
             {

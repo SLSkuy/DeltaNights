@@ -24,6 +24,7 @@ namespace UIFramework.Window
         public void AddUI(Transform ui)
         {
             ui.SetParent(transform, false);
+            ui.localPosition = Vector3.zero;
             _containedUIs.Add(ui);
         }
 
@@ -51,6 +52,7 @@ namespace UIFramework.Window
         public void DarkenBg()
         {
             darkenBgObject.gameObject.SetActive(true);
+            transform.SetAsLastSibling();
             darkenBgObject.transform.SetAsLastSibling();
         }
     }

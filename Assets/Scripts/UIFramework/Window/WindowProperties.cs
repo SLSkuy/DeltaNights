@@ -1,13 +1,20 @@
+using System;
+using UnityEngine;
+
 namespace UIFramework.Window
 {
     /// <summary>
     /// 窗口属性
     /// 可以创建新的对象覆写窗口原属性
     /// </summary>
+    [Serializable]
     public class WindowProperties : IWindowProperties
     {
+        [SerializeField]
         protected WindowPriority priority = WindowPriority.ForceForeground;
+        [SerializeField]
         protected bool hideOnForegroundLost = true;
+        [SerializeField]
         protected bool isPopup = false;
         
         #region 暴露属性

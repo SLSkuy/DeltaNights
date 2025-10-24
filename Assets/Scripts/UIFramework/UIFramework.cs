@@ -28,7 +28,9 @@ namespace UIFramework
         #endregion
         
         #region 暴露属性
-        
+
+        public static UIFramework Instance;
+        public UIFrameworkSettings uiSettings;
         public Canvas MainCanvas { get { if (!_mainCanvas)_mainCanvas = _mainCanvas.GetComponent<Canvas>(); return _mainCanvas; } }
         public Camera CanvasCamera => _mainCanvas.worldCamera;
 
@@ -37,11 +39,33 @@ namespace UIFramework
         private void Awake()
         {
             if (initializeOnAwake)
+            {
                 Initialize();
+                RegisterAllUIPrefab();
+            }
+            
+            ShowUI("TestWindow");
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                ShowUI("TestWindow");
+            }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
+                ShowUI("PopupWindow");
+            }else if (Input.GetKeyDown(KeyCode.E))
+            {
+                ShowUI("EnqueueWindow");
+            }
         }
 
         private void Initialize()
         {
+            if(Instance == null)Instance = this;
+            
             // 初始化Panel层级管理器
             if (!_panelLayer)
             {
@@ -72,6 +96,17 @@ namespace UIFramework
                 }
             }
             _graphicRaycaster = GetComponent<GraphicRaycaster>();
+        }
+
+        private void RegisterAllUIPrefab()
+        {
+            foreach (var obj in uiSettings.uiToRegister)
+            {
+                GameObject prefab = Instantiate(obj);
+                IUIController controller = prefab.GetComponent<IUIController>();
+                if(!uiSettings.uiToEnableAtStart.Contains(controller.UIControllerID))prefab.SetActive(false);
+                RegisterUI(controller.UIControllerID, controller,prefab.transform);
+            }
         }
 
         private void BlockScreen()

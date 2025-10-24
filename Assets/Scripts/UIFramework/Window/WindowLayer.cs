@@ -191,6 +191,7 @@ namespace UIFramework.Window
             if (controller == CurrentWindow)
             {
                 Debug.LogWarning($"[WindowLayer] {controller.UIControllerID} is already show");
+                return;
             }
             else if(CurrentWindow != null && CurrentWindow.HideOnForegroundLost && !controller.IsPopup)
             {

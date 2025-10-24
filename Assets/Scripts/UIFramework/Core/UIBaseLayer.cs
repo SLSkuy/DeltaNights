@@ -125,6 +125,7 @@ namespace UIFramework.Core
         public virtual void ReParentUI(IUIController controller, Transform uiTransform)
         {
             uiTransform.SetParent(this.transform);
+            uiTransform.localPosition = Vector3.zero;
         }
 
         /// <summary>

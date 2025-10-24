@@ -124,7 +124,7 @@ namespace UIFramework.Core
         private void OnTransitionOutFinished()
         {
             isVisible = false;
-            InTransitionFinished?.Invoke(this);
+            OutTransitionFinished?.Invoke(this);
         }
 
         /// <summary>

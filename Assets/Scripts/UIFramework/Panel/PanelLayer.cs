@@ -47,16 +47,12 @@ namespace UIFramework.Panel
             {
                 // 若是则根据面板优先级分配到对应的Layer层
                 ReParentToParaLayer(panelController.Priority, uiTransform);
-            }
-            else
-            {
-                Debug.LogError("[PanelLayer] Reparent failed, controller is null");
                 return;
             }
             
             // 未知类型处理
             base.ReParentUI(controller, uiTransform);
-            Debug.Log("[PanelLayer] Unknown controller type");
+            Debug.Log($"[PanelLayer] Unknown controller type {controller.GetType()}");
         }
 
         /// <summary>
