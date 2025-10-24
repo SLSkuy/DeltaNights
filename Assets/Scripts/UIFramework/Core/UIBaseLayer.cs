@@ -20,7 +20,7 @@ namespace UIFramework.Core
 
         #endregion
 
-        #region UI界面控制器方法
+        #region UI界面控制器管理方法
 
         /// <summary>
         /// 对外显示UI接口，由子类实现
@@ -37,7 +37,7 @@ namespace UIFramework.Core
         public abstract void ShowUI<TProps>(T controller, TProps props) where TProps : IUIProperties;
         
         /// <summary>
-        /// 兑现隐藏UI接口，由子类实现
+        /// 对外隐藏UI接口，由子类实现
         /// </summary>
         /// <param name="controller"></param>
         public abstract void HideUI(T controller);

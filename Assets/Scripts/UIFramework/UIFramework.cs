@@ -1,4 +1,5 @@
 using UIFramework.Panel;
+using UIFramework.Window;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ namespace UIFramework
         
         // UI类别层级管理器
         private PanelLayer _panelLayer;
+        private WindowLayer _windowLayer;
         
         private Canvas _mainCanvas;
         private GraphicRaycaster _graphicRaycaster;
@@ -53,6 +55,30 @@ namespace UIFramework
             }
             
             // 初始化Window层级管理器
+            if (!_windowLayer)
+            {
+                _windowLayer = GetComponentInChildren<WindowLayer>();
+                if (_windowLayer)
+                {
+                    _windowLayer.Initialize();
+                    _windowLayer.RequestedScreenBlock += BlockScreen;
+                    _windowLayer.RequestedScreenUnBlock += UnblockScreen;
+                }
+                else
+                {
+                    Debug.LogError("[UIFramework] UI Frame lacks Window Layer]");
+                }
+            }
+        }
+
+        private void BlockScreen()
+        {
+            _graphicRaycaster.enabled = false;
+        }
+
+        private void UnblockScreen()
+        {
+            _graphicRaycaster.enabled = true;
         }
     }
 }

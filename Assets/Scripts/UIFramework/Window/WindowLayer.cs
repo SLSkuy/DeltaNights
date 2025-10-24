@@ -34,7 +34,7 @@ namespace UIFramework.Window
         
         #endregion
         
-        #region 窗口控制器方法
+        #region 窗口控制器管理方法
         
         public override void ShowUI(IWindowController controller)
         {
@@ -88,7 +88,7 @@ namespace UIFramework.Window
 
         #endregion
         
-        #region 窗口管理方法
+        #region 窗口层管理方法
 
         public override void Initialize()
         {
@@ -116,12 +116,20 @@ namespace UIFramework.Window
             }
         }
 
-        public override void RegisterUIController(string uiControllerID, IWindowController controller)
+        protected override void ProcessUIRegister(string uiControllerID, IWindowController controller)
         {
-            base.RegisterUIController(uiControllerID, controller);
+            base.ProcessUIRegister(uiControllerID, controller);
             controller.InTransitionFinished += OnInAnimationFinished;
             controller.OutTransitionFinished += OnOutAnimationFinished;
             controller.CloseRequested += OnCloseRequested;
+        }
+
+        protected override void ProcessUIUnregister(string uiControllerID, IWindowController controller)
+        {
+            base.ProcessUIUnregister(uiControllerID, controller);
+            controller.InTransitionFinished -= OnInAnimationFinished;
+            controller.OutTransitionFinished -= OnOutAnimationFinished;
+            controller.CloseRequested -= OnCloseRequested;
         }
 
         private void OnCloseRequested(IUIController controller)

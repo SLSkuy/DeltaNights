@@ -21,7 +21,7 @@ namespace UIFramework.Panel
 
         #endregion
         
-        #region 面板控制器方法
+        #region 面板控制器管理方法
 
         public override void ShowUI(IPanelController controller) => controller.Show();
         public override void ShowUI<TProps>(IPanelController controller, TProps props) => controller.Show(props);
