@@ -32,6 +32,14 @@ namespace UIFramework.Window
         {
             transform.SetAsLastSibling();
         }
+
+        /// <summary>
+        /// 关闭当前窗口，使用UI_前缀区分方法
+        /// </summary>
+        public virtual void UI_Close()
+        {
+            CloseUIRequested(this);
+        }
         
         #endregion
     }

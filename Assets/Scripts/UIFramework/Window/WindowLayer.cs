@@ -221,7 +221,7 @@ namespace UIFramework.Window
         }
 
         /// <summary>
-        /// 移除窗口动画
+        /// 移除已处理窗口动画
         /// </summary>
         private void RemoveTransition(IUIController controller)
         {

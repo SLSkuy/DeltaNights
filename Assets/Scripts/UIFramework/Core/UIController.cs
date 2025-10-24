@@ -175,6 +175,11 @@ namespace UIFramework.Core
         {
             
         }
+
+        protected void CloseUIRequested(IUIController controller)
+        {
+            CloseRequested?.Invoke(controller);
+        }
         
         #endregion
     }
