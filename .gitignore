@@ -42,6 +42,8 @@ Thumbs.db
 !*.tga.meta
 *.psd
 !*.psd.meta
+*.bmp
+!*.bmp.meta
 
 # ---- 模型（保留 meta）----
 *.fbx
