@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 334, y: 71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &271247243472120959
 CanvasRenderer:
@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PopupWindow
+  m_Text: "\u5F39\u7A97\n\u8BE5\u7A97\u53E3\u65E0\u6CD5\u70B9\u51FB\u5230\u4E0B\u5C42\u7A97\u53E3"
 --- !u!1 &2960254300997281095
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Exit
 --- !u!1 &6374867187995389913
 GameObject:
   m_ObjectHideFlags: 0

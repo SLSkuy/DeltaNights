@@ -7,7 +7,6 @@ namespace UIFramework.Core
     /// <summary>
     /// UI界面控制器基类，用于实现单个UI界面的所有逻辑
     /// </summary>
-    /// <typeparam name="T">UI界面属性类型</typeparam>
     public class UIController : MonoBehaviour, IUIController
     {
         #region 控制器属性
@@ -16,7 +15,7 @@ namespace UIFramework.Core
         [SerializeField] [Tooltip("显示动画")] private AnimComponent animIn;
         [SerializeField] [Tooltip("隐藏动画")] private AnimComponent animOut;
         
-        [Header("UI属性")]
+        [Header("UI Attributes")]
         [SerializeField] private string uiControllerID;
         [SerializeField] private bool isVisible;
 
@@ -59,7 +58,7 @@ namespace UIFramework.Core
 
             if (!gameObject.activeSelf)
             {
-                DoAnimation(animIn, OnTransitionInFinished, true);
+                DoAnimation(animIn, OnTransitionInFinished, !isVisible);
             }
             else
             {
@@ -73,10 +72,16 @@ namespace UIFramework.Core
         /// <param name="animate">是否播放动画</param>
         public void Hide(bool animate = true)
         {
-            DoAnimation(animate ? animOut : null, OnTransitionOutFinished, false);
+            DoAnimation(animate ? animOut : null, OnTransitionOutFinished, !isVisible);
             WhileHiding();
         }
 
+        /// <summary>
+        /// 播放UI界面过渡动画，当动画播放完毕后调用回调函数
+        /// </summary>
+        /// <param name="anim">过渡动画组件</param>
+        /// <param name="callback">回调函数</param>
+        /// <param name="visible">设置UI界面可见性</param>
         private void DoAnimation(AnimComponent anim, Action callback, bool visible)
         {
             if (anim == null)
@@ -110,7 +115,7 @@ namespace UIFramework.Core
         }
 
         /// <summary>
-        /// 添加监听事件
+        /// 添加监听事件，由子类添加自定义行为
         /// </summary>
         protected virtual void AddListener()
         {
@@ -118,7 +123,7 @@ namespace UIFramework.Core
         }
 
         /// <summary>
-        /// 注销监听事件
+        /// 注销监听事件，由子类添加自定义行为
         /// </summary>
         protected virtual void RemoveListener()
         {
@@ -129,7 +134,7 @@ namespace UIFramework.Core
         }
         
         /// <summary>
-        /// 界面隐藏时触发处理逻辑
+        /// 界面隐藏时触发处理逻辑，由子类添加自定义行为
         /// </summary>
         protected virtual void WhileHiding()
         {
@@ -137,13 +142,17 @@ namespace UIFramework.Core
         }
 
         /// <summary>
-        /// 在显示的时候处理一些层级，或者属性处理等
+        /// 在显示的时候处理一些层级，由子类添加自定义行为
         /// </summary>
         protected virtual void HierarchyFixOnShow()
         {
             
         }
 
+        /// <summary>
+        /// 关闭窗口请求
+        /// </summary>
+        /// <param name="controller">UI界面控制器</param>
         protected void CloseUIRequested(IUIController controller)
         {
             CloseRequested?.Invoke(controller);

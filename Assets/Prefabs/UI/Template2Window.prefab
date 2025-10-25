@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 400}
+  m_SizeDelta: {x: 700, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4619126826863521176
 CanvasRenderer:
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+  m_Color: {r: 1, g: 0.9332953, b: 0.6084906, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -187,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: 160}
+  m_AnchoredPosition: {x: 300, y: 150}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8754366058183314302
@@ -362,7 +362,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: EnqueueWindow
+  m_Text: "\u4E8C\u7EA7\u7A97\u53E3\n\u8BE5\u7A97\u53E3\u53EF\u4EE5\u70B9\u51FB\u5230\u4E0B\u5C42\u7A97\u53E3"
 --- !u!1 &8315081794592132106
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 5341651323515622849}
   - component: {fileID: 1477214609345880938}
   m_Layer: 5
-  m_Name: EnqueueWindow
+  m_Name: Template2Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -417,9 +417,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIFramework.Window.WindowController
   animIn: {fileID: 1477214609345880938}
   animOut: {fileID: 0}
-  uiControllerID: EnqueueWindow
+  uiControllerID: Test2Window
   isVisible: 0
-  priority: 1
+  priority: 0
   hideOnForegroundLost: 1
   isPopup: 0
 --- !u!114 &1477214609345880938

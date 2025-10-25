@@ -17,5 +17,6 @@ MonoBehaviour:
   - {fileID: 8315081794592132106, guid: 256ce30e758ce004cb7555dd781c974b, type: 3}
   - {fileID: 6374867187995389913, guid: ca8a6734f94c6604f93394be99aecbdd, type: 3}
   - {fileID: 8315081794592132106, guid: ff2884fc34b877f4fb2e897702f2d60f, type: 3}
+  - {fileID: 8315081794592132106, guid: 3f63cb9e9fc2a2d48b8351aac710630a, type: 3}
   uiToEnableAtStart:
   - PlayerInfo

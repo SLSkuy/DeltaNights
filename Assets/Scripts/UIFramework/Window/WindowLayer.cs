@@ -137,6 +137,11 @@ namespace UIFramework.Window
             HideUI(controller as IWindowController);
         }
         
+        /// <summary>
+        /// 判断窗口优先级决定是否加入待显示队列
+        /// </summary>
+        /// <param name="controller">窗口控制器</param>
+        /// <returns>是否应该加入待显示队列</returns>
         private bool ShouldEnqueue(IWindowController controller)
         {
             if (CurrentWindow == null && _windowQueue.Count == 0)
@@ -203,7 +208,7 @@ namespace UIFramework.Window
                 priorityLayerWindow.DarkenBg();
             }
             
-            controller.Show();
+            controller.Show();  // 委托Controller进行窗口显示
             CurrentWindow = controller;
         }
         

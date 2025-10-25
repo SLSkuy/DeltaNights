@@ -4,11 +4,11 @@ using UnityEngine;
 namespace UIFramework.Panel
 {
     /// <summary>
-    /// 面板控制器基类
+    /// 面板控制器基类，控制面板的各种行为
     /// </summary>
     public class PanelController : UIController, IPanelController
     {
-        [SerializeField] [Header("面板优先级")] [Tooltip("当前面板优先级，面板会根据优先级划分到不同的子层管理")]
+        [SerializeField] [Tooltip("当前面板优先级，面板会根据优先级划分到不同的子层管理")]
         private PanelPriority priority;
         
         #region 暴露属性

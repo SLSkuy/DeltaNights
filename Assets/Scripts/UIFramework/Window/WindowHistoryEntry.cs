@@ -2,7 +2,7 @@ namespace UIFramework.Window
 {
     public struct WindowHistoryEntry
     {
-        public IWindowController Controller;
+        public readonly IWindowController Controller;
 
         public WindowHistoryEntry(IWindowController controller)
         {

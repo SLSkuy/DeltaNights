@@ -49,16 +49,9 @@ namespace UIFramework
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 ShowUI("TestWindow");
-            }
-            else if (Input.GetKeyDown(KeyCode.W))
-            {
-                ShowUI("PopupWindow");
-            }else if (Input.GetKeyDown(KeyCode.E))
-            {
-                ShowUI("EnqueueWindow");
             }
         }
 
@@ -198,7 +191,7 @@ namespace UIFramework
             }
         }
 
-        public void HideAll(bool animate = true)
+        public void HideAllUI(bool animate = true)
         {
             _panelLayer.HideAllUI(animate);
             _windowLayer.HideAllUI(animate);
