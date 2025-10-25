@@ -29,14 +29,6 @@ namespace UIFramework.Core
         public abstract void ShowUI(T controller);
         
         /// <summary>
-        /// 对外带参数显示UI接口，由子类实现
-        /// </summary>
-        /// <param name="controller"></param>
-        /// <param name="props"></param>
-        /// <typeparam name="TProps"></typeparam>
-        public abstract void ShowUI<TProps>(T controller, TProps props) where TProps : IUIProperties;
-        
-        /// <summary>
         /// 对外隐藏UI接口，由子类实现
         /// </summary>
         /// <param name="controller"></param>
@@ -51,24 +43,6 @@ namespace UIFramework.Core
             if (RegisteredUIControllers.TryGetValue(id, out T controller))
             {
                 ShowUI(controller);
-            }
-            else
-            {
-                Debug.LogWarning($"[{GetType()}] UI controller with ID {id} not found");
-            }
-        }
-
-        /// <summary>
-        /// 带属性的通过ID显示UI界面
-        /// </summary>
-        /// <param name="id">UI界面ID</param>
-        /// <param name="props">UI界面属性参数</param>
-        /// <typeparam name="TProps">UI界面属性类型</typeparam>
-        public void ShowUIByID<TProps>(string id, TProps props) where TProps : IUIProperties
-        {
-            if (RegisteredUIControllers.TryGetValue(id, out T controller))
-            {
-                ShowUI<TProps>(controller, props);
             }
             else
             {

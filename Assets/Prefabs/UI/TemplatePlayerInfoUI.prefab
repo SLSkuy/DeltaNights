@@ -55,8 +55,7 @@ MonoBehaviour:
   animOut: {fileID: 9048529326289690673}
   uiControllerID: PlayerInfo
   isVisible: 0
-  properties:
-    priority: 0
+  priority: 1
 --- !u!114 &7301399794915642810
 MonoBehaviour:
   m_ObjectHideFlags: 0

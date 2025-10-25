@@ -421,10 +421,9 @@ MonoBehaviour:
   animOut: {fileID: 0}
   uiControllerID: EnqueueWindow
   isVisible: 0
-  properties:
-    priority: 1
-    hideOnForegroundLost: 1
-    isPopup: 0
+  priority: 1
+  hideOnForegroundLost: 1
+  isPopup: 0
 --- !u!114 &1477214609345880938
 MonoBehaviour:
   m_ObjectHideFlags: 0

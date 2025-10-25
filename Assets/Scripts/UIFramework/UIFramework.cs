@@ -29,7 +29,7 @@ namespace UIFramework
         
         #region 暴露属性
 
-        public static UIFramework Instance;
+        public static UIFramework Instance { get; private set; }
         public UIFrameworkSettings uiSettings;
         public Canvas MainCanvas { get { if (!_mainCanvas)_mainCanvas = _mainCanvas.GetComponent<Canvas>(); return _mainCanvas; } }
         public Camera CanvasCamera => _mainCanvas.worldCamera;
@@ -124,11 +124,6 @@ namespace UIFramework
             _panelLayer.ShowUIByID(id);
         }
 
-        public void ShowPanel<T>(string id, T p) where T : IPanelProperties
-        {
-            _panelLayer.ShowUIByID(id, p);
-        }
-
         public void HidePanel(string id)
         {
             _panelLayer.HideUIByID(id);
@@ -137,11 +132,6 @@ namespace UIFramework
         public void OpenWindow(string id)
         {
             _windowLayer.ShowUIByID(id);
-        }
-
-        public void OpenWindow<T>(string id, T p) where T : IWindowProperties
-        {
-            _windowLayer.ShowUIByID(id, p);
         }
 
         public void CloseWindow(string id)

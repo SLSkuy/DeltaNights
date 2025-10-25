@@ -21,7 +21,7 @@ namespace UIFramework.Core
         
         #region 基础操作
         
-        void Show(IUIProperties properties = null);
+        void Show();
         void Hide(bool animate = true);
         
         #endregion

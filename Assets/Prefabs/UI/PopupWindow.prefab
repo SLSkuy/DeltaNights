@@ -286,10 +286,9 @@ MonoBehaviour:
   animOut: {fileID: 0}
   uiControllerID: PopupWindow
   isVisible: 0
-  properties:
-    priority: 0
-    hideOnForegroundLost: 1
-    isPopup: 1
+  priority: 0
+  hideOnForegroundLost: 0
+  isPopup: 1
 --- !u!114 &3214774479193112137
 MonoBehaviour:
   m_ObjectHideFlags: 0

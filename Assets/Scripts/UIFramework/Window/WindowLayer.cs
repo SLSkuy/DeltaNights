@@ -26,9 +26,6 @@ namespace UIFramework.Window
         private List<string> _readyToShow;
         private Queue<WindowHistoryEntry> _windowQueue;
         private Stack<WindowHistoryEntry> _windowHistory;
-        
-        private HashSet<IUIController> _uiTransitions;
-        private bool _isUITransitionInProgress;
 
         public event Action RequestedScreenBlock;
         public event Action RequestedScreenUnBlock;
@@ -39,26 +36,20 @@ namespace UIFramework.Window
         
         public override void ShowUI(IWindowController controller)
         {
-            ShowUI<IWindowProperties>(controller, null);    
-        }
-
-        public override void ShowUI<TProps>(IWindowController controller, TProps props)
-        {
-            IWindowProperties windowProperties = props as IWindowProperties;
-            if(ShouldEnqueue(controller, windowProperties))
+            if(ShouldEnqueue(controller))
             {
                 // 当前队列已经存在对应窗口，不再加入队列
                 if (_readyToShow.Contains(controller.UIControllerID) || CurrentWindow == controller)
                 {
-                    Debug.Log($"[WindowLayer] {controller.UIControllerID} is already in queue or showing");
+                    Debug.LogWarning($"[WindowLayer] {controller.UIControllerID} is already in queue or showing");
                     return;
                 }
                 
-                Enqueue(controller, windowProperties);
+                Enqueue(controller);
             }
             else
             {
-                DoShow(controller, windowProperties);
+                DoShow(controller);
             }
         }
 
@@ -69,7 +60,7 @@ namespace UIFramework.Window
                 CurrentWindow = null;
                 _windowHistory.Pop();
                 _readyToShow.Remove(controller.UIControllerID);
-                AddTransition(controller);
+                BlockScreen(controller);
                 controller.Hide();
 
                 if (_windowQueue.Count > 0)
@@ -104,7 +95,6 @@ namespace UIFramework.Window
             base.Initialize();
             _windowQueue = new Queue<WindowHistoryEntry>();
             _windowHistory = new Stack<WindowHistoryEntry>();
-            _uiTransitions = new HashSet<IUIController>();
             _readyToShow = new List<string>();
         }
         
@@ -147,17 +137,11 @@ namespace UIFramework.Window
             HideUI(controller as IWindowController);
         }
         
-        private bool ShouldEnqueue(IWindowController controller, IWindowProperties properties)
+        private bool ShouldEnqueue(IWindowController controller)
         {
             if (CurrentWindow == null && _windowQueue.Count == 0)
             {
                 return false;
-            }
-
-            // 是否使用覆写属性
-            if (properties != null && properties.SuppressPrefabProperties)
-            {
-                return properties.Priority == WindowPriority.Enqueue;
             }
 
             if (controller.Priority == WindowPriority.Enqueue)
@@ -168,10 +152,10 @@ namespace UIFramework.Window
             return false;
         }
 
-        private void Enqueue(IWindowController controller, IWindowProperties properties)
+        private void Enqueue(IWindowController controller)
         {
             _readyToShow.Add(controller.UIControllerID);
-            _windowQueue.Enqueue(new WindowHistoryEntry(controller, properties));
+            _windowQueue.Enqueue(new WindowHistoryEntry(controller));
         }
 
         private void ShowNextInQueue()
@@ -179,7 +163,7 @@ namespace UIFramework.Window
             if (_windowQueue.Count > 0)
             {
                 WindowHistoryEntry entry = _windowQueue.Dequeue();
-                DoShow(entry.WindowController, entry.WindowProperties);
+                DoShow(entry.Controller);
             }
         }
 
@@ -188,7 +172,7 @@ namespace UIFramework.Window
             if (_windowHistory.Count > 0)
             {
                 WindowHistoryEntry entry = _windowHistory.Pop();
-                DoShow(entry.WindowController, entry.WindowProperties);
+                DoShow(entry.Controller);
             }
         }
 
@@ -196,8 +180,7 @@ namespace UIFramework.Window
         /// 处理窗口显示逻辑
         /// </summary>
         /// <param name="controller">窗口控制器</param>
-        /// <param name="properties">窗口属性</param>
-        private void DoShow(IWindowController controller, IWindowProperties properties)
+        private void DoShow(IWindowController controller)
         {
             if (controller == CurrentWindow)
             {
@@ -211,8 +194,8 @@ namespace UIFramework.Window
             }
             
             // 将当前窗口加载到窗口历史中
-            _windowHistory.Push(new WindowHistoryEntry(controller, properties));
-            AddTransition(controller);
+            _windowHistory.Push(new WindowHistoryEntry(controller));
+            BlockScreen(controller);
 
             // 启用蒙黑层
             if (controller.IsPopup)
@@ -225,24 +208,19 @@ namespace UIFramework.Window
         }
         
         /// <summary>
-        /// 添加待处理窗口动画
+        /// 窗口动画过渡时禁止额外点击操作
         /// </summary>
-        private void AddTransition(IUIController controller)
+        private void BlockScreen(IUIController controller)
         {
-            _uiTransitions.Add(controller);
             RequestedScreenBlock?.Invoke();
         }
 
         /// <summary>
-        /// 移除已处理窗口动画
+        /// 窗口动画过渡完毕时恢复点击操作
         /// </summary>
-        private void RemoveTransition(IUIController controller)
+        private void UnBlockScreen(IUIController controller)
         {
-            _uiTransitions.Remove(controller);
-            if (!_isUITransitionInProgress)
-            {
-                RequestedScreenUnBlock?.Invoke();
-            }
+            RequestedScreenUnBlock?.Invoke();
         }
         
         /// <summary>
@@ -250,7 +228,7 @@ namespace UIFramework.Window
         /// </summary>
         private void OnInAnimationFinished(IUIController controller)
         {
-            RemoveTransition(controller);
+            UnBlockScreen(controller);
         }
 
         /// <summary>
@@ -258,7 +236,7 @@ namespace UIFramework.Window
         /// </summary>
         private void OnOutAnimationFinished(IUIController controller)
         {
-            RemoveTransition(controller);
+            UnBlockScreen(controller);
             if (controller is IWindowController { IsPopup: true })
             {
                 priorityLayerWindow.RefreshDarken();
