@@ -20,7 +20,9 @@
 ### Assets
 项目文件夹
 - Animation：动画相关文件
-- Meshes：模型网格文件
+  - AnimatorController：动画控制器
+  - CharacterAnim：角色动画文件
+- Meshes：模型网格文件（模型需单独下载，Git对于二进制文件支持欠佳，若跟踪会导致.git文件增大）
 - Prefabs：存储预制体
   - UI：单个UI界面预制体
 - Resources：动态加载资源文件
@@ -28,6 +30,11 @@
 - ScriptableObjects：数据配置文件
   - UISettings：UI配置文件
 - Scripts：脚本文件
+  - FiniteStateMachine：有限状态机
+  - InputProcess：输入处理封装
+  - PlayerControl：玩家控制器
+    - PlayerFSM：玩家状态机
+      - PlayerStates：玩家所有状态
   - UIFramework：UI框架
     - Core：框架核心代码，管理所有UI界面
     - Panel：面板类UI控制代码
