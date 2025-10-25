@@ -43,16 +43,6 @@ namespace UIFramework
                 Initialize();
                 RegisterAllUIPrefab();
             }
-            
-            ShowUI("TestWindow");
-        }
-
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                ShowUI("TestWindow");
-            }
         }
 
         private void Initialize()

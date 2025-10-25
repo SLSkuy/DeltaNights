@@ -38,16 +38,6 @@ namespace UIFramework.Window
         {
             CloseUIRequested(this);
         }
-
-        /// <summary>
-        /// 打开新的UI界面，使用UI_前缀区分方法
-        /// UI_前缀供Inspector上配置使用
-        /// </summary>
-        /// <param name="id">要打开的UI界面ID</param>
-        public virtual void UI_Open(string id)
-        {
-            UIFramework.Instance.ShowUI(id);
-        }
         
         #endregion
     }

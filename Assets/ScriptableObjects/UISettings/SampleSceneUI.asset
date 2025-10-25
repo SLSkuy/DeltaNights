@@ -12,11 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb8919d682a42db9c954065b9da78b9, type: 3}
   m_Name: SampleSceneUI
   m_EditorClassIdentifier: Assembly-CSharp::UIFramework.UIFrameworkSettings
-  uiToRegister:
-  - {fileID: 5436924426565326977, guid: 22f8490d53f6dd143acb42adabbd70d5, type: 3}
-  - {fileID: 8315081794592132106, guid: 256ce30e758ce004cb7555dd781c974b, type: 3}
-  - {fileID: 6374867187995389913, guid: ca8a6734f94c6604f93394be99aecbdd, type: 3}
-  - {fileID: 8315081794592132106, guid: ff2884fc34b877f4fb2e897702f2d60f, type: 3}
-  - {fileID: 8315081794592132106, guid: 3f63cb9e9fc2a2d48b8351aac710630a, type: 3}
-  uiToEnableAtStart:
-  - PlayerInfo
+  uiToRegister: []
+  uiToEnableAtStart: []
