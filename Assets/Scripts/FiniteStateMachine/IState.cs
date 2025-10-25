@@ -7,5 +7,6 @@ namespace FiniteStateMachine
         void Update();
         void FixedUpdate();
         void LateUpdate();
+        void OnAnimatorMove();
     }
 }

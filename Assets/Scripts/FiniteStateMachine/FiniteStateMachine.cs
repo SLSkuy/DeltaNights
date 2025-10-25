@@ -8,12 +8,17 @@ namespace FiniteStateMachine
     {
         #region 内部成员
 
-        private readonly Dictionary<T, IState> _states =  new Dictionary<T, IState>();
+        private readonly Dictionary<T, IState> _states;
         private IState _currentState;
 
         #endregion
         
         #region 状态机方法
+
+        protected FiniteStateMachine()
+        {
+            _states = new Dictionary<T, IState>();
+        }
 
         /// <summary>
         /// 添加状态到状态机中
@@ -57,12 +62,11 @@ namespace FiniteStateMachine
         #endregion
 
         #region 更新方法
-
-        public void Enter() => _currentState.Enter();
-        public void Exit() => _currentState.Exit();
+        
         public void Update() => _currentState.Update();
         public void FixedUpdate() => _currentState.FixedUpdate();
         public void LateUpdate() => _currentState.LateUpdate();
+        public void OnAnimatorMove() => _currentState.OnAnimatorMove();
 
         #endregion
     }
