@@ -1,11 +1,12 @@
 using UIFramework.Core;
+using UnityEngine.UIElements;
 
 namespace UIFramework.Panel
 {
     /// <summary>
     /// 面板控制器基类，控制面板的各种行为
     /// </summary>
-    public class PanelController : UIController<PanelProperties>, IPanelController
+    public class PanelController : UIController<IPanelProperties>, IPanelController
     {
         #region 暴露属性
 

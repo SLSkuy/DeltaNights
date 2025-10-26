@@ -6,7 +6,7 @@ namespace UIFramework.Window
     /// <summary>
     /// 窗口控制器，控制窗口的各种行为
     /// </summary>
-    public class WindowController : UIController<WindowProperties>, IWindowController
+    public class WindowController : UIController<IWindowProperties>, IWindowController
     {
         #region 暴露属性
 
@@ -23,7 +23,7 @@ namespace UIFramework.Window
             transform.SetAsLastSibling();
         }
 
-        protected override void SetProperties(WindowProperties props)
+        protected override void SetProperties(IWindowProperties props)
         {
             if (props != null)
             {
