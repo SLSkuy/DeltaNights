@@ -7,7 +7,7 @@ namespace UIFramework.Core
     /// <summary>
     /// UI界面控制器基类，用于实现单个UI界面的所有逻辑
     /// </summary>
-    public class UIController : MonoBehaviour, IUIController
+    public class UIController<T> : MonoBehaviour, IUIController where T : IUIProperties
     {
         #region 控制器属性
 
@@ -18,6 +18,7 @@ namespace UIFramework.Core
         [Header("UI Attributes")]
         [SerializeField] private string uiControllerID;
         [SerializeField] private bool isVisible;
+        [SerializeField] [Tooltip("UI界面额外属性")] private T properties;
 
         // 供子类使用，以完成特殊操作
         public event Action<IUIController> UIDestroyed;
@@ -33,6 +34,7 @@ namespace UIFramework.Core
         public AnimComponent AnimOut { get => animOut; set => animOut = value; }
         public string UIControllerID { get => uiControllerID; set => uiControllerID = value; }
         public bool IsVisible { get => isVisible; set => isVisible = value; }
+        public T Properties { get => properties; set => properties = value; }
         
         #endregion
 
@@ -52,13 +54,27 @@ namespace UIFramework.Core
         /// <summary>
         /// 显示界面
         /// </summary>
-        public void Show()
+        public void Show(IUIProperties props = null)
         {
+            if (props != null)
+            {
+                if (props is T uiProperties)
+                {
+                    SetProperties(uiProperties);
+                    OnPropertyChange();
+                }
+                else
+                {
+                    Debug.LogError($"{GetType()} wrong property type {props.GetType().Name}");
+                    return;
+                }
+            }
+            
             HierarchyFixOnShow();
 
             if (!gameObject.activeSelf)
             {
-                DoAnimation(animIn, OnTransitionInFinished, !isVisible);
+                DoAnimation(animIn, OnTransitionInFinished, true);
             }
             else
             {
@@ -72,7 +88,7 @@ namespace UIFramework.Core
         /// <param name="animate">是否播放动画</param>
         public void Hide(bool animate = true)
         {
-            DoAnimation(animate ? animOut : null, OnTransitionOutFinished, !isVisible);
+            DoAnimation(animate ? animOut : null, OnTransitionOutFinished, false);
             WhileHiding();
         }
 
@@ -111,6 +127,7 @@ namespace UIFramework.Core
         private void OnTransitionOutFinished()
         {
             isVisible = false;
+            gameObject.SetActive(false);    // 关闭动画结束，禁用对象
             OutTransitionFinished?.Invoke(this);
         }
 
@@ -141,6 +158,19 @@ namespace UIFramework.Core
             
         }
 
+        protected virtual void SetProperties(T props)
+        {
+            properties = props;
+        }
+        
+        /// <summary>
+        /// UI界面属性设置时调用
+        /// </summary>
+        protected virtual void OnPropertyChange()
+        {
+            
+        }
+
         /// <summary>
         /// 在显示的时候处理一些层级，由子类添加自定义行为
         /// </summary>
@@ -150,7 +180,7 @@ namespace UIFramework.Core
         }
 
         /// <summary>
-        /// 关闭窗口请求
+        /// 关闭UI界面请求
         /// </summary>
         /// <param name="controller">UI界面控制器</param>
         protected void CloseUIRequested(IUIController controller)

@@ -22,22 +22,27 @@ namespace UIFramework
 
         private bool _shouldAnimate;
 
-        public override void Animate(Transform target, Action callWhenFinished) {
-            if (_currentAction != null) {
+        public override void Animate(Transform target, Action callWhenFinished)
+        {
+            if (_currentAction != null)
+            {
                 _canvasGroup.alpha = _endValue;
                 _currentAction();
             }
 
             _canvasGroup = target.GetComponent<CanvasGroup>();
-            if (_canvasGroup == null) {
+            if (_canvasGroup == null)
+            {
                 _canvasGroup = target.gameObject.AddComponent<CanvasGroup>();
             }
 
-            if (fadeOut) {
+            if (fadeOut)
+            {
                 _startValue = 1f;
                 _endValue = 0f;
             }
-            else {
+            else
+            {
                 _startValue = 0f;
                 _endValue = 1f;
             }
@@ -49,18 +54,21 @@ namespace UIFramework
             _shouldAnimate = true;
         }
 
-        private void Update() {
-            if (!_shouldAnimate) {
-                return;
-            }
+        private void Update()
+        {
+            if (!_shouldAnimate) return;
 
-            if (_timer > 0f) {
+            if (_timer > 0f)
+            {
                 _timer -= Time.deltaTime;
-                _canvasGroup.alpha = Mathf.Lerp(_endValue, _startValue, _timer / fadeDuration);
+                _canvasGroup.alpha = Mathf.Lerp(_startValue, _endValue, 1 - (_timer / fadeDuration));
             }
-            else {
-                _canvasGroup.alpha = 1f;
-                if (_currentAction != null) {
+            else
+            {
+                _canvasGroup.alpha = _endValue;
+
+                if (_currentAction != null)
+                {
                     _currentAction();
                 }
 
