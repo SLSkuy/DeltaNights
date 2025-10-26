@@ -61,6 +61,7 @@ namespace UIFramework.Core
                 if (props is T uiProperties)
                 {
                     SetProperties(uiProperties);
+                    OnPropertyChange();
                 }
                 else
                 {
@@ -70,11 +71,10 @@ namespace UIFramework.Core
             }
             
             HierarchyFixOnShow();
-            OnPropertyChange();
 
             if (!gameObject.activeSelf)
             {
-                DoAnimation(animIn, OnTransitionInFinished, !isVisible);
+                DoAnimation(animIn, OnTransitionInFinished, true);
             }
             else
             {
@@ -88,7 +88,7 @@ namespace UIFramework.Core
         /// <param name="animate">是否播放动画</param>
         public void Hide(bool animate = true)
         {
-            DoAnimation(animate ? animOut : null, OnTransitionOutFinished, !isVisible);
+            DoAnimation(animate ? animOut : null, OnTransitionOutFinished, false);
             WhileHiding();
         }
 
@@ -127,6 +127,7 @@ namespace UIFramework.Core
         private void OnTransitionOutFinished()
         {
             isVisible = false;
+            gameObject.SetActive(false);    // 关闭动画结束，禁用对象
             OutTransitionFinished?.Invoke(this);
         }
 
@@ -179,7 +180,7 @@ namespace UIFramework.Core
         }
 
         /// <summary>
-        /// 关闭窗口请求
+        /// 关闭UI界面请求
         /// </summary>
         /// <param name="controller">UI界面控制器</param>
         protected void CloseUIRequested(IUIController controller)

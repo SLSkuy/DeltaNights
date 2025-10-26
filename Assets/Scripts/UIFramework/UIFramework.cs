@@ -15,11 +15,7 @@ namespace UIFramework
     {
         #region 内部成员
         
-        [SerializeField] [Tooltip("是否自动初始化UI框架")]
-        private bool initializeOnAwake = true;
-        
-        [SerializeField] [Tooltip("UI框架设置，配置所有管理的UI界面")]
-        private UIFrameworkSettings uiSettings;
+        private UIFrameworkSettings _uiSettings;
         
         // UI类别层级管理器
         private PanelLayer _panelLayer;
@@ -34,22 +30,13 @@ namespace UIFramework
         
         public Canvas MainCanvas { get { if (!_mainCanvas)_mainCanvas = _mainCanvas.GetComponent<Canvas>(); return _mainCanvas; } }
         public Camera CanvasCamera => _mainCanvas.worldCamera;
-        public bool InitializeOnAwake { get => initializeOnAwake; set => initializeOnAwake = value; }
-        public UIFrameworkSettings UISettings { get => uiSettings; set => uiSettings = value; }
+        public UIFrameworkSettings UISettings { get => _uiSettings; set => _uiSettings = value; }
 
         #endregion
         
         #region 框架内部管理方法
         
-        private void Awake()
-        {
-            if (initializeOnAwake)
-            {
-                Initialize();
-            }
-        }
-
-        private void Initialize()
+        public void Initialize()
         {
             // 初始化Panel层级管理器
             if (!_panelLayer)
@@ -90,12 +77,12 @@ namespace UIFramework
         /// </summary>
         private void RegisterAllUIPrefab()
         {
-            foreach (var entry in uiSettings.uiToRegister)
+            foreach (var entry in _uiSettings.uiToRegister)
             {
-                GameObject prefab = entry.uiPrefab;
+                GameObject prefab = Instantiate(entry.uiPrefab);
                 IUIController controller = prefab.GetComponent<IUIController>();
-                if(!entry.isEnableOnRegister)prefab.SetActive(false);
-                RegisterUI(controller.UIControllerID, controller,prefab.transform);
+                RegisterUI(controller.UIControllerID, controller, prefab.transform);
+                if(!entry.isEnableOnRegister)HideUI(controller.UIControllerID);
             }
         }
         
@@ -181,6 +168,25 @@ namespace UIFramework
                 }
                 else if (type == typeof(IPanelController)) {
                     ShowPanel(id, p);
+                }
+            }
+            else {
+                Debug.LogError($"[UIFramework] Tried to open Screen id {id} but it's not registered as Window or Panel!");
+            }
+        }
+
+        /// <summary>
+        /// 根据传入的ID关闭对应的UI界面，不分面板还是窗口
+        /// </summary>
+        /// <param name="id"></param>
+        public void HideUI(string id)
+        {
+            if (IsUIRegistered(id, out var type)) {
+                if (type == typeof(IWindowController)) {
+                    CloseWindow(id);
+                }
+                else if (type == typeof(IPanelController)) {
+                    HidePanel(id);
                 }
             }
             else {

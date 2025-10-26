@@ -10,9 +10,9 @@ namespace UIFramework.Window
     {
         #region 暴露属性
 
-        public WindowPriority Priority => Properties.Priority;
-        public bool HideOnForegroundLost => Properties.HideOnForegroundLost;
-        public bool IsPopup => Properties.IsPopup;
+        public WindowPriority Priority => Properties?.Priority ?? WindowPriority.ForceForeground;
+        public bool HideOnForegroundLost => Properties?.HideOnForegroundLost ?? true;
+        public bool IsPopup => Properties?.IsPopup ?? false;
         
         #endregion
         

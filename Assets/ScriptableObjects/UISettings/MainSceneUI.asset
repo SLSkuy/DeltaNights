@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aeb8919d682a42db9c954065b9da78b9, type: 3}
-  m_Name: SampleSceneUI
+  m_Name: MainSceneUI
   m_EditorClassIdentifier: Assembly-CSharp::UIFramework.UIFrameworkSettings
-  uiToRegister: []
-  uiToEnableAtStart: []
+  uiToRegister:
+  - isEnableOnRegister: 1
+    uiPrefab: {fileID: 6227675171620604149, guid: 3a4ee8918be336444a849ef63c6cb924, type: 3}

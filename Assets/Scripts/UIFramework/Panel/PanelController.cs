@@ -9,17 +9,18 @@ namespace UIFramework.Panel
     {
         #region 暴露属性
 
+        // 若属性为空则设置默认属性
         public PanelPriority Priority => Properties?.Priority ?? PanelPriority.None;
 
         #endregion
-
-        #region 控制器方法
-
-        protected sealed override void SetProperties(PanelProperties props)
-        {
-            base.SetProperties(props);
-        }
-
-        #endregion
+        
+        // #region 控制器方法
+        //
+        // protected sealed override void SetProperties(PanelProperties props)
+        // {
+        //     base.SetProperties(props);
+        // }
+        //
+        // #endregion
     }
 }
