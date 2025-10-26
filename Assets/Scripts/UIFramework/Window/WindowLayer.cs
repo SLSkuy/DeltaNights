@@ -36,6 +36,12 @@ namespace UIFramework.Window
         
         public override void ShowUI(IWindowController controller)
         {
+            ShowUI<IWindowProperties>(controller, null);    
+        }
+        
+        public override void ShowUI<TProps>(IWindowController controller, TProps props)
+        {
+            IWindowProperties windowProperties = props as IWindowProperties;
             if(ShouldEnqueue(controller))
             {
                 // 当前队列已经存在对应窗口，不再加入队列
@@ -45,11 +51,11 @@ namespace UIFramework.Window
                     return;
                 }
                 
-                Enqueue(controller);
+                Enqueue(controller, windowProperties);
             }
             else
             {
-                DoShow(controller);
+                DoShow(controller, windowProperties);
             }
         }
 
@@ -157,10 +163,10 @@ namespace UIFramework.Window
             return false;
         }
 
-        private void Enqueue(IWindowController controller)
+        private void Enqueue(IWindowController controller, IWindowProperties properties)
         {
             _readyToShow.Add(controller.UIControllerID);
-            _windowQueue.Enqueue(new WindowHistoryEntry(controller));
+            _windowQueue.Enqueue(new WindowHistoryEntry(controller, properties));
         }
 
         private void ShowNextInQueue()
@@ -168,7 +174,7 @@ namespace UIFramework.Window
             if (_windowQueue.Count > 0)
             {
                 WindowHistoryEntry entry = _windowQueue.Dequeue();
-                DoShow(entry.Controller);
+                DoShow(entry.WindowController, entry.WindowProperties);
             }
         }
 
@@ -177,7 +183,7 @@ namespace UIFramework.Window
             if (_windowHistory.Count > 0)
             {
                 WindowHistoryEntry entry = _windowHistory.Pop();
-                DoShow(entry.Controller);
+                DoShow(entry.WindowController, entry.WindowProperties);
             }
         }
 
@@ -185,7 +191,8 @@ namespace UIFramework.Window
         /// 处理窗口显示逻辑
         /// </summary>
         /// <param name="controller">窗口控制器</param>
-        private void DoShow(IWindowController controller)
+        /// <param name="properties">窗口属性</param>
+        private void DoShow(IWindowController controller, IWindowProperties properties)
         {
             if (controller == CurrentWindow)
             {
@@ -199,7 +206,7 @@ namespace UIFramework.Window
             }
             
             // 将当前窗口加载到窗口历史中
-            _windowHistory.Push(new WindowHistoryEntry(controller));
+            _windowHistory.Push(new WindowHistoryEntry(controller, properties));
             BlockScreen(controller);
 
             // 启用蒙黑层

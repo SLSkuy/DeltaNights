@@ -7,7 +7,7 @@ namespace UIFramework.Core
     /// <summary>
     /// UI界面控制器基类，用于实现单个UI界面的所有逻辑
     /// </summary>
-    public class UIController : MonoBehaviour, IUIController
+    public class UIController<T> : MonoBehaviour, IUIController where T : IUIProperties
     {
         #region 控制器属性
 
@@ -18,6 +18,7 @@ namespace UIFramework.Core
         [Header("UI Attributes")]
         [SerializeField] private string uiControllerID;
         [SerializeField] private bool isVisible;
+        [SerializeField] [Tooltip("UI界面额外属性")] private T properties;
 
         // 供子类使用，以完成特殊操作
         public event Action<IUIController> UIDestroyed;
@@ -33,6 +34,7 @@ namespace UIFramework.Core
         public AnimComponent AnimOut { get => animOut; set => animOut = value; }
         public string UIControllerID { get => uiControllerID; set => uiControllerID = value; }
         public bool IsVisible { get => isVisible; set => isVisible = value; }
+        public T Properties { get => properties; set => properties = value; }
         
         #endregion
 
@@ -52,9 +54,23 @@ namespace UIFramework.Core
         /// <summary>
         /// 显示界面
         /// </summary>
-        public void Show()
+        public void Show(IUIProperties props = null)
         {
+            if (props != null)
+            {
+                if (props is T uiProperties)
+                {
+                    SetProperties(uiProperties);
+                }
+                else
+                {
+                    Debug.LogError($"{GetType()} wrong property type {props.GetType().Name}");
+                    return;
+                }
+            }
+            
             HierarchyFixOnShow();
+            OnPropertyChange();
 
             if (!gameObject.activeSelf)
             {
@@ -137,6 +153,19 @@ namespace UIFramework.Core
         /// 界面隐藏时触发处理逻辑，由子类添加自定义行为
         /// </summary>
         protected virtual void WhileHiding()
+        {
+            
+        }
+
+        protected virtual void SetProperties(T props)
+        {
+            properties = props;
+        }
+        
+        /// <summary>
+        /// UI界面属性设置时调用
+        /// </summary>
+        protected virtual void OnPropertyChange()
         {
             
         }

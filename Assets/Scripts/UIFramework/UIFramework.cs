@@ -18,6 +18,9 @@ namespace UIFramework
         [SerializeField] [Tooltip("是否自动初始化UI框架")]
         private bool initializeOnAwake = true;
         
+        [SerializeField] [Tooltip("UI框架设置，配置所有管理的UI界面")]
+        private UIFrameworkSettings uiSettings;
+        
         // UI类别层级管理器
         private PanelLayer _panelLayer;
         private WindowLayer _windowLayer;
@@ -28,27 +31,26 @@ namespace UIFramework
         #endregion
         
         #region 暴露属性
-
-        public static UIFramework Instance { get; private set; }
-        public UIFrameworkSettings uiSettings;
+        
         public Canvas MainCanvas { get { if (!_mainCanvas)_mainCanvas = _mainCanvas.GetComponent<Canvas>(); return _mainCanvas; } }
         public Camera CanvasCamera => _mainCanvas.worldCamera;
+        public bool InitializeOnAwake { get => initializeOnAwake; set => initializeOnAwake = value; }
+        public UIFrameworkSettings UISettings { get => uiSettings; set => uiSettings = value; }
 
         #endregion
+        
+        #region 框架内部管理方法
         
         private void Awake()
         {
             if (initializeOnAwake)
             {
                 Initialize();
-                RegisterAllUIPrefab();
             }
         }
 
         private void Initialize()
         {
-            if(Instance == null)Instance = this;
-            
             // 初始化Panel层级管理器
             if (!_panelLayer)
             {
@@ -78,19 +80,28 @@ namespace UIFramework
                     Debug.LogError("[UIFramework] UI Frame lacks Window Layer]");
                 }
             }
+            
             _graphicRaycaster = GetComponent<GraphicRaycaster>();
+            RegisterAllUIPrefab();
         }
 
+        /// <summary>
+        /// 实例化并注册所有UI界面
+        /// </summary>
         private void RegisterAllUIPrefab()
         {
-            foreach (var obj in uiSettings.uiToRegister)
+            foreach (var entry in uiSettings.uiToRegister)
             {
-                GameObject prefab = Instantiate(obj);
+                GameObject prefab = entry.uiPrefab;
                 IUIController controller = prefab.GetComponent<IUIController>();
-                if(!uiSettings.uiToEnableAtStart.Contains(controller.UIControllerID))prefab.SetActive(false);
+                if(!entry.isEnableOnRegister)prefab.SetActive(false);
                 RegisterUI(controller.UIControllerID, controller,prefab.transform);
             }
         }
+        
+        #endregion
+        
+        #region 框架对外暴露方法
 
         private void BlockScreen()
         {
@@ -107,6 +118,11 @@ namespace UIFramework
             _panelLayer.ShowUIByID(id);
         }
 
+        public void ShowPanel<T>(string id, T p) where T : IUIProperties
+        {
+            _panelLayer.ShowUIByID(id, p);
+        }
+
         public void HidePanel(string id)
         {
             _panelLayer.HideUIByID(id);
@@ -115,6 +131,11 @@ namespace UIFramework
         public void OpenWindow(string id)
         {
             _windowLayer.ShowUIByID(id);
+        }
+
+        public void OpenWindow<T>(string id, T p) where T : IUIProperties
+        {
+            _windowLayer.ShowUIByID(id, p);
         }
 
         public void CloseWindow(string id)
@@ -130,16 +151,36 @@ namespace UIFramework
         /// <summary>
         /// 根据传入的ID显示对应的UI界面，不分面板还是窗口
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">UI界面ID</param>
         public void ShowUI(string id)
         {
-            Type type;
-            if (IsUIRegistered(id, out type)) {
+            if (IsUIRegistered(id, out var type)) {
                 if (type == typeof(IWindowController)) {
                     OpenWindow(id);
                 }
                 else if (type == typeof(IPanelController)) {
                     ShowPanel(id);
+                }
+            }
+            else {
+                Debug.LogError($"[UIFramework] Tried to open Screen id {id} but it's not registered as Window or Panel!");
+            }
+        }
+
+        /// <summary>
+        /// 根据传入的ID显示对应的UI界面，不分面板还是窗口，同时设置其属性
+        /// </summary>
+        /// <param name="id">UI界面ID</param>
+        /// <param name="p">UI界面属性参数</param>
+        /// <typeparam name="T">UI界面属性类型</typeparam>
+        public void ShowUI<T>(string id, T p) where T : IUIProperties
+        {
+            if (IsUIRegistered(id, out var type)) {
+                if (type == typeof(IWindowController)) {
+                    OpenWindow(id, p);
+                }
+                else if (type == typeof(IPanelController)) {
+                    ShowPanel(id, p);
                 }
             }
             else {
@@ -203,5 +244,7 @@ namespace UIFramework
             type = null;
             return false;
         }
+        
+        #endregion
     }
 }
