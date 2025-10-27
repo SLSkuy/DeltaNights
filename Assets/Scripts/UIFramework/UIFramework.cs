@@ -82,7 +82,7 @@ namespace UIFramework
                 GameObject prefab = Instantiate(entry.uiPrefab);
                 IUIController controller = prefab.GetComponent<IUIController>();
                 RegisterUI(controller.UIControllerID, controller, prefab.transform);
-                if(!entry.isEnableOnRegister)HideUI(controller.UIControllerID);
+                if(!entry.isEnableOnRegister)controller.Hide();
             }
         }
         

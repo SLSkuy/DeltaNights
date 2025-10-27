@@ -16,6 +16,7 @@ add_executable(DeltaNights-Server
   main.cpp
   dnserver.h dnserver.cpp
   logger.h logger.cpp
+  msgsender.h msgsender.cpp
 )
 
 target_link_libraries(DeltaNights-Server

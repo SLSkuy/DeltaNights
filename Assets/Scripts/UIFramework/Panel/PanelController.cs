@@ -6,7 +6,7 @@ namespace UIFramework.Panel
     /// <summary>
     /// 面板控制器基类，控制面板的各种行为
     /// </summary>
-    public class PanelController : UIController<IPanelProperties>, IPanelController
+    public class PanelController : UIController<PanelProperties>, IPanelController
     {
         #region 暴露属性
 
@@ -14,14 +14,5 @@ namespace UIFramework.Panel
         public PanelPriority Priority => Properties?.Priority ?? PanelPriority.None;
 
         #endregion
-        
-        // #region 控制器方法
-        //
-        // protected sealed override void SetProperties(PanelProperties props)
-        // {
-        //     base.SetProperties(props);
-        // }
-        //
-        // #endregion
     }
 }

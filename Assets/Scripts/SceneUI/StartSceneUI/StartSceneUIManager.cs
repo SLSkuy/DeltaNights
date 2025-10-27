@@ -26,7 +26,7 @@ namespace SceneUI.StartSceneUI
             if (Input.GetKeyDown(KeyCode.T))
             {
                 // 重置属性打开UI界面示例
-                UIFrame.ShowUI("StartPanel",new StartPanelProperties(PanelPriority.Blocker,"洗大锅"));
+                UIFrame.ShowUI("StartPanel",new StartPanelProperties(PanelPriority.Blocker,"欸嘿，洗大锅"));
             }
         }
         
@@ -35,6 +35,7 @@ namespace SceneUI.StartSceneUI
         void OnStartPanelPressDown()
         {
             UIFrame.HideUI("StartPanel");
+            UIFrame.ShowUI("ChatWindow");
         }
         
         #endregion

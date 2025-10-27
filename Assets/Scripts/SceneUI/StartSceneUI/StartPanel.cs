@@ -34,7 +34,7 @@ namespace SceneUI.StartSceneUI
             Signals.Get<StartPanelPressDownSignal>().Dispatch();
         }
 
-        protected override void SetProperties(IPanelProperties props)
+        protected override void SetProperties(PanelProperties props)
         {
             if (props is StartPanelProperties startPanelProperties)
             {

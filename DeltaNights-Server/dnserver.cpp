@@ -1,14 +1,41 @@
+#include "msgsender.h"
 #include "dnserver.h"
 #include "logger.h"
 
 DNServer::DNServer(QObject *parent) : QTcpServer(parent)
 {
+    sendThread = new QThread();
+    msgsender = new MsgSender();
 
+    msgsender->moveToThread(sendThread);
+
+    connect(sendThread, &QThread::started, msgsender, &MsgSender::SendMessage);
+    connect(msgsender, &MsgSender::workFinished, sendThread, &QThread::quit);
+    connect(msgsender, &MsgSender::workFinished, this, [=](){
+        Logger::Log("Server is closing...");
+        emit closeServer();
+        for (auto &socket : m_clients)
+        {
+            socket->close();
+        }
+        this->close();
+    });
+    connect(msgsender, &MsgSender::send, this, [this](const QString &content){
+        SendMessage(content);
+    });
+
+    sendThread->start();
 }
 
 DNServer::~DNServer()
 {
+    for(auto &socket:m_clients)
+    {
+        socket->deleteLater();
+    }
 
+    msgsender->deleteLater();
+    sendThread->deleteLater();
 }
 
 bool DNServer::StartServer(const QHostAddress &address, quint16 port)
@@ -47,6 +74,23 @@ void DNServer::incomingConnection(qintptr socketDescriptor)
     connect(socket, &QTcpSocket::disconnected, this, &DNServer::OnClientDisconnected);
 }
 
+void DNServer::SendMessage(QString content)
+{
+    for (auto it = m_clients.begin(); it != m_clients.end(); )
+    {
+        QTcpSocket *socket = it.value();
+        if (socket && socket->state() == QAbstractSocket::ConnectedState)
+        {
+            socket->write(content.toUtf8());
+            ++it;
+        }
+        else
+        {
+            it = m_clients.erase(it);  // 移除已断开的 socket
+        }
+    }
+}
+
 void DNServer::OnClientDisconnected()
 {
     QTcpSocket* socket = qobject_cast<QTcpSocket*>(sender());
@@ -69,7 +113,4 @@ void DNServer::OnReadyRead()
     QByteArray data = socket->readAll();
     QString msg = QString::fromUtf8(data);
     Logger::Log("Received from " + socket->peerAddress().toString() + ": " + msg);
-
-    // 返回收到的消息给客户端
-    socket->write("Server receive message: " + data);
 }
