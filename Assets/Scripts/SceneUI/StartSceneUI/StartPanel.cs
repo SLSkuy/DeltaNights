@@ -14,11 +14,11 @@ namespace SceneUI.StartSceneUI
     /// </summary>
     public class StartPanelProperties : PanelProperties
     {
-        public string content;
+        public string Content;
         
         public StartPanelProperties(PanelPriority priority,string content) : base(priority)
         {
-            this.content = content;
+            this.Content = content;
         }
     }
     
@@ -38,7 +38,7 @@ namespace SceneUI.StartSceneUI
         {
             if (props is StartPanelProperties startPanelProperties)
             {
-                text.text = startPanelProperties.content;
+                text.text = startPanelProperties.Content;
             }
             base.SetProperties(props);
         }
