@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package GameEventMessage;
+
+enum MessageType{
+  Player_State_Update = 0;
+}
+
+message GameEventMessage{
+  MessageType type = 1;
+
+  oneof content {
+    PlayerStateUpdate player_state_update = 2;
+  }
+}
+
+message Vec3{
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
+
+message PlayerStateUpdate{
+    string name = 1;
+    Vec3 position = 2;
+    Vec3 rotation = 3;
+}
