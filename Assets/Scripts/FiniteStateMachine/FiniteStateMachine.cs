@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace FiniteStateMachine
 {
+    /// <summary>
+    /// 有限状态机
+    /// </summary>
+    /// <typeparam name="T">对象状态枚举类型</typeparam>
     public class FiniteStateMachine<T> where T : Enum
     {
         #region 内部成员
