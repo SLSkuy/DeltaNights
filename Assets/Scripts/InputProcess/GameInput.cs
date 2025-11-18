@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 namespace InputProcess
 {
+    /// <summary>
+    /// 玩家输入捕获处理类
+    /// </summary>
     public class GameInput : MonoBehaviour
     {
         private InputSystem_Actions InputActions { get; set; }
