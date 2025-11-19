@@ -31,7 +31,7 @@ namespace PlayerControl
         [Tooltip("冲刺 值为0或1 控制冲刺状态")]
         public InputAxis sprint = InputAxis.DefaultMomentary;
         
-        [Header("交互属性")]
+        [Header("物理属性")]
         [Tooltip("地面层，用于检测是否接触到地面")]
         public LayerMask groundLayers;
         [Tooltip("玩家重力属性")] // 自行实现物理效果，不使用Unity自带的RigidBody，减少性能开销
@@ -48,7 +48,7 @@ namespace PlayerControl
         
         // 信息存储
         private Vector3 _lastInput;
-        private Vector3 _currentVelocityXZ;
+        private Vector3 _currentVelocityXZ; // 后面以根动画速度代替
         private float _currentVelocityY;
         private bool _isSprinting;
         private bool _isJumping;
@@ -57,7 +57,8 @@ namespace PlayerControl
         
         #region 事件
 
-        public event Action PreUpdate;
+        public event Action PreUpdate;  // 每帧更新前调用
+        public event Action PostUpdate; // 每帧更新后调用 
         
         #endregion
         
@@ -128,7 +129,7 @@ namespace PlayerControl
         }
 
         /// <summary>
-        /// 计算当前朝向
+        /// 计算当前速度朝向
         /// </summary>
         private void CalculateCurrentVelocity()
         {
@@ -195,17 +196,20 @@ namespace PlayerControl
         
         private void Awake()
         {
+            // 初始化内部成员
             _finiteStateMachine = new PlayerFiniteStateMachine();
-            _finiteStateMachine.SwitchState(PlayerState.Idle);
             
+            // 组件引用
+            _characterController = GetComponent<CharacterController>();
             _camera = Camera.main;
         }
 
         private void Start()
         {
-            _characterController = GetComponent<CharacterController>();
+            // 逻辑注册
+            _finiteStateMachine.SwitchState(PlayerState.Idle);
         }
-
+        
         private void OnEnable()
         {
             _currentVelocityXZ = Vector3.zero;
@@ -218,15 +222,23 @@ namespace PlayerControl
         {
             PreUpdate?.Invoke();
             
-            _finiteStateMachine.Update();
-            
             CalculateCurrentVelocity();
             
+            _finiteStateMachine.Update();
+            
+            // 测试移动方法，后续移动到状态内部实现
             ApplyMotion();
         }
 
+        private void LateUpdate()
+        {
+            _finiteStateMachine.LateUpdate();
+            
+            // 更新摄像机
+            PostUpdate?.Invoke();
+        }
+
         private void FixedUpdate() => _finiteStateMachine.FixedUpdate();
-        private void LateUpdate() => _finiteStateMachine.LateUpdate();
         private void OnAnimatorMove() => _finiteStateMachine.OnAnimatorMove();
         
         #endregion

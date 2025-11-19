@@ -1159,7 +1159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerAimController
   rotationDamping: 0.2
-  mouseSensitivity: 1
+  horizontalSensitive: 5
+  verticalSensitive: 5
   horizontalLook:
     Value: 0
     Center: 0
@@ -2076,7 +2077,6 @@ GameObject:
   - component: {fileID: 1931994216}
   - component: {fileID: 1931994217}
   - component: {fileID: 1931994219}
-  - component: {fileID: 1931994220}
   - component: {fileID: 1931994218}
   - component: {fileID: 1931994221}
   m_Layer: 0
@@ -2211,18 +2211,6 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 1.25, z: 0}
---- !u!114 &1931994220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931994215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 849d64d8de429964bbef1a2bce46a961, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InputProcess.GameInput
 --- !u!114 &1931994221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2246,8 +2234,6 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -2259,8 +2245,6 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -2272,8 +2256,6 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -2285,8 +2267,6 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -2298,8 +2278,6 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -2311,8 +2289,6 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: -1
-        LegacyInput: 
-        LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:

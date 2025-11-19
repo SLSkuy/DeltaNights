@@ -8,8 +8,8 @@ namespace FiniteStateMachine
         void Enter();
         void Exit();
         void Update();
-        void FixedUpdate();
         void LateUpdate();
+        void FixedUpdate();
         void OnAnimatorMove();
     }
 }
