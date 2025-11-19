@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using InputProcess;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -14,6 +14,8 @@ namespace PlayerControl
         
         [Header("视角配置")]
         public float rotationDamping = 0.2f;
+        [Range(1f,10f)]public float horizontalSensitive = 1f;
+        [Range(1f,10f)]public float verticalSensitive = 1f;
         
         [Header("输入轴配置")]
         [Tooltip("水平旋转，角度单位，0为居中")]
@@ -23,6 +25,7 @@ namespace PlayerControl
         
         // 组件获取
         private PlayerController _controller;
+        private CinemachineInputAxisController _inputAxisController;
         
         #endregion
         
@@ -48,12 +51,31 @@ namespace PlayerControl
             verticalLook.Range.x = Mathf.Clamp(verticalLook.Range.x, -90, 90);
             verticalLook.Range.y = Mathf.Clamp(verticalLook.Range.y, -90, 90);
             verticalLook.Validate();
+            
+            ApplySensitivity();
         }
         
         #endregion
 
         #region 成员方法
+        
+        /// <summary>
+        /// 设置鼠标灵敏度
+        /// </summary>
+        private void ApplySensitivity()
+        {
+            if (_inputAxisController == null) return;
 
+            foreach (var c in _inputAxisController.Controllers)
+            {
+                if (c.Name == "Horizontal Look")
+                    c.Input.Gain = horizontalSensitive;
+
+                if (c.Name == "Vertical Look")
+                    c.Input.Gain = -verticalSensitive;
+            }
+        }
+        
         private void UpdatePlayerRotation()
         {
             // 旋转摄像机
@@ -110,20 +132,34 @@ namespace PlayerControl
         #endregion
         
         #region 周期函数
-        
+
+        private void Awake()
+        {
+            // 组件引用
+            _controller = GetComponentInParent<PlayerController>();
+            _inputAxisController = _controller.GetComponent<CinemachineInputAxisController>();
+        }
+
+        private void Start()
+        {
+            // 逻辑注册
+            _controller.PostUpdate += UpdatePlayerRotation;
+        }
+
         private void OnEnable()
         {
             Cursor.lockState = CursorLockMode.Locked;
-            _controller = GetComponentInParent<PlayerController>();
-            
-            _controller.PreUpdate += UpdatePlayerRotation;
+            ApplySensitivity();
         }
 
         private void OnDisable()
         {
-            _controller.PreUpdate -= UpdatePlayerRotation;
-            
-            _controller =  null;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        private void OnDestroy()
+        {
+            _controller.PostUpdate -= UpdatePlayerRotation;
         }
         
         #endregion
