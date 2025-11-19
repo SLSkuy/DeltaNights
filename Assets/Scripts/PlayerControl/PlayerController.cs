@@ -98,7 +98,7 @@ namespace PlayerControl
         public bool IsMoving()
         {
             float movingThreshold = 0.001f;
-            return !(_lastInput.sqrMagnitude < movingThreshold);
+            return _lastInput.sqrMagnitude > movingThreshold;
         }
 
         /// <summary>
@@ -146,15 +146,11 @@ namespace PlayerControl
 
             if (!_isJumping)
             {
+                // 判断是否在奔跑状态
                 _isSprinting = sprint.Value > 0.5f;
                 
                 Vector3 desiredVelocity = _lastInput * (_isSprinting ? sprintSpeed : speed);
-                if(Vector3.Angle(_currentVelocityXZ, desiredVelocity) < 100)
-                    _currentVelocityXZ = Vector3.Slerp(_currentVelocityXZ, desiredVelocity,
-                        Damper.Damp(1,damping, Time.deltaTime));
-                else
-                    _currentVelocityXZ += Damper.Damp(
-                        desiredVelocity - _currentVelocityXZ,damping, Time.deltaTime);
+                _currentVelocityXZ += Damper.Damp(desiredVelocity - _currentVelocityXZ,damping, Time.deltaTime);    
             }
         }
 

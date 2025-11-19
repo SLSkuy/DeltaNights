@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 namespace InputProcess
 {
     /// <summary>
+    /// 暂时启用，使用Cinemachine获取输入系统值
     /// 玩家输入捕获处理类
     /// </summary>
     public class GameInput : MonoBehaviour
