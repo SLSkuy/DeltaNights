@@ -167,8 +167,8 @@ namespace PlayerControl
         {
             // 逻辑注册
             _controller.PostUpdate += UpdatePlayerRotation;
-            _controller.ShoulderAim += UpdateShoulderAimState;
-            _controller.Aim += UpdateAimState;
+            _controller.OnShoulderAim += UpdateShoulderAimState;
+            _controller.OnAim += UpdateAimState;
         }
 
         private void OnEnable()
@@ -186,8 +186,8 @@ namespace PlayerControl
         private void OnDestroy()
         {
             _controller.PostUpdate -= UpdatePlayerRotation;
-            _controller.ShoulderAim -= UpdateShoulderAimState;
-            _controller.Aim -= UpdateAimState;
+            _controller.OnShoulderAim -= UpdateShoulderAimState;
+            _controller.OnAim -= UpdateAimState;
         }
         
         #endregion

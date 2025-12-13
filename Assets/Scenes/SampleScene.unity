@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 71411144}
   - component: {fileID: 71411143}
   - component: {fileID: 71411142}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1358,7 +1358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 783544530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1394,7 +1394,7 @@ GameObject:
   - component: {fileID: 797699529}
   - component: {fileID: 797699528}
   - component: {fileID: 797699527}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1508,7 +1508,7 @@ GameObject:
   - component: {fileID: 822584744}
   - component: {fileID: 822584743}
   - component: {fileID: 822584742}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2591,10 +2591,12 @@ MonoBehaviour:
   aimSpeed: 1.5
   jumpSpeed: 6
   locomotionDamping: 0.2
+  maxJumpCount: 2
+  airMoveFactor: 1
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
-  gravity: 9.8
+  gravity: 12
   moveX:
     Value: 0
     Center: 0

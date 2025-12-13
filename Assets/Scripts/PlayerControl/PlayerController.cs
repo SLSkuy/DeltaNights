@@ -13,14 +13,18 @@ namespace PlayerControl
     {
         #region 内部成员
 
-        [Header("玩家属性（Debug）")] 
+        [Header("玩家移动属性")] 
         public float speed = 4f;
         public float shoulderAimSpeed = 2.5f;
         public float aimSpeed = 1.5f;
         public float jumpSpeed = 4f;
         public float locomotionDamping = 0.5f;
         public bool Grounded => IsGrounded();
-                
+        
+        [Header("玩家跳跃属性")]
+        public int maxJumpCount = 2;
+        public float airMoveFactor = 0.8f;
+        
         [Header("物理属性")]
         [Tooltip("地面层，用于检测是否接触到地面")]
         public LayerMask groundLayers;
@@ -48,11 +52,17 @@ namespace PlayerControl
         private const float KeyDelayBeforeInferringJump = 0.3f;     // 按下跳跃键后在多少延迟内认定为能够执行跳跃操作
         private float _timeLastGrounded;
         
-        // 信息存储
+        // 移动属性
         private Vector3 _lastInput;
         private Vector3 _currentVelocityXZ; // 后面以根动画速度代替
         private float _currentVelocityY;
+        
+        // 跳跃属性
         private bool _isJumping;
+        private int _jumpCount;
+        private bool _jumpPressedLastFrame;
+        
+        // 瞄准属性
         private bool _isShoulderAim;
         private bool _aimPressedLastFrame;  // 切换型状态
         private bool _isAim;
@@ -63,9 +73,10 @@ namespace PlayerControl
 
         public event Action PreUpdate;  // 每帧更新前调用
         public event Action PostUpdate; // 每帧更新后调用 
-        public event Action<bool> ShoulderAim; // 是否为肩射状态
-        public event Action<bool> Aim;  // 是否为开镜瞄准状态
+        public event Action<bool> OnShoulderAim; // 是否为肩射状态
+        public event Action<bool> OnAim;  // 是否为开镜瞄准状态
         public event Action<bool> ShowMesh; // 是否显示模型
+        public event Action<int> OnJump;    // 玩家跳跃事件
         
         #endregion
         
@@ -116,7 +127,7 @@ namespace PlayerControl
         public bool IsGrounded()
         {
             const float distanceFromGroundThreshold = 10f;
-            const float groundedThreshold = 0.01f;
+            const float groundedThreshold = 0.1f;
             return GetDistanceFromGround(transform.position, distanceFromGroundThreshold) < groundedThreshold;
         }
 
@@ -153,11 +164,9 @@ namespace PlayerControl
             Vector3 desiredDir = camForward * z + camRight * x;
             _lastInput = desiredDir;
 
-            if (!_isJumping)
-            {
-                Vector3 desiredVelocity = _lastInput * (_isAim ? aimSpeed : _isShoulderAim ? shoulderAimSpeed : speed);
-                _currentVelocityXZ += Damper.Damp(desiredVelocity - _currentVelocityXZ,locomotionDamping, Time.deltaTime);    
-            }
+            Vector3 desiredVelocity = _lastInput * (_isAim ? aimSpeed : _isShoulderAim ? shoulderAimSpeed : speed);
+            if (_isJumping) desiredVelocity *= airMoveFactor;   // 空中移动降低水平位移效果
+            _currentVelocityXZ += Damper.Damp(desiredVelocity - _currentVelocityXZ,locomotionDamping, Time.deltaTime); 
         }
 
         /// <summary>
@@ -165,10 +174,12 @@ namespace PlayerControl
         /// </summary>
         private void ApplyMotion()
         {
-            if (_characterController)
-            {
+            if (_characterController) { 
                 // _characterController.Move((_currentVelocityY * Vector3.up + _currentVelocityXZ) * Time.deltaTime);
-                _characterController.SimpleMove(_currentVelocityXZ);
+                // _characterController.SimpleMove(_currentVelocityXZ); 
+                
+                Vector3 motion = _currentVelocityXZ + Vector3.up * _currentVelocityY;
+                _characterController.Move(motion * Time.deltaTime);
             }
         }
         
@@ -203,7 +214,7 @@ namespace PlayerControl
             {
                 _isShoulderAim = shoulderNow;
                 _isAim = false;
-                ShoulderAim?.Invoke(_isShoulderAim);
+                OnShoulderAim?.Invoke(_isShoulderAim);
                 ShowMesh?.Invoke(true); // 确保从开镜状态转换模型也能正常显示
             }
 
@@ -212,12 +223,65 @@ namespace PlayerControl
             if (aimPressedNow && !_aimPressedLastFrame)
             {
                 _isAim = !_isAim;
-                Aim?.Invoke(_isAim);
+                OnAim?.Invoke(_isAim);
                 ShowMesh?.Invoke(!_isAim);  // 根据开镜状态显示模型
             }
             _aimPressedLastFrame = aimPressedNow;
         }
 
+        /// <summary>
+        /// 检测跳跃输入
+        /// </summary>
+        private void UpdateJumpState()
+        {
+            bool jumpPressedNow = jump.Value > 0.1f;
+
+            // 边沿触发
+            if (jumpPressedNow && !_jumpPressedLastFrame)
+            {
+                TryJump();
+            }
+
+            _jumpPressedLastFrame = jumpPressedNow;
+        }
+        
+        /// <summary>
+        /// 判断是否能够跳跃
+        /// </summary>
+        private void TryJump()
+        {
+            if (_jumpCount >= maxJumpCount)
+                return;
+
+            _jumpCount++;
+            _isJumping = true;
+
+            // 给予向上的初速度
+            _currentVelocityY = jumpSpeed;
+            
+            OnJump?.Invoke(_jumpCount);
+        }
+        
+        /// <summary>
+        /// 自行实现重力，用于实现不同角色的特殊技能
+        /// </summary>
+        private void ApplyGravity()
+        {
+            if (Grounded)
+            {
+                if (_currentVelocityY < 0)
+                {
+                    _currentVelocityY = -0.5f; // 贴地（防止抖动）
+                    _isJumping = false;
+                    _jumpCount = 0;         // 落地 → 重置跳跃次数
+                }
+            }
+            else
+            {
+                if(_jumpCount < 1)_jumpCount = 1;   // 从边缘坠落时只允许跳跃一次
+                _currentVelocityY -= gravity * Time.deltaTime;
+            }
+        }
 
         #endregion
         
@@ -251,7 +315,9 @@ namespace PlayerControl
         {
             PreUpdate?.Invoke();
             
+            UpdateJumpState();
             CalculateCurrentVelocity();
+            ApplyGravity(); // 计算重力
             
             _finiteStateMachine.Update();
             
