@@ -14,10 +14,9 @@ namespace PlayerControl
         #region 内部成员
 
         [Header("玩家属性（Debug）")] 
-        public float speed = 1f;
-        public float sprintSpeed = 4f;
+        public float speed = 2f;
+        public float shoulderAimSpeed = 1.5f;
         public float jumpSpeed = 4f;
-        public float sprintJumpSpeed = 6f;
         public float damping = 0.5f;
         public bool Grounded => IsGrounded();
 
@@ -28,8 +27,8 @@ namespace PlayerControl
         public InputAxis moveZ = InputAxis.DefaultMomentary;
         [Tooltip("跳跃 值为0或1 控制垂直移动")]
         public InputAxis jump = InputAxis.DefaultMomentary;
-        [Tooltip("冲刺 值为0或1 控制冲刺状态")]
-        public InputAxis sprint = InputAxis.DefaultMomentary;
+        [Tooltip("肩射 值为0或1 控制肩射状态")]
+        public InputAxis shoulderAim = InputAxis.DefaultMomentary;
         
         [Header("物理属性")]
         [Tooltip("地面层，用于检测是否接触到地面")]
@@ -50,8 +49,8 @@ namespace PlayerControl
         private Vector3 _lastInput;
         private Vector3 _currentVelocityXZ; // 后面以根动画速度代替
         private float _currentVelocityY;
-        private bool _isSprinting;
         private bool _isJumping;
+        private bool _isShoulderAim;
 
         #endregion
         
@@ -59,6 +58,7 @@ namespace PlayerControl
 
         public event Action PreUpdate;  // 每帧更新前调用
         public event Action PostUpdate; // 每帧更新后调用 
+        public event Action<bool> ShoulderAim; // 是否为肩射状态
         
         #endregion
         
@@ -74,7 +74,7 @@ namespace PlayerControl
             axes.Add(new () { DrivenAxis = () => ref moveX, Name = "Move X", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
             axes.Add(new () { DrivenAxis = () => ref moveZ, Name = "Move Z", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
             axes.Add(new () { DrivenAxis = () => ref jump, Name = "Jump" });
-            axes.Add(new () { DrivenAxis = () => ref sprint, Name = "Sprint" });
+            axes.Add(new () { DrivenAxis = () => ref shoulderAim, Name = "Sprint" });
         }
         
         /// <summary>
@@ -85,7 +85,7 @@ namespace PlayerControl
             moveX.Validate();
             moveZ.Validate();
             jump.Validate();
-            sprint.Validate();
+            shoulderAim.Validate();
         }
         
         #endregion
@@ -146,10 +146,7 @@ namespace PlayerControl
 
             if (!_isJumping)
             {
-                // 判断是否在奔跑状态
-                _isSprinting = sprint.Value > 0.5f;
-                
-                Vector3 desiredVelocity = _lastInput * (_isSprinting ? sprintSpeed : speed);
+                Vector3 desiredVelocity = _lastInput * (_isShoulderAim ? shoulderAimSpeed : speed);
                 _currentVelocityXZ += Damper.Damp(desiredVelocity - _currentVelocityXZ,damping, Time.deltaTime);    
             }
         }
@@ -185,7 +182,22 @@ namespace PlayerControl
             if(_characterController != null)
                 _characterController.enabled = true;
         }
-        
+
+        /// <summary>
+        /// 检测瞄准状态
+        /// </summary>
+        private void UpdateAimState()
+        {
+            bool aimingNow = shoulderAim.Value > 0.1f;
+            
+            // 状态发生变化，触发状态更新时间
+            if (_isShoulderAim != aimingNow)
+            {
+                _isShoulderAim = aimingNow;
+                ShoulderAim?.Invoke(_isShoulderAim);
+            }
+        }
+
         #endregion
         
         #region 周期函数
@@ -210,8 +222,8 @@ namespace PlayerControl
         {
             _currentVelocityXZ = Vector3.zero;
             _currentVelocityY = 0;
-            _isSprinting = false;
             _isJumping = false;
+            _isShoulderAim = false;
         }
 
         private void Update()
@@ -229,6 +241,9 @@ namespace PlayerControl
         private void LateUpdate()
         {
             _finiteStateMachine.LateUpdate();
+            
+            // 检测摄像机状态更新
+            UpdateAimState();
             
             // 更新摄像机
             PostUpdate?.Invoke();

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using CameraManage;
+using GameSetting;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -12,11 +14,6 @@ namespace PlayerControl
     {
         #region 内部成员
         
-        [Header("视角配置")]
-        public float rotationDamping = 0.2f;
-        [Range(1f,10f)]public float horizontalSensitive = 1f;
-        [Range(1f,10f)]public float verticalSensitive = 1f;
-        
         [Header("输入轴配置")]
         [Tooltip("水平旋转，角度单位，0为居中")]
         public InputAxis horizontalLook = new () { Range = new Vector2(-180, 180), Wrap = true, Recentering = InputAxis.RecenteringSettings.Default };
@@ -26,6 +23,9 @@ namespace PlayerControl
         // 组件获取
         private PlayerController _controller;
         private CinemachineInputAxisController _inputAxisController;
+        
+        // 控制属性
+        private float _rotationDamping = 0.2f;
         
         #endregion
         
@@ -52,7 +52,7 @@ namespace PlayerControl
             verticalLook.Range.y = Mathf.Clamp(verticalLook.Range.y, -90, 90);
             verticalLook.Validate();
             
-            ApplySensitivity();
+            UpdateCameraSetting();
         }
         
         #endregion
@@ -60,20 +60,21 @@ namespace PlayerControl
         #region 成员方法
         
         /// <summary>
-        /// 设置鼠标灵敏度
+        /// 更新摄像机设置
         /// </summary>
-        private void ApplySensitivity()
+        public void UpdateCameraSetting()
         {
             if (_inputAxisController == null) return;
 
             foreach (var c in _inputAxisController.Controllers)
             {
                 if (c.Name == "Horizontal Look")
-                    c.Input.Gain = horizontalSensitive;
+                    c.Input.Gain = GlobalSetting.Instance.horizontalSensitive;
 
                 if (c.Name == "Vertical Look")
-                    c.Input.Gain = -verticalSensitive;
+                    c.Input.Gain = -GlobalSetting.Instance.verticalSensitive;
             }
+            _rotationDamping = GlobalSetting.Instance.rotationDamping;
         }
         
         private void UpdatePlayerRotation()
@@ -84,13 +85,18 @@ namespace PlayerControl
             transform.localRotation = Quaternion.Euler(v, h, 0);
             
             // 旋转玩家模型
-            RecenterPlayer(rotationDamping);
+            RecenterPlayer(_rotationDamping);
             
             // 无输入时自动回正视角
             verticalLook.UpdateRecentering(Time.deltaTime, verticalLook.TrackValueChange());
             horizontalLook.UpdateRecentering(Time.deltaTime, horizontalLook.TrackValueChange());
         }
 
+        private void UpdateAimState(bool aimState)
+        {
+            CameraManager.Instance.SwitchTo(aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
+        }
+        
         /// <summary>
         /// 重新设置玩家当前朝向
         /// </summary>
@@ -144,12 +150,14 @@ namespace PlayerControl
         {
             // 逻辑注册
             _controller.PostUpdate += UpdatePlayerRotation;
+            _controller.ShoulderAim += UpdateAimState;
         }
 
         private void OnEnable()
         {
             Cursor.lockState = CursorLockMode.Locked;
-            ApplySensitivity();
+            
+            UpdateCameraSetting();
         }
 
         private void OnDisable()
@@ -160,6 +168,7 @@ namespace PlayerControl
         private void OnDestroy()
         {
             _controller.PostUpdate -= UpdatePlayerRotation;
+            _controller.ShoulderAim -= UpdateAimState;
         }
         
         #endregion
