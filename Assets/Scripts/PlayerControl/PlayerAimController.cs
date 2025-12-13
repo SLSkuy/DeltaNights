@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using CameraManage;
 using GameSetting;
+using GameSetting.GameCamera;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -53,7 +53,7 @@ namespace PlayerControl
             verticalLook.Range.y = Mathf.Clamp(verticalLook.Range.y, -90, 90);
             verticalLook.Validate();
             
-            UpdateCameraSetting();
+            UpdateCameraSetting(GameCameraState.Normal);
         }
         
         #endregion
@@ -61,21 +61,34 @@ namespace PlayerControl
         #region 成员方法
         
         /// <summary>
-        /// 更新摄像机设置
+        /// 更新摄像机属性设置
         /// </summary>
-        public void UpdateCameraSetting()
+        private void UpdateCameraSetting(GameCameraState type)
         {
-            if (_inputAxisController == null) return;
+            if (!_inputAxisController) return;
+
+            CameraSetting.CameraSensitivity sens = type switch
+            {
+                GameCameraState.Normal   => GlobalSetting.Instance.normal,
+                GameCameraState.ShoulderAim => GlobalSetting.Instance.shoulderAim,
+                GameCameraState.Aim      => GlobalSetting.Instance.aim,
+                _ => GlobalSetting.Instance.normal
+            };
 
             foreach (var c in _inputAxisController.Controllers)
             {
-                if (c.Name == "Horizontal Look")
-                    c.Input.Gain = GlobalSetting.Instance.horizontalSensitive;
-
-                if (c.Name == "Vertical Look")
-                    c.Input.Gain = -GlobalSetting.Instance.verticalSensitive;
+                switch (c.Name)
+                {
+                    case "Horizontal Look":
+                        c.Input.Gain = sens.horizontal;
+                        break;
+                    case "Vertical Look":
+                        c.Input.Gain = -sens.vertical;
+                        break;
+                }
             }
-            _rotationDamping = GlobalSetting.Instance.rotationDamping;
+
+            _rotationDamping = type == GameCameraState.Normal ? GlobalSetting.Instance.rotationDamping : 0f;
         }
         
         private void UpdatePlayerRotation()
@@ -99,7 +112,7 @@ namespace PlayerControl
         private void UpdateShoulderAimState(bool aimState)
         {
             _isAim = aimState;
-            
+            UpdateCameraSetting( aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
             CameraManager.Instance.SwitchTo(aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
         }
 
@@ -109,7 +122,7 @@ namespace PlayerControl
         private void UpdateAimState(bool aimState)
         {
             _isAim = aimState;
-            
+            UpdateCameraSetting(aimState ? GameCameraState.Aim : GameCameraState.Normal);
             CameraManager.Instance.SwitchTo(aimState ? GameCameraState.Aim : GameCameraState.Normal);
         }
         
@@ -175,7 +188,7 @@ namespace PlayerControl
         {
             Cursor.lockState = CursorLockMode.Locked;
             
-            UpdateCameraSetting();
+            UpdateCameraSetting(GameCameraState.Normal);
         }
 
         private void OnDisable()

@@ -1,10 +1,12 @@
-using System;
 using GameSetting.GameCamera;
 using Unity.Cinemachine;
 using UnityEngine;
 
 namespace GameSetting
 {
+    /// <summary>
+    /// 全局设置
+    /// </summary>
     public class GlobalSetting : MonoBehaviour
     {
         public static GlobalSetting Instance { get; private set; }
@@ -12,8 +14,12 @@ namespace GameSetting
         [Header("灵敏度设置")]
         public CameraSetting defaultCameraSetting;
         public bool useDefaultCameraSetting;
-        [Range(1f,10f)]public float horizontalSensitive = 1f;
-        [Range(1f,10f)]public float verticalSensitive = 1f;
+        [Header("常态灵敏度")]
+        public CameraSetting.CameraSensitivity normal;
+        [Header("肩射状态灵敏度")]
+        public CameraSetting.CameraSensitivity shoulderAim;
+        [Header("开镜状态灵敏度")]
+        public CameraSetting.CameraSensitivity aim;
         
         [Header("摄像机表现属性设置")] 
         public Camera gameCamera;
@@ -41,11 +47,17 @@ namespace GameSetting
         private void InitCameraSetting()
         {
             // 设置转换过渡时间
-            if (gameCamera) gameCamera.GetComponent<CinemachineBrain>().DefaultBlend.Time = transitionDuration;
+            if (gameCamera)
+            {
+                transitionDuration = defaultCameraSetting.transitionDuration;
+                gameCamera.GetComponent<CinemachineBrain>().DefaultBlend.Time = transitionDuration;
+            }
             
             rotationDamping = defaultCameraSetting.rotationDamping;
-            horizontalSensitive = defaultCameraSetting.horizontalSensitive;
-            verticalSensitive = defaultCameraSetting.verticalSensitive;
+            
+            normal = defaultCameraSetting.normal;
+            shoulderAim = defaultCameraSetting.shoulderAim;
+            aim = defaultCameraSetting.aim;
         }
         
         #endregion

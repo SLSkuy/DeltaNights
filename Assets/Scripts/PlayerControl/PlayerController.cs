@@ -28,6 +28,7 @@ namespace PlayerControl
         [Header("物理属性")]
         [Tooltip("地面层，用于检测是否接触到地面")]
         public LayerMask groundLayers;
+        public float groundThreshold = 0.1f;
         [Tooltip("玩家重力属性")] // 自行实现物理效果，不使用Unity自带的RigidBody，减少性能开销
         public float gravity = 9.8f;
         
@@ -48,10 +49,6 @@ namespace PlayerControl
         private CharacterController _characterController;
         private Camera _camera;
         
-        // 预输入处理
-        private const float KeyDelayBeforeInferringJump = 0.3f;     // 按下跳跃键后在多少延迟内认定为能够执行跳跃操作
-        private float _timeLastGrounded;
-        
         // 移动属性
         private Vector3 _lastInput;
         private Vector3 _currentVelocityXZ; // 后面以根动画速度代替
@@ -61,6 +58,7 @@ namespace PlayerControl
         private bool _isJumping;
         private int _jumpCount;
         private bool _jumpPressedLastFrame;
+        private float _timeLastGrounded;
         
         // 瞄准属性
         private bool _isShoulderAim;
@@ -77,6 +75,7 @@ namespace PlayerControl
         public event Action<bool> OnAim;  // 是否为开镜瞄准状态
         public event Action<bool> ShowMesh; // 是否显示模型
         public event Action<int> OnJump;    // 玩家跳跃事件
+        public event Action OnLand; // 触地事件
         
         #endregion
         
@@ -127,8 +126,7 @@ namespace PlayerControl
         public bool IsGrounded()
         {
             const float distanceFromGroundThreshold = 10f;
-            const float groundedThreshold = 0.1f;
-            return GetDistanceFromGround(transform.position, distanceFromGroundThreshold) < groundedThreshold;
+            return GetDistanceFromGround(transform.position, distanceFromGroundThreshold) < groundThreshold;
         }
 
         /// <summary>
@@ -136,7 +134,7 @@ namespace PlayerControl
         /// </summary>
         /// <param name="pos">当前玩家位置</param>
         /// <param name="max">射线检测距离</param>
-        /// <returns></returns>
+        /// <returns>离地面距离</returns>
         private float GetDistanceFromGround(Vector3 pos, float max)
         {
             // 忽略Trigger
@@ -271,7 +269,10 @@ namespace PlayerControl
             {
                 if (_currentVelocityY < 0)
                 {
-                    _currentVelocityY = -0.5f; // 贴地（防止抖动）
+                    // 以一定的下落速度触地时触发落地事件
+                    if(_currentVelocityY < -3f)OnLand?.Invoke();
+                    
+                    _currentVelocityY = -0.1f; // 贴地（防止抖动）
                     _isJumping = false;
                     _jumpCount = 0;         // 落地 → 重置跳跃次数
                 }

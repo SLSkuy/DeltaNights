@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace GameNetwork
+namespace Network
 {
     public class NetWorkManager : MonoBehaviour
     {

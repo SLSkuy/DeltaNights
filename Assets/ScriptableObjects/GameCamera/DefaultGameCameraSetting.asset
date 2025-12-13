@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788af6463917ced4685fadafeae7a850, type: 3}
   m_Name: DefaultGameCameraSetting
   m_EditorClassIdentifier: Assembly-CSharp::GameSetting.GameCamera.CameraSetting
+  normal:
+    horizontal: 5
+    vertical: 5
+  shoulderAim:
+    horizontal: 3.5
+    vertical: 3.5
+  aim:
+    horizontal: 2
+    vertical: 2
   rotationDamping: 0.2
-  horizontalSensitive: 5
-  verticalSensitive: 5
+  transitionDuration: 0.15

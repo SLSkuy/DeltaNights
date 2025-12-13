@@ -1,3 +1,4 @@
+using Network;
 using UIFramework.Window;
 using UnityEngine.UI;
 
@@ -12,12 +13,12 @@ namespace SceneUI.StartSceneUI
         {
             inputField.onSubmit.AddListener(OnSubmit);
 
-            GameNetwork.NetWorkManager.Instance.ReceiveMessage += ChangeText;
+            NetWorkManager.Instance.ReceiveMessage += ChangeText;
         }
 
         void OnSubmit(string text)
         {
-            GameNetwork.NetWorkManager.Instance.SendMsg(text);
+            NetWorkManager.Instance.SendMsg(text);
         }
 
         void ChangeText(string text)

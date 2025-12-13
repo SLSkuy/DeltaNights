@@ -849,7 +849,7 @@ MonoBehaviour:
     DefaultMode: 2
   DefaultBlend:
     Style: 1
-    Time: 0.2
+    Time: 0.15
     CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -1909,7 +1909,7 @@ GameObject:
   - component: {fileID: 876595548}
   - component: {fileID: 876595549}
   m_Layer: 0
-  m_Name: PlayerMesh
+  m_Name: "\u7C73\u96EA\u513F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1972,7 +1972,7 @@ Transform:
   m_GameObject: {fileID: 1344631468}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0, y: 1.4, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2008,8 +2008,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 0, y: 0, z: 0}
+  Damping: {x: 0, y: 0, z: 0}
+  ShoulderOffset: {x: 0, y: 0, z: -0.1}
   VerticalArmLength: 0
   CameraSide: 1
   CameraDistance: 0
@@ -2113,8 +2113,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GlobalSetting
   defaultCameraSetting: {fileID: 11400000, guid: 572149cfd48f4914f87a8b42bbbf901c, type: 2}
   useDefaultCameraSetting: 1
-  horizontalSensitive: 5
-  verticalSensitive: 5
+  normal:
+    horizontal: 5
+    vertical: 5
+  shoulderAim:
+    horizontal: 3
+    vertical: 3
+  aim:
+    horizontal: 1.5
+    vertical: 1.5
   gameCamera: {fileID: 330585545}
   rotationDamping: 0.2
   transitionDuration: 0.15
@@ -2427,7 +2434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  Damping: {x: 0, y: 0.05, z: 0}
   ShoulderOffset: {x: 0.4, y: 0, z: 0}
   VerticalArmLength: 0
   CameraSide: 1
@@ -2586,9 +2593,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d591da612b456ab523644274edfc97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerController
-  speed: 4
-  shoulderAimSpeed: 2.5
-  aimSpeed: 1.5
+  speed: 5
+  shoulderAimSpeed: 3
+  aimSpeed: 2.2
   jumpSpeed: 6
   locomotionDamping: 0.2
   maxJumpCount: 2
@@ -2596,6 +2603,7 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
+  groundThreshold: 0.05
   gravity: 12
   moveX:
     Value: 0
@@ -2668,7 +2676,7 @@ CharacterController:
   m_Height: 1.6
   m_Radius: 0.2
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.15
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.8, z: 0}
@@ -2753,8 +2761,8 @@ MonoBehaviour:
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
+        AccelTime: 0
+        DecelTime: 0
     - Name: Vertical Look
       Owner: {fileID: 564631963}
       Enabled: 1
@@ -2764,8 +2772,8 @@ MonoBehaviour:
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
+        AccelTime: 0
+        DecelTime: 0
   PlayerIndex: -1
   AutoEnableInputs: 1
 --- !u!1001 &1995866398
@@ -2887,7 +2895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  Damping: {x: 0.05, y: 0.1, z: 0.05}
   ShoulderOffset: {x: 0.4, y: 0, z: 0}
   VerticalArmLength: 0
   CameraSide: 1
