@@ -182,13 +182,13 @@ namespace PlayerControl
             _controller.PostUpdate += UpdatePlayerRotation;
             _controller.OnShoulderAim += UpdateShoulderAimState;
             _controller.OnAim += UpdateAimState;
+            
+            UpdateCameraSetting(GameCameraState.Normal);
         }
 
         private void OnEnable()
         {
             Cursor.lockState = CursorLockMode.Locked;
-            
-            UpdateCameraSetting(GameCameraState.Normal);
         }
 
         private void OnDisable()
