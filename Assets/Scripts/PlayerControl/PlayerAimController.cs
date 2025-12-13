@@ -1,5 +1,7 @@
-using System;
 using System.Collections.Generic;
+using CameraManage;
+using GameSetting;
+using GameSetting.GameCamera;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -12,11 +14,6 @@ namespace PlayerControl
     {
         #region 内部成员
         
-        [Header("视角配置")]
-        public float rotationDamping = 0.2f;
-        [Range(1f,10f)]public float horizontalSensitive = 1f;
-        [Range(1f,10f)]public float verticalSensitive = 1f;
-        
         [Header("输入轴配置")]
         [Tooltip("水平旋转，角度单位，0为居中")]
         public InputAxis horizontalLook = new () { Range = new Vector2(-180, 180), Wrap = true, Recentering = InputAxis.RecenteringSettings.Default };
@@ -26,6 +23,10 @@ namespace PlayerControl
         // 组件获取
         private PlayerController _controller;
         private CinemachineInputAxisController _inputAxisController;
+        
+        // 控制属性
+        private float _rotationDamping = 0.2f;
+        private bool _isAim;
         
         #endregion
         
@@ -52,7 +53,7 @@ namespace PlayerControl
             verticalLook.Range.y = Mathf.Clamp(verticalLook.Range.y, -90, 90);
             verticalLook.Validate();
             
-            ApplySensitivity();
+            UpdateCameraSetting(GameCameraState.Normal);
         }
         
         #endregion
@@ -60,20 +61,34 @@ namespace PlayerControl
         #region 成员方法
         
         /// <summary>
-        /// 设置鼠标灵敏度
+        /// 更新摄像机属性设置
         /// </summary>
-        private void ApplySensitivity()
+        private void UpdateCameraSetting(GameCameraState type)
         {
-            if (_inputAxisController == null) return;
+            if (!_inputAxisController) return;
+
+            CameraSetting.CameraSensitivity sens = type switch
+            {
+                GameCameraState.Normal   => GlobalSetting.Instance.normal,
+                GameCameraState.ShoulderAim => GlobalSetting.Instance.shoulderAim,
+                GameCameraState.Aim      => GlobalSetting.Instance.aim,
+                _ => GlobalSetting.Instance.normal
+            };
 
             foreach (var c in _inputAxisController.Controllers)
             {
-                if (c.Name == "Horizontal Look")
-                    c.Input.Gain = horizontalSensitive;
-
-                if (c.Name == "Vertical Look")
-                    c.Input.Gain = -verticalSensitive;
+                switch (c.Name)
+                {
+                    case "Horizontal Look":
+                        c.Input.Gain = sens.horizontal;
+                        break;
+                    case "Vertical Look":
+                        c.Input.Gain = -sens.vertical;
+                        break;
+                }
             }
+
+            _rotationDamping = type == GameCameraState.Normal ? GlobalSetting.Instance.rotationDamping : 0f;
         }
         
         private void UpdatePlayerRotation()
@@ -84,13 +99,33 @@ namespace PlayerControl
             transform.localRotation = Quaternion.Euler(v, h, 0);
             
             // 旋转玩家模型
-            RecenterPlayer(rotationDamping);
+            RecenterPlayer(_rotationDamping);
             
             // 无输入时自动回正视角
             verticalLook.UpdateRecentering(Time.deltaTime, verticalLook.TrackValueChange());
             horizontalLook.UpdateRecentering(Time.deltaTime, horizontalLook.TrackValueChange());
         }
 
+        /// <summary>
+        /// 肩射状态更新
+        /// </summary>
+        private void UpdateShoulderAimState(bool aimState)
+        {
+            _isAim = aimState;
+            UpdateCameraSetting( aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
+            CameraManager.Instance.SwitchTo(aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
+        }
+
+        /// <summary>
+        /// 开镜瞄准状态更新
+        /// </summary>
+        private void UpdateAimState(bool aimState)
+        {
+            _isAim = aimState;
+            UpdateCameraSetting(aimState ? GameCameraState.Aim : GameCameraState.Normal);
+            CameraManager.Instance.SwitchTo(aimState ? GameCameraState.Aim : GameCameraState.Normal);
+        }
+        
         /// <summary>
         /// 重新设置玩家当前朝向
         /// </summary>
@@ -99,7 +134,8 @@ namespace PlayerControl
         {
             if (!_controller) return;
 
-            if (!_controller.IsMoving()) return;
+            // 没有移动且不处于瞄准状态时，不更新玩家朝向
+            if (!_controller.IsMoving() && !_isAim) return;
             
             // 获取玩家模型与当前朝向角度
             var rot = transform.localRotation.eulerAngles;
@@ -144,12 +180,15 @@ namespace PlayerControl
         {
             // 逻辑注册
             _controller.PostUpdate += UpdatePlayerRotation;
+            _controller.OnShoulderAim += UpdateShoulderAimState;
+            _controller.OnAim += UpdateAimState;
         }
 
         private void OnEnable()
         {
             Cursor.lockState = CursorLockMode.Locked;
-            ApplySensitivity();
+            
+            UpdateCameraSetting(GameCameraState.Normal);
         }
 
         private void OnDisable()
@@ -160,6 +199,8 @@ namespace PlayerControl
         private void OnDestroy()
         {
             _controller.PostUpdate -= UpdatePlayerRotation;
+            _controller.OnShoulderAim -= UpdateShoulderAimState;
+            _controller.OnAim -= UpdateAimState;
         }
         
         #endregion

@@ -13,14 +13,25 @@ namespace PlayerControl
     {
         #region 内部成员
 
-        [Header("玩家属性（Debug）")] 
-        public float speed = 1f;
-        public float sprintSpeed = 4f;
+        [Header("玩家移动属性")] 
+        public float speed = 4f;
+        public float shoulderAimSpeed = 2.5f;
+        public float aimSpeed = 1.5f;
         public float jumpSpeed = 4f;
-        public float sprintJumpSpeed = 6f;
-        public float damping = 0.5f;
+        public float locomotionDamping = 0.5f;
         public bool Grounded => IsGrounded();
-
+        
+        [Header("玩家跳跃属性")]
+        public int maxJumpCount = 2;
+        public float airMoveFactor = 0.8f;
+        
+        [Header("物理属性")]
+        [Tooltip("地面层，用于检测是否接触到地面")]
+        public LayerMask groundLayers;
+        public float groundThreshold = 0.1f;
+        [Tooltip("玩家重力属性")] // 自行实现物理效果，不使用Unity自带的RigidBody，减少性能开销
+        public float gravity = 9.8f;
+        
         [Header("输入轴配置")]
         [Tooltip("X轴移动 范围(-1,1) 控制左右移动")]
         public InputAxis moveX = InputAxis.DefaultMomentary;
@@ -28,30 +39,31 @@ namespace PlayerControl
         public InputAxis moveZ = InputAxis.DefaultMomentary;
         [Tooltip("跳跃 值为0或1 控制垂直移动")]
         public InputAxis jump = InputAxis.DefaultMomentary;
-        [Tooltip("冲刺 值为0或1 控制冲刺状态")]
-        public InputAxis sprint = InputAxis.DefaultMomentary;
-        
-        [Header("物理属性")]
-        [Tooltip("地面层，用于检测是否接触到地面")]
-        public LayerMask groundLayers;
-        [Tooltip("玩家重力属性")] // 自行实现物理效果，不使用Unity自带的RigidBody，减少性能开销
-        public float gravity = 9.8f;
+        [Tooltip("肩射 值为0或1 控制肩射状态")]
+        public InputAxis shoulderAim = InputAxis.DefaultMomentary;
+        [Tooltip("瞄准 值为0或1 控制开镜瞄准状态")]
+        public InputAxis aim = InputAxis.DefaultMomentary;
         
         // 组件获取
         private PlayerFiniteStateMachine _finiteStateMachine;
         private CharacterController _characterController;
         private Camera _camera;
         
-        // 预输入处理
-        private const float KeyDelayBeforeInferringJump = 0.3f;     // 按下跳跃键后在多少延迟内认定为能够执行跳跃操作
-        private float _timeLastGrounded;
-        
-        // 信息存储
+        // 移动属性
         private Vector3 _lastInput;
         private Vector3 _currentVelocityXZ; // 后面以根动画速度代替
         private float _currentVelocityY;
-        private bool _isSprinting;
+        
+        // 跳跃属性
         private bool _isJumping;
+        private int _jumpCount;
+        private bool _jumpPressedLastFrame;
+        private float _timeLastGrounded;
+        
+        // 瞄准属性
+        private bool _isShoulderAim;
+        private bool _aimPressedLastFrame;  // 切换型状态
+        private bool _isAim;
 
         #endregion
         
@@ -59,6 +71,11 @@ namespace PlayerControl
 
         public event Action PreUpdate;  // 每帧更新前调用
         public event Action PostUpdate; // 每帧更新后调用 
+        public event Action<bool> OnShoulderAim; // 是否为肩射状态
+        public event Action<bool> OnAim;  // 是否为开镜瞄准状态
+        public event Action<bool> ShowMesh; // 是否显示模型
+        public event Action<int> OnJump;    // 玩家跳跃事件
+        public event Action OnLand; // 触地事件
         
         #endregion
         
@@ -74,7 +91,8 @@ namespace PlayerControl
             axes.Add(new () { DrivenAxis = () => ref moveX, Name = "Move X", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
             axes.Add(new () { DrivenAxis = () => ref moveZ, Name = "Move Z", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
             axes.Add(new () { DrivenAxis = () => ref jump, Name = "Jump" });
-            axes.Add(new () { DrivenAxis = () => ref sprint, Name = "Sprint" });
+            axes.Add(new () { DrivenAxis = () => ref shoulderAim, Name = "ShoulderAim" });
+            axes.Add(new () { DrivenAxis = () => ref aim, Name = "Aim" });
         }
         
         /// <summary>
@@ -85,7 +103,8 @@ namespace PlayerControl
             moveX.Validate();
             moveZ.Validate();
             jump.Validate();
-            sprint.Validate();
+            shoulderAim.Validate();
+            aim.Validate();
         }
         
         #endregion
@@ -107,8 +126,7 @@ namespace PlayerControl
         public bool IsGrounded()
         {
             const float distanceFromGroundThreshold = 10f;
-            const float groundedThreshold = 0.01f;
-            return GetDistanceFromGround(transform.position, distanceFromGroundThreshold) < groundedThreshold;
+            return GetDistanceFromGround(transform.position, distanceFromGroundThreshold) < groundThreshold;
         }
 
         /// <summary>
@@ -116,7 +134,7 @@ namespace PlayerControl
         /// </summary>
         /// <param name="pos">当前玩家位置</param>
         /// <param name="max">射线检测距离</param>
-        /// <returns></returns>
+        /// <returns>离地面距离</returns>
         private float GetDistanceFromGround(Vector3 pos, float max)
         {
             // 忽略Trigger
@@ -144,14 +162,9 @@ namespace PlayerControl
             Vector3 desiredDir = camForward * z + camRight * x;
             _lastInput = desiredDir;
 
-            if (!_isJumping)
-            {
-                // 判断是否在奔跑状态
-                _isSprinting = sprint.Value > 0.5f;
-                
-                Vector3 desiredVelocity = _lastInput * (_isSprinting ? sprintSpeed : speed);
-                _currentVelocityXZ += Damper.Damp(desiredVelocity - _currentVelocityXZ,damping, Time.deltaTime);    
-            }
+            Vector3 desiredVelocity = _lastInput * (_isAim ? aimSpeed : _isShoulderAim ? shoulderAimSpeed : speed);
+            if (_isJumping) desiredVelocity *= airMoveFactor;   // 空中移动降低水平位移效果
+            _currentVelocityXZ += Damper.Damp(desiredVelocity - _currentVelocityXZ,locomotionDamping, Time.deltaTime); 
         }
 
         /// <summary>
@@ -159,10 +172,12 @@ namespace PlayerControl
         /// </summary>
         private void ApplyMotion()
         {
-            if (_characterController)
-            {
+            if (_characterController) { 
                 // _characterController.Move((_currentVelocityY * Vector3.up + _currentVelocityXZ) * Time.deltaTime);
-                _characterController.SimpleMove(_currentVelocityXZ);
+                // _characterController.SimpleMove(_currentVelocityXZ); 
+                
+                Vector3 motion = _currentVelocityXZ + Vector3.up * _currentVelocityY;
+                _characterController.Move(motion * Time.deltaTime);
             }
         }
         
@@ -185,7 +200,90 @@ namespace PlayerControl
             if(_characterController != null)
                 _characterController.enabled = true;
         }
+
+        /// <summary>
+        /// 检测瞄准状态
+        /// </summary>
+        private void UpdateAimState()
+        {
+            // 检测是否为肩射状态
+            bool shoulderNow = shoulderAim.Value > 0.1f;
+            if (_isShoulderAim != shoulderNow)
+            {
+                _isShoulderAim = shoulderNow;
+                _isAim = false;
+                OnShoulderAim?.Invoke(_isShoulderAim);
+                ShowMesh?.Invoke(true); // 确保从开镜状态转换模型也能正常显示
+            }
+
+            // 检测是否为开镜状态
+            bool aimPressedNow = aim.Value > 0.1f;
+            if (aimPressedNow && !_aimPressedLastFrame)
+            {
+                _isAim = !_isAim;
+                OnAim?.Invoke(_isAim);
+                ShowMesh?.Invoke(!_isAim);  // 根据开镜状态显示模型
+            }
+            _aimPressedLastFrame = aimPressedNow;
+        }
+
+        /// <summary>
+        /// 检测跳跃输入
+        /// </summary>
+        private void UpdateJumpState()
+        {
+            bool jumpPressedNow = jump.Value > 0.1f;
+
+            // 边沿触发
+            if (jumpPressedNow && !_jumpPressedLastFrame)
+            {
+                TryJump();
+            }
+
+            _jumpPressedLastFrame = jumpPressedNow;
+        }
         
+        /// <summary>
+        /// 判断是否能够跳跃
+        /// </summary>
+        private void TryJump()
+        {
+            if (_jumpCount >= maxJumpCount)
+                return;
+
+            _jumpCount++;
+            _isJumping = true;
+
+            // 给予向上的初速度
+            _currentVelocityY = jumpSpeed;
+            
+            OnJump?.Invoke(_jumpCount);
+        }
+        
+        /// <summary>
+        /// 自行实现重力，用于实现不同角色的特殊技能
+        /// </summary>
+        private void ApplyGravity()
+        {
+            if (Grounded)
+            {
+                if (_currentVelocityY < 0)
+                {
+                    // 以一定的下落速度触地时触发落地事件
+                    if(_currentVelocityY < -3f)OnLand?.Invoke();
+                    
+                    _currentVelocityY = -0.1f; // 贴地（防止抖动）
+                    _isJumping = false;
+                    _jumpCount = 0;         // 落地 → 重置跳跃次数
+                }
+            }
+            else
+            {
+                if(_jumpCount < 1)_jumpCount = 1;   // 从边缘坠落时只允许跳跃一次
+                _currentVelocityY -= gravity * Time.deltaTime;
+            }
+        }
+
         #endregion
         
         #region 周期函数
@@ -210,15 +308,17 @@ namespace PlayerControl
         {
             _currentVelocityXZ = Vector3.zero;
             _currentVelocityY = 0;
-            _isSprinting = false;
             _isJumping = false;
+            _isShoulderAim = false;
         }
 
         private void Update()
         {
             PreUpdate?.Invoke();
             
+            UpdateJumpState();
             CalculateCurrentVelocity();
+            ApplyGravity(); // 计算重力
             
             _finiteStateMachine.Update();
             
@@ -229,6 +329,9 @@ namespace PlayerControl
         private void LateUpdate()
         {
             _finiteStateMachine.LateUpdate();
+            
+            // 检测摄像机状态更新
+            UpdateAimState();
             
             // 更新摄像机
             PostUpdate?.Invoke();
