@@ -26,6 +26,7 @@ namespace PlayerControl
         
         // 控制属性
         private float _rotationDamping = 0.2f;
+        private bool _isAim;
         
         #endregion
         
@@ -92,9 +93,24 @@ namespace PlayerControl
             horizontalLook.UpdateRecentering(Time.deltaTime, horizontalLook.TrackValueChange());
         }
 
+        /// <summary>
+        /// 肩射状态更新
+        /// </summary>
+        private void UpdateShoulderAimState(bool aimState)
+        {
+            _isAim = aimState;
+            
+            CameraManager.Instance.SwitchTo(aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
+        }
+
+        /// <summary>
+        /// 开镜瞄准状态更新
+        /// </summary>
         private void UpdateAimState(bool aimState)
         {
-            CameraManager.Instance.SwitchTo(aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
+            _isAim = aimState;
+            
+            CameraManager.Instance.SwitchTo(aimState ? GameCameraState.Aim : GameCameraState.Normal);
         }
         
         /// <summary>
@@ -105,7 +121,8 @@ namespace PlayerControl
         {
             if (!_controller) return;
 
-            if (!_controller.IsMoving()) return;
+            // 没有移动且不处于瞄准状态时，不更新玩家朝向
+            if (!_controller.IsMoving() && !_isAim) return;
             
             // 获取玩家模型与当前朝向角度
             var rot = transform.localRotation.eulerAngles;
@@ -150,7 +167,8 @@ namespace PlayerControl
         {
             // 逻辑注册
             _controller.PostUpdate += UpdatePlayerRotation;
-            _controller.ShoulderAim += UpdateAimState;
+            _controller.ShoulderAim += UpdateShoulderAimState;
+            _controller.Aim += UpdateAimState;
         }
 
         private void OnEnable()
@@ -168,7 +186,8 @@ namespace PlayerControl
         private void OnDestroy()
         {
             _controller.PostUpdate -= UpdatePlayerRotation;
-            _controller.ShoulderAim -= UpdateAimState;
+            _controller.ShoulderAim -= UpdateShoulderAimState;
+            _controller.Aim -= UpdateAimState;
         }
         
         #endregion

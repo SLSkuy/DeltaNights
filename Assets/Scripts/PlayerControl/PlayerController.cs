@@ -14,12 +14,19 @@ namespace PlayerControl
         #region 内部成员
 
         [Header("玩家属性（Debug）")] 
-        public float speed = 2f;
-        public float shoulderAimSpeed = 1.5f;
+        public float speed = 4f;
+        public float shoulderAimSpeed = 2.5f;
+        public float aimSpeed = 1.5f;
         public float jumpSpeed = 4f;
-        public float damping = 0.5f;
+        public float locomotionDamping = 0.5f;
         public bool Grounded => IsGrounded();
-
+                
+        [Header("物理属性")]
+        [Tooltip("地面层，用于检测是否接触到地面")]
+        public LayerMask groundLayers;
+        [Tooltip("玩家重力属性")] // 自行实现物理效果，不使用Unity自带的RigidBody，减少性能开销
+        public float gravity = 9.8f;
+        
         [Header("输入轴配置")]
         [Tooltip("X轴移动 范围(-1,1) 控制左右移动")]
         public InputAxis moveX = InputAxis.DefaultMomentary;
@@ -29,12 +36,8 @@ namespace PlayerControl
         public InputAxis jump = InputAxis.DefaultMomentary;
         [Tooltip("肩射 值为0或1 控制肩射状态")]
         public InputAxis shoulderAim = InputAxis.DefaultMomentary;
-        
-        [Header("物理属性")]
-        [Tooltip("地面层，用于检测是否接触到地面")]
-        public LayerMask groundLayers;
-        [Tooltip("玩家重力属性")] // 自行实现物理效果，不使用Unity自带的RigidBody，减少性能开销
-        public float gravity = 9.8f;
+        [Tooltip("瞄准 值为0或1 控制开镜瞄准状态")]
+        public InputAxis aim = InputAxis.DefaultMomentary;
         
         // 组件获取
         private PlayerFiniteStateMachine _finiteStateMachine;
@@ -51,6 +54,8 @@ namespace PlayerControl
         private float _currentVelocityY;
         private bool _isJumping;
         private bool _isShoulderAim;
+        private bool _aimPressedLastFrame;  // 切换型状态
+        private bool _isAim;
 
         #endregion
         
@@ -59,6 +64,8 @@ namespace PlayerControl
         public event Action PreUpdate;  // 每帧更新前调用
         public event Action PostUpdate; // 每帧更新后调用 
         public event Action<bool> ShoulderAim; // 是否为肩射状态
+        public event Action<bool> Aim;  // 是否为开镜瞄准状态
+        public event Action<bool> ShowMesh; // 是否显示模型
         
         #endregion
         
@@ -74,7 +81,8 @@ namespace PlayerControl
             axes.Add(new () { DrivenAxis = () => ref moveX, Name = "Move X", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
             axes.Add(new () { DrivenAxis = () => ref moveZ, Name = "Move Z", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
             axes.Add(new () { DrivenAxis = () => ref jump, Name = "Jump" });
-            axes.Add(new () { DrivenAxis = () => ref shoulderAim, Name = "Sprint" });
+            axes.Add(new () { DrivenAxis = () => ref shoulderAim, Name = "ShoulderAim" });
+            axes.Add(new () { DrivenAxis = () => ref aim, Name = "Aim" });
         }
         
         /// <summary>
@@ -86,6 +94,7 @@ namespace PlayerControl
             moveZ.Validate();
             jump.Validate();
             shoulderAim.Validate();
+            aim.Validate();
         }
         
         #endregion
@@ -146,8 +155,8 @@ namespace PlayerControl
 
             if (!_isJumping)
             {
-                Vector3 desiredVelocity = _lastInput * (_isShoulderAim ? shoulderAimSpeed : speed);
-                _currentVelocityXZ += Damper.Damp(desiredVelocity - _currentVelocityXZ,damping, Time.deltaTime);    
+                Vector3 desiredVelocity = _lastInput * (_isAim ? aimSpeed : _isShoulderAim ? shoulderAimSpeed : speed);
+                _currentVelocityXZ += Damper.Damp(desiredVelocity - _currentVelocityXZ,locomotionDamping, Time.deltaTime);    
             }
         }
 
@@ -188,15 +197,27 @@ namespace PlayerControl
         /// </summary>
         private void UpdateAimState()
         {
-            bool aimingNow = shoulderAim.Value > 0.1f;
-            
-            // 状态发生变化，触发状态更新时间
-            if (_isShoulderAim != aimingNow)
+            // 检测是否为肩射状态
+            bool shoulderNow = shoulderAim.Value > 0.1f;
+            if (_isShoulderAim != shoulderNow)
             {
-                _isShoulderAim = aimingNow;
+                _isShoulderAim = shoulderNow;
+                _isAim = false;
                 ShoulderAim?.Invoke(_isShoulderAim);
+                ShowMesh?.Invoke(true); // 确保从开镜状态转换模型也能正常显示
             }
+
+            // 检测是否为开镜状态
+            bool aimPressedNow = aim.Value > 0.1f;
+            if (aimPressedNow && !_aimPressedLastFrame)
+            {
+                _isAim = !_isAim;
+                Aim?.Invoke(_isAim);
+                ShowMesh?.Invoke(!_isAim);  // 根据开镜状态显示模型
+            }
+            _aimPressedLastFrame = aimPressedNow;
         }
+
 
         #endregion
         

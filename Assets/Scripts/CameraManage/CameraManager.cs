@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace CameraManage
 {
+    /// <summary>
+    /// 摄像机管理器，管理当前玩家摄像机状态
+    /// </summary>
     public class CameraManager : MonoBehaviour
     {
         public static CameraManager Instance { get; private set; }
@@ -31,7 +34,10 @@ namespace CameraManage
             _cameraMap = new Dictionary<GameCameraState, CameraEntry>();
             foreach (var cam in cameras)
                 _cameraMap[cam.state] = cam;
+        }
 
+        public void Start()
+        {
             SwitchTo(GameCameraState.Normal);
         }
 
