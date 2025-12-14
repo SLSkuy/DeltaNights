@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using InputProcess;
 using PlayerControl.PlayerFSM;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace PlayerControl
     /// <summary>
     /// 玩家移动控制器
     /// </summary>
-    public class PlayerController : MonoBehaviour, IInputAxisOwner
+    public class PlayerController : MonoBehaviour
     {
         #region 内部成员
 
@@ -32,22 +33,13 @@ namespace PlayerControl
         [Tooltip("玩家重力属性")] // 自行实现物理效果，不使用Unity自带的RigidBody，减少性能开销
         public float gravity = 9.8f;
         
-        [Header("输入轴配置")]
-        [Tooltip("X轴移动 范围(-1,1) 控制左右移动")]
-        public InputAxis moveX = InputAxis.DefaultMomentary;
-        [Tooltip("Y轴移动 范围(-1,1) 控制前后移动")]
-        public InputAxis moveZ = InputAxis.DefaultMomentary;
-        [Tooltip("跳跃 值为0或1 控制垂直移动")]
-        public InputAxis jump = InputAxis.DefaultMomentary;
-        [Tooltip("肩射 值为0或1 控制肩射状态")]
-        public InputAxis shoulderAim = InputAxis.DefaultMomentary;
-        [Tooltip("瞄准 值为0或1 控制开镜瞄准状态")]
-        public InputAxis aim = InputAxis.DefaultMomentary;
-        
         // 组件获取
         private PlayerFiniteStateMachine _finiteStateMachine;
         private CharacterController _characterController;
         private Camera _camera;
+        
+        // 玩家移动输入
+        private ILocomotionInputSource _locomotionInputSource;
         
         // 移动属性
         private Vector3 _lastInput;
@@ -76,36 +68,6 @@ namespace PlayerControl
         public event Action<bool> ShowMesh; // 是否显示模型
         public event Action<int> OnJump;    // 玩家跳跃事件
         public event Action OnLand; // 触地事件
-        
-        #endregion
-        
-        #region cinemachine输入控制
-        
-        /// <summary>
-        /// 实现IInputAxisOwner接口
-        /// 用于Cinemachine Input Axis Controller读取相应信息以获取Input System中的输入信息
-        /// </summary>
-        /// <param name="axes"></param>
-        public void GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
-        {
-            axes.Add(new () { DrivenAxis = () => ref moveX, Name = "Move X", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
-            axes.Add(new () { DrivenAxis = () => ref moveZ, Name = "Move Z", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
-            axes.Add(new () { DrivenAxis = () => ref jump, Name = "Jump" });
-            axes.Add(new () { DrivenAxis = () => ref shoulderAim, Name = "ShoulderAim" });
-            axes.Add(new () { DrivenAxis = () => ref aim, Name = "Aim" });
-        }
-        
-        /// <summary>
-        /// 编辑器更新时限定填入值在规定范围内
-        /// </summary>
-        private void OnValidate()
-        {
-            moveX.Validate();
-            moveZ.Validate();
-            jump.Validate();
-            shoulderAim.Validate();
-            aim.Validate();
-        }
         
         #endregion
         
@@ -151,8 +113,8 @@ namespace PlayerControl
         /// </summary>
         private void CalculateCurrentVelocity()
         {
-            float x = moveX.Value;
-            float z = moveZ.Value;
+            float x = _locomotionInputSource.MoveX;
+            float z = _locomotionInputSource.MoveZ;
 
             // 根据摄像机朝向投影到水平面
             Vector3 camForward = Vector3.ProjectOnPlane(_camera.transform.forward, Vector3.up).normalized;
@@ -207,7 +169,7 @@ namespace PlayerControl
         private void UpdateAimState()
         {
             // 检测是否为肩射状态
-            bool shoulderNow = shoulderAim.Value > 0.1f;
+            bool shoulderNow = _locomotionInputSource.ShoulderAim > 0.1f;
             if (_isShoulderAim != shoulderNow)
             {
                 _isShoulderAim = shoulderNow;
@@ -217,7 +179,7 @@ namespace PlayerControl
             }
 
             // 检测是否为开镜状态
-            bool aimPressedNow = aim.Value > 0.1f;
+            bool aimPressedNow = _locomotionInputSource.Aim > 0.1f;
             if (aimPressedNow && !_aimPressedLastFrame)
             {
                 _isAim = !_isAim;
@@ -232,7 +194,7 @@ namespace PlayerControl
         /// </summary>
         private void UpdateJumpState()
         {
-            bool jumpPressedNow = jump.Value > 0.1f;
+            bool jumpPressedNow = _locomotionInputSource.Jump > 0.1f;
 
             // 边沿触发
             if (jumpPressedNow && !_jumpPressedLastFrame)
@@ -300,6 +262,9 @@ namespace PlayerControl
 
         private void Start()
         {
+            // 输入注入
+            _locomotionInputSource = GameInput.Instance;
+            
             // 逻辑注册
             _finiteStateMachine.SwitchState(PlayerState.Idle);
         }
