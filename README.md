@@ -1,6 +1,5 @@
 # DeltaNights
 
-三脚猫行动：卡丘方舟
 
 > 搜不到、打不赢、撤不了的二次元搜打撤
 
@@ -17,7 +16,7 @@
 ---
 ## 🧩 项目简介（Overview）
 
-DeltaNights：三脚猫行动：卡丘方舟 是一款采用 Unity 开发、风格偏向 二次元动作 + 搜打撤（Search-Fight-Extract） 的多人在线游戏项目。
+DeltaNights 是一款采用 Unity 开发、风格偏向 二次元动作 + 搜打撤（Search-Fight-Extract） 的多人在线游戏项目。
 服务器由 C++ / Qt 构建，客户端以模块化结构设计，便于扩展与多人功能接入。
 
 本仓库包含客户端和服务端的所有核心内容 ，模型等资产需网盘下载导入，链接：xxx.xxx(待定，后续传网盘)
@@ -33,22 +32,31 @@ DeltaNights/
 │   │   └── CharacterAnim/
 │   ├── Meshes/            # 模型网格（模型需单独下载避免 Git 体积膨胀）
 │   ├── Prefabs/           # 预制体
-│   │   └── UI/            # UI 单界面预制体
+│   │   ├── CharacterMesh/ # 角色模型
+│   │   ├── MainSceneUI/   # UI 主界面预制体
+│   │   └── UIFramework/
 │   ├── Resources/         # 动态加载资源
 │   ├── Scenes/            # 游戏场景
 │   ├── ScriptableObjects/ # 数据配置
 │   │   └── UISettings/
 │   ├── Scripts/           # 游戏逻辑脚本
+│   │   ├── CameraManager/
+│   │   ├── EventProcess/
 │   │   ├── FiniteStateMachine/
+│   │   ├── GameSetting/
+│   │   ├── GenerationSystem/
 │   │   ├── InputProcess/
+│   │   ├── Network/
 │   │   ├── PlayerControl/
 │   │   │   ├── PlayerFSM/
 │   │   │   └── PlayerStates/
+│   │   ├── SceneUI/
 │   │   └── UIFramework/
 │   │       ├── Core/
 │   │       ├── Panel/
 │   │       ├── UIAnimation/
 │   │       └── Window/
+│   │   
 │   ├── Settings/          # 渲染管线等设置
 │   ├── Shader/            # 着色器
 │   └── InputSystem_Actions.inputactions

@@ -7,7 +7,6 @@ namespace PlayerControl.PlayerFSM
     {
         Idle,
         Walk,
-        Run,
-        Jump,
+        Airborne
     }
 }
