@@ -276,8 +276,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -2065,7 +2065,7 @@ MonoBehaviour:
     vertical: 1.5
   gameCamera: {fileID: 330585545}
   rotationDamping: 0.2
-  transitionDuration: 0.15
+  transitionDuration: 0.1
 --- !u!114 &1419592807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2463,8 +2463,8 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     serializedVersion: 2
@@ -2648,6 +2648,7 @@ GameObject:
   - component: {fileID: 1931994217}
   - component: {fileID: 1931994219}
   - component: {fileID: 1931994218}
+  - component: {fileID: 1931994220}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2743,6 +2744,22 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!114 &1931994220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931994215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30ce0cb029370f40b7793f80c629643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+  moveAnimSmooth: 10
+  shoulderAimLayerIndex: 1
+  shoulderAimLayerSmooth: 20
+  _currentShoulderLayerWeight: 0
 --- !u!1 &2049303075
 GameObject:
   m_ObjectHideFlags: 0

@@ -65,6 +65,7 @@ namespace PlayerControl
         public event Action<bool> OnShoulderAim; // 是否为肩射状态
         public event Action<bool> OnAim;  // 是否为开镜瞄准状态
         public event Action<bool> ShowMesh; // 是否显示模型
+        public event Action<Vector2> OnMove;    // 玩家移动输入事件
         public event Action<int> OnJump;    // 玩家跳跃事件
         public event Action OnLand; // 触地事件
         
@@ -121,7 +122,12 @@ namespace PlayerControl
 
             // 计算移动方向
             Vector3 desiredDir = camForward * z + camRight * x;
-            _lastInput = desiredDir;
+            if (_lastInput != desiredDir)
+            {
+                // 输入变更，触发输入事件
+                _lastInput = desiredDir;
+                OnMove?.Invoke(new Vector2(x, z));
+            }
 
             Vector3 desiredVelocity = _lastInput * (_isAim ? aimSpeed : _isShoulderAim ? shoulderAimSpeed : speed);
             if (_isJumping) desiredVelocity *= airMoveFactor;   // 空中移动降低水平位移效果
