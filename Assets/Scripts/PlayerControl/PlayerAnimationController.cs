@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PlayerControl
@@ -55,7 +56,7 @@ namespace PlayerControl
             UpdateAim();
             UpdateShoulderAimLayer();
         }
-        
+
         #endregion
         
         #region 成员方法

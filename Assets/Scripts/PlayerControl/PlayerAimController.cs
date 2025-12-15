@@ -13,7 +13,7 @@ namespace PlayerControl
     public class PlayerAimController : MonoBehaviour
     {
         #region 内部成员
-        
+
         // 组件获取
         private PlayerController _controller;
         private CinemachineInputAxisController _inputAxisController;
@@ -86,6 +86,7 @@ namespace PlayerControl
         private void UpdateAimState(bool aimState)
         {
             _isAim = aimState;
+            
             UpdateCameraSetting(aimState ? GameCameraState.Aim : GameCameraState.Normal);
             CameraManager.Instance.SwitchTo(aimState ? GameCameraState.Aim : GameCameraState.Normal);
         }

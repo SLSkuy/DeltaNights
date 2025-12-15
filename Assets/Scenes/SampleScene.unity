@@ -1297,6 +1297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d533721497f748dfab9495fb4d6d94ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerAimController
+  crossHair: {fileID: 404211257}
+  gun: {fileID: 0}
 --- !u!1 &718731565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2759,7 +2761,7 @@ MonoBehaviour:
   moveAnimSmooth: 10
   shoulderAimLayerIndex: 1
   shoulderAimLayerSmooth: 20
-  _currentShoulderLayerWeight: 0
+  neko: {fileID: 0}
 --- !u!1 &2049303075
 GameObject:
   m_ObjectHideFlags: 0
