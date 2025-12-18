@@ -13,6 +13,10 @@ namespace PlayerControl
     public class PlayerAimController : MonoBehaviour
     {
         #region 内部成员
+        
+        [Header("视角旋转属性")]
+        [Tooltip("角色模型旋转阻尼，值越大旋转越慢")]
+        [SerializeField]private float rotationDamping = 0.2f;
 
         // 组件获取
         private PlayerController _controller;
@@ -22,7 +26,6 @@ namespace PlayerControl
         private ILookInputSource _lookInputSource;
         
         // 控制属性
-        private float _rotationDamping = 0.2f;
         private bool _isAim;
         
         #endregion
@@ -57,7 +60,7 @@ namespace PlayerControl
                 }
             }
 
-            _rotationDamping = type == GameCameraState.Normal ? GlobalSetting.Instance.rotationDamping : 0f;
+            rotationDamping = type == GameCameraState.Normal ? rotationDamping : 0f;
         }
         
         private void UpdatePlayerRotation()
@@ -67,7 +70,7 @@ namespace PlayerControl
             float v = _lookInputSource.VerticalLook.Value;
             transform.localRotation = Quaternion.Euler(v, h, 0);
             
-            RecenterPlayer(_rotationDamping);
+            RecenterPlayer(rotationDamping);
         }
 
         /// <summary>

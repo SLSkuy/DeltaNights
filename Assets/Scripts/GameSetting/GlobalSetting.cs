@@ -23,8 +23,6 @@ namespace GameSetting
         
         [Header("摄像机表现属性设置")] 
         public Camera gameCamera;
-        [Tooltip("角色模型旋转阻尼，值越大旋转越慢")]
-        public float rotationDamping = 0.2f;
         [Tooltip("常态视角与肩射视角转换过渡时间")]
         public float transitionDuration = 0.15f;
 
@@ -52,8 +50,6 @@ namespace GameSetting
                 transitionDuration = defaultCameraSetting.transitionDuration;
                 gameCamera.GetComponent<CinemachineBrain>().DefaultBlend.Time = transitionDuration;
             }
-            
-            rotationDamping = defaultCameraSetting.rotationDamping;
             
             normal = defaultCameraSetting.normal;
             shoulderAim = defaultCameraSetting.shoulderAim;

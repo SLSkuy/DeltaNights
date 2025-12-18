@@ -22,8 +22,10 @@ namespace PlayerControl
         public bool Grounded => IsGrounded();
         
         [Header("玩家跳跃属性")]
+        [Tooltip("最大多段跳次数，若非地面起跳，仅能跳跃该值减1次")]
         public int maxJumpCount = 2;
-        public float airMoveFactor = 0.8f;
+        [Tooltip("空中移动系统，值越低，在空中的位移性能越低")]
+        [Range(0,1)]public float airMoveFactor = 0.8f;
         
         [Header("物理属性")]
         [Tooltip("地面层，用于检测是否接触到地面")]
