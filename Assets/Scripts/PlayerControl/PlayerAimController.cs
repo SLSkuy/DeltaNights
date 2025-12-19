@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using CameraManage;
 using GameSetting;
 using GameSetting.GameCamera;
+using InputProcess;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -10,51 +10,24 @@ namespace PlayerControl
     /// <summary>
     /// 玩家视角控制器
     /// </summary>
-    public class PlayerAimController : MonoBehaviour, IInputAxisOwner
+    public class PlayerAimController : MonoBehaviour
     {
         #region 内部成员
         
-        [Header("输入轴配置")]
-        [Tooltip("水平旋转，角度单位，0为居中")]
-        public InputAxis horizontalLook = new () { Range = new Vector2(-180, 180), Wrap = true, Recentering = InputAxis.RecenteringSettings.Default };
-        [Tooltip("垂直旋转，角度单位，0为居中")]
-        public InputAxis verticalLook = new () { Range = new Vector2(-70, 70), Recentering = InputAxis.RecenteringSettings.Default };
-        
+        [Header("视角旋转属性")]
+        [Tooltip("角色模型旋转阻尼，值越大旋转越慢")]
+        [SerializeField]private float rotationDamping = 0.2f;
+
         // 组件获取
         private PlayerController _controller;
         private CinemachineInputAxisController _inputAxisController;
         
+        // 玩家视角输入
+        private ILookInputSource _lookInputSource;
+        
         // 控制属性
-        private float _rotationDamping = 0.2f;
+        private float _curRotationDamping;
         private bool _isAim;
-        
-        #endregion
-        
-        #region cinemachine输入控制
-        
-        /// <summary>
-        /// 实现IInputAxisOwner接口
-        /// 用于Cinemachine Input Axis Controller读取相应信息以获取Input System中的输入信息
-        /// </summary>
-        /// <param name="axes"></param>
-        public void GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
-        {
-            axes.Add(new () { DrivenAxis = () => ref horizontalLook, Name = "Horizontal Look", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
-            axes.Add(new () { DrivenAxis = () => ref verticalLook, Name = "Vertical Look", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
-        }
-        
-        /// <summary>
-        /// 编辑器更新时限定填入值在规定范围内
-        /// </summary>
-        void OnValidate()
-        {
-            horizontalLook.Validate();
-            verticalLook.Range.x = Mathf.Clamp(verticalLook.Range.x, -90, 90);
-            verticalLook.Range.y = Mathf.Clamp(verticalLook.Range.y, -90, 90);
-            verticalLook.Validate();
-            
-            UpdateCameraSetting(GameCameraState.Normal);
-        }
         
         #endregion
 
@@ -63,7 +36,7 @@ namespace PlayerControl
         /// <summary>
         /// 更新摄像机属性设置
         /// </summary>
-        private void UpdateCameraSetting(GameCameraState type)
+        private void UpdateCameraMode(GameCameraState type)
         {
             if (!_inputAxisController) return;
 
@@ -88,22 +61,17 @@ namespace PlayerControl
                 }
             }
 
-            _rotationDamping = type == GameCameraState.Normal ? GlobalSetting.Instance.rotationDamping : 0f;
+            _curRotationDamping = type == GameCameraState.Normal ? rotationDamping : 0f;
         }
         
         private void UpdatePlayerRotation()
         {
             // 旋转摄像机
-            float h = horizontalLook.Value;
-            float v = verticalLook.Value;
+            float h = _lookInputSource.HorizontalLook.Value;
+            float v = _lookInputSource.VerticalLook.Value;
             transform.localRotation = Quaternion.Euler(v, h, 0);
             
-            // 旋转玩家模型
-            RecenterPlayer(_rotationDamping);
-            
-            // 无输入时自动回正视角
-            verticalLook.UpdateRecentering(Time.deltaTime, verticalLook.TrackValueChange());
-            horizontalLook.UpdateRecentering(Time.deltaTime, horizontalLook.TrackValueChange());
+            RecenterPlayer(_curRotationDamping);
         }
 
         /// <summary>
@@ -112,7 +80,7 @@ namespace PlayerControl
         private void UpdateShoulderAimState(bool aimState)
         {
             _isAim = aimState;
-            UpdateCameraSetting( aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
+            UpdateCameraMode( aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
             CameraManager.Instance.SwitchTo(aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
         }
 
@@ -122,7 +90,8 @@ namespace PlayerControl
         private void UpdateAimState(bool aimState)
         {
             _isAim = aimState;
-            UpdateCameraSetting(aimState ? GameCameraState.Aim : GameCameraState.Normal);
+            
+            UpdateCameraMode(aimState ? GameCameraState.Aim : GameCameraState.Normal);
             CameraManager.Instance.SwitchTo(aimState ? GameCameraState.Aim : GameCameraState.Normal);
         }
         
@@ -148,7 +117,7 @@ namespace PlayerControl
                 delta, _controller.transform.up) *  _controller.transform.rotation;
             
             // 更新朝向角度，避免无限旋转
-            horizontalLook.Value -= delta;
+            _lookInputSource.HorizontalLook.Value -= delta;
             rot.y -= delta;
             transform.localRotation = Quaternion.Euler(rot);
         }
@@ -173,17 +142,24 @@ namespace PlayerControl
         {
             // 组件引用
             _controller = GetComponentInParent<PlayerController>();
-            _inputAxisController = _controller.GetComponent<CinemachineInputAxisController>();
+            
+            // 初始化赋值
+            _curRotationDamping = rotationDamping;
         }
 
         private void Start()
         {
+            // 输入控制注入
+            _lookInputSource = GameInput.Instance;
+            _inputAxisController = GameInput.Instance.GetComponent<CinemachineInputAxisController>();
+            
             // 逻辑注册
             _controller.PostUpdate += UpdatePlayerRotation;
             _controller.OnShoulderAim += UpdateShoulderAimState;
             _controller.OnAim += UpdateAimState;
             
-            UpdateCameraSetting(GameCameraState.Normal);
+            // 更新摄像机设置
+            UpdateCameraMode(GameCameraState.Normal);
         }
 
         private void OnEnable()

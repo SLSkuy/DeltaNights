@@ -1,5 +1,4 @@
 using System;
-using PlayerControl;
 using UnityEngine;
 
 namespace GameSetting.GameCamera
@@ -29,8 +28,6 @@ namespace GameSetting.GameCamera
         public CameraSensitivity aim;
         
         [Header("摄像机表现属性设置")] 
-        [Tooltip("角色模型旋转阻尼，值越大旋转越慢")]
-        public float rotationDamping = 0.2f;
         [Tooltip("常态视角与肩射视角转换过渡时间")]
         public float transitionDuration = 0.15f;
     }

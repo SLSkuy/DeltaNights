@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using PlayerControl.PlayerFSM;
+using InputProcess;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace PlayerControl
     /// <summary>
     /// 玩家移动控制器
     /// </summary>
-    public class PlayerController : MonoBehaviour, IInputAxisOwner
+    public class PlayerController : MonoBehaviour
     {
         #region 内部成员
 
@@ -22,8 +21,10 @@ namespace PlayerControl
         public bool Grounded => IsGrounded();
         
         [Header("玩家跳跃属性")]
+        [Tooltip("最大多段跳次数，若非地面起跳，仅能跳跃该值减1次")]
         public int maxJumpCount = 2;
-        public float airMoveFactor = 0.8f;
+        [Tooltip("空中移动系统，值越低，在空中的位移性能越低")]
+        [Range(0,1)]public float airMoveFactor = 0.8f;
         
         [Header("物理属性")]
         [Tooltip("地面层，用于检测是否接触到地面")]
@@ -32,22 +33,12 @@ namespace PlayerControl
         [Tooltip("玩家重力属性")] // 自行实现物理效果，不使用Unity自带的RigidBody，减少性能开销
         public float gravity = 9.8f;
         
-        [Header("输入轴配置")]
-        [Tooltip("X轴移动 范围(-1,1) 控制左右移动")]
-        public InputAxis moveX = InputAxis.DefaultMomentary;
-        [Tooltip("Y轴移动 范围(-1,1) 控制前后移动")]
-        public InputAxis moveZ = InputAxis.DefaultMomentary;
-        [Tooltip("跳跃 值为0或1 控制垂直移动")]
-        public InputAxis jump = InputAxis.DefaultMomentary;
-        [Tooltip("肩射 值为0或1 控制肩射状态")]
-        public InputAxis shoulderAim = InputAxis.DefaultMomentary;
-        [Tooltip("瞄准 值为0或1 控制开镜瞄准状态")]
-        public InputAxis aim = InputAxis.DefaultMomentary;
-        
         // 组件获取
-        private PlayerFiniteStateMachine _finiteStateMachine;
         private CharacterController _characterController;
         private Camera _camera;
+        
+        // 玩家移动输入
+        private ILocomotionInputSource _locomotionInputSource;
         
         // 移动属性
         private Vector3 _lastInput;
@@ -74,37 +65,54 @@ namespace PlayerControl
         public event Action<bool> OnShoulderAim; // 是否为肩射状态
         public event Action<bool> OnAim;  // 是否为开镜瞄准状态
         public event Action<bool> ShowMesh; // 是否显示模型
+        public event Action<Vector2> OnMove;    // 玩家移动输入事件
         public event Action<int> OnJump;    // 玩家跳跃事件
         public event Action OnLand; // 触地事件
         
         #endregion
         
-        #region cinemachine输入控制
+        #region 周期函数
         
-        /// <summary>
-        /// 实现IInputAxisOwner接口
-        /// 用于Cinemachine Input Axis Controller读取相应信息以获取Input System中的输入信息
-        /// </summary>
-        /// <param name="axes"></param>
-        public void GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
+        private void Awake()
         {
-            axes.Add(new () { DrivenAxis = () => ref moveX, Name = "Move X", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
-            axes.Add(new () { DrivenAxis = () => ref moveZ, Name = "Move Z", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
-            axes.Add(new () { DrivenAxis = () => ref jump, Name = "Jump" });
-            axes.Add(new () { DrivenAxis = () => ref shoulderAim, Name = "ShoulderAim" });
-            axes.Add(new () { DrivenAxis = () => ref aim, Name = "Aim" });
+            // 组件引用
+            _characterController = GetComponent<CharacterController>();
+            _camera = Camera.main;
+        }
+
+        private void Start()
+        {
+            // 输入注入
+            _locomotionInputSource = GameInput.Instance;
         }
         
-        /// <summary>
-        /// 编辑器更新时限定填入值在规定范围内
-        /// </summary>
-        private void OnValidate()
+        private void OnEnable()
         {
-            moveX.Validate();
-            moveZ.Validate();
-            jump.Validate();
-            shoulderAim.Validate();
-            aim.Validate();
+            _currentVelocityXZ = Vector3.zero;
+            _currentVelocityY = 0;
+            _isJumping = false;
+            _isShoulderAim = false;
+        }
+
+        private void Update()
+        {
+            PreUpdate?.Invoke();
+            
+            UpdateJumpState();
+            CalculateCurrentVelocity();
+            ApplyGravity(); // 计算重力
+            
+            // 计算完所有速度影响后，应用位移
+            ApplyMotion();
+        }
+
+        private void LateUpdate()
+        {
+            // 检测摄像机状态更新
+            UpdateAimState();
+            
+            // 更新摄像机
+            PostUpdate?.Invoke();
         }
         
         #endregion
@@ -123,7 +131,7 @@ namespace PlayerControl
         /// <summary>
         /// 检测玩家当前是否触地
         /// </summary>
-        public bool IsGrounded()
+        private bool IsGrounded()
         {
             const float distanceFromGroundThreshold = 10f;
             return GetDistanceFromGround(transform.position, distanceFromGroundThreshold) < groundThreshold;
@@ -151,8 +159,8 @@ namespace PlayerControl
         /// </summary>
         private void CalculateCurrentVelocity()
         {
-            float x = moveX.Value;
-            float z = moveZ.Value;
+            float x = _locomotionInputSource.MoveX;
+            float z = _locomotionInputSource.MoveZ;
 
             // 根据摄像机朝向投影到水平面
             Vector3 camForward = Vector3.ProjectOnPlane(_camera.transform.forward, Vector3.up).normalized;
@@ -160,7 +168,12 @@ namespace PlayerControl
 
             // 计算移动方向
             Vector3 desiredDir = camForward * z + camRight * x;
-            _lastInput = desiredDir;
+            if (_lastInput != desiredDir)
+            {
+                // 输入变更，触发输入事件
+                _lastInput = desiredDir;
+                OnMove?.Invoke(new Vector2(x, z));
+            }
 
             Vector3 desiredVelocity = _lastInput * (_isAim ? aimSpeed : _isShoulderAim ? shoulderAimSpeed : speed);
             if (_isJumping) desiredVelocity *= airMoveFactor;   // 空中移动降低水平位移效果
@@ -173,9 +186,6 @@ namespace PlayerControl
         private void ApplyMotion()
         {
             if (_characterController) { 
-                // _characterController.Move((_currentVelocityY * Vector3.up + _currentVelocityXZ) * Time.deltaTime);
-                // _characterController.SimpleMove(_currentVelocityXZ); 
-                
                 Vector3 motion = _currentVelocityXZ + Vector3.up * _currentVelocityY;
                 _characterController.Move(motion * Time.deltaTime);
             }
@@ -207,7 +217,7 @@ namespace PlayerControl
         private void UpdateAimState()
         {
             // 检测是否为肩射状态
-            bool shoulderNow = shoulderAim.Value > 0.1f;
+            bool shoulderNow = _locomotionInputSource.ShoulderAim > 0.1f;
             if (_isShoulderAim != shoulderNow)
             {
                 _isShoulderAim = shoulderNow;
@@ -217,7 +227,7 @@ namespace PlayerControl
             }
 
             // 检测是否为开镜状态
-            bool aimPressedNow = aim.Value > 0.1f;
+            bool aimPressedNow = _locomotionInputSource.Aim > 0.1f;
             if (aimPressedNow && !_aimPressedLastFrame)
             {
                 _isAim = !_isAim;
@@ -232,7 +242,7 @@ namespace PlayerControl
         /// </summary>
         private void UpdateJumpState()
         {
-            bool jumpPressedNow = jump.Value > 0.1f;
+            bool jumpPressedNow = _locomotionInputSource.Jump > 0.1f;
 
             // 边沿触发
             if (jumpPressedNow && !_jumpPressedLastFrame)
@@ -284,62 +294,6 @@ namespace PlayerControl
             }
         }
 
-        #endregion
-        
-        #region 周期函数
-        
-        private void Awake()
-        {
-            // 初始化内部成员
-            _finiteStateMachine = new PlayerFiniteStateMachine();
-            
-            // 组件引用
-            _characterController = GetComponent<CharacterController>();
-            _camera = Camera.main;
-        }
-
-        private void Start()
-        {
-            // 逻辑注册
-            _finiteStateMachine.SwitchState(PlayerState.Idle);
-        }
-        
-        private void OnEnable()
-        {
-            _currentVelocityXZ = Vector3.zero;
-            _currentVelocityY = 0;
-            _isJumping = false;
-            _isShoulderAim = false;
-        }
-
-        private void Update()
-        {
-            PreUpdate?.Invoke();
-            
-            UpdateJumpState();
-            CalculateCurrentVelocity();
-            ApplyGravity(); // 计算重力
-            
-            _finiteStateMachine.Update();
-            
-            // 测试移动方法，后续移动到状态内部实现
-            ApplyMotion();
-        }
-
-        private void LateUpdate()
-        {
-            _finiteStateMachine.LateUpdate();
-            
-            // 检测摄像机状态更新
-            UpdateAimState();
-            
-            // 更新摄像机
-            PostUpdate?.Invoke();
-        }
-
-        private void FixedUpdate() => _finiteStateMachine.FixedUpdate();
-        private void OnAnimatorMove() => _finiteStateMachine.OnAnimatorMove();
-        
         #endregion
     }
 }
