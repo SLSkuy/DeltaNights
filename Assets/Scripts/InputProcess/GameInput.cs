@@ -7,7 +7,7 @@ namespace InputProcess
     /// <summary>
     /// 玩家输入捕获处理类
     /// </summary>
-    public class GameInput : MonoBehaviour, IInputAxisOwner, ILocomotionInputSource ,ILookInputSource
+    public class GameInput : MonoBehaviour, IInputAxisOwner, ILocomotionInputSource ,ILookInputSource, IAttackSkillSource
     {
         public static GameInput Instance { get; private set; }
 
@@ -29,6 +29,14 @@ namespace InputProcess
         [Tooltip("瞄准 值为0或1 控制开镜瞄准状态")]
         public InputAxis aim = InputAxis.DefaultMomentary;
         
+        [Header("攻击技能输入配置")]
+        [Tooltip("攻击输入")]
+        public InputAxis attack = InputAxis.DefaultMomentary;
+        [Tooltip("主动技能输入")]
+        public InputAxis activeSkill = InputAxis.DefaultMomentary;
+        [Tooltip("终极技能输入")]
+        public InputAxis ultimateSkill = InputAxis.DefaultMomentary;
+        
         /// <summary>
         /// 暴露属性，使用接口实现便于网络传输使用
         /// </summary>
@@ -39,6 +47,9 @@ namespace InputProcess
         public float Jump => jump.Value;
         public float ShoulderAim => shoulderAim.Value;
         public float Aim => aim.Value;
+        public float Attack => attack.Value;
+        public float ActiveSkill => activeSkill.Value;
+        public float UltimateSkill => ultimateSkill.Value;
 
         #region cinemachine输入控制
         

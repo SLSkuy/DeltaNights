@@ -26,6 +26,7 @@ namespace PlayerControl
         private ILookInputSource _lookInputSource;
         
         // 控制属性
+        private float _curRotationDamping;
         private bool _isAim;
         
         #endregion
@@ -60,7 +61,7 @@ namespace PlayerControl
                 }
             }
 
-            rotationDamping = type == GameCameraState.Normal ? rotationDamping : 0f;
+            _curRotationDamping = type == GameCameraState.Normal ? rotationDamping : 0f;
         }
         
         private void UpdatePlayerRotation()
@@ -70,7 +71,7 @@ namespace PlayerControl
             float v = _lookInputSource.VerticalLook.Value;
             transform.localRotation = Quaternion.Euler(v, h, 0);
             
-            RecenterPlayer(rotationDamping);
+            RecenterPlayer(_curRotationDamping);
         }
 
         /// <summary>
@@ -141,6 +142,9 @@ namespace PlayerControl
         {
             // 组件引用
             _controller = GetComponentInParent<PlayerController>();
+            
+            // 初始化赋值
+            _curRotationDamping = rotationDamping;
         }
 
         private void Start()

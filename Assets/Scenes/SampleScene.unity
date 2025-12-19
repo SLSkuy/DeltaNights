@@ -2244,6 +2244,36 @@ MonoBehaviour:
       Wait: 0
       Time: 0
     Restrictions: 6
+  attack:
+    Value: 0
+    Center: 0
+    Range: {x: -1, y: 1}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 0
+      Time: 0
+    Restrictions: 6
+  activeSkill:
+    Value: 0
+    Center: 0
+    Range: {x: -1, y: 1}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 0
+      Time: 0
+    Restrictions: 6
+  ultimateSkill:
+    Value: 0
+    Center: 0
+    Range: {x: -1, y: 1}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 0
+      Time: 0
+    Restrictions: 6
 --- !u!1 &1523181252
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,6 +2679,7 @@ GameObject:
   - component: {fileID: 1931994219}
   - component: {fileID: 1931994218}
   - component: {fileID: 1931994220}
+  - component: {fileID: 1931994221}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2759,6 +2790,22 @@ MonoBehaviour:
   moveAnimSmooth: 10
   shoulderAimLayerIndex: 1
   shoulderAimLayerSmooth: 20
+--- !u!114 &1931994221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931994215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72f0b868806048278b16a25391dcbf76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerAttackController
+  attackSpeed: 0
+  fullyAutomaticWeapon: 0
+  instantActiveSkill: 0
+  instantUltimateSkill: 0
 --- !u!1 &2049303075
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ namespace PlayerControl
         
         // 组件引用
         private PlayerController _controller;
+        private PlayerAttackController _attackController;
         private Animator _animator;
 
         // 肩射动画层级
@@ -27,16 +28,21 @@ namespace PlayerControl
         private Vector2 _targetMoveInput;
         private int _moveZHash;
         private int _moveXHash;
+        
+        // 跳跃哈希
+        private int _jumpHash;
 
         #region 周期函数
 
         private void Awake()
         {
             _controller = GetComponent<PlayerController>();
+            _attackController = GetComponent<PlayerAttackController>();
             _animator = GetComponent<Animator>();
             
             _moveZHash = Animator.StringToHash("MoveZ");
             _moveXHash = Animator.StringToHash("MoveX");
+            _jumpHash = Animator.StringToHash("Jump");
         }
 
         private void Start()
@@ -70,7 +76,7 @@ namespace PlayerControl
 
         private void SetAnimJump(int times)
         {
-            _animator.SetTrigger("Jump");
+            _animator.SetTrigger(_jumpHash);
         }
 
         private void SetShoulderAimState(bool isAim) => _targetShoulderLayerWeight = isAim ? 1f : 0;
