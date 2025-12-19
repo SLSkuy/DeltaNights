@@ -67,9 +67,9 @@ namespace InputProcess
             axes.Add(new () { DrivenAxis = () => ref aim, Name = "Aim" });
             axes.Add(new () { DrivenAxis = () => ref horizontalLook, Name = "Horizontal Look", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
             axes.Add(new () { DrivenAxis = () => ref verticalLook, Name = "Vertical Look", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
-            axes.Add(new () {DrivenAxis = () => ref attack, Name = "Attack"});
-            axes.Add(new () {DrivenAxis = () => ref activeSkill, Name = "ActiveSkill"});
-            axes.Add(new () {DrivenAxis = () => ref ultimateSkill, Name = "UltimateSkill"});
+            axes.Add(new () { DrivenAxis = () => ref attack, Name = "Attack"});
+            axes.Add(new () { DrivenAxis = () => ref activeSkill, Name = "ActiveSkill"});
+            axes.Add(new () { DrivenAxis = () => ref ultimateSkill, Name = "UltimateSkill"});
         }
         
         /// <summary>

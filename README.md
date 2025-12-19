@@ -75,6 +75,7 @@ DeltaNights/
 └── ProjectSettings/       # Unity 全局项目设置
 ```
 ## 🔧 构建与运行 (Build & Run)
+
 Client（Unity） 使用Unity 6000.2.10f1
 
 克隆仓库后从UnityHub -> 从本地磁盘添加项目 -> 选择项目根目录即可
@@ -82,5 +83,9 @@ Client（Unity） 使用Unity 6000.2.10f1
 ---
 
 Server（C++/Qt） 使用 Qt 6.9.3
+
+服务端需要使用Protobuf库，编译后将库文件夹重命名为```protobuf```放入DeltaNights-Server文件夹中并配置cmake即可
+
+> 默认cmake已配置好了protobuf库，需确保protobuf文件夹下有include和lib文件夹
 
 克隆仓库后使用Qt Creator打开DeltaNights\DeltaNights-Server\CMakeList.txt构建运行
