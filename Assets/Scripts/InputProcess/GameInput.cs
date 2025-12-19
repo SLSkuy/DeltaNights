@@ -7,7 +7,7 @@ namespace InputProcess
     /// <summary>
     /// 玩家输入捕获处理类
     /// </summary>
-    public class GameInput : MonoBehaviour, IInputAxisOwner, ILocomotionInputSource ,ILookInputSource, IAttackSkillSource
+    public class GameInput : MonoBehaviour, IInputAxisOwner, ILocomotionInputSource ,ILookInputSource, IAttackSkillInputSource
     {
         public static GameInput Instance { get; private set; }
 
@@ -67,6 +67,9 @@ namespace InputProcess
             axes.Add(new () { DrivenAxis = () => ref aim, Name = "Aim" });
             axes.Add(new () { DrivenAxis = () => ref horizontalLook, Name = "Horizontal Look", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
             axes.Add(new () { DrivenAxis = () => ref verticalLook, Name = "Vertical Look", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
+            axes.Add(new () {DrivenAxis = () => ref attack, Name = "Attack"});
+            axes.Add(new () {DrivenAxis = () => ref activeSkill, Name = "ActiveSkill"});
+            axes.Add(new () {DrivenAxis = () => ref ultimateSkill, Name = "UltimateSkill"});
         }
         
         /// <summary>
@@ -84,6 +87,10 @@ namespace InputProcess
             verticalLook.Range.y = Mathf.Clamp(verticalLook.Range.y, -90, 90);
             horizontalLook.Validate();
             verticalLook.Validate();
+            
+            attack.Validate();
+            activeSkill.Validate();
+            ultimateSkill.Validate();
         }
         
         #endregion

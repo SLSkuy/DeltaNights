@@ -2160,6 +2160,39 @@ MonoBehaviour:
       Driver:
         AccelTime: 0
         DecelTime: 0
+    - Name: Attack
+      Owner: {fileID: 1419592808}
+      Enabled: 1
+      Input:
+        InputAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+        Gain: 1
+        CancelDeltaTime: 0
+      InputValue: 0
+      Driver:
+        AccelTime: 0
+        DecelTime: 0
+    - Name: ActiveSkill
+      Owner: {fileID: 1419592808}
+      Enabled: 1
+      Input:
+        InputAction: {fileID: 3637260269666563616, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+        Gain: 1
+        CancelDeltaTime: 0
+      InputValue: 0
+      Driver:
+        AccelTime: 0
+        DecelTime: 0
+    - Name: UltimateSkill
+      Owner: {fileID: 1419592808}
+      Enabled: 1
+      Input:
+        InputAction: {fileID: -1642385589606371512, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+        Gain: 1
+        CancelDeltaTime: 0
+      InputValue: 0
+      Driver:
+        AccelTime: 0
+        DecelTime: 0
   PlayerIndex: -1
   AutoEnableInputs: 1
 --- !u!114 &1419592808
@@ -2802,8 +2835,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f0b868806048278b16a25391dcbf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerAttackController
-  attackSpeed: 0
-  fullyAutomaticWeapon: 0
+  currentWeapon:
+    weaponType: 0
+    attackSpeed: 0
+    fullyAutomaticWeapon: 0
+    attenuationFactor: 0
+    headDamage: 0
+    bodyDamage: 0
+    legDamage: 0
   instantActiveSkill: 0
   instantUltimateSkill: 0
 --- !u!1 &2049303075
