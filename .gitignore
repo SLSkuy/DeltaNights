@@ -89,3 +89,6 @@ Thumbs.db
 .plastic
 ignore.conf
 *.private.*
+
+# ---- protobuf 库 ----
+protobuf/
