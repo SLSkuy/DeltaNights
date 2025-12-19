@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace PlayerControl
@@ -15,12 +14,15 @@ namespace PlayerControl
         [SerializeField] private int shoulderAimLayerIndex = 1;
         [SerializeField] private float shoulderAimLayerSmooth = 10f;
         
+        // 组件引用
         private PlayerController _controller;
         private Animator _animator;
 
+        // 肩射动画层级
         private float _currentShoulderLayerWeight;
         private float _targetShoulderLayerWeight;
         
+        // 输入属性
         private Vector2 _currentMoveInput;
         private Vector2 _targetMoveInput;
         private int _moveZHash;

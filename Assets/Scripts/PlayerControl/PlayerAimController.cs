@@ -35,7 +35,7 @@ namespace PlayerControl
         /// <summary>
         /// 更新摄像机属性设置
         /// </summary>
-        private void UpdateCameraSetting(GameCameraState type)
+        private void UpdateCameraMode(GameCameraState type)
         {
             if (!_inputAxisController) return;
 
@@ -79,7 +79,7 @@ namespace PlayerControl
         private void UpdateShoulderAimState(bool aimState)
         {
             _isAim = aimState;
-            UpdateCameraSetting( aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
+            UpdateCameraMode( aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
             CameraManager.Instance.SwitchTo(aimState ? GameCameraState.ShoulderAim : GameCameraState.Normal);
         }
 
@@ -90,7 +90,7 @@ namespace PlayerControl
         {
             _isAim = aimState;
             
-            UpdateCameraSetting(aimState ? GameCameraState.Aim : GameCameraState.Normal);
+            UpdateCameraMode(aimState ? GameCameraState.Aim : GameCameraState.Normal);
             CameraManager.Instance.SwitchTo(aimState ? GameCameraState.Aim : GameCameraState.Normal);
         }
         
@@ -155,7 +155,7 @@ namespace PlayerControl
             _controller.OnAim += UpdateAimState;
             
             // 更新摄像机设置
-            UpdateCameraSetting(GameCameraState.Normal);
+            UpdateCameraMode(GameCameraState.Normal);
         }
 
         private void OnEnable()

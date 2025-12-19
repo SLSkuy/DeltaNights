@@ -11,6 +11,8 @@ namespace PlayerControl.PlayerFSM
         public PlayerFiniteStateMachine() : base()
         {
             AddState(PlayerState.Idle, new PlayerIdleState());
+            AddState(PlayerState.Walk, new PlayerWalkState());
+            AddState(PlayerState.Airborne, new PlayerAirborneState());
         }
     }
 }

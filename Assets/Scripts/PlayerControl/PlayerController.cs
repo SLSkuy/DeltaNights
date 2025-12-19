@@ -35,7 +35,6 @@ namespace PlayerControl
         public float gravity = 9.8f;
         
         // 组件获取
-        private PlayerFiniteStateMachine _finiteStateMachine;
         private CharacterController _characterController;
         private Camera _camera;
         
@@ -73,6 +72,52 @@ namespace PlayerControl
         
         #endregion
         
+        #region 周期函数
+        
+        private void Awake()
+        {
+            // 组件引用
+            _characterController = GetComponent<CharacterController>();
+            _camera = Camera.main;
+        }
+
+        private void Start()
+        {
+            // 输入注入
+            _locomotionInputSource = GameInput.Instance;
+        }
+        
+        private void OnEnable()
+        {
+            _currentVelocityXZ = Vector3.zero;
+            _currentVelocityY = 0;
+            _isJumping = false;
+            _isShoulderAim = false;
+        }
+
+        private void Update()
+        {
+            PreUpdate?.Invoke();
+            
+            UpdateJumpState();
+            CalculateCurrentVelocity();
+            ApplyGravity(); // 计算重力
+            
+            // 计算完所有速度影响后，应用位移
+            ApplyMotion();
+        }
+
+        private void LateUpdate()
+        {
+            // 检测摄像机状态更新
+            UpdateAimState();
+            
+            // 更新摄像机
+            PostUpdate?.Invoke();
+        }
+        
+        #endregion
+        
         #region 成员方法
 
         /// <summary>
@@ -87,7 +132,7 @@ namespace PlayerControl
         /// <summary>
         /// 检测玩家当前是否触地
         /// </summary>
-        public bool IsGrounded()
+        private bool IsGrounded()
         {
             const float distanceFromGroundThreshold = 10f;
             return GetDistanceFromGround(transform.position, distanceFromGroundThreshold) < groundThreshold;
@@ -142,9 +187,6 @@ namespace PlayerControl
         private void ApplyMotion()
         {
             if (_characterController) { 
-                // _characterController.Move((_currentVelocityY * Vector3.up + _currentVelocityXZ) * Time.deltaTime);
-                // _characterController.SimpleMove(_currentVelocityXZ); 
-                
                 Vector3 motion = _currentVelocityXZ + Vector3.up * _currentVelocityY;
                 _characterController.Move(motion * Time.deltaTime);
             }
@@ -253,65 +295,6 @@ namespace PlayerControl
             }
         }
 
-        #endregion
-        
-        #region 周期函数
-        
-        private void Awake()
-        {
-            // 初始化内部成员
-            _finiteStateMachine = new PlayerFiniteStateMachine();
-            
-            // 组件引用
-            _characterController = GetComponent<CharacterController>();
-            _camera = Camera.main;
-        }
-
-        private void Start()
-        {
-            // 输入注入
-            _locomotionInputSource = GameInput.Instance;
-            
-            // 逻辑注册
-            _finiteStateMachine.SwitchState(PlayerState.Idle);
-        }
-        
-        private void OnEnable()
-        {
-            _currentVelocityXZ = Vector3.zero;
-            _currentVelocityY = 0;
-            _isJumping = false;
-            _isShoulderAim = false;
-        }
-
-        private void Update()
-        {
-            PreUpdate?.Invoke();
-            
-            UpdateJumpState();
-            CalculateCurrentVelocity();
-            ApplyGravity(); // 计算重力
-            
-            _finiteStateMachine.Update();
-            
-            // 测试移动方法，后续移动到状态内部实现
-            ApplyMotion();
-        }
-
-        private void LateUpdate()
-        {
-            _finiteStateMachine.LateUpdate();
-            
-            // 检测摄像机状态更新
-            UpdateAimState();
-            
-            // 更新摄像机
-            PostUpdate?.Invoke();
-        }
-
-        private void FixedUpdate() => _finiteStateMachine.FixedUpdate();
-        private void OnAnimatorMove() => _finiteStateMachine.OnAnimatorMove();
-        
         #endregion
     }
 }

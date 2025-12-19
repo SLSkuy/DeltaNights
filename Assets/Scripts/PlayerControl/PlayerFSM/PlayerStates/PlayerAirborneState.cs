@@ -1,9 +1,9 @@
 namespace PlayerControl.PlayerFSM.PlayerStates
 {
     /// <summary>
-    /// 玩家待机状态
+    /// 玩家空中运动状态
     /// </summary>
-    public class PlayerIdleState : PlayerBaseState
+    public class PlayerAirborneState : PlayerBaseState
     {
         
     }
