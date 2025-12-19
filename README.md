@@ -76,16 +76,26 @@ DeltaNights/
 ```
 ## 🔧 构建与运行 (Build & Run)
 
-Client（Unity） 使用Unity 6000.2.10f1
+### Client（Unity） 使用Unity 6000.2.10f1
 
 克隆仓库后从UnityHub -> 从本地磁盘添加项目 -> 选择项目根目录即可
 
 ---
 
-Server（C++/Qt） 使用 Qt 6.9.3
+### Server（C++/Qt） 使用 Qt 6.9.3
 
-服务端需要使用Protobuf库，编译后将库文件夹重命名为```protobuf```放入DeltaNights-Server文件夹中并配置cmake即可
+#### 运行环境
+
+本项目使用Protobuf作为通信协议，服务端需要使用Protobuf-C++库
+
+Protobuf仓库链接：[访问 Protobuf仓库](https://github.com/protocolbuffers/protobuf)
+
+官方文档：https://protobuf.dev/
+
+跟随教程编译后将库文件夹重命名为```protobuf```放入DeltaNights-Server文件夹中并配置cmake即可
 
 > 默认cmake已配置好了protobuf库，需确保protobuf文件夹下有include和lib文件夹
+
+#### 运行方式
 
 克隆仓库后使用Qt Creator打开DeltaNights\DeltaNights-Server\CMakeList.txt构建运行
