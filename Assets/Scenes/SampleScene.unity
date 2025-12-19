@@ -2843,8 +2843,8 @@ MonoBehaviour:
     headDamage: 0
     bodyDamage: 0
     legDamage: 0
-  instantActiveSkill: 0
-  instantUltimateSkill: 0
+  instantActiveSkill: 1
+  instantUltimateSkill: 1
 --- !u!1 &2049303075
 GameObject:
   m_ObjectHideFlags: 0

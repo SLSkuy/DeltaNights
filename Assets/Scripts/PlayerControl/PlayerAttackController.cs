@@ -267,6 +267,7 @@ namespace PlayerControl
                 {
                     _activeSkillArmed = false;
                     OnActiveSkillTrigger?.Invoke();
+                    Debug.Log("瞬发性主动技能释放");
                 }
             }
 
@@ -296,6 +297,7 @@ namespace PlayerControl
                 {
                     _ultimateSkillArmed = false;
                     OnUltimateSkillTrigger?.Invoke();
+                    Debug.Log("瞬发性终极技能释放");
                 }
             }
 
