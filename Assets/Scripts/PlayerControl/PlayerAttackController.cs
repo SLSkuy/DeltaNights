@@ -2,40 +2,18 @@ using System;
 using InputProcess;
 using UnityEngine;
 using WeaponSystem;
-using WeaponSystem.Weapon;
 
 namespace PlayerControl
 {
-    /// <summary>
-    /// 测试用类，显示当前使用武器属性
-    /// </summary>
-    [Serializable]
-    public class WeaponProperties
-    {
-        [Header("武器属性")] 
-        public WeaponType weaponType;
-        [Tooltip("主武器攻击速度")]
-        public float attackSpeed;
-        [Tooltip("是否为全自动武器")]
-        public bool fullyAutomaticWeapon;
-
-        [Header("伤害属性")] 
-        public float attenuationFactor;
-        public float headDamage;
-        public float bodyDamage;
-        public float legDamage;
-    }
-
     /// <summary>
     /// 玩家攻击控制器
     /// 负责将输入转换为攻击/技能事件
     /// </summary>
     public class PlayerAttackController : MonoBehaviour
     {
-        [Header("当前武器属性")] 
-        public WeaponProperties currentWeapon;
-        private IWeapon _currentWeapon;
-
+        [Header("武器配置")] 
+        [SerializeField] private WeaponData mainWeapon;
+        
         [Header("技能属性")] 
         [Tooltip("主动技能是否为瞬发性技能")]
         public bool instantActiveSkill;
@@ -45,19 +23,18 @@ namespace PlayerControl
         // 输入来源（可替换为AI / 网络）
         private IAttackSkillInputSource _attackInputSource;
 
+        private PlayerWeaponController _weaponController;
+
         // 输入缓存
         private float _lastAttackValue;
         private float _lastActiveSkillValue;
         private float _lastUltimateSkillValue;
-        private bool _activeSkillActivated;
-        private bool _ultimateSkillActivated;
         
         // 是否进入技能准备状态（锁定输入）
         private bool _activeSkillArmed;
         private bool _ultimateSkillArmed;
         
         // 攻击事件
-        private float _attackCooldown; // 攻击冷却计时器
         private bool _attackLockedBySkill;  // 技能释放后必须松开按键才能重新开始普通攻击
         
         #region 事件
@@ -70,7 +47,7 @@ namespace PlayerControl
         public event Action OnUltimateSkillArmed; // 终极技能触发
         public event Action OnUltimateSkillReleased;    // 终极技能释放
         public event Action OnUltimateSkillCanceled;    // 取消主动技能
-        public event Action<WeaponType> OnSwitchWeapon; // 切换武器    
+        public event Action<WeaponData> OnSwitchWeapon; // 切换武器    
 
         #endregion
 
@@ -78,8 +55,9 @@ namespace PlayerControl
 
         private void Awake()
         {
-            // 测试使用武器
-            SwitchWeapon(new Rifle());
+            // 初始化
+            _weaponController = new PlayerWeaponController(this);
+            _weaponController.SwitchWeapon(mainWeapon);
         }
 
         private void Start()
@@ -95,72 +73,10 @@ namespace PlayerControl
             
             HandleSkillInput();
             HandleAttackInput();
-        }
-
-        #endregion
-
-        #region 成员方法
-
-        /// <summary>
-        /// 切换当前使用武器
-        /// </summary>
-        public void SwitchWeapon(IWeapon newWeapon)
-        {
-            if(newWeapon == null) return;
             
-            _currentWeapon = newWeapon;
-            
-            currentWeapon.attackSpeed = _currentWeapon.AttackSpeed;
-            currentWeapon.fullyAutomaticWeapon = _currentWeapon.FullyAutomatic;
-
-            currentWeapon.attenuationFactor = _currentWeapon.AttenuationFactor;
-            currentWeapon.headDamage = _currentWeapon.HeadDamage;
-            currentWeapon.bodyDamage = _currentWeapon.BodyDamage;
-            currentWeapon.legDamage = _currentWeapon.LegDamage;
-            
-            // 触发切换武器事件
-            OnSwitchWeapon?.Invoke(_currentWeapon.WeaponType);
+            _weaponController.Tick(Time.deltaTime);
         }
 
-        /// <summary>
-        /// 尝试触发武器攻击
-        /// </summary>
-        private void TryWeaponAttack()
-        {
-            if (_currentWeapon == null) return;
-
-            // 如果冷却未到，跳过
-            if (_attackCooldown > 0f) return;
-
-            // 调用武器攻击
-            _currentWeapon.Attack();
-
-            // 重置冷却时间（attackSpeed 表示每10秒攻击次数）
-            if (_currentWeapon.AttackSpeed > 0f)
-            {
-                _attackCooldown = 10f / _currentWeapon.AttackSpeed;
-            }
-        }
-
-        /// <summary>
-        /// 强制打断所有技能状态，回到正常状态
-        /// 用于处理击飞，死亡等事件
-        /// </summary>
-        public void ForceCancelSkills()
-        {
-            if (_activeSkillArmed)
-            {
-                _activeSkillArmed = false;
-                OnActiveSkillCanceled?.Invoke();
-            }
-
-            if (_ultimateSkillArmed)
-            {
-                _ultimateSkillArmed = false;
-                OnUltimateSkillCanceled?.Invoke();
-            }
-        }
-        
         #endregion
         
         #region 输入处理
@@ -192,32 +108,17 @@ namespace PlayerControl
                 {
                     // 同时只能触发一个技能
                     _ultimateSkillArmed = false;
-
+                    
                     _attackLockedBySkill = true;
                     OnUltimateSkillReleased?.Invoke();
                     Debug.Log("终极技能释放");
                     return;
                 }
                 
-                OnAttackPressed?.Invoke();
+                if(!_attackLockedBySkill)
+                    OnAttackPressed?.Invoke();
             }
             
-            // 持续按下（全自动武器）
-            if (attack > 0f && _currentWeapon is { FullyAutomatic: true } && !_attackLockedBySkill)
-            {
-                TryWeaponAttack();
-            }
-            
-            // 单击（半自动武器）
-            if (attack > 0f && _currentWeapon is { FullyAutomatic : false } && !_attackLockedBySkill)
-            {
-                // 释放鼠标按键后再次按下才能进行设计
-                if (_lastAttackValue <= 0f)
-                {
-                    TryWeaponAttack();
-                }
-            }
-
             // 攻击松开
             if (_lastAttackValue > 0f && attack <= 0f)
             {
@@ -226,12 +127,6 @@ namespace PlayerControl
             }
 
             _lastAttackValue = attack;
-
-            // 更新冷却计时器
-            if (_attackCooldown > 0f)
-            {
-                _attackCooldown -= Time.deltaTime;
-            }
         }
         
         /// <summary>

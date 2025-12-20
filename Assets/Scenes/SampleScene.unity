@@ -2713,6 +2713,7 @@ GameObject:
   - component: {fileID: 1931994218}
   - component: {fileID: 1931994220}
   - component: {fileID: 1931994221}
+  - component: {fileID: 1931994222}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2835,16 +2836,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f0b868806048278b16a25391dcbf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerAttackController
-  currentWeapon:
-    weaponType: 0
-    attackSpeed: 0
-    fullyAutomaticWeapon: 0
-    attenuationFactor: 0
-    headDamage: 0
-    bodyDamage: 0
-    legDamage: 0
-  instantActiveSkill: 1
-  instantUltimateSkill: 1
+  instantActiveSkill: 0
+  instantUltimateSkill: 0
+--- !u!114 &1931994222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931994215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9fa2ec650e48499d689bf2178e01d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerWeaponController
+  currentWeapon: {fileID: 11400000, guid: bb55b56f6e8dc934cbba68db2b6b55d3, type: 2}
 --- !u!1 &2049303075
 GameObject:
   m_ObjectHideFlags: 0

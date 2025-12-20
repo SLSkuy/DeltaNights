@@ -30,8 +30,6 @@ namespace SkillSystem.Skill
         {
             if (_currentCharges <= 0)
                 return;
-            
-            Debug.Log("Dash Skill Armed");
         }
 
         /// <summary>
@@ -54,8 +52,6 @@ namespace SkillSystem.Skill
 
             // 启动冷却
             _cooldownTimer = Cooldown;
-
-            Debug.Log($"Dash Used, Remaining Charges: {_currentCharges}");
         }
     }
 }
