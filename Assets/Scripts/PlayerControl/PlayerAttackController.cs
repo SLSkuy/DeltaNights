@@ -64,9 +64,11 @@ namespace PlayerControl
 
         public event Action OnAttackPressed;    // 攻击按键按下
         public event Action OnAttackReleased;   // 攻击按键释放
-        public event Action OnActiveSkillTrigger;   // 主动技能触发
+        public event Action OnActiveSkillArmed;   // 主动技能触发
+        public event Action OnActiveSkillReleased;  // 主动技能释放
         public event Action OnActiveSkillCanceled;  // 取消主动技能
-        public event Action OnUltimateSkillTrigger; // 主动技能触发
+        public event Action OnUltimateSkillArmed; // 终极技能触发
+        public event Action OnUltimateSkillReleased;    // 终极技能释放
         public event Action OnUltimateSkillCanceled;    // 取消主动技能
         public event Action<WeaponType> OnSwitchWeapon; // 切换武器    
 
@@ -180,7 +182,7 @@ namespace PlayerControl
                     _activeSkillArmed = false;
                     
                     _attackLockedBySkill = true;
-                    OnActiveSkillTrigger?.Invoke();
+                    OnActiveSkillReleased?.Invoke();
                     Debug.Log("主动技能释放");
                     return;
                 }
@@ -192,7 +194,7 @@ namespace PlayerControl
                     _ultimateSkillArmed = false;
 
                     _attackLockedBySkill = true;
-                    OnUltimateSkillTrigger?.Invoke();
+                    OnUltimateSkillReleased?.Invoke();
                     Debug.Log("终极技能释放");
                     return;
                 }
@@ -248,6 +250,7 @@ namespace PlayerControl
                 {
                     // 进入技能准备状态
                     _activeSkillArmed = true;
+                    OnActiveSkillArmed?.Invoke();
                     Debug.Log("主动技能触发");
                 }
                 else
@@ -266,7 +269,7 @@ namespace PlayerControl
                 if (_activeSkillArmed && instantActiveSkill)
                 {
                     _activeSkillArmed = false;
-                    OnActiveSkillTrigger?.Invoke();
+                    OnActiveSkillReleased?.Invoke();
                     Debug.Log("瞬发性主动技能释放");
                 }
             }
@@ -278,6 +281,7 @@ namespace PlayerControl
                 {
                     // 进入技能准备状态
                     _ultimateSkillArmed = true;
+                    OnUltimateSkillArmed?.Invoke();
                     Debug.Log("终极技能触发");
                 }
                 else
@@ -296,7 +300,7 @@ namespace PlayerControl
                 if (_ultimateSkillArmed && instantUltimateSkill)
                 {
                     _ultimateSkillArmed = false;
-                    OnUltimateSkillTrigger?.Invoke();
+                    OnUltimateSkillReleased?.Invoke();
                     Debug.Log("瞬发性终极技能释放");
                 }
             }
