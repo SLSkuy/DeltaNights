@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace WeaponSystem.Weapon
 {
+    /// <summary>
+    /// 步枪示例
+    /// </summary>
     [CreateAssetMenu(fileName = "Rifle", menuName = "Weapon/Rifle")]
     public class Rifle : WeaponData
     {

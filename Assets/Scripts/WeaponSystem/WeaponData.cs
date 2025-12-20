@@ -27,6 +27,9 @@ namespace WeaponSystem
         public float BodyDamage => bodyDamage;
         public float LegDamage => legDamage;
 
+        /// <summary>
+        /// 具体攻击逻辑实现，根据不同武器添加额外属性，如实现霰弹枪、步枪等不同类型枪械
+        /// </summary>
         public abstract void Attack();
     }
 }
