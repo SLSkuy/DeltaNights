@@ -17,5 +17,5 @@ MonoBehaviour:
   cooldown: 5
   limitedUseSkill: 0
   maxCharges: 1
-  dashDuration: 0.2
+  dashDuration: 0.3
   dashForce: 50

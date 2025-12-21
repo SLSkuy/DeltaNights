@@ -215,14 +215,13 @@ namespace PlayerControl
         }
 
         /// <summary>
-        /// 暂停玩家的控制，为技能释放等操作使用
+        /// 暂停玩家的控制，交出玩家控制权，为技能释放等操作使用
         /// </summary>
         public void PauseControl()
         {
             if (_characterController)
             {
                 _locomotionLockedBySkill = true;
-                _characterController.enabled = false;
             }
         }
 
@@ -234,7 +233,6 @@ namespace PlayerControl
             if (_characterController)
             {
                 _locomotionLockedBySkill = false;
-                _characterController.enabled = true;
             }
         }
 
