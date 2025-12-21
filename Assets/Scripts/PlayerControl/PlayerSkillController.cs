@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SkillSystem;
 using UnityEngine;
@@ -27,20 +28,24 @@ namespace PlayerControl
         private bool _isFinished = true;    // 当前技能是否已释放完毕
 
         private bool _isSkillArmed;
-        private bool _instantSkillHolding;  
+        private bool _instantSkillHolding;
+
+        public event Action<bool> OnSkillArmed; // 是否处于准备释放技能状态
         
         public PlayerSkillController(PlayerAttackController attackController)
         {
             _attackController = attackController;
 
+            _attackController.OnAttackPressed += TrySkillUsed;
             _attackController.OnSkillPressed += InstantSkillProcess;
-            _attackController.OnSkillReleased += SkillUsed;
+            _attackController.OnSkillReleased += InstantSkillUsed;
         }
 
         ~PlayerSkillController()
         {
+            _attackController.OnAttackPressed -= TrySkillUsed;
             _attackController.OnSkillPressed -= InstantSkillProcess;
-            _attackController.OnSkillReleased -= SkillUsed;
+            _attackController.OnSkillReleased -= InstantSkillUsed;
 
             // 取消事件订阅
             foreach (var skillEntry in _skillEntries.Values)
@@ -115,8 +120,21 @@ namespace PlayerControl
         /// </summary>
         private void InstantSkillProcess(SkillType skillType)
         {
-            // 技能当前无法使用
-            if(_skillEntries[skillType].CurrentCharges <= 0) return;
+            // 技能次数不足
+            if (_skillEntries[skillType].CurrentCharges <= 0) return;
+
+            // 当前是非瞬发技能，且已进入准备状态，再次按下取消准备状态
+            if (_isSkillArmed && _currentSkill != null &&
+                !_currentSkill.IsInstant && _currentSkill.Type == skillType)
+            {
+                _isSkillArmed = false;
+                SkillUnarmed(skillType);
+                OnSkillArmed?.Invoke(false);
+                return;
+            }
+
+            // 同时只有使用一个技能
+            if (_currentSkill != null) return;
             
             _currentSkill = _skillEntries[skillType].Skill;
 
@@ -127,17 +145,30 @@ namespace PlayerControl
             }
             else
             {
-                // 非顺发性技能，进入准备状态
-                if (_isSkillArmed)
-                {
-                    _isSkillArmed = false;
-                    SkillUnarmed(skillType);
-                }
-                else
-                {
-                    _isSkillArmed = true;
-                    SkillArmed(skillType);
-                }
+                _isSkillArmed = true;
+                SkillArmed(skillType);
+                OnSkillArmed?.Invoke(true);
+            }
+        }
+
+
+        /// <summary>
+        /// 攻击键按下时，判断是否已经处于准备释放技能状态，若是，则释放技能
+        /// </summary>
+        /// <param name="skillType"></param>
+        private void TrySkillUsed()
+        {
+            if (_isSkillArmed && _currentSkill is { IsInstant: false })
+            {
+                var entry = _skillEntries[_currentSkill.Type];
+
+                // 次数校验
+                if (entry.CurrentCharges <= 0) return;
+            
+                entry.CurrentCharges--;
+                _isSkillArmed = false;
+            
+                _currentSkill?.SkillUsed();
             }
         }
 
@@ -146,6 +177,8 @@ namespace PlayerControl
         /// </summary>
         private void SkillFinished()
         {
+            if(!_currentSkill.IsInstant) OnSkillArmed?.Invoke(false);
+            
             _isFinished = true;
             _currentSkill = null;
         }
@@ -169,7 +202,7 @@ namespace PlayerControl
             _currentSkill = null;
         }
 
-        private void SkillUsed(SkillType skillType)
+        private void InstantSkillUsed(SkillType skillType)
         {
             if (!_instantSkillHolding) return;
 
@@ -182,7 +215,6 @@ namespace PlayerControl
             _currentSkill?.SkillUsed();
         }
 
-        
         #endregion
     }
 }

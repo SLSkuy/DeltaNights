@@ -54,6 +54,7 @@ namespace PlayerControl
             _weaponController.SwitchWeapon(mainWeapon);
             
             _skillController = new PlayerSkillController(this);
+            _skillController.OnSkillArmed += _weaponController.SetAttackLock;
             
             // 示例：注册技能
             var dashSkill = new DashSkill();

@@ -10,7 +10,7 @@ namespace SkillSystem.Skill
     public class DashSkill : ISkill
     {
         public SkillType Type => SkillType.ActiveSkill;
-        public bool IsInstant => true;
+        public bool IsInstant => false;
         public float Cooldown => 5f;
         public bool LimitedUseSkill => false;
         public int MaxCharges => 1;
@@ -22,7 +22,7 @@ namespace SkillSystem.Skill
 
         private bool _isDashing;    // 是否在冲刺
 
-        private float _dashDuration = 0.15f;
+        private float _dashDuration = 0.2f;
         private float _dashTimer;
 
         private float _dashForce = 50f;
@@ -38,7 +38,7 @@ namespace SkillSystem.Skill
         /// </summary>
         public void SkillArmed()
         {
-
+            Debug.Log("Skill Armed");
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace SkillSystem.Skill
         /// </summary>
         public void SkillUnarmed()
         {
-
+            Debug.Log("Skill Unarmed");
         }
 
         /// <summary>

@@ -13,6 +13,7 @@ namespace PlayerControl
 
         private float _attackCooldown;
         private bool _attackHeld;
+        private bool _attackLockBySkill;
         
         public PlayerWeaponController(PlayerAttackController attackController)
         {
@@ -58,6 +59,14 @@ namespace PlayerControl
             }
         }
 
+        /// <summary>
+        /// 设置攻击锁
+        /// </summary>
+        public void SetAttackLock(bool lockBySkill)
+        {
+            _attackLockBySkill = lockBySkill;
+        }
+
         #region 攻击逻辑
 
         private void HandleAttackPressed()
@@ -79,6 +88,7 @@ namespace PlayerControl
         private void TryAttack()
         {
             if (!_currentWeapon) return;
+            if (_attackLockBySkill) return; // 技能瞄准状态，禁止开火
             if (_attackCooldown > 0f) return;
 
             _currentWeapon.Attack();
