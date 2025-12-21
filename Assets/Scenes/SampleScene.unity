@@ -2835,16 +2835,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f0b868806048278b16a25391dcbf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerAttackController
-  currentWeapon:
-    weaponType: 0
-    attackSpeed: 0
-    fullyAutomaticWeapon: 0
-    attenuationFactor: 0
-    headDamage: 0
-    bodyDamage: 0
-    legDamage: 0
-  instantActiveSkill: 1
-  instantUltimateSkill: 1
+  mainWeapon: {fileID: 11400000, guid: bb55b56f6e8dc934cbba68db2b6b55d3, type: 2}
+  activeSkill: {fileID: 11400000, guid: e297b4f6ef237a5468ed1388156785ea, type: 2}
+  ultimateSkill: {fileID: 0}
 --- !u!1 &2049303075
 GameObject:
   m_ObjectHideFlags: 0
