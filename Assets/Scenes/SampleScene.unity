@@ -2836,8 +2836,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerAttackController
   mainWeapon: {fileID: 11400000, guid: bb55b56f6e8dc934cbba68db2b6b55d3, type: 2}
-  instantActiveSkill: 1
-  instantUltimateSkill: 0
+  activeSkill: {fileID: 11400000, guid: e297b4f6ef237a5468ed1388156785ea, type: 2}
+  ultimateSkill: {fileID: 0}
 --- !u!1 &2049303075
 GameObject:
   m_ObjectHideFlags: 0

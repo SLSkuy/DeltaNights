@@ -55,16 +55,20 @@ namespace PlayerControl
         }
         
         /// <summary>
-        /// 逻辑更新
+        /// 初始化技能
         /// </summary>
-        public void Tick(float deltaTime)
+        /// <param name="player"></param>
+        /// <param name="configs"></param>
+        public void InitSkills(GameObject player, SkillConfig[] configs)
         {
-            UpdateCountDown(deltaTime);
-            
-            // 当前已选中技能，且技能并没有释放完成，且如果为瞬发技能并没有释放技能按键
-            if (_currentSkill != null && !_isFinished && !_instantSkillHolding)
+            foreach (var config in configs)
             {
-                _currentSkill.SkillUpdate(deltaTime);
+                if(!config) return;
+                
+                ISkill skill = config.CreateSkill();
+                skill.Init(player);
+
+                RegisterSkill(skill.Type, skill);
             }
         }
         
@@ -85,6 +89,20 @@ namespace PlayerControl
             if (_skillEntries.TryAdd(skillType, entry))
             {
                 entry.Skill.OnFinished += SkillFinished;
+            }
+        }
+        
+        /// <summary>
+        /// 逻辑更新
+        /// </summary>
+        public void Tick(float deltaTime)
+        {
+            UpdateCountDown(deltaTime);
+            
+            // 当前已选中技能，且技能并没有释放完成，且如果为瞬发技能并没有释放技能按键
+            if (_currentSkill != null && !_isFinished && !_instantSkillHolding)
+            {
+                _currentSkill.SkillUpdate(deltaTime);
             }
         }
 

@@ -1,7 +1,6 @@
 using System;
 using InputProcess;
 using SkillSystem;
-using SkillSystem.Skill;
 using UnityEngine;
 using WeaponSystem;
 
@@ -16,11 +15,9 @@ namespace PlayerControl
         [Header("武器配置")] 
         [SerializeField] private WeaponData mainWeapon;
         
-        [Header("技能属性")] 
-        [Tooltip("主动技能是否为瞬发性技能")]
-        public bool instantActiveSkill;
-        [Tooltip("终极技能是否为瞬发性技能")]
-        public bool instantUltimateSkill;
+        [Header("技能配置")]
+        [SerializeField] private SkillConfig activeSkill;
+        [SerializeField] private SkillConfig ultimateSkill;
         
         // 输入来源（可替换为AI / 网络）
         private IAttackSkillInputSource _attackInputSource;
@@ -49,17 +46,14 @@ namespace PlayerControl
 
         private void Awake()
         {
-            // 初始化
+            // 武器控制器初始化
             _weaponController = new PlayerWeaponController(this);
             _weaponController.SwitchWeapon(mainWeapon);
             
+            // 技能控制器初始化
             _skillController = new PlayerSkillController(this);
             _skillController.OnSkillArmed += _weaponController.SetAttackLock;
-            
-            // 示例：注册技能
-            var dashSkill = new DashSkill();
-            dashSkill.Init(gameObject);
-            _skillController.RegisterSkill(SkillType.ActiveSkill, dashSkill);
+            _skillController.InitSkills(gameObject, new []{activeSkill, ultimateSkill});
         }
 
         private void Start()
@@ -111,36 +105,36 @@ namespace PlayerControl
         /// </summary>
         private void HandleSkillInput()
         {
-            float activeSkill = _attackInputSource.ActiveSkill;
-            float ultimateSkill = _attackInputSource.UltimateSkill;
+            float active = _attackInputSource.ActiveSkill;
+            float ultimate = _attackInputSource.UltimateSkill;
 
             // ===== 主动技能 =====
-            if (_lastActiveSkillValue <= 0f && activeSkill > 0f)
+            if (_lastActiveSkillValue <= 0f && active > 0f)
             {
                 OnSkillPressed?.Invoke(SkillType.ActiveSkill);
             }
 
             // 主动技能键松开
-            if (_lastActiveSkillValue > 0f && activeSkill <= 0f)
+            if (_lastActiveSkillValue > 0f && active <= 0f)
             {
                 OnSkillReleased?.Invoke(SkillType.ActiveSkill);
             }
 
             // ===== 终极技能 =====
-            if (_lastUltimateSkillValue <= 0f && ultimateSkill > 0f)
+            if (_lastUltimateSkillValue <= 0f && ultimate > 0f)
             {
                 OnSkillPressed?.Invoke(SkillType.UltimateSkill);
             }
 
             // 终极技能松开
-            if (_lastUltimateSkillValue > 0f && ultimateSkill <= 0f)
+            if (_lastUltimateSkillValue > 0f && ultimate <= 0f)
             {
                 OnSkillReleased?.Invoke(SkillType.UltimateSkill);
             }
 
             // 记录上一帧输入
-            _lastActiveSkillValue = activeSkill;
-            _lastUltimateSkillValue = ultimateSkill;
+            _lastActiveSkillValue = active;
+            _lastUltimateSkillValue = ultimate;
         }
         
         #endregion
