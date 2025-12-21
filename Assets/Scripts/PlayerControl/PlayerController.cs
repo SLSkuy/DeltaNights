@@ -55,6 +55,9 @@ namespace PlayerControl
         private bool _isShoulderAim;
         private bool _aimPressedLastFrame;  // 切换型状态
         private bool _isAim;
+        
+        // 技能限制
+        private bool _locomotionLockedBySkill;
 
         #endregion
         
@@ -185,7 +188,7 @@ namespace PlayerControl
         /// </summary>
         private void ApplyMotion()
         {
-            if (_characterController) { 
+            if (_characterController && !_locomotionLockedBySkill) { 
                 Vector3 motion = _currentVelocityXZ + Vector3.up * _currentVelocityY;
                 _characterController.Move(motion * Time.deltaTime);
             }
@@ -209,6 +212,30 @@ namespace PlayerControl
             
             if(_characterController != null)
                 _characterController.enabled = true;
+        }
+
+        /// <summary>
+        /// 暂停玩家的控制，为技能释放等操作使用
+        /// </summary>
+        public void PauseControl()
+        {
+            if (_characterController)
+            {
+                _locomotionLockedBySkill = true;
+                _characterController.enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// 恢复玩家的控制
+        /// </summary>
+        public void ResumeControl()
+        {
+            if (_characterController)
+            {
+                _locomotionLockedBySkill = false;
+                _characterController.enabled = true;
+            }
         }
 
         /// <summary>

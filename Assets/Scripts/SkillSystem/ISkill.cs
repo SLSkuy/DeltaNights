@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace SkillSystem
@@ -29,6 +30,11 @@ namespace SkillSystem
         /// </summary>
         public int MaxCharges { get; }
 
+        /// <summary>
+        /// 技能释放完毕回调事件
+        /// </summary>
+        public event Action OnFinished;
+        
         /// <summary>
         /// 技能逻辑更新接口
         /// </summary>
