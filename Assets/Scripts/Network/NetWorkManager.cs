@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.10.28
- *  LastUpdate: 2025.12.14
+ *  LastUpdate: 2025.12.22
  * 
  *  功能简述：
  *  NetWorkManager 负责管理客户端的网络连接与消息通信，
@@ -32,17 +32,17 @@ namespace Network
     public class NetWorkManager : MonoBehaviour
     {
         public static NetWorkManager Instance;
+        
+        [Header("服务器配置")]
+        public string serverIp = "127.0.0.1";
+        public short serverPort = 11451;
 
         public event Action<string> ReceiveMessage;
         
         private Socket _socket;
         private CancellationTokenSource _cts;
-        
-        private string _ip;
-        private short _port;
 
         private Queue<string> _receiveMsgs;
-        
         
         void Awake()
         {
@@ -52,7 +52,7 @@ namespace Network
             
             DontDestroyOnLoad(gameObject);
             
-            ConnectToServer("127.0.0.1",11451);
+            ConnectToServer(serverIp, serverPort);
         }
 
         void Start()
@@ -71,7 +71,7 @@ namespace Network
             }
         }
 
-        public void ConnectToServer(string ip, short port)
+        private void ConnectToServer(string ip, short port)
         {
             if (_socket.Connected)
             {
@@ -91,7 +91,7 @@ namespace Network
 
         public void SendMsg(string msg)
         {
-            if (_socket != null && _socket.Connected)
+            if (_socket is { Connected: true })
             {
                 _socket.Send(Encoding.UTF8.GetBytes(msg));
             }
@@ -104,14 +104,14 @@ namespace Network
             {
                 try
                 {
-                    int len = await _socket.ReceiveAsync(msgBytes, SocketFlags.None, token);
+                    var len = await _socket.ReceiveAsync(msgBytes, SocketFlags.None, token);
                     if (len <= 0)
                     {
                         Debug.LogWarning("Server Closed");
                         break;
                     }
 
-                    string msg = Encoding.UTF8.GetString(msgBytes, 0, len);
+                    var msg = Encoding.UTF8.GetString(msgBytes, 0, len);
                     _receiveMsgs.Enqueue(msg);
                     Debug.Log($"Received From Server: {msg}");
                 }
@@ -123,17 +123,16 @@ namespace Network
             }
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             _cts?.Cancel();
             
             try
             {
-                if (_socket != null && _socket.Connected)
-                {
-                    _socket.Shutdown(SocketShutdown.Both);
-                    _socket.Close();
-                }
+                if (_socket == null || !_socket.Connected) return;
+                
+                _socket.Shutdown(SocketShutdown.Both);
+                _socket.Close();
             }catch(Exception e)
             {
                 Debug.LogError(e);

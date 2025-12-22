@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package BattleSyncPackage;
+
+// 数据结构
+message Vector2D {
+  float x = 1;
+  float y = 2;
+}
+
+message Vector3D {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
+
+// 玩家输入抽象
+message PlayerConfirmedInput {
+  Vector2D moveDir = 1;
+  bool jump = 2;
+  float yaw = 3;
+  float pitch = 4;
+}
+
+// 玩家输入同步
+message PlayerInputCommand {
+  uint32 playerID = 1;
+  uint32 tick = 2;
+  
+  PlayerConfirmedInput input = 3;
+}
+
+// 服务器返回玩家状态
+message PlayerState {
+  uint32 playerID = 1;
+  uint32 tick = 2;
+
+  PlayerConfirmedInput input = 3;
+  
+  // 权威状态同步
+  Vector3D position = 4;
+  Vector3D eulaAngle = 5;
+}

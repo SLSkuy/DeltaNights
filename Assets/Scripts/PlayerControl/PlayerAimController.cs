@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.11.19
- *  LastUpdate:  2025.12.19
+ *  LastUpdate:  2025.12.22
  * 
  *  功能简述：
  *  PlayerAimController 负责玩家视角与角色朝向的联动控制，
@@ -45,6 +45,9 @@ namespace PlayerControl
         [Header("视角旋转属性")]
         [Tooltip("角色模型旋转阻尼，值越大旋转越慢")]
         [SerializeField]private float rotationDamping = 0.2f;
+        
+        // 网络同步数据
+        public float AimPitch { get; private set; }
 
         // 组件获取
         private PlayerController _controller;
@@ -98,6 +101,9 @@ namespace PlayerControl
             float h = _lookInputSource.HorizontalLook.Value;
             float v = _lookInputSource.VerticalLook.Value;
             transform.localRotation = Quaternion.Euler(v, h, 0);
+            
+            // Pitch记录（用于网络同步）
+            AimPitch = NormalizeAngle(v);
             
             RecenterPlayer(_curRotationDamping);
         }
