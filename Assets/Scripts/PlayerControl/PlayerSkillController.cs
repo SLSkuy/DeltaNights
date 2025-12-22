@@ -142,8 +142,7 @@ namespace PlayerControl
             if (_skillEntries[skillType].CurrentCharges <= 0) return;
 
             // 当前是非瞬发技能，且已进入准备状态，再次按下取消准备状态
-            if (_isSkillArmed && _currentSkill != null &&
-                !_currentSkill.IsInstant && _currentSkill.Type == skillType)
+            if (_isSkillArmed && _currentSkill is { IsInstant: false } && _currentSkill.Type == skillType)
             {
                 _isSkillArmed = false;
                 SkillUnarmed(skillType);
@@ -173,7 +172,6 @@ namespace PlayerControl
         /// <summary>
         /// 攻击键按下时，判断是否已经处于准备释放技能状态，若是，则释放技能
         /// </summary>
-        /// <param name="skillType"></param>
         private void TrySkillUsed()
         {
             if (_isSkillArmed && _currentSkill is { IsInstant: false })

@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponType: 0
   weaponName: 
   attackSpeed: 120
-  fullyAutomatic: 0
+  fullyAutomatic: 1
   attenuationFactor: 1
   headDamage: 0
   bodyDamage: 0

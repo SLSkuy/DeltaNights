@@ -1,3 +1,32 @@
+/* ------------------------------------------------------------
+ *  Author:  2023051604044 wanrui
+ *  Date:  2025.12.15
+ *  LastUpdate:  2025.12.19
+ * 
+ *  功能简述：
+ *  PlayerAnimationController 负责玩家角色动画状态的驱动与平滑过渡，
+ *  将 PlayerController 中的行为事件映射为 Animator 参数与动画层权重变化。
+ *
+ *  主要功能：
+ *  - 根据移动输入更新移动动画参数（MoveX / MoveZ）
+ *  - 监听跳跃事件并触发跳跃动画
+ *  - 根据肩射状态平滑切换动画层级权重
+ *  - 通过插值方式避免动画参数突变
+ *
+ *  设计说明：
+ *  - 动画控制采用“事件驱动”而非轮询输入，降低系统耦合
+ *  - 动画参数更新与动画层权重更新相互独立，便于扩展
+ *  - 不直接参与角色逻辑计算，仅负责 Animator 参数映射
+ *  - 肩射动画通过独立动画层实现，保证基础移动动画可复用
+ *
+ *  使用说明：
+ *  - 需与 PlayerController、Animator 组件挂载在同一对象上
+ *  - Animator 中需存在对应参数：
+ *      - Float：MoveX、MoveZ
+ *      - Trigger：Jump
+ *  - shoulderAimLayerIndex 对应 Animator 中的肩射动画层
+ * ------------------------------------------------------------ */
+
 using UnityEngine;
 
 namespace PlayerControl

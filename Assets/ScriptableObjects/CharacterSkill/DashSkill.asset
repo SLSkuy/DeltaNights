@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillSystem.Skill.DashSkillConfig
   skillType: 0
   isInstant: 1
-  cooldown: 5
+  cooldown: 1
   limitedUseSkill: 0
   maxCharges: 1
   dashDuration: 0.3

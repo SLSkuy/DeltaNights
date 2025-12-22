@@ -1,3 +1,23 @@
+/* ------------------------------------------------------------
+ *  Author:  2023051604044 wanrui
+ *  Date:  2025.12.21
+ *  LastUpdate: 2025.12.21
+ * 
+ *  功能简述：
+ *  DashSkill 为冲刺技能的运行时实现类，
+ *  负责处理技能触发后的位移、动画与状态控制逻辑。
+ *
+ *  主要功能：
+ *  - 基于技能配置执行冲刺行为
+ *  - 控制角色移动、输入锁定与模型动画
+ *  - 在技能结束时恢复角色状态并触发回调
+ *
+ *  使用说明：
+ *  - 由对应的 SkillConfig 创建实例
+ *  - 需在 Init 中完成角色相关组件绑定
+ *  - 由技能系统周期性调用 SkillUpdate 驱动逻辑
+ * ------------------------------------------------------------ */
+
 using System;
 using DG.Tweening;
 using PlayerControl;
@@ -73,16 +93,15 @@ namespace SkillSystem.Skill.DshSkill
 
             float duration = _config.dashDuration;
 
-            // 清理残留 Tween（非常重要）
+            // 清理残留 Tween
             mesh.DOKill();
 
             // 构建动画序列
             Sequence seq = DOTween.Sequence();
-
-            // 前倾 90 度（绕 X 轴）
+            
             mesh.localEulerAngles = new Vector3(0f, 90f, 90f);
 
-            // 同时旋转两圈（绕 Z 轴，翻滚感）
+            // 万向锁处理
             seq.Join(
                 mesh.DOLocalRotate(
                     new Vector3(360f, 90f, 90f),
