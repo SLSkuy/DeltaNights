@@ -89,7 +89,7 @@ namespace SkillSystem.Skill.DshSkill
             Quaternion originalLocalRot = mesh.localRotation;
 
             // 抬高模型，避免穿地
-            mesh.localPosition = originalLocalPos + Vector3.up * _characterController.height / 2;
+            mesh.localPosition = originalLocalPos + Vector3.up * _characterController.height / 2 - Vector3.forward * _characterController.height / 2;
 
             float duration = _config.dashDuration;
 
@@ -104,7 +104,7 @@ namespace SkillSystem.Skill.DshSkill
             // 万向锁处理
             seq.Join(
                 mesh.DOLocalRotate(
-                    new Vector3(360f, 90f, 90f),
+                    new Vector3(540f, 90f, 90f),
                     duration,
                     RotateMode.FastBeyond360
                 ).SetEase(Ease.Linear)
