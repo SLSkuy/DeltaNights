@@ -9,9 +9,11 @@
  * ------------------------------------------------------------ */
 
 #include "networkdispatcher.h"
+#include "tcpendpoint.h"
+#include "udpendpoint.h"
 
-NetworkDispatcher::NetworkDispatcher(UdpEndpoint* udp, QObject* parent)
-    : m_udp(udp)
+NetworkDispatcher::NetworkDispatcher(UdpEndpoint* udp, TcpEndpoint* tcp, QObject* parent)
+    : _udp(udp), _tcp(tcp)
     , QObject(parent)
 {
 }

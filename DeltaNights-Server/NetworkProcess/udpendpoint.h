@@ -18,7 +18,6 @@
 class UdpEndpoint : public QObject
 {
     Q_OBJECT
-
 public:
     explicit UdpEndpoint(QObject* parent = nullptr);
     ~UdpEndpoint();

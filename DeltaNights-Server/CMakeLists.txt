@@ -29,6 +29,8 @@ add_executable(DeltaNights-Server
   PlayerInfo/playerinfo.cpp PlayerInfo/playerinfo.h
   PlayerInfo/playerinfomanager.cpp PlayerInfo/playerinfomanager.h
   GameData/characterprops.cpp GameData/characterprops.h
+  NetworkProcess/tcpendpoint.h NetworkProcess/tcpendpoint.cpp
+  gameserver.h gameserver.cpp
 )
 
 # 指定protobuf库位置

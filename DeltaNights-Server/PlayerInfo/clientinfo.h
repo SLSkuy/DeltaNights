@@ -12,6 +12,7 @@
 
 #include <QObject>
 #include <QHostAddress>
+#include <QTcpSocket>
 
 class PlayerInfo;
 
@@ -37,10 +38,12 @@ public:
     void unbindPlayer();
 
 private:
-    QHostAddress m_ip;
-    quint16 m_port = 0;
     quint32 m_clientID = 0;
     quint64 m_lastActive = 0;
+
+    QHostAddress m_ip;
+    quint16 m_port = 0;
+    QTcpSocket* m_tcp = nullptr;    // 登录时绑定TCP
 
     PlayerInfo* m_player = nullptr; // 客户端连接服务器后，登陆账号绑定玩家信息
 };

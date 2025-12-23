@@ -22,6 +22,9 @@ class GameRoomManager : public QObject
 public:
     GameRoomManager(QObject *parent = nullptr);
 
+signals:
+    void frameGenerated();  // 转发各个战局的信号
+
 private:
     std::unordered_map<int, std::unique_ptr<GameRoom>> m_rooms; // roomID -> GameRoom
 };

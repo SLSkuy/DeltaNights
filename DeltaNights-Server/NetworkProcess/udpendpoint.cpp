@@ -12,6 +12,7 @@
 #include <QDebug>
 
 #include "UdpEndpoint.h"
+#include "../Logger/logger.h"
 
 UdpEndpoint::UdpEndpoint(QObject* parent)
     : QObject(parent)
@@ -36,11 +37,11 @@ bool UdpEndpoint::bind(quint16 port, QHostAddress address)
 
     if (!ok)
     {
-        qWarning() << "UDP bind failed:" << _socket->errorString();
+        Logger::Warning() << "UDP bind failed:" << _socket->errorString();
     }
     else
     {
-        qDebug() << "UDP bind on" << address.toString() << port;
+        Logger::Info() << "UDP bind on " << address.toString() << ":" << port;
     }
     return ok;
 }
