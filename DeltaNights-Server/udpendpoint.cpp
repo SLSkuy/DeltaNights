@@ -9,8 +9,9 @@
  *  初步封装UDP功能
  * ------------------------------------------------------------ */
 
-#include "UdpEndpoint.h"
 #include <QDebug>
+
+#include "UdpEndpoint.h"
 
 UdpEndpoint::UdpEndpoint(QObject* parent)
     : QObject(parent)

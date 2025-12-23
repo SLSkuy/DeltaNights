@@ -16,13 +16,13 @@
 #include "BattleSyncPackage.pb.h"
 #include "characterprops.h"
 
-class Player : public QObject
+class PlayerEntity : public QObject
 {
     Q_OBJECT
 public:
-    explicit Player(QObject *parent = nullptr);
+    explicit PlayerEntity(QObject *parent = nullptr);
 private:
-    quint32 playerID;
+    quint32 uuid;
 
     // 客户端输入
     BattleSyncPackage::Vector2D moveDir;

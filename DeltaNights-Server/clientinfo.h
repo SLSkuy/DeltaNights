@@ -13,7 +13,7 @@
 #include <QObject>
 #include <QHostAddress>
 
-class Player;
+class PlayerInfo;
 
 class ClientInfo : public QObject
 {
@@ -31,8 +31,8 @@ public:
     quint64 lastActiveTime() const;
 
     // 绑定玩家
-    void bindPlayer(Player* player);
-    Player* player() const;
+    void bindPlayer(PlayerInfo* player);
+    PlayerInfo* getPlayer() const;
     void unbindPlayer();
 
 private:
@@ -41,6 +41,6 @@ private:
     quint32 m_clientID = 0;
     quint64 m_lastActive = 0;
 
-    Player* m_player = nullptr; // 进入战局时绑定玩家，玩家对象由战局管理
+    PlayerInfo* m_player = nullptr; // 客户端连接服务器后，登陆账号绑定玩家信息
 };
 

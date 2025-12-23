@@ -17,6 +17,7 @@ class CharacterProps : public QObject
     Q_OBJECT
 public:
     CharacterProps();
+
 private:
     QString name;   // 角色名称
 

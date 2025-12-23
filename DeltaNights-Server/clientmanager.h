@@ -22,14 +22,15 @@ public:
     explicit ClientManager(QObject* parent = nullptr);
     ~ClientManager();
 
-    ClientInfo* CreateNewClient(const QHostAddress& ip, quint16 port);
-    ClientInfo* FindClient(const QHostAddress& ip, quint16 port) const;
-    void RemoveClient(const QHostAddress& ip, quint16 port);
+    ClientInfo* createNewClient(const QHostAddress& ip, quint16 port);
+    ClientInfo* findClient(const QHostAddress& ip, quint16 port) const;
+    void removeClient(const QHostAddress& ip, quint16 port);
 
-    void RemoveTimeoutClients(quint64 timeoutMs);
+    // 删除超时客户端
+    void removeTimeoutClients(quint64 timeout);
 
 private:
-    QString MakeKey(const QHostAddress& ip, quint16 port) const;
+    QString makeKey(const QHostAddress& ip, quint16 port) const;
 
 private:
     std::unordered_map<QString, ClientInfo*> m_clients;

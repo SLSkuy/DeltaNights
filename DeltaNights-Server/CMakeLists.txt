@@ -20,13 +20,15 @@ add_executable(DeltaNights-Server
   logger.h logger.cpp
   udpendpoint.h udpendpoint.cpp
   clientinfo.h
-  player.h player.cpp
+  playerentity.h playerentity.cpp
   BattleSyncPackage.pb.cc BattleSyncPackage.pb.h
   characterprops.h characterprops.cpp
   clientmanager.h clientmanager.cpp
   clientinfo.cpp
   gameroom.h gameroom.cpp
   gameroommanager.h gameroommanager.cpp
+  playerinfo.h playerinfo.cpp
+  playerinfomanager.h playerinfomanager.cpp
 )
 
 # 指定protobuf库位置

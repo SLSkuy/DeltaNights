@@ -5,7 +5,7 @@
  *
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
- *  计算玩家的状态
+ *  管理所有玩家实体，计算玩家的状态
  * ------------------------------------------------------------ */
 
 #pragma once
@@ -13,8 +13,9 @@
 #include <QObject>
 #include <unordered_map>
 
+class UdpEndpoint;
 class ClientInfo;
-class Player;
+class PlayerEntity;
 
 class GameRoom : public QObject
 {
@@ -26,5 +27,8 @@ private:
 
     int m_playerCount = 0;
 
-    std::unordered_map<QString, Player*> m_players; // IPAddress -> Player
+    std::unordered_map<quint32, ClientInfo*> m_clients;    // uuid -> ClientInfo
+    std::unordered_map<quint32, PlayerEntity*> m_players; // uuid -> PlayerEntity
+
+    UdpEndpoint* _udp;
 };

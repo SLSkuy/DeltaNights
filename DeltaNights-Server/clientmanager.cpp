@@ -25,14 +25,14 @@ ClientManager::~ClientManager()
     }
 }
 
-QString ClientManager::MakeKey(const QHostAddress& ip, quint16 port) const
+QString ClientManager::makeKey(const QHostAddress& ip, quint16 port) const
 {
     return ip.toString() + ":" + QString::number(port);
 }
 
-ClientInfo* ClientManager::CreateNewClient(const QHostAddress& ip, quint16 port)
+ClientInfo* ClientManager::createNewClient(const QHostAddress& ip, quint16 port)
 {
-    const QString key = MakeKey(ip, port);
+    const QString key = makeKey(ip, port);
 
     // 若存在客户端，则直接返回客户端对象
     auto it = m_clients.find(key);
@@ -49,17 +49,17 @@ ClientInfo* ClientManager::CreateNewClient(const QHostAddress& ip, quint16 port)
     return client;
 }
 
-ClientInfo* ClientManager::FindClient(const QHostAddress& ip, quint16 port) const
+ClientInfo* ClientManager::findClient(const QHostAddress& ip, quint16 port) const
 {
-    const QString key = MakeKey(ip, port);
+    const QString key = makeKey(ip, port);
 
     auto it = m_clients.find(key);
     return it != m_clients.end() ? it->second : nullptr;
 }
 
-void ClientManager::RemoveClient(const QHostAddress& ip, quint16 port)
+void ClientManager::removeClient(const QHostAddress& ip, quint16 port)
 {
-    const QString key = MakeKey(ip, port);
+    const QString key = makeKey(ip, port);
 
     auto it = m_clients.find(key);
     if (it == m_clients.end())
@@ -69,14 +69,14 @@ void ClientManager::RemoveClient(const QHostAddress& ip, quint16 port)
     m_clients.erase(it);
 }
 
-void ClientManager::RemoveTimeoutClients(quint64 timeoutMs)
+void ClientManager::removeTimeoutClients(quint64 timeout)
 {
     const quint64 now = QDateTime::currentMSecsSinceEpoch();
 
     for (auto it = m_clients.begin(); it != m_clients.end();)
     {
         ClientInfo* client = it->second;
-        if (now - client->lastActiveTime() > timeoutMs)
+        if (now - client->lastActiveTime() > timeout)
         {
             delete client;
             it = m_clients.erase(it);

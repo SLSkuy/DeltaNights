@@ -7,9 +7,9 @@
  *  计算玩家状态并同步给客户端
  * ------------------------------------------------------------ */
 
-#include "player.h"
+#include "playerentity.h"
 
-Player::Player(QObject *parent)
+PlayerEntity::PlayerEntity(QObject *parent)
     : QObject(parent)
 {
 }

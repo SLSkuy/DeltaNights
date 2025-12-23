@@ -45,12 +45,12 @@ quint64 ClientInfo::lastActiveTime() const
     return m_lastActive;
 }
 
-void ClientInfo::bindPlayer(Player* player)
+void ClientInfo::bindPlayer(PlayerInfo* player)
 {
     m_player = player;
 }
 
-Player* ClientInfo::player() const
+PlayerInfo* ClientInfo::getPlayer() const
 {
     return m_player;
 }

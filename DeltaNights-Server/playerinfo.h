@@ -1,0 +1,31 @@
+/* ------------------------------------------------------------
+ *  Author:  2023051604044 wanrui
+ *  Date:  2025.12.23
+ *  LastUpdate: 2025.12.23
+ *
+ *  玩家信息类
+ *  记录玩家如账号、密码、昵称、货币等各种信息
+ *  不同于PlayerEntity作为战局内实例
+ *  PlayerInfo持续存在于数据库中，并在客户端登录后，绑定客户端
+ * ------------------------------------------------------------ */
+
+#pragma once
+
+#include <QObject>
+
+class PlayerInfo : public QObject
+{
+    Q_OBJECT
+public:
+    explicit PlayerInfo(QObject* parent = nullptr);
+
+    void registerAccount();
+    void loginAccount();
+
+private:
+    quint32 m_uuid;
+    QString m_nickname;
+
+    QString m_account;
+    QString m_password;
+};
