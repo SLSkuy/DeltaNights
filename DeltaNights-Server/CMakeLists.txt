@@ -13,21 +13,27 @@ find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core Network)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Network)
 
 # 指定protobuf头文件位置
-# include_directories(${CMAKE_CURRENT_SOURCE_DIR}/protobuf/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/protobuf/include)
 
 add_executable(DeltaNights-Server
   main.cpp
   logger.h logger.cpp
   udpendpoint.h udpendpoint.cpp
+  clientinfo.h
+  player.h player.cpp
+  BattleSyncPackage.pb.cc BattleSyncPackage.pb.h
+  characterprops.h characterprops.cpp
+  clientmanager.h clientmanager.cpp
+  clientinfo.cpp
 )
 
 # 指定protobuf库位置
-# target_link_directories(DeltaNights-Server PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/protobuf/lib)
+target_link_directories(DeltaNights-Server PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/protobuf/lib)
 
 target_link_libraries(DeltaNights-Server
   Qt${QT_VERSION_MAJOR}::Core
   Qt${QT_VERSION_MAJOR}::Network
-  # protobuf
+  protobuf
 )
 
 include(GNUInstallDirs)

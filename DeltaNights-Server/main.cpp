@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(&udp, &UdpEndpoint::messageReceived,[](const QByteArray& data, const QHostAddress& from, quint16 port)
     {
-        Logger::Info() << "Recv: " << data << " from " << from.toString() << port;
+        Logger::Info() << "Recv: " << data << " from " << from.toString() << ":" << port;
     });
 
     // UDP测试

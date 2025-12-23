@@ -15,8 +15,7 @@
 UdpEndpoint::UdpEndpoint(QObject* parent)
     : QObject(parent)
 {
-    connect(&_socket, &QUdpSocket::readyRead,
-            this, &UdpEndpoint::onReadyRead);
+    connect(&_socket, &QUdpSocket::readyRead, this, &UdpEndpoint::onReadyRead);
 }
 
 UdpEndpoint::~UdpEndpoint()
