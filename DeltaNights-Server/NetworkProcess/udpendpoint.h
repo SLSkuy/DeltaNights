@@ -33,5 +33,5 @@ private slots:
     void onReadyRead();
 
 private:
-    QUdpSocket _socket;
+    QUdpSocket* _socket;
 };

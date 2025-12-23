@@ -21,6 +21,7 @@ class GameRoomManager : public QObject
     Q_OBJECT
 public:
     GameRoomManager(QObject *parent = nullptr);
+
 private:
     std::unordered_map<int, std::unique_ptr<GameRoom>> m_rooms; // roomID -> GameRoom
 };

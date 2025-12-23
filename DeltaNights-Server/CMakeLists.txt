@@ -17,18 +17,18 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/protobuf/include)
 
 add_executable(DeltaNights-Server
   main.cpp
-  logger.h logger.cpp
-  udpendpoint.h udpendpoint.cpp
-  clientinfo.h
-  playerentity.h playerentity.cpp
   BattleSyncPackage.pb.cc BattleSyncPackage.pb.h
-  characterprops.h characterprops.cpp
-  clientmanager.h clientmanager.cpp
-  clientinfo.cpp
-  gameroom.h gameroom.cpp
-  gameroommanager.h gameroommanager.cpp
-  playerinfo.h playerinfo.cpp
-  playerinfomanager.h playerinfomanager.cpp
+  Logger/logger.cpp Logger/logger.h
+  NetworkProcess/udpendpoint.cpp NetworkProcess/udpendpoint.h
+  NetworkProcess/networkdispatcher.cpp NetworkProcess/networkdispatcher.h
+  GameProcess/gameroom.cpp GameProcess/gameroom.h
+  GameProcess/gameroommanager.cpp GameProcess/gameroommanager.h
+  GameProcess/playerentity.cpp GameProcess/playerentity.h
+  PlayerInfo/clientinfo.cpp PlayerInfo/clientinfo.h
+  PlayerInfo/clientmanager.cpp PlayerInfo/clientmanager.h
+  PlayerInfo/playerinfo.cpp PlayerInfo/playerinfo.h
+  PlayerInfo/playerinfomanager.cpp PlayerInfo/playerinfomanager.h
+  GameData/characterprops.cpp GameData/characterprops.h
 )
 
 # 指定protobuf库位置

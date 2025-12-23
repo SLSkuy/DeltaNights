@@ -13,3 +13,8 @@ PlayerEntity::PlayerEntity(QObject *parent)
     : QObject(parent)
 {
 }
+
+void PlayerEntity::bindClient(ClientInfo* client)
+{
+    m_client = client;
+}

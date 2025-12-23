@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package BattleSyncPackage;
 
-// 数据结构
+/* --------------------------------------------------
+  Unity 数据结构
+-------------------------------------------------- */
 message Vector2D {
   float x = 1;
   float y = 2;
@@ -14,7 +16,9 @@ message Vector3D {
   float z = 3;
 }
 
-// 玩家输入抽象
+/* --------------------------------------------------
+  玩家输入抽象
+-------------------------------------------------- */ 
 message PlayerConfirmedInput {
   Vector2D moveDir = 1;
   bool jump = 2;
@@ -22,6 +26,10 @@ message PlayerConfirmedInput {
   float pitch = 4;
 }
 
+
+/* --------------------------------------------------
+  同步事件
+-------------------------------------------------- */
 // 玩家输入同步
 message PlayerInputCommand {
   uint32 playerID = 1;
@@ -41,3 +49,4 @@ message PlayerState {
   Vector3D position = 4;
   Vector3D eulaAngle = 5;
 }
+

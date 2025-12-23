@@ -16,24 +16,27 @@
 UdpEndpoint::UdpEndpoint(QObject* parent)
     : QObject(parent)
 {
-    connect(&_socket, &QUdpSocket::readyRead, this, &UdpEndpoint::onReadyRead);
+    _socket = new QUdpSocket();
+
+    connect(_socket, &QUdpSocket::readyRead, this, &UdpEndpoint::onReadyRead);
 }
 
 UdpEndpoint::~UdpEndpoint()
 {
-    _socket.close();
+    _socket->close();
+    _socket->deleteLater();
 }
 
 bool UdpEndpoint::bind(quint16 port, QHostAddress address)
 {
-    if (_socket.state() == QUdpSocket::BoundState)
-        _socket.close();
+    if (_socket->state() == QUdpSocket::BoundState)
+        _socket->close();
 
-    bool ok = _socket.bind(address, port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    bool ok = _socket->bind(address, port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
 
     if (!ok)
     {
-        qWarning() << "UDP bind failed:" << _socket.errorString();
+        qWarning() << "UDP bind failed:" << _socket->errorString();
     }
     else
     {
@@ -47,21 +50,21 @@ bool UdpEndpoint::send(const QByteArray& data, const QHostAddress& address, quin
     if (data.isEmpty())
         return false;
 
-    qint64 sent = _socket.writeDatagram(data, address, port);
+    qint64 sent = _socket->writeDatagram(data, address, port);
     return sent == data.size();
 }
 
 void UdpEndpoint::onReadyRead()
 {
-    while (_socket.hasPendingDatagrams())
+    while (_socket->hasPendingDatagrams())
     {
         QByteArray datagram;
-        datagram.resize(int(_socket.pendingDatagramSize()));
+        datagram.resize(int(_socket->pendingDatagramSize()));
 
         QHostAddress sender;
         quint16 senderPort;
 
-        _socket.readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
+        _socket->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
 
         emit messageReceived(datagram, sender, senderPort);
     }

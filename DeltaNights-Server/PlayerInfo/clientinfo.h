@@ -21,6 +21,7 @@ class ClientInfo : public QObject
 public:
     explicit ClientInfo(const QHostAddress& ip, quint16 port, quint32 clientID, QObject* parent = nullptr);
 
+public:
     // IP信息
     const QHostAddress& ip() const;
     quint16 port() const;
@@ -31,8 +32,8 @@ public:
     quint64 lastActiveTime() const;
 
     // 绑定玩家
-    void bindPlayer(PlayerInfo* player);
     PlayerInfo* getPlayer() const;
+    void bindPlayer(PlayerInfo* player);
     void unbindPlayer();
 
 private:

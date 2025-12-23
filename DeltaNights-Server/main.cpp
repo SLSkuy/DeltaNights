@@ -1,7 +1,7 @@
 #include <QCoreApplication>
 #include <QTimer>
-#include "logger.h"
-#include "UdpEndpoint.h"
+#include "Logger/logger.h"
+#include "NetworkProcess/UdpEndpoint.h"
 
 int main(int argc, char *argv[])
 {
