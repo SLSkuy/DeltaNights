@@ -21,6 +21,8 @@ class PlayerEntity : public QObject
     Q_OBJECT
 public:
     explicit PlayerEntity(QObject *parent = nullptr);
+
+    quint32 getUUID() { return uuid; }
 private:
     quint32 uuid;
 

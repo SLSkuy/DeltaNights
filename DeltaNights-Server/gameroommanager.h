@@ -5,6 +5,7 @@
  *
  *  游戏战局房间管理
  *  处理房间的创建、销毁、玩家与房间之间的交互逻辑
+ *  获取每个房间的Tick事件，并传给网络分发层进行网络同步
  * ------------------------------------------------------------ */
 
 #pragma once
@@ -21,5 +22,5 @@ class GameRoomManager : public QObject
 public:
     GameRoomManager(QObject *parent = nullptr);
 private:
-    std::unordered_map<int, std::unique_ptr<GameRoom>> m_rooms; // roomCode -> GameRoom
+    std::unordered_map<int, std::unique_ptr<GameRoom>> m_rooms; // roomID -> GameRoom
 };

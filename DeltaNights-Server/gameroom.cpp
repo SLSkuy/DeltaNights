@@ -9,8 +9,22 @@
  * ------------------------------------------------------------ */
 
 #include "gameroom.h"
+#include "playerentity.h"
 
-GameRoom::GameRoom(QObject *parent)
-    : QObject(parent)
+GameRoom::GameRoom(quint32 roomID, QObject* parent)
+    : QObject(parent), m_roomID(roomID)
 {
+}
+
+void GameRoom::addPlayer(PlayerEntity* player)
+{
+    m_players[player->getUUID()] = player;
+}
+
+void GameRoom::removePlayer(quint32 uuid)
+{
+    if(m_players.count(uuid))
+    {
+        m_players.erase(uuid);
+    }
 }

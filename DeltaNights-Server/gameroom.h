@@ -6,6 +6,7 @@
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
  *  管理所有玩家实体，计算玩家的状态
+ *  生成Protobuf同步事件，用于网络分发层发送
  * ------------------------------------------------------------ */
 
 #pragma once
@@ -21,14 +22,19 @@ class GameRoom : public QObject
 {
     Q_OBJECT
 public:
-    GameRoom(QObject *parent = nullptr);
-private:
-    int m_roomCode;
+    GameRoom(quint32 roomID, QObject *parent = nullptr);
 
+    // 玩家相关操作
+    void addPlayer(PlayerEntity* player);
+    void removePlayer(quint32 uuid);
+    const std::unordered_map<quint32, PlayerEntity*>& getPlayers() const { return m_players; }
+
+    // 战局逻辑更新
+    void tick();    // 生成Protobuf事件
+
+private:
+    quint32 m_roomID;
     int m_playerCount = 0;
 
-    std::unordered_map<quint32, ClientInfo*> m_clients;    // uuid -> ClientInfo
     std::unordered_map<quint32, PlayerEntity*> m_players; // uuid -> PlayerEntity
-
-    UdpEndpoint* _udp;
 };
