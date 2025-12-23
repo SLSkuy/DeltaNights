@@ -79,6 +79,7 @@ namespace PlayerControl
             _controller.OnMove += SetAnimMoveInputTarget;
             _controller.OnJump += SetAnimJump;
             _controller.OnShoulderAim += SetShoulderAimState;
+            _controller.OnLand += SetAnimLand;
         }
 
         private void OnDestroy()
@@ -86,6 +87,7 @@ namespace PlayerControl
             _controller.OnMove -= SetAnimMoveInputTarget;
             _controller.OnJump -= SetAnimJump;
             _controller.OnShoulderAim -= SetShoulderAimState;
+            _controller.OnLand -= SetAnimLand;
         }
 
         private void Update()
@@ -106,8 +108,13 @@ namespace PlayerControl
         private void SetAnimJump(int times)
         {
             _animator.SetTrigger(_jumpHash);
+            _animator.CrossFade("Jump", 0.1f, 0, 0f);
         }
 
+        private void SetAnimLand()
+        {
+            _animator.CrossFade("Locomotion", 0.1f);
+        }
         private void SetShoulderAimState(bool isAim) => _targetShoulderLayerWeight = isAim ? 1f : 0;
 
         /// <summary>
