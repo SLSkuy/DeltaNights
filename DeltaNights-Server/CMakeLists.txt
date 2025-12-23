@@ -25,6 +25,8 @@ add_executable(DeltaNights-Server
   characterprops.h characterprops.cpp
   clientmanager.h clientmanager.cpp
   clientinfo.cpp
+  gameroom.h gameroom.cpp
+  gameroommanager.h gameroommanager.cpp
 )
 
 # 指定protobuf库位置

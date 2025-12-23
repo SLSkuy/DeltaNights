@@ -3,13 +3,14 @@
  *  Date:  2025.12.23
  *  LastUpdate: 2025.12.23
  *
- *  战局内玩家抽象
- *  计算玩家状态并同步给客户端
+ *  游戏战局房间示例
+ *  处理每一个战局的逻辑事件
+ *  计算玩家的状态
  * ------------------------------------------------------------ */
 
-#include "player.h"
+#include "gameroom.h"
 
-Player::Player(QObject *parent)
+GameRoom::GameRoom(QObject *parent)
     : QObject(parent)
 {
 }
