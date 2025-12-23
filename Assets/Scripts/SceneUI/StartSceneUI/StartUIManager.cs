@@ -21,18 +21,25 @@ namespace SceneUI.StartSceneUI
         protected override void AddSignal()
         {
             Signals.Get<StartPressDownSignal>().AddListener(OnStartButtonPressDown);
+            Signals.Get<BackToMainPressDownSignal>().AddListener(OnBackToMainButtonPressDown);
         }
 
         protected override void RemoveSignal()
         {
             Signals.Get<StartPressDownSignal>().RemoveListener(OnStartButtonPressDown);
+            Signals.Get<BackToMainPressDownSignal>().RemoveListener(OnBackToMainButtonPressDown);
         }
         
         void OnStartButtonPressDown()
         {
             UIFrame.HideUI("StartMainPanel");
+            UIFrame.ShowUI("HallPanel");
+        }
 
-            Debug.Log("StartMainPanelHide");
+        void OnBackToMainButtonPressDown()
+        {
+            UIFrame.ShowUI("StartMainPanel");
+            UIFrame.HideUI("HallPanel");
         }
 
         public void TestButton()

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: StartUISetting
   m_EditorClassIdentifier: Assembly-CSharp::UIFramework.UIFrameworkSettings
   uiToRegister:
-  - isEnableOnRegister: 0
+  - isEnableOnRegister: 1
     uiPrefab: {fileID: 9189573987061109214, guid: 406e1a83499f4ee4d852aec4084c32d3, type: 3}
+  - isEnableOnRegister: 0
+    uiPrefab: {fileID: 3363216272328969232, guid: bb45f1c2c054fef4db5fbcbd724cd0d9, type: 3}
