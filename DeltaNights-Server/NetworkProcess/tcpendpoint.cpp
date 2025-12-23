@@ -59,6 +59,9 @@ void TcpEndpoint::onSocketReadyRead()
     if (!socket) return;
 
     QByteArray data = socket->readAll();
+
+    Logger::Info() << "Receive Message: " << QString::fromUtf8(data);
+
     emit messageReceived(socket, data);
 }
 
