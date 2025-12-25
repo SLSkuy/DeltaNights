@@ -31,6 +31,7 @@ add_executable(DeltaNights-Server
   GameData/characterprops.cpp GameData/characterprops.h
   NetworkProcess/tcpendpoint.h NetworkProcess/tcpendpoint.cpp
   gameserver.h gameserver.cpp
+  test/server.cpp test/server.h
 )
 
 # 指定protobuf库位置
