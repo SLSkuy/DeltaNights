@@ -15,9 +15,36 @@
 #include <QObject>
 #include <unordered_map>
 
+#include "../BattleSyncPackage.pb.h"
+
 class UdpEndpoint;
 class ClientInfo;
 class PlayerEntity;
+class GameMap;
+class CollisionSystem;
+
+enum class GameState
+{
+    Waiting,
+    Running,
+    Finished
+};
+
+struct GameRoomConfig
+{
+    int maxPlayers = 10;
+    // TODO: 房间属性设置
+};
+
+struct PlayerInput
+{
+    BattleSyncPackage::Vector2D moveDir;
+    bool jump = false;
+    bool fire = false;
+
+    float yaw = 0.0f;
+    float pitch = 0.0f;
+};
 
 class GameRoom : public QObject
 {
@@ -40,18 +67,28 @@ public:
 signals:
     void battleTick();  // 发送新Tick信号，由接收者处理每一Tick产生的Protobuf事件
 
-private slots:
-    void onTick();  // 战局逻辑更新，生成Protobuf事件
-
 private:
+    void onTick();  // 战局逻辑更新，生成Protobuf事件
     void generateSyncPackage(); // 生成Protobuf同步包
 
 private:
+    // ========== 房间数据 ==========
     quint32 m_roomID;
     int m_playerCount = 0;
+    GameState m_state;
+    GameRoomConfig m_config;
 
+    // ========== Tick处理 ==========
     quint32 m_tick;
+    float m_deltaTime;
+    int m_ticRate;
     QTimer* _timer; // Tick计时器
 
+    // ========== 世界模拟 ==========
+    GameMap* _battleMap;    // 战局地图
+    CollisionSystem* _collisionSystem;  // 碰撞系统
+
+    // ========== 玩家数据处理 ==========
     std::unordered_map<quint32, PlayerEntity*> m_players; // uuid -> PlayerEntity
+    std::unordered_map<quint32, PlayerInput> m_inputBuffer;
 };

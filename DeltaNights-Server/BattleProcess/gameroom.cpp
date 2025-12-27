@@ -10,6 +10,7 @@
 
 #include "gameroom.h"
 #include "playerentity.h"
+#include "../CollisionSystem/collisionsystem.h"
 
 GameRoom::GameRoom(quint32 roomID, QObject* parent)
     : QObject(parent)
@@ -58,19 +59,29 @@ void GameRoom::stop()
 
 void GameRoom::onTick()
 {
-    ++m_tick;
+    if (m_state != GameState::Running)
+        return;
 
-    // TODO: 更新逻辑
-    for (auto& [id, player] : m_players)
+    // TODO: 将输入写入 PlayerEntity
+    for (auto& [uuid, player] : m_players)
     {
-        // player->tick();
+
     }
+
+    // TODO: 玩家输入预期逻辑（不含碰撞）
+    for (auto& [_, player] : m_players)
+        player->tick();
+
+    // TODO: 碰撞与物理
+    _collisionSystem->update(_battleMap, m_players);
+
+    // TODO: 射线检测（如有开火）
+    _collisionSystem->raycast();
 
     // TODO: 生成同步包
     generateSyncPackage();
 
-    // TODO: 抛出信号，交给外部处理
-    emit battleTick();
+    ++m_tick;
 }
 
 void GameRoom::generateSyncPackage()

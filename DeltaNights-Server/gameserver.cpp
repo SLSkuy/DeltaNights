@@ -10,7 +10,7 @@
 #include "PlayerInfo/playerinfomanager.h"
 
 // Battle
-#include "GameProcess/gameroommanager.h"
+#include "BattleProcess/gameroommanager.h"
 
 GameServer::GameServer(QObject* parent)
     : QObject(parent)

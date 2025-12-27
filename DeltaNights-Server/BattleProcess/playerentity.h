@@ -24,8 +24,7 @@ class PlayerEntity : public QObject
 public:
     explicit PlayerEntity(QObject *parent = nullptr);
 
-    // 逻辑更新
-    void tick();
+    void tick();        // 逻辑更新，生成期望位移等交给碰撞系统处理
 
     void bindClient(ClientInfo* client);
 
@@ -41,11 +40,18 @@ public:
 private:
     quint32 m_uuid;
 
+    // 物理状态
+    bool m_onGround = true;
+    int m_jumpCount = 0;    // 连跳次数
+
     // 客户端输入
     BattleSyncPackage::Vector2D m_moveDir;
     bool m_jump;
     float m_yaw;
     float m_pitch;
+
+    // 期望移动
+    BattleSyncPackage::Vector3D m_desiredVelocity;
 
     // 服务端计算状态
     BattleSyncPackage::Vector3D m_position;

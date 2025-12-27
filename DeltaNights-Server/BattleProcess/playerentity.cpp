@@ -18,3 +18,12 @@ void PlayerEntity::bindClient(ClientInfo* client)
 {
     m_client = client;
 }
+
+void PlayerEntity::tick()
+{
+    // TODO: 根据输入计算期望速度
+
+    // TODO: 跳跃处理
+
+    // TODO: 朝向更新
+}

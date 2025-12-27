@@ -21,9 +21,9 @@ add_executable(DeltaNights-Server
   Logger/logger.cpp Logger/logger.h
   NetworkProcess/udpendpoint.cpp NetworkProcess/udpendpoint.h
   NetworkProcess/networkdispatcher.cpp NetworkProcess/networkdispatcher.h
-  GameProcess/gameroom.cpp GameProcess/gameroom.h
-  GameProcess/gameroommanager.cpp GameProcess/gameroommanager.h
-  GameProcess/playerentity.cpp GameProcess/playerentity.h
+  BattleProcess/gameroom.cpp BattleProcess/gameroom.h
+  BattleProcess/gameroommanager.cpp BattleProcess/gameroommanager.h
+  BattleProcess/playerentity.cpp BattleProcess/playerentity.h
   PlayerInfo/clientinfo.cpp PlayerInfo/clientinfo.h
   PlayerInfo/clientmanager.cpp PlayerInfo/clientmanager.h
   PlayerInfo/playerinfo.cpp PlayerInfo/playerinfo.h
@@ -31,6 +31,10 @@ add_executable(DeltaNights-Server
   GameData/characterprops.cpp GameData/characterprops.h
   NetworkProcess/tcpendpoint.h NetworkProcess/tcpendpoint.cpp
   gameserver.h gameserver.cpp
+  GameData/building.h GameData/building.cpp
+  GameData/gamemap.h GameData/gamemap.cpp
+  CollisionSystem/collider.h CollisionSystem/collider.cpp
+  CollisionSystem/collisionsystem.h CollisionSystem/collisionsystem.cpp
 )
 
 # 指定protobuf库位置

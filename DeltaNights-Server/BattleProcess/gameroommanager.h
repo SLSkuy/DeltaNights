@@ -26,5 +26,5 @@ signals:
     void frameGenerated();  // 转发各个战局的信号
 
 private:
-    std::unordered_map<int, std::unique_ptr<GameRoom>> m_rooms; // roomID -> GameRoom
+    std::unordered_map<quint32, std::unique_ptr<GameRoom>> m_rooms; // roomID -> GameRoom
 };
