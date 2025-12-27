@@ -29,4 +29,14 @@ namespace SceneUI.TextUI
             Signals.Get<StartPressDown>().Dispatch();
         }
     }
+
+    public class StartMainPanelProperties : PanelProperties
+    {
+        public string Content;
+        
+        public StartMainPanelProperties(PanelPriority priority,string content ) : base(priority)
+        {
+            this.Content = content;
+        }
+    }
 }

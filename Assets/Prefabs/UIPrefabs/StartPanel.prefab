@@ -171,7 +171,7 @@ MonoBehaviour:
   animIn: {fileID: 0}
   animOut: {fileID: 0}
   uiControllerID: StartPanel
-  isVisible: 0
+  isVisible: 1
   properties:
     priority: 0
   startButton: {fileID: 7240523787651103302}

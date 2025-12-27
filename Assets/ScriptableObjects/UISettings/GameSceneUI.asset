@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aeb8919d682a42db9c954065b9da78b9, type: 3}
-  m_Name: TestUI
+  m_Name: GameSceneUI
   m_EditorClassIdentifier: Assembly-CSharp::UIFramework.UIFrameworkSettings
   uiToRegister:
   - isEnableOnRegister: 1

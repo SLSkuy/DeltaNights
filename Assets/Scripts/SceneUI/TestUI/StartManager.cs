@@ -33,6 +33,10 @@ namespace SceneUI.TextUI
             UIFrame.HideUI("StartPanel");
             UIFrame.ShowUI("LobbyPanel");
         } 
+        public void TestButton()
+        {
+            UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties(PanelPriority.None, "启动测试"));
+        }
         
     }
 }
