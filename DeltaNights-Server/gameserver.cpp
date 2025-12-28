@@ -1,3 +1,13 @@
+/* ------------------------------------------------------------
+*  Author:  2023051604044 wanrui
+ *  Date:  2025.12.23
+ *  LastUpdate: 2025.12.28
+ *
+ *  功能：
+ *  - 封装服务器所有核心模块
+ *  - 负责模块初始化、连接、生命周期管理
+ * ------------------------------------------------------------ */
+
 #include "gameserver.h"
 #include "Logger/logger.h"
 
@@ -24,8 +34,6 @@ GameServer::GameServer(QObject* parent)
 GameServer::~GameServer()
 {
     _dispatcher->deleteLater();
-    _tcp->deleteLater();
-    _udp->deleteLater();
 
     _clientMgr->deleteLater();
     _roomMgr->deleteLater();
@@ -35,9 +43,20 @@ GameServer::~GameServer()
 
 void GameServer::setupNetwork()
 {
-    _tcp = new TcpEndpoint(this);
-    _udp = new UdpEndpoint(this);
+    _netThread = new QThread(this);
+
+    _tcp = new TcpEndpoint();
+    _udp = new UdpEndpoint();
+
+    _tcp->moveToThread(_netThread);
+    _udp->moveToThread(_netThread);
+
+    connect(_netThread, &QThread::finished, _tcp, &QObject::deleteLater);
+    connect(_netThread, &QThread::finished, _udp, &QObject::deleteLater);
+
     _dispatcher = new NetworkDispatcher(_udp,_tcp,this);
+
+    _netThread->start();
 }
 
 void GameServer::setupLogic()
@@ -55,11 +74,15 @@ void GameServer::setupConnections()
 
 bool GameServer::start(quint16 tcpPort, quint16 udpPort)
 {
-    if (!_tcp->listen(tcpPort))
-        return false;
+    // 跨线程启用TCP、UDP连接
+    QMetaObject::invokeMethod(_tcp,[=]() { _tcp->listen(tcpPort); },Qt::QueuedConnection);
+    QMetaObject::invokeMethod(_udp,[=]() { _udp->bind(udpPort); },Qt::QueuedConnection);
 
-    if (!_udp->bind(udpPort))
-        return false;
+    connect(_tcp, &TcpEndpoint::messageReceived,
+            _dispatcher, &NetworkDispatcher::onTcpMessage, Qt::QueuedConnection);
+
+    connect(_udp, &UdpEndpoint::messageReceived,
+            _dispatcher, &NetworkDispatcher::onUdpMessage, Qt::QueuedConnection);
 
     return true;
 }
@@ -67,5 +90,11 @@ bool GameServer::start(quint16 tcpPort, quint16 udpPort)
 void GameServer::stop()
 {
     // TODO: 关闭服务器
+    if (_netThread)
+    {
+        _netThread->quit();
+        _netThread->wait();
+    }
+
     Logger::Info() << "服务器已关闭";
 }

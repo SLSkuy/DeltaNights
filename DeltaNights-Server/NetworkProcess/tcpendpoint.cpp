@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  TCP封装头文件
  *
@@ -18,9 +18,7 @@
 
 TcpEndpoint::TcpEndpoint(QObject* parent)
     : QObject(parent)
-    , _server(new QTcpServer(this))
 {
-    connect(_server, &QTcpServer::newConnection,this, &TcpEndpoint::onNewConnection);
 }
 
 TcpEndpoint::~TcpEndpoint()
@@ -30,10 +28,23 @@ TcpEndpoint::~TcpEndpoint()
         sock->disconnectFromHost();
         sock->deleteLater();
     }
+
+    if(_server)
+    {
+        _server->close();
+        _server->deleteLater();
+    }
 }
 
 bool TcpEndpoint::listen(quint16 port, QHostAddress address)
 {
+    // 延迟创建TCP，使Socket归属于网络线程
+    if(!_server)
+    {
+        _server = new QTcpServer(this);
+        connect(_server, &QTcpServer::newConnection,this, &TcpEndpoint::onNewConnection);
+    }
+
     Logger::Info() << "TCP Listen on " << address.toString() << ":" << port;
     return _server->listen(address, port);
 }

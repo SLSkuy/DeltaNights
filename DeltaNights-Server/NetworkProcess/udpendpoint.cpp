@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.22
- *  LastUpdate: 2025.12.22
+ *  LastUpdate: 2025.12.28
  *
  *  UDP封装实现
  *
@@ -17,19 +17,26 @@
 UdpEndpoint::UdpEndpoint(QObject* parent)
     : QObject(parent)
 {
-    _socket = new QUdpSocket();
-
-    connect(_socket, &QUdpSocket::readyRead, this, &UdpEndpoint::onReadyRead);
 }
 
 UdpEndpoint::~UdpEndpoint()
 {
-    _socket->close();
-    _socket->deleteLater();
+    if(_socket)
+    {
+        _socket->close();
+        _socket->deleteLater();
+    }
 }
 
 bool UdpEndpoint::bind(quint16 port, QHostAddress address)
 {
+    // 延迟创建Socket，不在构造时创建，导致对象线程依赖出错
+    if(!_socket)
+    {
+        _socket = new QUdpSocket(this);
+        connect(_socket, &QUdpSocket::readyRead, this, &UdpEndpoint::onReadyRead);
+    }
+
     if (_socket->state() == QUdpSocket::BoundState)
         _socket->close();
 
@@ -71,6 +78,6 @@ void UdpEndpoint::onReadyRead()
         Logger::Info() << "Receive Message: " << QString::fromUtf8(datagram);
         send(QString("服务器收到UDP连接").toUtf8(), sender, senderPort);
 
-        emit messageReceived(datagram, sender, senderPort);
+        emit messageReceived(sender, senderPort, datagram);
     }
 }

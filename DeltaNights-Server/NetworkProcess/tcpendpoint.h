@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  TCP封装头文件
  *
@@ -40,7 +40,7 @@ private slots:
     void onSocketDisconnected();
 
 private:
-    QTcpServer* _server;
+    QTcpServer* _server = nullptr;
     std::unordered_set<QTcpSocket*> m_clients;
 
     std::unordered_map<QTcpSocket*, QByteArray> m_receiveBuffers;   // Socket缓存输入，黏包处理

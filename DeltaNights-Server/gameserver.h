@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  功能：
  *  - 封装服务器所有核心模块
@@ -11,6 +11,7 @@
 #pragma once
 
 #include <QObject>
+#include <QThread>
 
 class TcpEndpoint;
 class UdpEndpoint;
@@ -38,6 +39,7 @@ private:
 
 private:
     // ================= 网络层 =================
+    QThread* _netThread = nullptr;
     TcpEndpoint* _tcp = nullptr;
     UdpEndpoint* _udp = nullptr;
     NetworkDispatcher* _dispatcher = nullptr;

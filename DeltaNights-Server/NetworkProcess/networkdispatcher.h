@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -11,10 +11,26 @@
 #pragma once
 
 #include <QObject>
+#include <QMutex>
+#include <QTcpSocket>
+#include <QQueue>
 
 class UdpEndpoint;
 class TcpEndpoint;
 class GameRoom;
+
+struct NetMessage
+{
+    // TCP消息使用
+    QTcpSocket* socket;
+
+    // UDP消息使用
+    QHostAddress addr;
+    quint16 port;
+
+    // 字节流
+    QByteArray data;
+};
 
 class NetworkDispatcher : public QObject
 {
@@ -22,8 +38,11 @@ class NetworkDispatcher : public QObject
 public:
     explicit NetworkDispatcher(UdpEndpoint* udp, TcpEndpoint* tcp, QObject* parent = nullptr);
 
-    void onTcpMessage();    // 处理TCP接受的消息
-    void onUdpMessage();    // 处理UDP接受的消息
+    // 将网络线程获取数据加入队列处理
+    void onTcpMessage(QTcpSocket* socket, const QByteArray& data);
+    void onUdpMessage(const QHostAddress& addr, quint16 port, const QByteArray& data);
+
+    void processQueueMessage();  // 处理队列中的字节流
 
     void broadcastRoomFrame(GameRoom* room);    // 广播战局事件
 
@@ -32,6 +51,12 @@ signals:
     void loginRequest();
 
 private:
-    UdpEndpoint* _udp;
-    TcpEndpoint* _tcp;
+    UdpEndpoint* _udp = nullptr;
+    TcpEndpoint* _tcp = nullptr;
+
+    QMutex _mutex;
+    // TODO: 消息队列
+    // TODO: 网络线程将消息加入队列，等待主线程取出处理
+    QQueue<NetMessage> _tcpQueue;
+    QQueue<NetMessage> _udpQueue;
 };

@@ -26,11 +26,11 @@ public:
     bool send(const QByteArray& data, const QHostAddress& address, quint16 port);
 
 signals:
-    void messageReceived(const QByteArray& data, const QHostAddress& from, quint16 port);
+    void messageReceived(const QHostAddress& from, quint16 port, const QByteArray& data);
 
 private slots:
     void onReadyRead();
 
 private:
-    QUdpSocket* _socket;
+    QUdpSocket* _socket = nullptr;
 };

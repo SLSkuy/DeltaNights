@@ -82,11 +82,11 @@ private:
     quint32 m_tick;
     float m_deltaTime;
     int m_ticRate;
-    QTimer* _timer; // Tick计时器
+    QTimer* _timer = nullptr; // Tick计时器
 
     // ========== 世界模拟 ==========
     GameMap m_battleMap;    // 战局地图
-    CollisionSystem* _collisionSystem;  // 碰撞系统
+    CollisionSystem* _collisionSystem = nullptr;  // 碰撞系统
 
     // ========== 玩家数据处理 ==========
     std::unordered_map<quint32, PlayerEntity*> m_players; // uuid -> PlayerEntity

@@ -17,5 +17,5 @@ class Building
 public:
     Building();
 private:
-    Collider* _collider;
+    Collider* _collider = nullptr;
 };
