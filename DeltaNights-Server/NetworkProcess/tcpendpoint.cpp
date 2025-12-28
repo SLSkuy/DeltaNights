@@ -32,7 +32,6 @@ TcpEndpoint::~TcpEndpoint()
     if(_server)
     {
         _server->close();
-        _server->deleteLater();
     }
 }
 

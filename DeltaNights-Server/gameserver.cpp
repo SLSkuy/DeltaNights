@@ -33,17 +33,12 @@ GameServer::GameServer(QObject* parent)
 
 GameServer::~GameServer()
 {
-    _dispatcher->deleteLater();
-
-    _clientMgr->deleteLater();
-    _roomMgr->deleteLater();
-
     stop();
 }
 
 void GameServer::setupNetwork()
 {
-    _netThread = new QThread(this);
+    _netThread = new QThread(this); // 生命周期交给Qt管理
 
     _tcp = new TcpEndpoint();
     _udp = new UdpEndpoint();
@@ -51,6 +46,7 @@ void GameServer::setupNetwork()
     _tcp->moveToThread(_netThread);
     _udp->moveToThread(_netThread);
 
+    // 控制Socket的销毁时机
     connect(_netThread, &QThread::finished, _tcp, &QObject::deleteLater);
     connect(_netThread, &QThread::finished, _udp, &QObject::deleteLater);
 
@@ -61,9 +57,9 @@ void GameServer::setupNetwork()
 
 void GameServer::setupLogic()
 {
+    // 通过Qt父子对象系统实现自动销毁
     _clientMgr = new ClientManager(this);
     _playerInfoMgr = new PlayerInfoManager(this);
-
     _roomMgr = new GameRoomManager(this);
 }
 

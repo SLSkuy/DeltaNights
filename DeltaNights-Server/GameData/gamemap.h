@@ -19,7 +19,9 @@ class GameMap : public QObject
 {
     Q_OBJECT
 public:
-    GameMap();
+    explicit GameMap(QObject* parent = nullptr);
+    ~GameMap();
+
 private:
     int m_mapCode;
     QString m_mapName;

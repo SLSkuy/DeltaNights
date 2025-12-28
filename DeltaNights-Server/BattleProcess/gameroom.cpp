@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
@@ -11,6 +11,7 @@
 #include "gameroom.h"
 #include "playerentity.h"
 #include "../CollisionSystem/collisionsystem.h"
+#include "../Logger/logger.h"
 
 GameRoom::GameRoom(quint32 roomID, QObject* parent)
     : QObject(parent)
@@ -28,24 +29,34 @@ GameRoom::~GameRoom()
 }
 
 /* --------------------------------------------------
-    玩家管理操作
--------------------------------------------------- */
-void GameRoom::addPlayer(PlayerEntity* player)
+ * 玩家管理操作
+ * -------------------------------------------------- */
+bool GameRoom::addPlayer(std::unique_ptr<PlayerEntity> player)
 {
-    m_players[player->uuid()] = player;
+    auto id = player->uuid();
+    if (m_players.count(id))
+        return false;
+
+    m_players.emplace(id, std::move(player));
+    ++m_playerCount;
+    return true;
 }
 
-void GameRoom::removePlayer(quint32 uuid)
+
+bool GameRoom::removePlayer(quint32 uuid)
 {
-    if(m_players.count(uuid))
+    if(!m_players.count(uuid))
     {
-        m_players.erase(uuid);
+        Logger::Error() << "[GameRoom ID: " << m_roomID << "]: " << "No player with UUID: " << uuid;
+        return false;
     }
+
+    return m_players.erase(uuid);
 }
 
 /* --------------------------------------------------
-    战局控制
--------------------------------------------------- */
+ * 战局控制
+ * -------------------------------------------------- */
 void GameRoom::start(int tickRate)
 {
     m_tick = 0;

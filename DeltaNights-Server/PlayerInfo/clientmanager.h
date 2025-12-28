@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  客户端管理
  *  维护所有客户端的连接
@@ -20,7 +20,6 @@ class ClientManager : public QObject
     Q_OBJECT
 public:
     explicit ClientManager(QObject* parent = nullptr);
-    ~ClientManager();
 
     ClientInfo* createNewClient(const QHostAddress& ip, quint16 port);
     ClientInfo* findClient(const QHostAddress& ip, quint16 port) const;
@@ -33,6 +32,7 @@ private:
     QString makeKey(const QHostAddress& ip, quint16 port) const;
 
 private:
-    std::unordered_map<QString, ClientInfo*> m_clients;
     quint32 m_nextClientID = 1;
+
+    std::unordered_map<QString, ClientInfo*> m_clients;
 };

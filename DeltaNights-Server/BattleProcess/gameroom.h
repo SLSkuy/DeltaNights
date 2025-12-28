@@ -13,6 +13,7 @@
 
 #include <QTimer>
 #include <QObject>
+#include <memory>
 #include <unordered_map>
 
 #include "../UnityMath.pb.h"
@@ -54,15 +55,15 @@ public:
     ~GameRoom();
 
     // 玩家相关操作
-    void addPlayer(PlayerEntity* player);
-    void removePlayer(quint32 uuid);
+    bool addPlayer(std::unique_ptr<PlayerEntity> player);
+    bool removePlayer(quint32 uuid);
 
     // 战局控制
     void start(int tickRate = 64);
     void stop();
 
 public:
-    const std::unordered_map<quint32, PlayerEntity*>& players() const { return m_players; }
+    const std::unordered_map<quint32, std::unique_ptr<PlayerEntity>>& players() const { return m_players; }
 
 signals:
     void battleTick();  // 发送新Tick信号，由接收者处理每一Tick产生的Protobuf事件
@@ -89,6 +90,6 @@ private:
     CollisionSystem* _collisionSystem = nullptr;  // 碰撞系统
 
     // ========== 玩家数据处理 ==========
-    std::unordered_map<quint32, PlayerEntity*> m_players; // uuid -> PlayerEntity
+    std::unordered_map<quint32, std::unique_ptr<PlayerEntity>> m_players; // uuid -> PlayerEntity
     std::unordered_map<quint32, PlayerInput> m_inputBuffer;
 };

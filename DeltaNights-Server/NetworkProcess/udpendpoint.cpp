@@ -24,7 +24,6 @@ UdpEndpoint::~UdpEndpoint()
     if(_socket)
     {
         _socket->close();
-        _socket->deleteLater();
     }
 }
 

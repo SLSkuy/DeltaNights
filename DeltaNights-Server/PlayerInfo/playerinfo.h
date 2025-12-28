@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  玩家信息类
  *  记录玩家如账号、密码、昵称、货币等各种信息
@@ -21,6 +21,10 @@ public:
 
     void registerAccount();
     void loginAccount();
+
+public:
+    quint32 uuid() const {return m_uuid;}
+    QString nickname() const {return m_nickname;}
 
 private:
     quint32 m_uuid;

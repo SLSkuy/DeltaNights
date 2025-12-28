@@ -10,19 +10,18 @@
 
 #pragma once
 
-#include <QObject>
 #include <memory.h>
 
 #include "../UnityMath.pb.h"
 #include "../GameData/characterprops.h"
 
 class ClientInfo;
+class PlayerInfo;
 
-class PlayerEntity : public QObject
+class PlayerEntity
 {
-    Q_OBJECT
 public:
-    explicit PlayerEntity(QObject *parent = nullptr);
+    explicit PlayerEntity(PlayerInfo* info);
 
     void tick();        // 逻辑更新，生成期望位移等交给碰撞系统处理
 
@@ -30,6 +29,7 @@ public:
 
 public:
     quint32 uuid() const {return m_uuid;}
+    QString nickname() const {return m_nickname;}
     bool jump() const {return m_jump;}
     float yaw() const {return m_yaw;}
     float pitch() const {return m_pitch;}
@@ -39,6 +39,7 @@ public:
 
 private:
     quint32 m_uuid;
+    QString m_nickname;
 
     // 物理状态
     bool m_onGround = true;

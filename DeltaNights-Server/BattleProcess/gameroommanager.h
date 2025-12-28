@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  游戏战局房间管理
  *  处理房间的创建、销毁、玩家与房间之间的交互逻辑
@@ -11,20 +11,31 @@
 #pragma once
 
 #include <QObject>
-#include <memory>
 #include <unordered_map>
 
-#include "gameroom.h"
+class GameRoom;
+class PlayerInfo;
 
 class GameRoomManager : public QObject
 {
     Q_OBJECT
 public:
-    GameRoomManager(QObject *parent = nullptr);
+    explicit GameRoomManager(QObject *parent = nullptr);
+
+    // ========== 房间管理操作 ==========
+    GameRoom* createGameRoom();
+    GameRoom* findGameRoomByID(quint32 roomID);
+    void disposeGameRoom(quint32 roomID);
+
+    // ========== 玩家交互操作 ==========
+    bool joinGameRoom(quint32 roomID, PlayerInfo* player);
+    bool leaveGameRoom(quint32 roomID, PlayerInfo* player);
 
 signals:
     void frameGenerated();  // 转发各个战局的信号
 
 private:
-    std::unordered_map<quint32, std::unique_ptr<GameRoom>> m_rooms; // roomID -> GameRoom
+    quint32 m_nextRoomID = 1;
+
+    std::unordered_map<quint32, GameRoom*> m_rooms; // roomID -> GameRoom
 };

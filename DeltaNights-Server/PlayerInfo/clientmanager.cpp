@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  客户端管理
  *  维护所有客户端的连接
@@ -15,14 +15,6 @@
 ClientManager::ClientManager(QObject* parent)
     : QObject(parent)
 {
-}
-
-ClientManager::~ClientManager()
-{
-    for(auto& it:m_clients)
-    {
-        it.second->deleteLater();
-    }
 }
 
 QString ClientManager::makeKey(const QHostAddress& ip, quint16 port) const
