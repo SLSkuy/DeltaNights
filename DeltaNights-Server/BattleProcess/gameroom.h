@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.28
  *
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
@@ -16,11 +16,11 @@
 #include <unordered_map>
 
 #include "../BattleSyncPackage.pb.h"
+#include "../GameData/gamemap.h"
 
 class UdpEndpoint;
 class ClientInfo;
 class PlayerEntity;
-class GameMap;
 class CollisionSystem;
 
 enum class GameState
@@ -85,7 +85,7 @@ private:
     QTimer* _timer; // Tick计时器
 
     // ========== 世界模拟 ==========
-    GameMap* _battleMap;    // 战局地图
+    GameMap m_battleMap;    // 战局地图
     CollisionSystem* _collisionSystem;  // 碰撞系统
 
     // ========== 玩家数据处理 ==========

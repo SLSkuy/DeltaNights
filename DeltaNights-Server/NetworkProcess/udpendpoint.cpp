@@ -67,6 +67,9 @@ void UdpEndpoint::onReadyRead()
 
         _socket->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
 
+        Logger::Info() << "Receive Message: " << QString::fromUtf8(datagram);
+        send(QString("服务器收到UDP连接").toUtf8(), sender, senderPort);
+
         emit messageReceived(datagram, sender, senderPort);
     }
 }

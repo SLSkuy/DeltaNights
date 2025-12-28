@@ -35,7 +35,7 @@ TcpEndpoint::~TcpEndpoint()
 
 bool TcpEndpoint::listen(quint16 port, QHostAddress address)
 {
-    Logger::Info() << "TCP Listen on port: " << port;
+    Logger::Info() << "TCP Listen on " << address.toString() << ":" << port;
     return _server->listen(address, port);
 }
 
@@ -61,6 +61,7 @@ void TcpEndpoint::onSocketReadyRead()
     QByteArray data = socket->readAll();
 
     Logger::Info() << "Receive Message: " << QString::fromUtf8(data);
+    send(socket,QString("服务器收到TCP连接").toUtf8());
 
     emit messageReceived(socket, data);
 }

@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.22
- *  LastUpdate: 2025.12.22
+ *  LastUpdate: 2025.12.28
  *
  *  UDP封装头文件
  *
@@ -22,7 +22,7 @@ public:
     explicit UdpEndpoint(QObject* parent = nullptr);
     ~UdpEndpoint();
 
-    bool bind(quint16 port, QHostAddress address = QHostAddress::AnyIPv4);
+    bool bind(quint16 port, QHostAddress address = QHostAddress::Any);
     bool send(const QByteArray& data, const QHostAddress& address, quint16 port);
 
 signals:

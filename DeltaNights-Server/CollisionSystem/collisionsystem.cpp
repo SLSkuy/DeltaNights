@@ -2,7 +2,7 @@
 
 CollisionSystem::CollisionSystem() {}
 
-void CollisionSystem::resolve(PlayerEntity& player, float deltaTime)
+void CollisionSystem::resolve(PlayerEntity& player, const GameMap& map, float deltaTime)
 {
     // TODO:
     // 输入：player.desiredVelocity()

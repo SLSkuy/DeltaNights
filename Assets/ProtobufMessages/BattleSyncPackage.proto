@@ -26,7 +26,6 @@ message PlayerConfirmedInput {
   float pitch = 4;
 }
 
-
 /* --------------------------------------------------
   同步事件
 -------------------------------------------------- */
@@ -49,4 +48,3 @@ message PlayerState {
   Vector3D position = 4;
   Vector3D eulaAngle = 5;
 }
-

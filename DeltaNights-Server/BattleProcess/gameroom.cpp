@@ -73,10 +73,10 @@ void GameRoom::onTick()
         player->tick();
 
     // TODO: 碰撞与物理
-    _collisionSystem->update(_battleMap, m_players);
+    // _collisionSystem->update(m_battleMap, m_players);
 
     // TODO: 射线检测（如有开火）
-    _collisionSystem->raycast();
+    // _collisionSystem->raycast();
 
     // TODO: 生成同步包
     generateSyncPackage();
