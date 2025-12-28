@@ -13,7 +13,7 @@
 #include <QObject>
 #include <memory.h>
 
-#include "../BattleSyncPackage.pb.h"
+#include "../UnityMath.pb.h"
 #include "../GameData/characterprops.h"
 
 class ClientInfo;
@@ -33,8 +33,8 @@ public:
     bool jump() const {return m_jump;}
     float yaw() const {return m_yaw;}
     float pitch() const {return m_pitch;}
-    const BattleSyncPackage::Vector3D& position() const {return m_position;}
-    const BattleSyncPackage::Vector3D& eulaAngle() const {return m_eulaAngle;}
+    const UnityMath::Vector3D& position() const {return m_position;}
+    const UnityMath::Vector3D& eulaAngle() const {return m_eulaAngle;}
     ClientInfo* client() const {return m_client;}
 
 private:
@@ -45,17 +45,17 @@ private:
     int m_jumpCount = 0;    // 连跳次数
 
     // 客户端输入
-    BattleSyncPackage::Vector2D m_moveDir;
+    UnityMath::Vector2D m_moveDir;
     bool m_jump;
     float m_yaw;
     float m_pitch;
 
     // 期望移动
-    BattleSyncPackage::Vector3D m_desiredVelocity;
+    UnityMath::Vector3D m_desiredVelocity;
 
     // 服务端计算状态
-    BattleSyncPackage::Vector3D m_position;
-    BattleSyncPackage::Vector3D m_eulaAngle;
+    UnityMath::Vector3D m_position;
+    UnityMath::Vector3D m_eulaAngle;
 
     std::weak_ptr<CharacterProps> _characterProps;  // 当前选中角色属性，从角色管理器中获取角色属性
     ClientInfo* m_client = nullptr;

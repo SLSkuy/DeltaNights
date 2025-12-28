@@ -15,7 +15,7 @@
 #include <QObject>
 #include <unordered_map>
 
-#include "../BattleSyncPackage.pb.h"
+#include "../UnityMath.pb.h"
 #include "../GameData/gamemap.h"
 
 class UdpEndpoint;
@@ -38,7 +38,7 @@ struct GameRoomConfig
 
 struct PlayerInput
 {
-    BattleSyncPackage::Vector2D moveDir;
+    UnityMath::Vector2D moveDir;
     bool jump = false;
     bool fire = false;
 

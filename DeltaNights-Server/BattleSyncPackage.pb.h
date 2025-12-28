@@ -30,6 +30,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include "UnityMath.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_BattleSyncPackage_2eproto
@@ -45,6 +46,9 @@ struct TableStruct_BattleSyncPackage_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_BattleSyncPackage_2eproto;
 namespace BattleSyncPackage {
+class BattleSync;
+struct BattleSyncDefaultTypeInternal;
+extern BattleSyncDefaultTypeInternal _BattleSync_default_instance_;
 class PlayerConfirmedInput;
 struct PlayerConfirmedInputDefaultTypeInternal;
 extern PlayerConfirmedInputDefaultTypeInternal _PlayerConfirmedInput_default_instance_;
@@ -54,42 +58,35 @@ extern PlayerInputCommandDefaultTypeInternal _PlayerInputCommand_default_instanc
 class PlayerState;
 struct PlayerStateDefaultTypeInternal;
 extern PlayerStateDefaultTypeInternal _PlayerState_default_instance_;
-class Vector2D;
-struct Vector2DDefaultTypeInternal;
-extern Vector2DDefaultTypeInternal _Vector2D_default_instance_;
-class Vector3D;
-struct Vector3DDefaultTypeInternal;
-extern Vector3DDefaultTypeInternal _Vector3D_default_instance_;
 }  // namespace BattleSyncPackage
 PROTOBUF_NAMESPACE_OPEN
+template<> ::BattleSyncPackage::BattleSync* Arena::CreateMaybeMessage<::BattleSyncPackage::BattleSync>(Arena*);
 template<> ::BattleSyncPackage::PlayerConfirmedInput* Arena::CreateMaybeMessage<::BattleSyncPackage::PlayerConfirmedInput>(Arena*);
 template<> ::BattleSyncPackage::PlayerInputCommand* Arena::CreateMaybeMessage<::BattleSyncPackage::PlayerInputCommand>(Arena*);
 template<> ::BattleSyncPackage::PlayerState* Arena::CreateMaybeMessage<::BattleSyncPackage::PlayerState>(Arena*);
-template<> ::BattleSyncPackage::Vector2D* Arena::CreateMaybeMessage<::BattleSyncPackage::Vector2D>(Arena*);
-template<> ::BattleSyncPackage::Vector3D* Arena::CreateMaybeMessage<::BattleSyncPackage::Vector3D>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace BattleSyncPackage {
 
 // ===================================================================
 
-class Vector2D final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BattleSyncPackage.Vector2D) */ {
+class BattleSync final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BattleSyncPackage.BattleSync) */ {
  public:
-  inline Vector2D() : Vector2D(nullptr) {}
-  ~Vector2D() override;
-  explicit PROTOBUF_CONSTEXPR Vector2D(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline BattleSync() : BattleSync(nullptr) {}
+  ~BattleSync() override;
+  explicit PROTOBUF_CONSTEXPR BattleSync(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  Vector2D(const Vector2D& from);
-  Vector2D(Vector2D&& from) noexcept
-    : Vector2D() {
+  BattleSync(const BattleSync& from);
+  BattleSync(BattleSync&& from) noexcept
+    : BattleSync() {
     *this = ::std::move(from);
   }
 
-  inline Vector2D& operator=(const Vector2D& from) {
+  inline BattleSync& operator=(const BattleSync& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Vector2D& operator=(Vector2D&& from) noexcept {
+  inline BattleSync& operator=(BattleSync&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -112,20 +109,20 @@ class Vector2D final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const Vector2D& default_instance() {
+  static const BattleSync& default_instance() {
     return *internal_default_instance();
   }
-  static inline const Vector2D* internal_default_instance() {
-    return reinterpret_cast<const Vector2D*>(
-               &_Vector2D_default_instance_);
+  static inline const BattleSync* internal_default_instance() {
+    return reinterpret_cast<const BattleSync*>(
+               &_BattleSync_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(Vector2D& a, Vector2D& b) {
+  friend void swap(BattleSync& a, BattleSync& b) {
     a.Swap(&b);
   }
-  inline void Swap(Vector2D* other) {
+  inline void Swap(BattleSync* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -138,7 +135,7 @@ class Vector2D final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Vector2D* other) {
+  void UnsafeArenaSwap(BattleSync* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -146,14 +143,14 @@ class Vector2D final :
 
   // implements Message ----------------------------------------------
 
-  Vector2D* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<Vector2D>(arena);
+  BattleSync* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BattleSync>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const Vector2D& from);
+  void CopyFrom(const BattleSync& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const Vector2D& from) {
-    Vector2D::MergeImpl(*this, from);
+  void MergeFrom( const BattleSync& from) {
+    BattleSync::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -171,15 +168,15 @@ class Vector2D final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Vector2D* other);
+  void InternalSwap(BattleSync* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "BattleSyncPackage.Vector2D";
+    return "BattleSyncPackage.BattleSync";
   }
   protected:
-  explicit Vector2D(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit BattleSync(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -193,28 +190,18 @@ class Vector2D final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kXFieldNumber = 1,
-    kYFieldNumber = 2,
+    kEventIDFieldNumber = 1,
   };
-  // float x = 1;
-  void clear_x();
-  float x() const;
-  void set_x(float value);
+  // uint32 eventID = 1;
+  void clear_eventid();
+  uint32_t eventid() const;
+  void set_eventid(uint32_t value);
   private:
-  float _internal_x() const;
-  void _internal_set_x(float value);
+  uint32_t _internal_eventid() const;
+  void _internal_set_eventid(uint32_t value);
   public:
 
-  // float y = 2;
-  void clear_y();
-  float y() const;
-  void set_y(float value);
-  private:
-  float _internal_y() const;
-  void _internal_set_y(float value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:BattleSyncPackage.Vector2D)
+  // @@protoc_insertion_point(class_scope:BattleSyncPackage.BattleSync)
  private:
   class _Internal;
 
@@ -222,178 +209,7 @@ class Vector2D final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    float x_;
-    float y_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_BattleSyncPackage_2eproto;
-};
-// -------------------------------------------------------------------
-
-class Vector3D final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BattleSyncPackage.Vector3D) */ {
- public:
-  inline Vector3D() : Vector3D(nullptr) {}
-  ~Vector3D() override;
-  explicit PROTOBUF_CONSTEXPR Vector3D(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  Vector3D(const Vector3D& from);
-  Vector3D(Vector3D&& from) noexcept
-    : Vector3D() {
-    *this = ::std::move(from);
-  }
-
-  inline Vector3D& operator=(const Vector3D& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Vector3D& operator=(Vector3D&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const Vector3D& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const Vector3D* internal_default_instance() {
-    return reinterpret_cast<const Vector3D*>(
-               &_Vector3D_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(Vector3D& a, Vector3D& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(Vector3D* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Vector3D* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  Vector3D* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<Vector3D>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const Vector3D& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const Vector3D& from) {
-    Vector3D::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Vector3D* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "BattleSyncPackage.Vector3D";
-  }
-  protected:
-  explicit Vector3D(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kXFieldNumber = 1,
-    kYFieldNumber = 2,
-    kZFieldNumber = 3,
-  };
-  // float x = 1;
-  void clear_x();
-  float x() const;
-  void set_x(float value);
-  private:
-  float _internal_x() const;
-  void _internal_set_x(float value);
-  public:
-
-  // float y = 2;
-  void clear_y();
-  float y() const;
-  void set_y(float value);
-  private:
-  float _internal_y() const;
-  void _internal_set_y(float value);
-  public:
-
-  // float z = 3;
-  void clear_z();
-  float z() const;
-  void set_z(float value);
-  private:
-  float _internal_z() const;
-  void _internal_set_z(float value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:BattleSyncPackage.Vector3D)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    float x_;
-    float y_;
-    float z_;
+    uint32_t eventid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -449,7 +265,7 @@ class PlayerConfirmedInput final :
                &_PlayerConfirmedInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    1;
 
   friend void swap(PlayerConfirmedInput& a, PlayerConfirmedInput& b) {
     a.Swap(&b);
@@ -527,23 +343,23 @@ class PlayerConfirmedInput final :
     kYawFieldNumber = 3,
     kPitchFieldNumber = 4,
   };
-  // .BattleSyncPackage.Vector2D moveDir = 1;
+  // .UnityMath.Vector2D moveDir = 1;
   bool has_movedir() const;
   private:
   bool _internal_has_movedir() const;
   public:
   void clear_movedir();
-  const ::BattleSyncPackage::Vector2D& movedir() const;
-  PROTOBUF_NODISCARD ::BattleSyncPackage::Vector2D* release_movedir();
-  ::BattleSyncPackage::Vector2D* mutable_movedir();
-  void set_allocated_movedir(::BattleSyncPackage::Vector2D* movedir);
+  const ::UnityMath::Vector2D& movedir() const;
+  PROTOBUF_NODISCARD ::UnityMath::Vector2D* release_movedir();
+  ::UnityMath::Vector2D* mutable_movedir();
+  void set_allocated_movedir(::UnityMath::Vector2D* movedir);
   private:
-  const ::BattleSyncPackage::Vector2D& _internal_movedir() const;
-  ::BattleSyncPackage::Vector2D* _internal_mutable_movedir();
+  const ::UnityMath::Vector2D& _internal_movedir() const;
+  ::UnityMath::Vector2D* _internal_mutable_movedir();
   public:
   void unsafe_arena_set_allocated_movedir(
-      ::BattleSyncPackage::Vector2D* movedir);
-  ::BattleSyncPackage::Vector2D* unsafe_arena_release_movedir();
+      ::UnityMath::Vector2D* movedir);
+  ::UnityMath::Vector2D* unsafe_arena_release_movedir();
 
   // bool jump = 2;
   void clear_jump();
@@ -580,7 +396,7 @@ class PlayerConfirmedInput final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::BattleSyncPackage::Vector2D* movedir_;
+    ::UnityMath::Vector2D* movedir_;
     bool jump_;
     float yaw_;
     float pitch_;
@@ -639,7 +455,7 @@ class PlayerInputCommand final :
                &_PlayerInputCommand_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(PlayerInputCommand& a, PlayerInputCommand& b) {
     a.Swap(&b);
@@ -818,7 +634,7 @@ class PlayerState final :
                &_PlayerState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(PlayerState& a, PlayerState& b) {
     a.Swap(&b);
@@ -915,41 +731,41 @@ class PlayerState final :
       ::BattleSyncPackage::PlayerConfirmedInput* input);
   ::BattleSyncPackage::PlayerConfirmedInput* unsafe_arena_release_input();
 
-  // .BattleSyncPackage.Vector3D position = 4;
+  // .UnityMath.Vector3D position = 4;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
   public:
   void clear_position();
-  const ::BattleSyncPackage::Vector3D& position() const;
-  PROTOBUF_NODISCARD ::BattleSyncPackage::Vector3D* release_position();
-  ::BattleSyncPackage::Vector3D* mutable_position();
-  void set_allocated_position(::BattleSyncPackage::Vector3D* position);
+  const ::UnityMath::Vector3D& position() const;
+  PROTOBUF_NODISCARD ::UnityMath::Vector3D* release_position();
+  ::UnityMath::Vector3D* mutable_position();
+  void set_allocated_position(::UnityMath::Vector3D* position);
   private:
-  const ::BattleSyncPackage::Vector3D& _internal_position() const;
-  ::BattleSyncPackage::Vector3D* _internal_mutable_position();
+  const ::UnityMath::Vector3D& _internal_position() const;
+  ::UnityMath::Vector3D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::BattleSyncPackage::Vector3D* position);
-  ::BattleSyncPackage::Vector3D* unsafe_arena_release_position();
+      ::UnityMath::Vector3D* position);
+  ::UnityMath::Vector3D* unsafe_arena_release_position();
 
-  // .BattleSyncPackage.Vector3D eulaAngle = 5;
+  // .UnityMath.Vector3D eulaAngle = 5;
   bool has_eulaangle() const;
   private:
   bool _internal_has_eulaangle() const;
   public:
   void clear_eulaangle();
-  const ::BattleSyncPackage::Vector3D& eulaangle() const;
-  PROTOBUF_NODISCARD ::BattleSyncPackage::Vector3D* release_eulaangle();
-  ::BattleSyncPackage::Vector3D* mutable_eulaangle();
-  void set_allocated_eulaangle(::BattleSyncPackage::Vector3D* eulaangle);
+  const ::UnityMath::Vector3D& eulaangle() const;
+  PROTOBUF_NODISCARD ::UnityMath::Vector3D* release_eulaangle();
+  ::UnityMath::Vector3D* mutable_eulaangle();
+  void set_allocated_eulaangle(::UnityMath::Vector3D* eulaangle);
   private:
-  const ::BattleSyncPackage::Vector3D& _internal_eulaangle() const;
-  ::BattleSyncPackage::Vector3D* _internal_mutable_eulaangle();
+  const ::UnityMath::Vector3D& _internal_eulaangle() const;
+  ::UnityMath::Vector3D* _internal_mutable_eulaangle();
   public:
   void unsafe_arena_set_allocated_eulaangle(
-      ::BattleSyncPackage::Vector3D* eulaangle);
-  ::BattleSyncPackage::Vector3D* unsafe_arena_release_eulaangle();
+      ::UnityMath::Vector3D* eulaangle);
+  ::UnityMath::Vector3D* unsafe_arena_release_eulaangle();
 
   // uint32 playerID = 1;
   void clear_playerid();
@@ -978,8 +794,8 @@ class PlayerState final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::BattleSyncPackage::PlayerConfirmedInput* input_;
-    ::BattleSyncPackage::Vector3D* position_;
-    ::BattleSyncPackage::Vector3D* eulaangle_;
+    ::UnityMath::Vector3D* position_;
+    ::UnityMath::Vector3D* eulaangle_;
     uint32_t playerid_;
     uint32_t tick_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -996,140 +812,50 @@ class PlayerState final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// Vector2D
+// BattleSync
 
-// float x = 1;
-inline void Vector2D::clear_x() {
-  _impl_.x_ = 0;
+// uint32 eventID = 1;
+inline void BattleSync::clear_eventid() {
+  _impl_.eventid_ = 0u;
 }
-inline float Vector2D::_internal_x() const {
-  return _impl_.x_;
+inline uint32_t BattleSync::_internal_eventid() const {
+  return _impl_.eventid_;
 }
-inline float Vector2D::x() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.Vector2D.x)
-  return _internal_x();
+inline uint32_t BattleSync::eventid() const {
+  // @@protoc_insertion_point(field_get:BattleSyncPackage.BattleSync.eventID)
+  return _internal_eventid();
 }
-inline void Vector2D::_internal_set_x(float value) {
+inline void BattleSync::_internal_set_eventid(uint32_t value) {
   
-  _impl_.x_ = value;
+  _impl_.eventid_ = value;
 }
-inline void Vector2D::set_x(float value) {
-  _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:BattleSyncPackage.Vector2D.x)
-}
-
-// float y = 2;
-inline void Vector2D::clear_y() {
-  _impl_.y_ = 0;
-}
-inline float Vector2D::_internal_y() const {
-  return _impl_.y_;
-}
-inline float Vector2D::y() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.Vector2D.y)
-  return _internal_y();
-}
-inline void Vector2D::_internal_set_y(float value) {
-  
-  _impl_.y_ = value;
-}
-inline void Vector2D::set_y(float value) {
-  _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:BattleSyncPackage.Vector2D.y)
-}
-
-// -------------------------------------------------------------------
-
-// Vector3D
-
-// float x = 1;
-inline void Vector3D::clear_x() {
-  _impl_.x_ = 0;
-}
-inline float Vector3D::_internal_x() const {
-  return _impl_.x_;
-}
-inline float Vector3D::x() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.Vector3D.x)
-  return _internal_x();
-}
-inline void Vector3D::_internal_set_x(float value) {
-  
-  _impl_.x_ = value;
-}
-inline void Vector3D::set_x(float value) {
-  _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:BattleSyncPackage.Vector3D.x)
-}
-
-// float y = 2;
-inline void Vector3D::clear_y() {
-  _impl_.y_ = 0;
-}
-inline float Vector3D::_internal_y() const {
-  return _impl_.y_;
-}
-inline float Vector3D::y() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.Vector3D.y)
-  return _internal_y();
-}
-inline void Vector3D::_internal_set_y(float value) {
-  
-  _impl_.y_ = value;
-}
-inline void Vector3D::set_y(float value) {
-  _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:BattleSyncPackage.Vector3D.y)
-}
-
-// float z = 3;
-inline void Vector3D::clear_z() {
-  _impl_.z_ = 0;
-}
-inline float Vector3D::_internal_z() const {
-  return _impl_.z_;
-}
-inline float Vector3D::z() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.Vector3D.z)
-  return _internal_z();
-}
-inline void Vector3D::_internal_set_z(float value) {
-  
-  _impl_.z_ = value;
-}
-inline void Vector3D::set_z(float value) {
-  _internal_set_z(value);
-  // @@protoc_insertion_point(field_set:BattleSyncPackage.Vector3D.z)
+inline void BattleSync::set_eventid(uint32_t value) {
+  _internal_set_eventid(value);
+  // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSync.eventID)
 }
 
 // -------------------------------------------------------------------
 
 // PlayerConfirmedInput
 
-// .BattleSyncPackage.Vector2D moveDir = 1;
+// .UnityMath.Vector2D moveDir = 1;
 inline bool PlayerConfirmedInput::_internal_has_movedir() const {
   return this != internal_default_instance() && _impl_.movedir_ != nullptr;
 }
 inline bool PlayerConfirmedInput::has_movedir() const {
   return _internal_has_movedir();
 }
-inline void PlayerConfirmedInput::clear_movedir() {
-  if (GetArenaForAllocation() == nullptr && _impl_.movedir_ != nullptr) {
-    delete _impl_.movedir_;
-  }
-  _impl_.movedir_ = nullptr;
+inline const ::UnityMath::Vector2D& PlayerConfirmedInput::_internal_movedir() const {
+  const ::UnityMath::Vector2D* p = _impl_.movedir_;
+  return p != nullptr ? *p : reinterpret_cast<const ::UnityMath::Vector2D&>(
+      ::UnityMath::_Vector2D_default_instance_);
 }
-inline const ::BattleSyncPackage::Vector2D& PlayerConfirmedInput::_internal_movedir() const {
-  const ::BattleSyncPackage::Vector2D* p = _impl_.movedir_;
-  return p != nullptr ? *p : reinterpret_cast<const ::BattleSyncPackage::Vector2D&>(
-      ::BattleSyncPackage::_Vector2D_default_instance_);
-}
-inline const ::BattleSyncPackage::Vector2D& PlayerConfirmedInput::movedir() const {
+inline const ::UnityMath::Vector2D& PlayerConfirmedInput::movedir() const {
   // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerConfirmedInput.moveDir)
   return _internal_movedir();
 }
 inline void PlayerConfirmedInput::unsafe_arena_set_allocated_movedir(
-    ::BattleSyncPackage::Vector2D* movedir) {
+    ::UnityMath::Vector2D* movedir) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.movedir_);
   }
@@ -1141,9 +867,9 @@ inline void PlayerConfirmedInput::unsafe_arena_set_allocated_movedir(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:BattleSyncPackage.PlayerConfirmedInput.moveDir)
 }
-inline ::BattleSyncPackage::Vector2D* PlayerConfirmedInput::release_movedir() {
+inline ::UnityMath::Vector2D* PlayerConfirmedInput::release_movedir() {
   
-  ::BattleSyncPackage::Vector2D* temp = _impl_.movedir_;
+  ::UnityMath::Vector2D* temp = _impl_.movedir_;
   _impl_.movedir_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -1156,34 +882,35 @@ inline ::BattleSyncPackage::Vector2D* PlayerConfirmedInput::release_movedir() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::BattleSyncPackage::Vector2D* PlayerConfirmedInput::unsafe_arena_release_movedir() {
+inline ::UnityMath::Vector2D* PlayerConfirmedInput::unsafe_arena_release_movedir() {
   // @@protoc_insertion_point(field_release:BattleSyncPackage.PlayerConfirmedInput.moveDir)
   
-  ::BattleSyncPackage::Vector2D* temp = _impl_.movedir_;
+  ::UnityMath::Vector2D* temp = _impl_.movedir_;
   _impl_.movedir_ = nullptr;
   return temp;
 }
-inline ::BattleSyncPackage::Vector2D* PlayerConfirmedInput::_internal_mutable_movedir() {
+inline ::UnityMath::Vector2D* PlayerConfirmedInput::_internal_mutable_movedir() {
   
   if (_impl_.movedir_ == nullptr) {
-    auto* p = CreateMaybeMessage<::BattleSyncPackage::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::UnityMath::Vector2D>(GetArenaForAllocation());
     _impl_.movedir_ = p;
   }
   return _impl_.movedir_;
 }
-inline ::BattleSyncPackage::Vector2D* PlayerConfirmedInput::mutable_movedir() {
-  ::BattleSyncPackage::Vector2D* _msg = _internal_mutable_movedir();
+inline ::UnityMath::Vector2D* PlayerConfirmedInput::mutable_movedir() {
+  ::UnityMath::Vector2D* _msg = _internal_mutable_movedir();
   // @@protoc_insertion_point(field_mutable:BattleSyncPackage.PlayerConfirmedInput.moveDir)
   return _msg;
 }
-inline void PlayerConfirmedInput::set_allocated_movedir(::BattleSyncPackage::Vector2D* movedir) {
+inline void PlayerConfirmedInput::set_allocated_movedir(::UnityMath::Vector2D* movedir) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete _impl_.movedir_;
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.movedir_);
   }
   if (movedir) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(movedir);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(movedir));
     if (message_arena != submessage_arena) {
       movedir = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, movedir, submessage_arena);
@@ -1524,30 +1251,24 @@ inline void PlayerState::set_allocated_input(::BattleSyncPackage::PlayerConfirme
   // @@protoc_insertion_point(field_set_allocated:BattleSyncPackage.PlayerState.input)
 }
 
-// .BattleSyncPackage.Vector3D position = 4;
+// .UnityMath.Vector3D position = 4;
 inline bool PlayerState::_internal_has_position() const {
   return this != internal_default_instance() && _impl_.position_ != nullptr;
 }
 inline bool PlayerState::has_position() const {
   return _internal_has_position();
 }
-inline void PlayerState::clear_position() {
-  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
-    delete _impl_.position_;
-  }
-  _impl_.position_ = nullptr;
+inline const ::UnityMath::Vector3D& PlayerState::_internal_position() const {
+  const ::UnityMath::Vector3D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::UnityMath::Vector3D&>(
+      ::UnityMath::_Vector3D_default_instance_);
 }
-inline const ::BattleSyncPackage::Vector3D& PlayerState::_internal_position() const {
-  const ::BattleSyncPackage::Vector3D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::BattleSyncPackage::Vector3D&>(
-      ::BattleSyncPackage::_Vector3D_default_instance_);
-}
-inline const ::BattleSyncPackage::Vector3D& PlayerState::position() const {
+inline const ::UnityMath::Vector3D& PlayerState::position() const {
   // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerState.position)
   return _internal_position();
 }
 inline void PlayerState::unsafe_arena_set_allocated_position(
-    ::BattleSyncPackage::Vector3D* position) {
+    ::UnityMath::Vector3D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -1559,9 +1280,9 @@ inline void PlayerState::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:BattleSyncPackage.PlayerState.position)
 }
-inline ::BattleSyncPackage::Vector3D* PlayerState::release_position() {
+inline ::UnityMath::Vector3D* PlayerState::release_position() {
   
-  ::BattleSyncPackage::Vector3D* temp = _impl_.position_;
+  ::UnityMath::Vector3D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -1574,34 +1295,35 @@ inline ::BattleSyncPackage::Vector3D* PlayerState::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::BattleSyncPackage::Vector3D* PlayerState::unsafe_arena_release_position() {
+inline ::UnityMath::Vector3D* PlayerState::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:BattleSyncPackage.PlayerState.position)
   
-  ::BattleSyncPackage::Vector3D* temp = _impl_.position_;
+  ::UnityMath::Vector3D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::BattleSyncPackage::Vector3D* PlayerState::_internal_mutable_position() {
+inline ::UnityMath::Vector3D* PlayerState::_internal_mutable_position() {
   
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::BattleSyncPackage::Vector3D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::UnityMath::Vector3D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::BattleSyncPackage::Vector3D* PlayerState::mutable_position() {
-  ::BattleSyncPackage::Vector3D* _msg = _internal_mutable_position();
+inline ::UnityMath::Vector3D* PlayerState::mutable_position() {
+  ::UnityMath::Vector3D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:BattleSyncPackage.PlayerState.position)
   return _msg;
 }
-inline void PlayerState::set_allocated_position(::BattleSyncPackage::Vector3D* position) {
+inline void PlayerState::set_allocated_position(::UnityMath::Vector3D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete _impl_.position_;
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
   if (position) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(position);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position));
     if (message_arena != submessage_arena) {
       position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, position, submessage_arena);
@@ -1614,30 +1336,24 @@ inline void PlayerState::set_allocated_position(::BattleSyncPackage::Vector3D* p
   // @@protoc_insertion_point(field_set_allocated:BattleSyncPackage.PlayerState.position)
 }
 
-// .BattleSyncPackage.Vector3D eulaAngle = 5;
+// .UnityMath.Vector3D eulaAngle = 5;
 inline bool PlayerState::_internal_has_eulaangle() const {
   return this != internal_default_instance() && _impl_.eulaangle_ != nullptr;
 }
 inline bool PlayerState::has_eulaangle() const {
   return _internal_has_eulaangle();
 }
-inline void PlayerState::clear_eulaangle() {
-  if (GetArenaForAllocation() == nullptr && _impl_.eulaangle_ != nullptr) {
-    delete _impl_.eulaangle_;
-  }
-  _impl_.eulaangle_ = nullptr;
+inline const ::UnityMath::Vector3D& PlayerState::_internal_eulaangle() const {
+  const ::UnityMath::Vector3D* p = _impl_.eulaangle_;
+  return p != nullptr ? *p : reinterpret_cast<const ::UnityMath::Vector3D&>(
+      ::UnityMath::_Vector3D_default_instance_);
 }
-inline const ::BattleSyncPackage::Vector3D& PlayerState::_internal_eulaangle() const {
-  const ::BattleSyncPackage::Vector3D* p = _impl_.eulaangle_;
-  return p != nullptr ? *p : reinterpret_cast<const ::BattleSyncPackage::Vector3D&>(
-      ::BattleSyncPackage::_Vector3D_default_instance_);
-}
-inline const ::BattleSyncPackage::Vector3D& PlayerState::eulaangle() const {
+inline const ::UnityMath::Vector3D& PlayerState::eulaangle() const {
   // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerState.eulaAngle)
   return _internal_eulaangle();
 }
 inline void PlayerState::unsafe_arena_set_allocated_eulaangle(
-    ::BattleSyncPackage::Vector3D* eulaangle) {
+    ::UnityMath::Vector3D* eulaangle) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.eulaangle_);
   }
@@ -1649,9 +1365,9 @@ inline void PlayerState::unsafe_arena_set_allocated_eulaangle(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:BattleSyncPackage.PlayerState.eulaAngle)
 }
-inline ::BattleSyncPackage::Vector3D* PlayerState::release_eulaangle() {
+inline ::UnityMath::Vector3D* PlayerState::release_eulaangle() {
   
-  ::BattleSyncPackage::Vector3D* temp = _impl_.eulaangle_;
+  ::UnityMath::Vector3D* temp = _impl_.eulaangle_;
   _impl_.eulaangle_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -1664,34 +1380,35 @@ inline ::BattleSyncPackage::Vector3D* PlayerState::release_eulaangle() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::BattleSyncPackage::Vector3D* PlayerState::unsafe_arena_release_eulaangle() {
+inline ::UnityMath::Vector3D* PlayerState::unsafe_arena_release_eulaangle() {
   // @@protoc_insertion_point(field_release:BattleSyncPackage.PlayerState.eulaAngle)
   
-  ::BattleSyncPackage::Vector3D* temp = _impl_.eulaangle_;
+  ::UnityMath::Vector3D* temp = _impl_.eulaangle_;
   _impl_.eulaangle_ = nullptr;
   return temp;
 }
-inline ::BattleSyncPackage::Vector3D* PlayerState::_internal_mutable_eulaangle() {
+inline ::UnityMath::Vector3D* PlayerState::_internal_mutable_eulaangle() {
   
   if (_impl_.eulaangle_ == nullptr) {
-    auto* p = CreateMaybeMessage<::BattleSyncPackage::Vector3D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::UnityMath::Vector3D>(GetArenaForAllocation());
     _impl_.eulaangle_ = p;
   }
   return _impl_.eulaangle_;
 }
-inline ::BattleSyncPackage::Vector3D* PlayerState::mutable_eulaangle() {
-  ::BattleSyncPackage::Vector3D* _msg = _internal_mutable_eulaangle();
+inline ::UnityMath::Vector3D* PlayerState::mutable_eulaangle() {
+  ::UnityMath::Vector3D* _msg = _internal_mutable_eulaangle();
   // @@protoc_insertion_point(field_mutable:BattleSyncPackage.PlayerState.eulaAngle)
   return _msg;
 }
-inline void PlayerState::set_allocated_eulaangle(::BattleSyncPackage::Vector3D* eulaangle) {
+inline void PlayerState::set_allocated_eulaangle(::UnityMath::Vector3D* eulaangle) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete _impl_.eulaangle_;
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.eulaangle_);
   }
   if (eulaangle) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(eulaangle);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(eulaangle));
     if (message_arena != submessage_arena) {
       eulaangle = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, eulaangle, submessage_arena);
@@ -1707,8 +1424,6 @@ inline void PlayerState::set_allocated_eulaangle(::BattleSyncPackage::Vector3D* 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

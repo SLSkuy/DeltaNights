@@ -24,24 +24,22 @@ namespace BattleSyncPackage {
     static BattleSyncPackageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChdCYXR0bGVTeW5jUGFja2FnZS5wcm90bxIRQmF0dGxlU3luY1BhY2thZ2Ui",
-            "IAoIVmVjdG9yMkQSCQoBeBgBIAEoAhIJCgF5GAIgASgCIisKCFZlY3RvcjNE",
-            "EgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCIm4KFFBsYXllckNv",
-            "bmZpcm1lZElucHV0EiwKB21vdmVEaXIYASABKAsyGy5CYXR0bGVTeW5jUGFj",
-            "a2FnZS5WZWN0b3IyRBIMCgRqdW1wGAIgASgIEgsKA3lhdxgDIAEoAhINCgVw",
-            "aXRjaBgEIAEoAiJsChJQbGF5ZXJJbnB1dENvbW1hbmQSEAoIcGxheWVySUQY",
-            "ASABKA0SDAoEdGljaxgCIAEoDRI2CgVpbnB1dBgDIAEoCzInLkJhdHRsZVN5",
-            "bmNQYWNrYWdlLlBsYXllckNvbmZpcm1lZElucHV0IsQBCgtQbGF5ZXJTdGF0",
-            "ZRIQCghwbGF5ZXJJRBgBIAEoDRIMCgR0aWNrGAIgASgNEjYKBWlucHV0GAMg",
-            "ASgLMicuQmF0dGxlU3luY1BhY2thZ2UuUGxheWVyQ29uZmlybWVkSW5wdXQS",
-            "LQoIcG9zaXRpb24YBCABKAsyGy5CYXR0bGVTeW5jUGFja2FnZS5WZWN0b3Iz",
-            "RBIuCglldWxhQW5nbGUYBSABKAsyGy5CYXR0bGVTeW5jUGFja2FnZS5WZWN0",
-            "b3IzRGIGcHJvdG8z"));
+            "ChdCYXR0bGVTeW5jUGFja2FnZS5wcm90bxIRQmF0dGxlU3luY1BhY2thZ2Ua",
+            "D1VuaXR5TWF0aC5wcm90byIdCgpCYXR0bGVTeW5jEg8KB2V2ZW50SUQYASAB",
+            "KA0iZgoUUGxheWVyQ29uZmlybWVkSW5wdXQSJAoHbW92ZURpchgBIAEoCzIT",
+            "LlVuaXR5TWF0aC5WZWN0b3IyRBIMCgRqdW1wGAIgASgIEgsKA3lhdxgDIAEo",
+            "AhINCgVwaXRjaBgEIAEoAiJsChJQbGF5ZXJJbnB1dENvbW1hbmQSEAoIcGxh",
+            "eWVySUQYASABKA0SDAoEdGljaxgCIAEoDRI2CgVpbnB1dBgDIAEoCzInLkJh",
+            "dHRsZVN5bmNQYWNrYWdlLlBsYXllckNvbmZpcm1lZElucHV0IrQBCgtQbGF5",
+            "ZXJTdGF0ZRIQCghwbGF5ZXJJRBgBIAEoDRIMCgR0aWNrGAIgASgNEjYKBWlu",
+            "cHV0GAMgASgLMicuQmF0dGxlU3luY1BhY2thZ2UuUGxheWVyQ29uZmlybWVk",
+            "SW5wdXQSJQoIcG9zaXRpb24YBCABKAsyEy5Vbml0eU1hdGguVmVjdG9yM0QS",
+            "JgoJZXVsYUFuZ2xlGAUgASgLMhMuVW5pdHlNYXRoLlZlY3RvcjNEYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::UnityMath.UnityMathReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.Vector2D), global::BattleSyncPackage.Vector2D.Parser, new[]{ "X", "Y" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.Vector3D), global::BattleSyncPackage.Vector3D.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.BattleSync), global::BattleSyncPackage.BattleSync.Parser, new[]{ "EventID" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.PlayerConfirmedInput), global::BattleSyncPackage.PlayerConfirmedInput.Parser, new[]{ "MoveDir", "Jump", "Yaw", "Pitch" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.PlayerInputCommand), global::BattleSyncPackage.PlayerInputCommand.Parser, new[]{ "PlayerID", "Tick", "Input" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.PlayerState), global::BattleSyncPackage.PlayerState.Parser, new[]{ "PlayerID", "Tick", "Input", "Position", "EulaAngle" }, null, null, null, null)
@@ -52,18 +50,20 @@ namespace BattleSyncPackage {
   }
   #region Messages
   /// <summary>
-  /// 数据结构
+  /// --------------------------------------------------
+  ///顶层封装-战局同步包
+  ///-------------------------------------------------- 
   /// </summary>
-  public sealed partial class Vector2D : pb::IMessage<Vector2D>
+  public sealed partial class BattleSync : pb::IMessage<BattleSync>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<Vector2D> _parser = new pb::MessageParser<Vector2D>(() => new Vector2D());
+    private static readonly pb::MessageParser<BattleSync> _parser = new pb::MessageParser<BattleSync>(() => new BattleSync());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<Vector2D> Parser { get { return _parser; } }
+    public static pb::MessageParser<BattleSync> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -79,7 +79,7 @@ namespace BattleSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public Vector2D() {
+    public BattleSync() {
       OnConstruction();
     }
 
@@ -87,59 +87,48 @@ namespace BattleSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public Vector2D(Vector2D other) : this() {
-      x_ = other.x_;
-      y_ = other.y_;
+    public BattleSync(BattleSync other) : this() {
+      eventID_ = other.eventID_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public Vector2D Clone() {
-      return new Vector2D(this);
+    public BattleSync Clone() {
+      return new BattleSync(this);
     }
 
-    /// <summary>Field number for the "x" field.</summary>
-    public const int XFieldNumber = 1;
-    private float x_;
+    /// <summary>Field number for the "eventID" field.</summary>
+    public const int EventIDFieldNumber = 1;
+    private uint eventID_;
+    /// <summary>
+    /// 事件ID
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public float X {
-      get { return x_; }
+    public uint EventID {
+      get { return eventID_; }
       set {
-        x_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "y" field.</summary>
-    public const int YFieldNumber = 2;
-    private float y_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public float Y {
-      get { return y_; }
-      set {
-        y_ = value;
+        eventID_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as Vector2D);
+      return Equals(other as BattleSync);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(Vector2D other) {
+    public bool Equals(BattleSync other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
+      if (EventID != other.EventID) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -147,8 +136,7 @@ namespace BattleSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
-      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
+      if (EventID != 0) hash ^= EventID.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -167,13 +155,9 @@ namespace BattleSyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (X != 0F) {
-        output.WriteRawTag(13);
-        output.WriteFloat(X);
-      }
-      if (Y != 0F) {
-        output.WriteRawTag(21);
-        output.WriteFloat(Y);
+      if (EventID != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(EventID);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -185,13 +169,9 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (X != 0F) {
-        output.WriteRawTag(13);
-        output.WriteFloat(X);
-      }
-      if (Y != 0F) {
-        output.WriteRawTag(21);
-        output.WriteFloat(Y);
+      if (EventID != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(EventID);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -203,11 +183,8 @@ namespace BattleSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (X != 0F) {
-        size += 1 + 4;
-      }
-      if (Y != 0F) {
-        size += 1 + 4;
+      if (EventID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(EventID);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -217,15 +194,12 @@ namespace BattleSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(Vector2D other) {
+    public void MergeFrom(BattleSync other) {
       if (other == null) {
         return;
       }
-      if (other.X != 0F) {
-        X = other.X;
-      }
-      if (other.Y != 0F) {
-        Y = other.Y;
+      if (other.EventID != 0) {
+        EventID = other.EventID;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -242,12 +216,8 @@ namespace BattleSyncPackage {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 13: {
-            X = input.ReadFloat();
-            break;
-          }
-          case 21: {
-            Y = input.ReadFloat();
+          case 8: {
+            EventID = input.ReadUInt32();
             break;
           }
         }
@@ -265,275 +235,8 @@ namespace BattleSyncPackage {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 13: {
-            X = input.ReadFloat();
-            break;
-          }
-          case 21: {
-            Y = input.ReadFloat();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class Vector3D : pb::IMessage<Vector3D>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<Vector3D> _parser = new pb::MessageParser<Vector3D>(() => new Vector3D());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<Vector3D> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public Vector3D() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public Vector3D(Vector3D other) : this() {
-      x_ = other.x_;
-      y_ = other.y_;
-      z_ = other.z_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public Vector3D Clone() {
-      return new Vector3D(this);
-    }
-
-    /// <summary>Field number for the "x" field.</summary>
-    public const int XFieldNumber = 1;
-    private float x_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public float X {
-      get { return x_; }
-      set {
-        x_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "y" field.</summary>
-    public const int YFieldNumber = 2;
-    private float y_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public float Y {
-      get { return y_; }
-      set {
-        y_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "z" field.</summary>
-    public const int ZFieldNumber = 3;
-    private float z_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public float Z {
-      get { return z_; }
-      set {
-        z_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as Vector3D);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(Vector3D other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Z, other.Z)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
-      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
-      if (Z != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Z);
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (X != 0F) {
-        output.WriteRawTag(13);
-        output.WriteFloat(X);
-      }
-      if (Y != 0F) {
-        output.WriteRawTag(21);
-        output.WriteFloat(Y);
-      }
-      if (Z != 0F) {
-        output.WriteRawTag(29);
-        output.WriteFloat(Z);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (X != 0F) {
-        output.WriteRawTag(13);
-        output.WriteFloat(X);
-      }
-      if (Y != 0F) {
-        output.WriteRawTag(21);
-        output.WriteFloat(Y);
-      }
-      if (Z != 0F) {
-        output.WriteRawTag(29);
-        output.WriteFloat(Z);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (X != 0F) {
-        size += 1 + 4;
-      }
-      if (Y != 0F) {
-        size += 1 + 4;
-      }
-      if (Z != 0F) {
-        size += 1 + 4;
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(Vector3D other) {
-      if (other == null) {
-        return;
-      }
-      if (other.X != 0F) {
-        X = other.X;
-      }
-      if (other.Y != 0F) {
-        Y = other.Y;
-      }
-      if (other.Z != 0F) {
-        Z = other.Z;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 13: {
-            X = input.ReadFloat();
-            break;
-          }
-          case 21: {
-            Y = input.ReadFloat();
-            break;
-          }
-          case 29: {
-            Z = input.ReadFloat();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 13: {
-            X = input.ReadFloat();
-            break;
-          }
-          case 21: {
-            Y = input.ReadFloat();
-            break;
-          }
-          case 29: {
-            Z = input.ReadFloat();
+          case 8: {
+            EventID = input.ReadUInt32();
             break;
           }
         }
@@ -544,7 +247,9 @@ namespace BattleSyncPackage {
   }
 
   /// <summary>
-  /// 玩家输入抽象
+  /// --------------------------------------------------
+  ///玩家输入抽象
+  ///-------------------------------------------------- 
   /// </summary>
   public sealed partial class PlayerConfirmedInput : pb::IMessage<PlayerConfirmedInput>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -560,7 +265,7 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[2]; }
+      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -595,10 +300,10 @@ namespace BattleSyncPackage {
 
     /// <summary>Field number for the "moveDir" field.</summary>
     public const int MoveDirFieldNumber = 1;
-    private global::BattleSyncPackage.Vector2D moveDir_;
+    private global::UnityMath.Vector2D moveDir_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::BattleSyncPackage.Vector2D MoveDir {
+    public global::UnityMath.Vector2D MoveDir {
       get { return moveDir_; }
       set {
         moveDir_ = value;
@@ -767,7 +472,7 @@ namespace BattleSyncPackage {
       }
       if (other.moveDir_ != null) {
         if (moveDir_ == null) {
-          MoveDir = new global::BattleSyncPackage.Vector2D();
+          MoveDir = new global::UnityMath.Vector2D();
         }
         MoveDir.MergeFrom(other.MoveDir);
       }
@@ -797,7 +502,7 @@ namespace BattleSyncPackage {
             break;
           case 10: {
             if (moveDir_ == null) {
-              MoveDir = new global::BattleSyncPackage.Vector2D();
+              MoveDir = new global::UnityMath.Vector2D();
             }
             input.ReadMessage(MoveDir);
             break;
@@ -831,7 +536,7 @@ namespace BattleSyncPackage {
             break;
           case 10: {
             if (moveDir_ == null) {
-              MoveDir = new global::BattleSyncPackage.Vector2D();
+              MoveDir = new global::UnityMath.Vector2D();
             }
             input.ReadMessage(MoveDir);
             break;
@@ -872,7 +577,7 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[3]; }
+      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1147,7 +852,7 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[4]; }
+      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1219,13 +924,13 @@ namespace BattleSyncPackage {
 
     /// <summary>Field number for the "position" field.</summary>
     public const int PositionFieldNumber = 4;
-    private global::BattleSyncPackage.Vector3D position_;
+    private global::UnityMath.Vector3D position_;
     /// <summary>
     /// 权威状态同步
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::BattleSyncPackage.Vector3D Position {
+    public global::UnityMath.Vector3D Position {
       get { return position_; }
       set {
         position_ = value;
@@ -1234,10 +939,10 @@ namespace BattleSyncPackage {
 
     /// <summary>Field number for the "eulaAngle" field.</summary>
     public const int EulaAngleFieldNumber = 5;
-    private global::BattleSyncPackage.Vector3D eulaAngle_;
+    private global::UnityMath.Vector3D eulaAngle_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::BattleSyncPackage.Vector3D EulaAngle {
+    public global::UnityMath.Vector3D EulaAngle {
       get { return eulaAngle_; }
       set {
         eulaAngle_ = value;
@@ -1395,13 +1100,13 @@ namespace BattleSyncPackage {
       }
       if (other.position_ != null) {
         if (position_ == null) {
-          Position = new global::BattleSyncPackage.Vector3D();
+          Position = new global::UnityMath.Vector3D();
         }
         Position.MergeFrom(other.Position);
       }
       if (other.eulaAngle_ != null) {
         if (eulaAngle_ == null) {
-          EulaAngle = new global::BattleSyncPackage.Vector3D();
+          EulaAngle = new global::UnityMath.Vector3D();
         }
         EulaAngle.MergeFrom(other.EulaAngle);
       }
@@ -1437,14 +1142,14 @@ namespace BattleSyncPackage {
           }
           case 34: {
             if (position_ == null) {
-              Position = new global::BattleSyncPackage.Vector3D();
+              Position = new global::UnityMath.Vector3D();
             }
             input.ReadMessage(Position);
             break;
           }
           case 42: {
             if (eulaAngle_ == null) {
-              EulaAngle = new global::BattleSyncPackage.Vector3D();
+              EulaAngle = new global::UnityMath.Vector3D();
             }
             input.ReadMessage(EulaAngle);
             break;
@@ -1481,14 +1186,14 @@ namespace BattleSyncPackage {
           }
           case 34: {
             if (position_ == null) {
-              Position = new global::BattleSyncPackage.Vector3D();
+              Position = new global::UnityMath.Vector3D();
             }
             input.ReadMessage(Position);
             break;
           }
           case 42: {
             if (eulaAngle_ == null) {
-              EulaAngle = new global::BattleSyncPackage.Vector3D();
+              EulaAngle = new global::UnityMath.Vector3D();
             }
             input.ReadMessage(EulaAngle);
             break;

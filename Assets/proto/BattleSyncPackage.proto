@@ -2,25 +2,20 @@ syntax = "proto3";
 
 package BattleSyncPackage;
 
-/* --------------------------------------------------
-  Unity 数据结构
--------------------------------------------------- */
-message Vector2D {
-  float x = 1;
-  float y = 2;
-}
+import "UnityMath.proto";
 
-message Vector3D {
-  float x = 1;
-  float y = 2;
-  float z = 3;
+/* --------------------------------------------------
+  顶层封装-战局同步包
+-------------------------------------------------- */
+message BattleSync {
+  uint32 eventID = 1; // 事件ID
 }
 
 /* --------------------------------------------------
   玩家输入抽象
 -------------------------------------------------- */ 
 message PlayerConfirmedInput {
-  Vector2D moveDir = 1;
+  UnityMath.Vector2D moveDir = 1;
   bool jump = 2;
   float yaw = 3;
   float pitch = 4;
@@ -45,6 +40,6 @@ message PlayerState {
   PlayerConfirmedInput input = 3;
   
   // 权威状态同步
-  Vector3D position = 4;
-  Vector3D eulaAngle = 5;
+  UnityMath.Vector3D position = 4;
+  UnityMath.Vector3D eulaAngle = 5;
 }

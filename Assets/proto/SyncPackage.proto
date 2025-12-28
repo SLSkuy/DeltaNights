@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package SyncPackage;
+
+import "BattleSyncPackage.proto";
+import "LobbySyncPackage.proto";
+
+/* --------------------------------------------------
+  同步包汇总
+-------------------------------------------------- */
+message SyncPackage {
+  oneof content{
+    BattleSyncPackage.BattleSync battlePackage = 1;
+    LobbySyncPackage.LobbySync lobbySync = 2;
+  }
+}
+    
