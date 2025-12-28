@@ -16,7 +16,6 @@
 #include "tcpendpoint.h"
 #include "../Logger/logger.h"
 
-
 TcpEndpoint::TcpEndpoint(QObject* parent)
     : QObject(parent)
     , _server(new QTcpServer(this))
@@ -45,6 +44,7 @@ void TcpEndpoint::onNewConnection()
     {
         QTcpSocket* socket = _server->nextPendingConnection();
         m_clients.insert(socket);
+        m_receiveBuffers[socket] = QByteArray();
 
         connect(socket, &QTcpSocket::readyRead, this, &TcpEndpoint::onSocketReadyRead);
         connect(socket, &QTcpSocket::disconnected, this, &TcpEndpoint::onSocketDisconnected);
@@ -58,12 +58,28 @@ void TcpEndpoint::onSocketReadyRead()
     auto* socket = qobject_cast<QTcpSocket*>(sender());
     if (!socket) return;
 
-    QByteArray data = socket->readAll();
+    QByteArray& buffer = m_receiveBuffers[socket];
+    buffer.append(socket->readAll());
 
-    Logger::Info() << "Receive Message: " << QString::fromUtf8(data);
-    send(socket,QString("服务器收到TCP连接").toUtf8());
+    while (true)
+    {
+        // 无消息头，丢弃
+        if (buffer.size() < 4)
+            return;
 
-    emit messageReceived(socket, data);
+        int bodyLen;
+        memcpy(&bodyLen, buffer.constData(), 4);    // 取出4字节头部信息
+        if (buffer.size() < 4 + bodyLen) return;
+
+        QByteArray data = buffer.mid(4, bodyLen);
+        buffer.remove(0, 4 + bodyLen);  //  去除已处理字节
+
+        // 测试消息
+        Logger::Info() << "Receive Message: " << QString::fromUtf8(data);
+        send(socket,QString("服务器收到TCP连接").toUtf8());
+
+        emit messageReceived(socket, data);
+    }
 }
 
 void TcpEndpoint::onSocketDisconnected()
@@ -72,8 +88,9 @@ void TcpEndpoint::onSocketDisconnected()
     if (!socket) return;
 
     m_clients.erase(socket);
-    emit clientDisconnected(socket);
+    m_receiveBuffers.erase(socket);
 
+    emit clientDisconnected(socket);
     socket->deleteLater();
 }
 
@@ -82,6 +99,13 @@ bool TcpEndpoint::send(QTcpSocket* socket, const QByteArray& data)
     if (!socket || socket->state() != QAbstractSocket::ConnectedState)
         return false;
 
-    socket->write(data);
+    QByteArray packet;
+    int len = data.size();
+
+    packet.append(reinterpret_cast<const char*>(&len), sizeof(int));
+    packet.append(data);
+
+    socket->write(packet);
     return socket->flush();
 }
+

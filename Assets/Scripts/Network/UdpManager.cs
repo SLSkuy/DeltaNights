@@ -18,13 +18,19 @@ namespace Network
 {
     public class UdpManager
     {
-        public event Action<byte[]> OnDataReceived;
-
         private Socket _socket;
         private EndPoint _serverEndPoint;
         private CancellationTokenSource _cts;
 
         private const int BUFFER_SIZE = 1024 * 64;
+
+        #region 事件
+        
+        public event Action<byte[]> OnDataReceived;
+
+        #endregion
+
+        #region UDP控制
 
         /// <summary>
         /// 开启UDP连接
@@ -42,6 +48,13 @@ namespace Network
             _cts = new CancellationTokenSource();
             _ = Task.Run(() => ReceiveLoop(_cts.Token));
         }
+        
+        public void Stop()
+        {
+            _cts?.Cancel();
+            _socket?.Close();
+            _socket = null;
+        }
 
         /// <summary>
         /// 发送UDP字节流给服务器
@@ -54,6 +67,10 @@ namespace Network
             _socket.SendTo(data, _serverEndPoint);
         }
 
+        #endregion
+        
+        #region 内部处理方法
+        
         private async Task ReceiveLoop(CancellationToken token)
         {
             byte[] buffer = new byte[BUFFER_SIZE];
@@ -86,12 +103,7 @@ namespace Network
                 }
             }
         }
-
-        public void Stop()
-        {
-            _cts?.Cancel();
-            _socket?.Close();
-            _socket = null;
-        }
+        
+        #endregion
     }
 }

@@ -17,6 +17,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <unordered_set>
+#include <unordered_map>
 
 class TcpEndpoint : public QObject
 {
@@ -41,4 +42,6 @@ private slots:
 private:
     QTcpServer* _server;
     std::unordered_set<QTcpSocket*> m_clients;
+
+    std::unordered_map<QTcpSocket*, QByteArray> m_receiveBuffers;   // Socket缓存输入，黏包处理
 };

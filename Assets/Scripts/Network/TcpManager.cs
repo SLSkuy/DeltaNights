@@ -18,14 +18,25 @@ namespace Network
 {
     public class TcpManager
     {
+        private Socket _socket;
+        private CancellationTokenSource _cts;
+        public bool Connected => _socket is { Connected: true };
+        
+        private const int BUFFER_SIZE = 1024 * 1024;
+        
+        // 黏包处理
+        private readonly byte[] _receiveBuffer = new byte[BUFFER_SIZE];
+        private int _receiveCount = 0;
+
+        #region 事件
+
         public event Action<byte[]> OnMessageReceived;
         public event Action OnDisconnected;
 
-        private Socket _socket;
-        private CancellationTokenSource _cts;
-
-        public bool Connected => _socket != null && _socket.Connected;
-
+        #endregion
+        
+        #region TCP控制
+        
         /// <summary>
         /// 连接到服务器
         /// </summary>
@@ -49,38 +60,6 @@ namespace Network
             }
         }
 
-        /// <summary>
-        /// 发送TCP字节流给服务器
-        /// </summary>
-        public void Send(byte[] data)
-        {
-            if (!Connected) return;
-            _socket.Send(data);
-        }
-
-        private async Task ReceiveLoop(CancellationToken token)
-        {
-            byte[] buffer = new byte[1024 * 1024];
-
-            while (!token.IsCancellationRequested)
-            {
-                try
-                {
-                    int len = await _socket.ReceiveAsync(buffer, SocketFlags.None, token);
-                    if (len <= 0)
-                        break;
-                    
-                    OnMessageReceived?.Invoke(buffer);
-                }
-                catch
-                {
-                    break;
-                }
-            }
-
-            OnDisconnected?.Invoke();
-        }
-
         public void Disconnect()
         {
             _cts?.Cancel();
@@ -93,5 +72,90 @@ namespace Network
             _socket.Close();
             _socket = null;
         }
+
+        /// <summary>
+        /// 发送TCP字节流给服务器
+        /// </summary>
+        public void Send(byte[] data)
+        {
+            if (!Connected) return;
+
+            // 构造消息头
+            byte[] length = BitConverter.GetBytes(data.Length);
+            byte[] packet = new byte[length.Length + data.Length];
+
+            Buffer.BlockCopy(length, 0, packet, 0, length.Length);
+            Buffer.BlockCopy(data, 0, packet, length.Length, data.Length);
+
+            _socket.Send(packet);
+        }
+        
+        #endregion
+        
+        #region 内部处理方法
+        
+        private async Task ReceiveLoop(CancellationToken token)
+        {
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    int len = await _socket.ReceiveAsync(buffer, SocketFlags.None, token);
+                    if (len <= 0)
+                        break;
+
+                    // 1. 拷贝到缓存
+                    Array.Copy(buffer, 0, _receiveBuffer, _receiveCount, len);
+                    _receiveCount += len;
+
+                    // 2. 尝试拆包（可能一次拆多个）
+                    ProcessBuffer();
+                }
+                catch
+                {
+                    break;
+                }
+            }
+
+            OnDisconnected?.Invoke();
+        }
+
+        private void ProcessBuffer()
+        {
+            int offset = 0;
+
+            while (true)
+            {
+                // 至少要有 4 字节长度头
+                if (_receiveCount - offset < 4)
+                    break;
+
+                int bodyLength = BitConverter.ToInt32(_receiveBuffer, offset);
+
+                // 数据不完整，等待下次接收
+                if (_receiveCount - offset - 4 < bodyLength)
+                    break;
+
+                // 读取完整消息
+                byte[] msg = new byte[bodyLength];
+                Array.Copy(_receiveBuffer, offset + 4, msg, 0, bodyLength);
+
+                OnMessageReceived?.Invoke(msg);
+
+                // 移动偏移量
+                offset += 4 + bodyLength;
+            }
+
+            // 把剩余未处理的数据前移
+            if (offset > 0)
+            {
+                Array.Copy(_receiveBuffer, offset, _receiveBuffer, 0, _receiveCount - offset);
+                _receiveCount -= offset;
+            }
+        }
+        
+        #endregion
     }
 }

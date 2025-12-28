@@ -1,4 +1,5 @@
 #include "gameserver.h"
+#include "Logger/logger.h"
 
 // Network
 #include "NetworkProcess/tcpendpoint.h"
@@ -66,4 +67,5 @@ bool GameServer::start(quint16 tcpPort, quint16 udpPort)
 void GameServer::stop()
 {
     // TODO: 关闭服务器
+    Logger::Info() << "服务器已关闭";
 }
