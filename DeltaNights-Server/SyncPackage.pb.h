@@ -29,9 +29,11 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "BattleSyncPackage.pb.h"
 #include "LobbySyncPackage.pb.h"
+#include "AckPackage.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_SyncPackage_2eproto
@@ -47,35 +49,90 @@ struct TableStruct_SyncPackage_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_SyncPackage_2eproto;
 namespace SyncPackage {
-class SyncPackage;
-struct SyncPackageDefaultTypeInternal;
-extern SyncPackageDefaultTypeInternal _SyncPackage_default_instance_;
+class LocalSyncPackage;
+struct LocalSyncPackageDefaultTypeInternal;
+extern LocalSyncPackageDefaultTypeInternal _LocalSyncPackage_default_instance_;
+class RemoteSyncPackage;
+struct RemoteSyncPackageDefaultTypeInternal;
+extern RemoteSyncPackageDefaultTypeInternal _RemoteSyncPackage_default_instance_;
 }  // namespace SyncPackage
 PROTOBUF_NAMESPACE_OPEN
-template<> ::SyncPackage::SyncPackage* Arena::CreateMaybeMessage<::SyncPackage::SyncPackage>(Arena*);
+template<> ::SyncPackage::LocalSyncPackage* Arena::CreateMaybeMessage<::SyncPackage::LocalSyncPackage>(Arena*);
+template<> ::SyncPackage::RemoteSyncPackage* Arena::CreateMaybeMessage<::SyncPackage::RemoteSyncPackage>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace SyncPackage {
 
+enum LocalSyncEvent : int {
+  BattleRequest = 0,
+  LobbyRequest = 1,
+  Ack = 2,
+  LocalSyncEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  LocalSyncEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool LocalSyncEvent_IsValid(int value);
+constexpr LocalSyncEvent LocalSyncEvent_MIN = BattleRequest;
+constexpr LocalSyncEvent LocalSyncEvent_MAX = Ack;
+constexpr int LocalSyncEvent_ARRAYSIZE = LocalSyncEvent_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LocalSyncEvent_descriptor();
+template<typename T>
+inline const std::string& LocalSyncEvent_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, LocalSyncEvent>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function LocalSyncEvent_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    LocalSyncEvent_descriptor(), enum_t_value);
+}
+inline bool LocalSyncEvent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, LocalSyncEvent* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<LocalSyncEvent>(
+    LocalSyncEvent_descriptor(), name, value);
+}
+enum RemoteSyncEvent : int {
+  BattleResponse = 0,
+  LobbyResponse = 1,
+  RemoteSyncEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  RemoteSyncEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool RemoteSyncEvent_IsValid(int value);
+constexpr RemoteSyncEvent RemoteSyncEvent_MIN = BattleResponse;
+constexpr RemoteSyncEvent RemoteSyncEvent_MAX = LobbyResponse;
+constexpr int RemoteSyncEvent_ARRAYSIZE = RemoteSyncEvent_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RemoteSyncEvent_descriptor();
+template<typename T>
+inline const std::string& RemoteSyncEvent_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, RemoteSyncEvent>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function RemoteSyncEvent_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    RemoteSyncEvent_descriptor(), enum_t_value);
+}
+inline bool RemoteSyncEvent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RemoteSyncEvent* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<RemoteSyncEvent>(
+    RemoteSyncEvent_descriptor(), name, value);
+}
 // ===================================================================
 
-class SyncPackage final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SyncPackage.SyncPackage) */ {
+class LocalSyncPackage final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SyncPackage.LocalSyncPackage) */ {
  public:
-  inline SyncPackage() : SyncPackage(nullptr) {}
-  ~SyncPackage() override;
-  explicit PROTOBUF_CONSTEXPR SyncPackage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline LocalSyncPackage() : LocalSyncPackage(nullptr) {}
+  ~LocalSyncPackage() override;
+  explicit PROTOBUF_CONSTEXPR LocalSyncPackage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  SyncPackage(const SyncPackage& from);
-  SyncPackage(SyncPackage&& from) noexcept
-    : SyncPackage() {
+  LocalSyncPackage(const LocalSyncPackage& from);
+  LocalSyncPackage(LocalSyncPackage&& from) noexcept
+    : LocalSyncPackage() {
     *this = ::std::move(from);
   }
 
-  inline SyncPackage& operator=(const SyncPackage& from) {
+  inline LocalSyncPackage& operator=(const LocalSyncPackage& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SyncPackage& operator=(SyncPackage&& from) noexcept {
+  inline LocalSyncPackage& operator=(LocalSyncPackage&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -98,26 +155,27 @@ class SyncPackage final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const SyncPackage& default_instance() {
+  static const LocalSyncPackage& default_instance() {
     return *internal_default_instance();
   }
   enum ContentCase {
-    kBattlePackage = 1,
-    kLobbySync = 2,
+    kBattlePackage = 2,
+    kLobbySync = 3,
+    kAckSync = 4,
     CONTENT_NOT_SET = 0,
   };
 
-  static inline const SyncPackage* internal_default_instance() {
-    return reinterpret_cast<const SyncPackage*>(
-               &_SyncPackage_default_instance_);
+  static inline const LocalSyncPackage* internal_default_instance() {
+    return reinterpret_cast<const LocalSyncPackage*>(
+               &_LocalSyncPackage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(SyncPackage& a, SyncPackage& b) {
+  friend void swap(LocalSyncPackage& a, LocalSyncPackage& b) {
     a.Swap(&b);
   }
-  inline void Swap(SyncPackage* other) {
+  inline void Swap(LocalSyncPackage* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -130,7 +188,7 @@ class SyncPackage final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(SyncPackage* other) {
+  void UnsafeArenaSwap(LocalSyncPackage* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -138,14 +196,14 @@ class SyncPackage final :
 
   // implements Message ----------------------------------------------
 
-  SyncPackage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SyncPackage>(arena);
+  LocalSyncPackage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<LocalSyncPackage>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const SyncPackage& from);
+  void CopyFrom(const LocalSyncPackage& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const SyncPackage& from) {
-    SyncPackage::MergeImpl(*this, from);
+  void MergeFrom( const LocalSyncPackage& from) {
+    LocalSyncPackage::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -163,15 +221,15 @@ class SyncPackage final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SyncPackage* other);
+  void InternalSwap(LocalSyncPackage* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "SyncPackage.SyncPackage";
+    return "SyncPackage.LocalSyncPackage";
   }
   protected:
-  explicit SyncPackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit LocalSyncPackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -185,52 +243,82 @@ class SyncPackage final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kBattlePackageFieldNumber = 1,
-    kLobbySyncFieldNumber = 2,
+    kEventIDFieldNumber = 1,
+    kBattlePackageFieldNumber = 2,
+    kLobbySyncFieldNumber = 3,
+    kAckSyncFieldNumber = 4,
   };
-  // .BattleSyncPackage.BattleSync battlePackage = 1;
+  // .SyncPackage.LocalSyncEvent eventID = 1;
+  void clear_eventid();
+  ::SyncPackage::LocalSyncEvent eventid() const;
+  void set_eventid(::SyncPackage::LocalSyncEvent value);
+  private:
+  ::SyncPackage::LocalSyncEvent _internal_eventid() const;
+  void _internal_set_eventid(::SyncPackage::LocalSyncEvent value);
+  public:
+
+  // .BattleSyncPackage.BattleSyncRequest battlePackage = 2;
   bool has_battlepackage() const;
   private:
   bool _internal_has_battlepackage() const;
   public:
   void clear_battlepackage();
-  const ::BattleSyncPackage::BattleSync& battlepackage() const;
-  PROTOBUF_NODISCARD ::BattleSyncPackage::BattleSync* release_battlepackage();
-  ::BattleSyncPackage::BattleSync* mutable_battlepackage();
-  void set_allocated_battlepackage(::BattleSyncPackage::BattleSync* battlepackage);
+  const ::BattleSyncPackage::BattleSyncRequest& battlepackage() const;
+  PROTOBUF_NODISCARD ::BattleSyncPackage::BattleSyncRequest* release_battlepackage();
+  ::BattleSyncPackage::BattleSyncRequest* mutable_battlepackage();
+  void set_allocated_battlepackage(::BattleSyncPackage::BattleSyncRequest* battlepackage);
   private:
-  const ::BattleSyncPackage::BattleSync& _internal_battlepackage() const;
-  ::BattleSyncPackage::BattleSync* _internal_mutable_battlepackage();
+  const ::BattleSyncPackage::BattleSyncRequest& _internal_battlepackage() const;
+  ::BattleSyncPackage::BattleSyncRequest* _internal_mutable_battlepackage();
   public:
   void unsafe_arena_set_allocated_battlepackage(
-      ::BattleSyncPackage::BattleSync* battlepackage);
-  ::BattleSyncPackage::BattleSync* unsafe_arena_release_battlepackage();
+      ::BattleSyncPackage::BattleSyncRequest* battlepackage);
+  ::BattleSyncPackage::BattleSyncRequest* unsafe_arena_release_battlepackage();
 
-  // .LobbySyncPackage.LobbySync lobbySync = 2;
+  // .LobbySyncPackage.LobbySyncRequest lobbySync = 3;
   bool has_lobbysync() const;
   private:
   bool _internal_has_lobbysync() const;
   public:
   void clear_lobbysync();
-  const ::LobbySyncPackage::LobbySync& lobbysync() const;
-  PROTOBUF_NODISCARD ::LobbySyncPackage::LobbySync* release_lobbysync();
-  ::LobbySyncPackage::LobbySync* mutable_lobbysync();
-  void set_allocated_lobbysync(::LobbySyncPackage::LobbySync* lobbysync);
+  const ::LobbySyncPackage::LobbySyncRequest& lobbysync() const;
+  PROTOBUF_NODISCARD ::LobbySyncPackage::LobbySyncRequest* release_lobbysync();
+  ::LobbySyncPackage::LobbySyncRequest* mutable_lobbysync();
+  void set_allocated_lobbysync(::LobbySyncPackage::LobbySyncRequest* lobbysync);
   private:
-  const ::LobbySyncPackage::LobbySync& _internal_lobbysync() const;
-  ::LobbySyncPackage::LobbySync* _internal_mutable_lobbysync();
+  const ::LobbySyncPackage::LobbySyncRequest& _internal_lobbysync() const;
+  ::LobbySyncPackage::LobbySyncRequest* _internal_mutable_lobbysync();
   public:
   void unsafe_arena_set_allocated_lobbysync(
-      ::LobbySyncPackage::LobbySync* lobbysync);
-  ::LobbySyncPackage::LobbySync* unsafe_arena_release_lobbysync();
+      ::LobbySyncPackage::LobbySyncRequest* lobbysync);
+  ::LobbySyncPackage::LobbySyncRequest* unsafe_arena_release_lobbysync();
+
+  // .AckPackage.AckSyncRequest ackSync = 4;
+  bool has_acksync() const;
+  private:
+  bool _internal_has_acksync() const;
+  public:
+  void clear_acksync();
+  const ::AckPackage::AckSyncRequest& acksync() const;
+  PROTOBUF_NODISCARD ::AckPackage::AckSyncRequest* release_acksync();
+  ::AckPackage::AckSyncRequest* mutable_acksync();
+  void set_allocated_acksync(::AckPackage::AckSyncRequest* acksync);
+  private:
+  const ::AckPackage::AckSyncRequest& _internal_acksync() const;
+  ::AckPackage::AckSyncRequest* _internal_mutable_acksync();
+  public:
+  void unsafe_arena_set_allocated_acksync(
+      ::AckPackage::AckSyncRequest* acksync);
+  ::AckPackage::AckSyncRequest* unsafe_arena_release_acksync();
 
   void clear_content();
   ContentCase content_case() const;
-  // @@protoc_insertion_point(class_scope:SyncPackage.SyncPackage)
+  // @@protoc_insertion_point(class_scope:SyncPackage.LocalSyncPackage)
  private:
   class _Internal;
   void set_has_battlepackage();
   void set_has_lobbysync();
+  void set_has_acksync();
 
   inline bool has_content() const;
   inline void clear_has_content();
@@ -239,15 +327,165 @@ class SyncPackage final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    int eventid_;
     union ContentUnion {
       constexpr ContentUnion() : _constinit_{} {}
         ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-      ::BattleSyncPackage::BattleSync* battlepackage_;
-      ::LobbySyncPackage::LobbySync* lobbysync_;
+      ::BattleSyncPackage::BattleSyncRequest* battlepackage_;
+      ::LobbySyncPackage::LobbySyncRequest* lobbysync_;
+      ::AckPackage::AckSyncRequest* acksync_;
     } content_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     uint32_t _oneof_case_[1];
 
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_SyncPackage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RemoteSyncPackage final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SyncPackage.RemoteSyncPackage) */ {
+ public:
+  inline RemoteSyncPackage() : RemoteSyncPackage(nullptr) {}
+  ~RemoteSyncPackage() override;
+  explicit PROTOBUF_CONSTEXPR RemoteSyncPackage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RemoteSyncPackage(const RemoteSyncPackage& from);
+  RemoteSyncPackage(RemoteSyncPackage&& from) noexcept
+    : RemoteSyncPackage() {
+    *this = ::std::move(from);
+  }
+
+  inline RemoteSyncPackage& operator=(const RemoteSyncPackage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RemoteSyncPackage& operator=(RemoteSyncPackage&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RemoteSyncPackage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RemoteSyncPackage* internal_default_instance() {
+    return reinterpret_cast<const RemoteSyncPackage*>(
+               &_RemoteSyncPackage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(RemoteSyncPackage& a, RemoteSyncPackage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RemoteSyncPackage* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RemoteSyncPackage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RemoteSyncPackage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RemoteSyncPackage>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RemoteSyncPackage& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RemoteSyncPackage& from) {
+    RemoteSyncPackage::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RemoteSyncPackage* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SyncPackage.RemoteSyncPackage";
+  }
+  protected:
+  explicit RemoteSyncPackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEventIDFieldNumber = 1,
+  };
+  // .SyncPackage.RemoteSyncEvent eventID = 1;
+  void clear_eventid();
+  ::SyncPackage::RemoteSyncEvent eventid() const;
+  void set_eventid(::SyncPackage::RemoteSyncEvent value);
+  private:
+  ::SyncPackage::RemoteSyncEvent _internal_eventid() const;
+  void _internal_set_eventid(::SyncPackage::RemoteSyncEvent value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:SyncPackage.RemoteSyncPackage)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int eventid_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_SyncPackage_2eproto;
@@ -261,23 +499,43 @@ class SyncPackage final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// SyncPackage
+// LocalSyncPackage
 
-// .BattleSyncPackage.BattleSync battlePackage = 1;
-inline bool SyncPackage::_internal_has_battlepackage() const {
+// .SyncPackage.LocalSyncEvent eventID = 1;
+inline void LocalSyncPackage::clear_eventid() {
+  _impl_.eventid_ = 0;
+}
+inline ::SyncPackage::LocalSyncEvent LocalSyncPackage::_internal_eventid() const {
+  return static_cast< ::SyncPackage::LocalSyncEvent >(_impl_.eventid_);
+}
+inline ::SyncPackage::LocalSyncEvent LocalSyncPackage::eventid() const {
+  // @@protoc_insertion_point(field_get:SyncPackage.LocalSyncPackage.eventID)
+  return _internal_eventid();
+}
+inline void LocalSyncPackage::_internal_set_eventid(::SyncPackage::LocalSyncEvent value) {
+  
+  _impl_.eventid_ = value;
+}
+inline void LocalSyncPackage::set_eventid(::SyncPackage::LocalSyncEvent value) {
+  _internal_set_eventid(value);
+  // @@protoc_insertion_point(field_set:SyncPackage.LocalSyncPackage.eventID)
+}
+
+// .BattleSyncPackage.BattleSyncRequest battlePackage = 2;
+inline bool LocalSyncPackage::_internal_has_battlepackage() const {
   return content_case() == kBattlePackage;
 }
-inline bool SyncPackage::has_battlepackage() const {
+inline bool LocalSyncPackage::has_battlepackage() const {
   return _internal_has_battlepackage();
 }
-inline void SyncPackage::set_has_battlepackage() {
+inline void LocalSyncPackage::set_has_battlepackage() {
   _impl_._oneof_case_[0] = kBattlePackage;
 }
-inline ::BattleSyncPackage::BattleSync* SyncPackage::release_battlepackage() {
-  // @@protoc_insertion_point(field_release:SyncPackage.SyncPackage.battlePackage)
+inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::release_battlepackage() {
+  // @@protoc_insertion_point(field_release:SyncPackage.LocalSyncPackage.battlePackage)
   if (_internal_has_battlepackage()) {
     clear_has_content();
-    ::BattleSyncPackage::BattleSync* temp = _impl_.content_.battlepackage_;
+    ::BattleSyncPackage::BattleSyncRequest* temp = _impl_.content_.battlepackage_;
     if (GetArenaForAllocation() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
@@ -287,63 +545,63 @@ inline ::BattleSyncPackage::BattleSync* SyncPackage::release_battlepackage() {
     return nullptr;
   }
 }
-inline const ::BattleSyncPackage::BattleSync& SyncPackage::_internal_battlepackage() const {
+inline const ::BattleSyncPackage::BattleSyncRequest& LocalSyncPackage::_internal_battlepackage() const {
   return _internal_has_battlepackage()
       ? *_impl_.content_.battlepackage_
-      : reinterpret_cast< ::BattleSyncPackage::BattleSync&>(::BattleSyncPackage::_BattleSync_default_instance_);
+      : reinterpret_cast< ::BattleSyncPackage::BattleSyncRequest&>(::BattleSyncPackage::_BattleSyncRequest_default_instance_);
 }
-inline const ::BattleSyncPackage::BattleSync& SyncPackage::battlepackage() const {
-  // @@protoc_insertion_point(field_get:SyncPackage.SyncPackage.battlePackage)
+inline const ::BattleSyncPackage::BattleSyncRequest& LocalSyncPackage::battlepackage() const {
+  // @@protoc_insertion_point(field_get:SyncPackage.LocalSyncPackage.battlePackage)
   return _internal_battlepackage();
 }
-inline ::BattleSyncPackage::BattleSync* SyncPackage::unsafe_arena_release_battlepackage() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:SyncPackage.SyncPackage.battlePackage)
+inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::unsafe_arena_release_battlepackage() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:SyncPackage.LocalSyncPackage.battlePackage)
   if (_internal_has_battlepackage()) {
     clear_has_content();
-    ::BattleSyncPackage::BattleSync* temp = _impl_.content_.battlepackage_;
+    ::BattleSyncPackage::BattleSyncRequest* temp = _impl_.content_.battlepackage_;
     _impl_.content_.battlepackage_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void SyncPackage::unsafe_arena_set_allocated_battlepackage(::BattleSyncPackage::BattleSync* battlepackage) {
+inline void LocalSyncPackage::unsafe_arena_set_allocated_battlepackage(::BattleSyncPackage::BattleSyncRequest* battlepackage) {
   clear_content();
   if (battlepackage) {
     set_has_battlepackage();
     _impl_.content_.battlepackage_ = battlepackage;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SyncPackage.SyncPackage.battlePackage)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SyncPackage.LocalSyncPackage.battlePackage)
 }
-inline ::BattleSyncPackage::BattleSync* SyncPackage::_internal_mutable_battlepackage() {
+inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::_internal_mutable_battlepackage() {
   if (!_internal_has_battlepackage()) {
     clear_content();
     set_has_battlepackage();
-    _impl_.content_.battlepackage_ = CreateMaybeMessage< ::BattleSyncPackage::BattleSync >(GetArenaForAllocation());
+    _impl_.content_.battlepackage_ = CreateMaybeMessage< ::BattleSyncPackage::BattleSyncRequest >(GetArenaForAllocation());
   }
   return _impl_.content_.battlepackage_;
 }
-inline ::BattleSyncPackage::BattleSync* SyncPackage::mutable_battlepackage() {
-  ::BattleSyncPackage::BattleSync* _msg = _internal_mutable_battlepackage();
-  // @@protoc_insertion_point(field_mutable:SyncPackage.SyncPackage.battlePackage)
+inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::mutable_battlepackage() {
+  ::BattleSyncPackage::BattleSyncRequest* _msg = _internal_mutable_battlepackage();
+  // @@protoc_insertion_point(field_mutable:SyncPackage.LocalSyncPackage.battlePackage)
   return _msg;
 }
 
-// .LobbySyncPackage.LobbySync lobbySync = 2;
-inline bool SyncPackage::_internal_has_lobbysync() const {
+// .LobbySyncPackage.LobbySyncRequest lobbySync = 3;
+inline bool LocalSyncPackage::_internal_has_lobbysync() const {
   return content_case() == kLobbySync;
 }
-inline bool SyncPackage::has_lobbysync() const {
+inline bool LocalSyncPackage::has_lobbysync() const {
   return _internal_has_lobbysync();
 }
-inline void SyncPackage::set_has_lobbysync() {
+inline void LocalSyncPackage::set_has_lobbysync() {
   _impl_._oneof_case_[0] = kLobbySync;
 }
-inline ::LobbySyncPackage::LobbySync* SyncPackage::release_lobbysync() {
-  // @@protoc_insertion_point(field_release:SyncPackage.SyncPackage.lobbySync)
+inline ::LobbySyncPackage::LobbySyncRequest* LocalSyncPackage::release_lobbysync() {
+  // @@protoc_insertion_point(field_release:SyncPackage.LocalSyncPackage.lobbySync)
   if (_internal_has_lobbysync()) {
     clear_has_content();
-    ::LobbySyncPackage::LobbySync* temp = _impl_.content_.lobbysync_;
+    ::LobbySyncPackage::LobbySyncRequest* temp = _impl_.content_.lobbysync_;
     if (GetArenaForAllocation() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
@@ -353,64 +611,171 @@ inline ::LobbySyncPackage::LobbySync* SyncPackage::release_lobbysync() {
     return nullptr;
   }
 }
-inline const ::LobbySyncPackage::LobbySync& SyncPackage::_internal_lobbysync() const {
+inline const ::LobbySyncPackage::LobbySyncRequest& LocalSyncPackage::_internal_lobbysync() const {
   return _internal_has_lobbysync()
       ? *_impl_.content_.lobbysync_
-      : reinterpret_cast< ::LobbySyncPackage::LobbySync&>(::LobbySyncPackage::_LobbySync_default_instance_);
+      : reinterpret_cast< ::LobbySyncPackage::LobbySyncRequest&>(::LobbySyncPackage::_LobbySyncRequest_default_instance_);
 }
-inline const ::LobbySyncPackage::LobbySync& SyncPackage::lobbysync() const {
-  // @@protoc_insertion_point(field_get:SyncPackage.SyncPackage.lobbySync)
+inline const ::LobbySyncPackage::LobbySyncRequest& LocalSyncPackage::lobbysync() const {
+  // @@protoc_insertion_point(field_get:SyncPackage.LocalSyncPackage.lobbySync)
   return _internal_lobbysync();
 }
-inline ::LobbySyncPackage::LobbySync* SyncPackage::unsafe_arena_release_lobbysync() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:SyncPackage.SyncPackage.lobbySync)
+inline ::LobbySyncPackage::LobbySyncRequest* LocalSyncPackage::unsafe_arena_release_lobbysync() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:SyncPackage.LocalSyncPackage.lobbySync)
   if (_internal_has_lobbysync()) {
     clear_has_content();
-    ::LobbySyncPackage::LobbySync* temp = _impl_.content_.lobbysync_;
+    ::LobbySyncPackage::LobbySyncRequest* temp = _impl_.content_.lobbysync_;
     _impl_.content_.lobbysync_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void SyncPackage::unsafe_arena_set_allocated_lobbysync(::LobbySyncPackage::LobbySync* lobbysync) {
+inline void LocalSyncPackage::unsafe_arena_set_allocated_lobbysync(::LobbySyncPackage::LobbySyncRequest* lobbysync) {
   clear_content();
   if (lobbysync) {
     set_has_lobbysync();
     _impl_.content_.lobbysync_ = lobbysync;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SyncPackage.SyncPackage.lobbySync)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SyncPackage.LocalSyncPackage.lobbySync)
 }
-inline ::LobbySyncPackage::LobbySync* SyncPackage::_internal_mutable_lobbysync() {
+inline ::LobbySyncPackage::LobbySyncRequest* LocalSyncPackage::_internal_mutable_lobbysync() {
   if (!_internal_has_lobbysync()) {
     clear_content();
     set_has_lobbysync();
-    _impl_.content_.lobbysync_ = CreateMaybeMessage< ::LobbySyncPackage::LobbySync >(GetArenaForAllocation());
+    _impl_.content_.lobbysync_ = CreateMaybeMessage< ::LobbySyncPackage::LobbySyncRequest >(GetArenaForAllocation());
   }
   return _impl_.content_.lobbysync_;
 }
-inline ::LobbySyncPackage::LobbySync* SyncPackage::mutable_lobbysync() {
-  ::LobbySyncPackage::LobbySync* _msg = _internal_mutable_lobbysync();
-  // @@protoc_insertion_point(field_mutable:SyncPackage.SyncPackage.lobbySync)
+inline ::LobbySyncPackage::LobbySyncRequest* LocalSyncPackage::mutable_lobbysync() {
+  ::LobbySyncPackage::LobbySyncRequest* _msg = _internal_mutable_lobbysync();
+  // @@protoc_insertion_point(field_mutable:SyncPackage.LocalSyncPackage.lobbySync)
   return _msg;
 }
 
-inline bool SyncPackage::has_content() const {
+// .AckPackage.AckSyncRequest ackSync = 4;
+inline bool LocalSyncPackage::_internal_has_acksync() const {
+  return content_case() == kAckSync;
+}
+inline bool LocalSyncPackage::has_acksync() const {
+  return _internal_has_acksync();
+}
+inline void LocalSyncPackage::set_has_acksync() {
+  _impl_._oneof_case_[0] = kAckSync;
+}
+inline ::AckPackage::AckSyncRequest* LocalSyncPackage::release_acksync() {
+  // @@protoc_insertion_point(field_release:SyncPackage.LocalSyncPackage.ackSync)
+  if (_internal_has_acksync()) {
+    clear_has_content();
+    ::AckPackage::AckSyncRequest* temp = _impl_.content_.acksync_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.content_.acksync_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::AckPackage::AckSyncRequest& LocalSyncPackage::_internal_acksync() const {
+  return _internal_has_acksync()
+      ? *_impl_.content_.acksync_
+      : reinterpret_cast< ::AckPackage::AckSyncRequest&>(::AckPackage::_AckSyncRequest_default_instance_);
+}
+inline const ::AckPackage::AckSyncRequest& LocalSyncPackage::acksync() const {
+  // @@protoc_insertion_point(field_get:SyncPackage.LocalSyncPackage.ackSync)
+  return _internal_acksync();
+}
+inline ::AckPackage::AckSyncRequest* LocalSyncPackage::unsafe_arena_release_acksync() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:SyncPackage.LocalSyncPackage.ackSync)
+  if (_internal_has_acksync()) {
+    clear_has_content();
+    ::AckPackage::AckSyncRequest* temp = _impl_.content_.acksync_;
+    _impl_.content_.acksync_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void LocalSyncPackage::unsafe_arena_set_allocated_acksync(::AckPackage::AckSyncRequest* acksync) {
+  clear_content();
+  if (acksync) {
+    set_has_acksync();
+    _impl_.content_.acksync_ = acksync;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SyncPackage.LocalSyncPackage.ackSync)
+}
+inline ::AckPackage::AckSyncRequest* LocalSyncPackage::_internal_mutable_acksync() {
+  if (!_internal_has_acksync()) {
+    clear_content();
+    set_has_acksync();
+    _impl_.content_.acksync_ = CreateMaybeMessage< ::AckPackage::AckSyncRequest >(GetArenaForAllocation());
+  }
+  return _impl_.content_.acksync_;
+}
+inline ::AckPackage::AckSyncRequest* LocalSyncPackage::mutable_acksync() {
+  ::AckPackage::AckSyncRequest* _msg = _internal_mutable_acksync();
+  // @@protoc_insertion_point(field_mutable:SyncPackage.LocalSyncPackage.ackSync)
+  return _msg;
+}
+
+inline bool LocalSyncPackage::has_content() const {
   return content_case() != CONTENT_NOT_SET;
 }
-inline void SyncPackage::clear_has_content() {
+inline void LocalSyncPackage::clear_has_content() {
   _impl_._oneof_case_[0] = CONTENT_NOT_SET;
 }
-inline SyncPackage::ContentCase SyncPackage::content_case() const {
-  return SyncPackage::ContentCase(_impl_._oneof_case_[0]);
+inline LocalSyncPackage::ContentCase LocalSyncPackage::content_case() const {
+  return LocalSyncPackage::ContentCase(_impl_._oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// RemoteSyncPackage
+
+// .SyncPackage.RemoteSyncEvent eventID = 1;
+inline void RemoteSyncPackage::clear_eventid() {
+  _impl_.eventid_ = 0;
+}
+inline ::SyncPackage::RemoteSyncEvent RemoteSyncPackage::_internal_eventid() const {
+  return static_cast< ::SyncPackage::RemoteSyncEvent >(_impl_.eventid_);
+}
+inline ::SyncPackage::RemoteSyncEvent RemoteSyncPackage::eventid() const {
+  // @@protoc_insertion_point(field_get:SyncPackage.RemoteSyncPackage.eventID)
+  return _internal_eventid();
+}
+inline void RemoteSyncPackage::_internal_set_eventid(::SyncPackage::RemoteSyncEvent value) {
+  
+  _impl_.eventid_ = value;
+}
+inline void RemoteSyncPackage::set_eventid(::SyncPackage::RemoteSyncEvent value) {
+  _internal_set_eventid(value);
+  // @@protoc_insertion_point(field_set:SyncPackage.RemoteSyncPackage.eventID)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace SyncPackage
+
+PROTOBUF_NAMESPACE_OPEN
+
+template <> struct is_proto_enum< ::SyncPackage::LocalSyncEvent> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::SyncPackage::LocalSyncEvent>() {
+  return ::SyncPackage::LocalSyncEvent_descriptor();
+}
+template <> struct is_proto_enum< ::SyncPackage::RemoteSyncEvent> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::SyncPackage::RemoteSyncEvent>() {
+  return ::SyncPackage::RemoteSyncEvent_descriptor();
+}
+
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

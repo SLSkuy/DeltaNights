@@ -24,33 +24,42 @@ namespace LobbySyncPackage {
     static LobbySyncPackageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChZMb2JieVN5bmNQYWNrYWdlLnByb3RvEhBMb2JieVN5bmNQYWNrYWdlIhwK",
-            "CUxvYmJ5U3luYxIPCgdldmVudElEGAEgASgNYgZwcm90bzM="));
+            "ChZMb2JieVN5bmNQYWNrYWdlLnByb3RvEhBMb2JieVN5bmNQYWNrYWdlIkEK",
+            "EExvYmJ5U3luY1JlcXVlc3QSLQoHZXZlbnRJRBgBIAEoDjIcLkxvYmJ5U3lu",
+            "Y1BhY2thZ2UuTG9iYnlFdmVudCoXCgpMb2JieUV2ZW50EgkKBUxvZ2luEABi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::LobbySyncPackage.LobbySync), global::LobbySyncPackage.LobbySync.Parser, new[]{ "EventID" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::LobbySyncPackage.LobbyEvent), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::LobbySyncPackage.LobbySyncRequest), global::LobbySyncPackage.LobbySyncRequest.Parser, new[]{ "EventID" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
-  #region Messages
+  #region Enums
   /// <summary>
   /// --------------------------------------------------
   ///顶层封装-大厅操作事件
   ///-------------------------------------------------- 
   /// </summary>
-  public sealed partial class LobbySync : pb::IMessage<LobbySync>
+  public enum LobbyEvent {
+    [pbr::OriginalName("Login")] Login = 0,
+  }
+
+  #endregion
+
+  #region Messages
+  public sealed partial class LobbySyncRequest : pb::IMessage<LobbySyncRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<LobbySync> _parser = new pb::MessageParser<LobbySync>(() => new LobbySync());
+    private static readonly pb::MessageParser<LobbySyncRequest> _parser = new pb::MessageParser<LobbySyncRequest>(() => new LobbySyncRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<LobbySync> Parser { get { return _parser; } }
+    public static pb::MessageParser<LobbySyncRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -66,7 +75,7 @@ namespace LobbySyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public LobbySync() {
+    public LobbySyncRequest() {
       OnConstruction();
     }
 
@@ -74,26 +83,23 @@ namespace LobbySyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public LobbySync(LobbySync other) : this() {
+    public LobbySyncRequest(LobbySyncRequest other) : this() {
       eventID_ = other.eventID_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public LobbySync Clone() {
-      return new LobbySync(this);
+    public LobbySyncRequest Clone() {
+      return new LobbySyncRequest(this);
     }
 
     /// <summary>Field number for the "eventID" field.</summary>
     public const int EventIDFieldNumber = 1;
-    private uint eventID_;
-    /// <summary>
-    /// 事件ID
-    /// </summary>
+    private global::LobbySyncPackage.LobbyEvent eventID_ = global::LobbySyncPackage.LobbyEvent.Login;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint EventID {
+    public global::LobbySyncPackage.LobbyEvent EventID {
       get { return eventID_; }
       set {
         eventID_ = value;
@@ -103,12 +109,12 @@ namespace LobbySyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as LobbySync);
+      return Equals(other as LobbySyncRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(LobbySync other) {
+    public bool Equals(LobbySyncRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -123,7 +129,7 @@ namespace LobbySyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EventID != 0) hash ^= EventID.GetHashCode();
+      if (EventID != global::LobbySyncPackage.LobbyEvent.Login) hash ^= EventID.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -142,9 +148,9 @@ namespace LobbySyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EventID != 0) {
+      if (EventID != global::LobbySyncPackage.LobbyEvent.Login) {
         output.WriteRawTag(8);
-        output.WriteUInt32(EventID);
+        output.WriteEnum((int) EventID);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -156,9 +162,9 @@ namespace LobbySyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EventID != 0) {
+      if (EventID != global::LobbySyncPackage.LobbyEvent.Login) {
         output.WriteRawTag(8);
-        output.WriteUInt32(EventID);
+        output.WriteEnum((int) EventID);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -170,8 +176,8 @@ namespace LobbySyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EventID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(EventID);
+      if (EventID != global::LobbySyncPackage.LobbyEvent.Login) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -181,11 +187,11 @@ namespace LobbySyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(LobbySync other) {
+    public void MergeFrom(LobbySyncRequest other) {
       if (other == null) {
         return;
       }
-      if (other.EventID != 0) {
+      if (other.EventID != global::LobbySyncPackage.LobbyEvent.Login) {
         EventID = other.EventID;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -204,7 +210,7 @@ namespace LobbySyncPackage {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            EventID = input.ReadUInt32();
+            EventID = (global::LobbySyncPackage.LobbyEvent) input.ReadEnum();
             break;
           }
         }
@@ -223,7 +229,7 @@ namespace LobbySyncPackage {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            EventID = input.ReadUInt32();
+            EventID = (global::LobbySyncPackage.LobbyEvent) input.ReadEnum();
             break;
           }
         }

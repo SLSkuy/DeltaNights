@@ -21,19 +21,32 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace BattleSyncPackage {
-PROTOBUF_CONSTEXPR BattleSync::BattleSync(
+PROTOBUF_CONSTEXPR BattleSyncRequest::BattleSyncRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.eventid_)*/0u
+    /*decltype(_impl_.eventid_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct BattleSyncDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR BattleSyncDefaultTypeInternal()
+struct BattleSyncRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BattleSyncRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~BattleSyncDefaultTypeInternal() {}
+  ~BattleSyncRequestDefaultTypeInternal() {}
   union {
-    BattleSync _instance;
+    BattleSyncRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BattleSyncDefaultTypeInternal _BattleSync_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BattleSyncRequestDefaultTypeInternal _BattleSyncRequest_default_instance_;
+PROTOBUF_CONSTEXPR BattleSyncResponse::BattleSyncResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.eventid_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct BattleSyncResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BattleSyncResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~BattleSyncResponseDefaultTypeInternal() {}
+  union {
+    BattleSyncResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BattleSyncResponseDefaultTypeInternal _BattleSyncResponse_default_instance_;
 PROTOBUF_CONSTEXPR PlayerConfirmedInput::PlayerConfirmedInput(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.movedir_)*/nullptr
@@ -53,6 +66,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR PlayerInputCommand::PlayerInputCommand(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.input_)*/nullptr
+  , /*decltype(_impl_.position_)*/nullptr
+  , /*decltype(_impl_.eulaangle_)*/nullptr
   , /*decltype(_impl_.playerid_)*/0u
   , /*decltype(_impl_.tick_)*/0u
   , /*decltype(_impl_._cached_size_)*/{}} {}
@@ -83,18 +98,25 @@ struct PlayerStateDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerStateDefaultTypeInternal _PlayerState_default_instance_;
 }  // namespace BattleSyncPackage
-static ::_pb::Metadata file_level_metadata_BattleSyncPackage_2eproto[4];
-static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_BattleSyncPackage_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_BattleSyncPackage_2eproto[5];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_BattleSyncPackage_2eproto[2];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_BattleSyncPackage_2eproto = nullptr;
 
 const uint32_t TableStruct_BattleSyncPackage_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSync, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSync, _impl_.eventid_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.eventid_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncResponse, _impl_.eventid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerConfirmedInput, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -114,6 +136,8 @@ const uint32_t TableStruct_BattleSyncPackage_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.playerid_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.tick_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.input_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.position_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.eulaangle_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -127,14 +151,16 @@ const uint32_t TableStruct_BattleSyncPackage_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.eulaangle_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::BattleSyncPackage::BattleSync)},
-  { 7, -1, -1, sizeof(::BattleSyncPackage::PlayerConfirmedInput)},
-  { 17, -1, -1, sizeof(::BattleSyncPackage::PlayerInputCommand)},
-  { 26, -1, -1, sizeof(::BattleSyncPackage::PlayerState)},
+  { 0, -1, -1, sizeof(::BattleSyncPackage::BattleSyncRequest)},
+  { 7, -1, -1, sizeof(::BattleSyncPackage::BattleSyncResponse)},
+  { 14, -1, -1, sizeof(::BattleSyncPackage::PlayerConfirmedInput)},
+  { 24, -1, -1, sizeof(::BattleSyncPackage::PlayerInputCommand)},
+  { 35, -1, -1, sizeof(::BattleSyncPackage::PlayerState)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::BattleSyncPackage::_BattleSync_default_instance_._instance,
+  &::BattleSyncPackage::_BattleSyncRequest_default_instance_._instance,
+  &::BattleSyncPackage::_BattleSyncResponse_default_instance_._instance,
   &::BattleSyncPackage::_PlayerConfirmedInput_default_instance_._instance,
   &::BattleSyncPackage::_PlayerInputCommand_default_instance_._instance,
   &::BattleSyncPackage::_PlayerState_default_instance_._instance,
@@ -142,27 +168,34 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_BattleSyncPackage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\027BattleSyncPackage.proto\022\021BattleSyncPac"
-  "kage\032\017UnityMath.proto\"\035\n\nBattleSync\022\017\n\007e"
-  "ventID\030\001 \001(\r\"f\n\024PlayerConfirmedInput\022$\n\007"
-  "moveDir\030\001 \001(\0132\023.UnityMath.Vector2D\022\014\n\004ju"
-  "mp\030\002 \001(\010\022\013\n\003yaw\030\003 \001(\002\022\r\n\005pitch\030\004 \001(\002\"l\n\022"
-  "PlayerInputCommand\022\020\n\010playerID\030\001 \001(\r\022\014\n\004"
-  "tick\030\002 \001(\r\0226\n\005input\030\003 \001(\0132\'.BattleSyncPa"
-  "ckage.PlayerConfirmedInput\"\264\001\n\013PlayerSta"
-  "te\022\020\n\010playerID\030\001 \001(\r\022\014\n\004tick\030\002 \001(\r\0226\n\005in"
-  "put\030\003 \001(\0132\'.BattleSyncPackage.PlayerConf"
-  "irmedInput\022%\n\010position\030\004 \001(\0132\023.UnityMath"
-  ".Vector3D\022&\n\teulaAngle\030\005 \001(\0132\023.UnityMath"
-  ".Vector3Db\006proto3"
+  "kage\032\017UnityMath.proto\"I\n\021BattleSyncReque"
+  "st\0224\n\007eventID\030\001 \001(\0162#.BattleSyncPackage."
+  "LocalBattleEvent\"K\n\022BattleSyncResponse\0225"
+  "\n\007eventID\030\001 \001(\0162$.BattleSyncPackage.Remo"
+  "teBattleEvent\"f\n\024PlayerConfirmedInput\022$\n"
+  "\007moveDir\030\001 \001(\0132\023.UnityMath.Vector2D\022\014\n\004j"
+  "ump\030\002 \001(\010\022\013\n\003yaw\030\003 \001(\002\022\r\n\005pitch\030\004 \001(\002\"\273\001"
+  "\n\022PlayerInputCommand\022\020\n\010playerID\030\001 \001(\r\022\014"
+  "\n\004tick\030\002 \001(\r\0226\n\005input\030\003 \001(\0132\'.BattleSync"
+  "Package.PlayerConfirmedInput\022%\n\010position"
+  "\030\004 \001(\0132\023.UnityMath.Vector3D\022&\n\teulaAngle"
+  "\030\005 \001(\0132\023.UnityMath.Vector3D\"\264\001\n\013PlayerSt"
+  "ate\022\020\n\010playerID\030\001 \001(\r\022\014\n\004tick\030\002 \001(\r\0226\n\005i"
+  "nput\030\003 \001(\0132\'.BattleSyncPackage.PlayerCon"
+  "firmedInput\022%\n\010position\030\004 \001(\0132\023.UnityMat"
+  "h.Vector3D\022&\n\teulaAngle\030\005 \001(\0132\023.UnityMat"
+  "h.Vector3D*#\n\020LocalBattleEvent\022\017\n\013Player"
+  "Input\020\000**\n\021RemoteBattleEvent\022\025\n\021PlayerSt"
+  "ateUpdate\020\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_BattleSyncPackage_2eproto_deps[1] = {
   &::descriptor_table_UnityMath_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_BattleSyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_BattleSyncPackage_2eproto = {
-    false, false, 497, descriptor_table_protodef_BattleSyncPackage_2eproto,
+    false, false, 779, descriptor_table_protodef_BattleSyncPackage_2eproto,
     "BattleSyncPackage.proto",
-    &descriptor_table_BattleSyncPackage_2eproto_once, descriptor_table_BattleSyncPackage_2eproto_deps, 1, 4,
+    &descriptor_table_BattleSyncPackage_2eproto_once, descriptor_table_BattleSyncPackage_2eproto_deps, 1, 5,
     schemas, file_default_instances, TableStruct_BattleSyncPackage_2eproto::offsets,
     file_level_metadata_BattleSyncPackage_2eproto, file_level_enum_descriptors_BattleSyncPackage_2eproto,
     file_level_service_descriptors_BattleSyncPackage_2eproto,
@@ -174,43 +207,69 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_BattleSy
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_BattleSyncPackage_2eproto(&descriptor_table_BattleSyncPackage_2eproto);
 namespace BattleSyncPackage {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LocalBattleEvent_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_BattleSyncPackage_2eproto);
+  return file_level_enum_descriptors_BattleSyncPackage_2eproto[0];
+}
+bool LocalBattleEvent_IsValid(int value) {
+  switch (value) {
+    case 0:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RemoteBattleEvent_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_BattleSyncPackage_2eproto);
+  return file_level_enum_descriptors_BattleSyncPackage_2eproto[1];
+}
+bool RemoteBattleEvent_IsValid(int value) {
+  switch (value) {
+    case 0:
+      return true;
+    default:
+      return false;
+  }
+}
+
 
 // ===================================================================
 
-class BattleSync::_Internal {
+class BattleSyncRequest::_Internal {
  public:
 };
 
-BattleSync::BattleSync(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+BattleSyncRequest::BattleSyncRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:BattleSyncPackage.BattleSync)
+  // @@protoc_insertion_point(arena_constructor:BattleSyncPackage.BattleSyncRequest)
 }
-BattleSync::BattleSync(const BattleSync& from)
+BattleSyncRequest::BattleSyncRequest(const BattleSyncRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  BattleSync* const _this = this; (void)_this;
+  BattleSyncRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.eventid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.eventid_ = from._impl_.eventid_;
-  // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.BattleSync)
+  // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.BattleSyncRequest)
 }
 
-inline void BattleSync::SharedCtor(
+inline void BattleSyncRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.eventid_){0u}
+      decltype(_impl_.eventid_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
-BattleSync::~BattleSync() {
-  // @@protoc_insertion_point(destructor:BattleSyncPackage.BattleSync)
+BattleSyncRequest::~BattleSyncRequest() {
+  // @@protoc_insertion_point(destructor:BattleSyncPackage.BattleSyncRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -218,35 +277,36 @@ BattleSync::~BattleSync() {
   SharedDtor();
 }
 
-inline void BattleSync::SharedDtor() {
+inline void BattleSyncRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void BattleSync::SetCachedSize(int size) const {
+void BattleSyncRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void BattleSync::Clear() {
-// @@protoc_insertion_point(message_clear_start:BattleSyncPackage.BattleSync)
+void BattleSyncRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:BattleSyncPackage.BattleSyncRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.eventid_ = 0u;
+  _impl_.eventid_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* BattleSync::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* BattleSyncRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 eventID = 1;
+      // .BattleSyncPackage.LocalBattleEvent eventID = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.eventid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+          _internal_set_eventid(static_cast<::BattleSyncPackage::LocalBattleEvent>(val));
         } else
           goto handle_unusual;
         continue;
@@ -273,53 +333,55 @@ failure:
 #undef CHK_
 }
 
-uint8_t* BattleSync::_InternalSerialize(
+uint8_t* BattleSyncRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:BattleSyncPackage.BattleSync)
+  // @@protoc_insertion_point(serialize_to_array_start:BattleSyncPackage.BattleSyncRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 eventID = 1;
+  // .BattleSyncPackage.LocalBattleEvent eventID = 1;
   if (this->_internal_eventid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_eventid(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_eventid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:BattleSyncPackage.BattleSync)
+  // @@protoc_insertion_point(serialize_to_array_end:BattleSyncPackage.BattleSyncRequest)
   return target;
 }
 
-size_t BattleSync::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:BattleSyncPackage.BattleSync)
+size_t BattleSyncRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:BattleSyncPackage.BattleSyncRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint32 eventID = 1;
+  // .BattleSyncPackage.LocalBattleEvent eventID = 1;
   if (this->_internal_eventid() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_eventid());
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_eventid());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData BattleSync::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData BattleSyncRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    BattleSync::MergeImpl
+    BattleSyncRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*BattleSync::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*BattleSyncRequest::GetClassData() const { return &_class_data_; }
 
 
-void BattleSync::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<BattleSync*>(&to_msg);
-  auto& from = static_cast<const BattleSync&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:BattleSyncPackage.BattleSync)
+void BattleSyncRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<BattleSyncRequest*>(&to_msg);
+  auto& from = static_cast<const BattleSyncRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:BattleSyncPackage.BattleSyncRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -330,27 +392,208 @@ void BattleSync::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void BattleSync::CopyFrom(const BattleSync& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:BattleSyncPackage.BattleSync)
+void BattleSyncRequest::CopyFrom(const BattleSyncRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:BattleSyncPackage.BattleSyncRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool BattleSync::IsInitialized() const {
+bool BattleSyncRequest::IsInitialized() const {
   return true;
 }
 
-void BattleSync::InternalSwap(BattleSync* other) {
+void BattleSyncRequest::InternalSwap(BattleSyncRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.eventid_, other->_impl_.eventid_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata BattleSync::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata BattleSyncRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
       file_level_metadata_BattleSyncPackage_2eproto[0]);
+}
+
+// ===================================================================
+
+class BattleSyncResponse::_Internal {
+ public:
+};
+
+BattleSyncResponse::BattleSyncResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:BattleSyncPackage.BattleSyncResponse)
+}
+BattleSyncResponse::BattleSyncResponse(const BattleSyncResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  BattleSyncResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.eventid_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.eventid_ = from._impl_.eventid_;
+  // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.BattleSyncResponse)
+}
+
+inline void BattleSyncResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.eventid_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+BattleSyncResponse::~BattleSyncResponse() {
+  // @@protoc_insertion_point(destructor:BattleSyncPackage.BattleSyncResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void BattleSyncResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void BattleSyncResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void BattleSyncResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:BattleSyncPackage.BattleSyncResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.eventid_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* BattleSyncResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .BattleSyncPackage.RemoteBattleEvent eventID = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_eventid(static_cast<::BattleSyncPackage::RemoteBattleEvent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* BattleSyncResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:BattleSyncPackage.BattleSyncResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .BattleSyncPackage.RemoteBattleEvent eventID = 1;
+  if (this->_internal_eventid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_eventid(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:BattleSyncPackage.BattleSyncResponse)
+  return target;
+}
+
+size_t BattleSyncResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:BattleSyncPackage.BattleSyncResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .BattleSyncPackage.RemoteBattleEvent eventID = 1;
+  if (this->_internal_eventid() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_eventid());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData BattleSyncResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    BattleSyncResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*BattleSyncResponse::GetClassData() const { return &_class_data_; }
+
+
+void BattleSyncResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<BattleSyncResponse*>(&to_msg);
+  auto& from = static_cast<const BattleSyncResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:BattleSyncPackage.BattleSyncResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_eventid() != 0) {
+    _this->_internal_set_eventid(from._internal_eventid());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void BattleSyncResponse::CopyFrom(const BattleSyncResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:BattleSyncPackage.BattleSyncResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BattleSyncResponse::IsInitialized() const {
+  return true;
+}
+
+void BattleSyncResponse::InternalSwap(BattleSyncResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.eventid_, other->_impl_.eventid_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata BattleSyncResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
+      file_level_metadata_BattleSyncPackage_2eproto[1]);
 }
 
 // ===================================================================
@@ -656,7 +899,7 @@ void PlayerConfirmedInput::InternalSwap(PlayerConfirmedInput* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerConfirmedInput::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
-      file_level_metadata_BattleSyncPackage_2eproto[1]);
+      file_level_metadata_BattleSyncPackage_2eproto[2]);
 }
 
 // ===================================================================
@@ -664,11 +907,33 @@ void PlayerConfirmedInput::InternalSwap(PlayerConfirmedInput* other) {
 class PlayerInputCommand::_Internal {
  public:
   static const ::BattleSyncPackage::PlayerConfirmedInput& input(const PlayerInputCommand* msg);
+  static const ::UnityMath::Vector3D& position(const PlayerInputCommand* msg);
+  static const ::UnityMath::Vector3D& eulaangle(const PlayerInputCommand* msg);
 };
 
 const ::BattleSyncPackage::PlayerConfirmedInput&
 PlayerInputCommand::_Internal::input(const PlayerInputCommand* msg) {
   return *msg->_impl_.input_;
+}
+const ::UnityMath::Vector3D&
+PlayerInputCommand::_Internal::position(const PlayerInputCommand* msg) {
+  return *msg->_impl_.position_;
+}
+const ::UnityMath::Vector3D&
+PlayerInputCommand::_Internal::eulaangle(const PlayerInputCommand* msg) {
+  return *msg->_impl_.eulaangle_;
+}
+void PlayerInputCommand::clear_position() {
+  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
+    delete _impl_.position_;
+  }
+  _impl_.position_ = nullptr;
+}
+void PlayerInputCommand::clear_eulaangle() {
+  if (GetArenaForAllocation() == nullptr && _impl_.eulaangle_ != nullptr) {
+    delete _impl_.eulaangle_;
+  }
+  _impl_.eulaangle_ = nullptr;
 }
 PlayerInputCommand::PlayerInputCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -681,6 +946,8 @@ PlayerInputCommand::PlayerInputCommand(const PlayerInputCommand& from)
   PlayerInputCommand* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.input_){nullptr}
+    , decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.eulaangle_){nullptr}
     , decltype(_impl_.playerid_){}
     , decltype(_impl_.tick_){}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -688,6 +955,12 @@ PlayerInputCommand::PlayerInputCommand(const PlayerInputCommand& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_input()) {
     _this->_impl_.input_ = new ::BattleSyncPackage::PlayerConfirmedInput(*from._impl_.input_);
+  }
+  if (from._internal_has_position()) {
+    _this->_impl_.position_ = new ::UnityMath::Vector3D(*from._impl_.position_);
+  }
+  if (from._internal_has_eulaangle()) {
+    _this->_impl_.eulaangle_ = new ::UnityMath::Vector3D(*from._impl_.eulaangle_);
   }
   ::memcpy(&_impl_.playerid_, &from._impl_.playerid_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tick_) -
@@ -701,6 +974,8 @@ inline void PlayerInputCommand::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.input_){nullptr}
+    , decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.eulaangle_){nullptr}
     , decltype(_impl_.playerid_){0u}
     , decltype(_impl_.tick_){0u}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -719,6 +994,8 @@ PlayerInputCommand::~PlayerInputCommand() {
 inline void PlayerInputCommand::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.input_;
+  if (this != internal_default_instance()) delete _impl_.position_;
+  if (this != internal_default_instance()) delete _impl_.eulaangle_;
 }
 
 void PlayerInputCommand::SetCachedSize(int size) const {
@@ -735,6 +1012,14 @@ void PlayerInputCommand::Clear() {
     delete _impl_.input_;
   }
   _impl_.input_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
+    delete _impl_.position_;
+  }
+  _impl_.position_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.eulaangle_ != nullptr) {
+    delete _impl_.eulaangle_;
+  }
+  _impl_.eulaangle_ = nullptr;
   ::memset(&_impl_.playerid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.tick_) -
       reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.tick_));
@@ -767,6 +1052,22 @@ const char* PlayerInputCommand::_InternalParse(const char* ptr, ::_pbi::ParseCon
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_input(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .UnityMath.Vector3D position = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .UnityMath.Vector3D eulaAngle = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_eulaangle(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -819,6 +1120,20 @@ uint8_t* PlayerInputCommand::_InternalSerialize(
         _Internal::input(this).GetCachedSize(), target, stream);
   }
 
+  // .UnityMath.Vector3D position = 4;
+  if (this->_internal_has_position()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::position(this),
+        _Internal::position(this).GetCachedSize(), target, stream);
+  }
+
+  // .UnityMath.Vector3D eulaAngle = 5;
+  if (this->_internal_has_eulaangle()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::eulaangle(this),
+        _Internal::eulaangle(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -840,6 +1155,20 @@ size_t PlayerInputCommand::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.input_);
+  }
+
+  // .UnityMath.Vector3D position = 4;
+  if (this->_internal_has_position()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.position_);
+  }
+
+  // .UnityMath.Vector3D eulaAngle = 5;
+  if (this->_internal_has_eulaangle()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.eulaangle_);
   }
 
   // uint32 playerID = 1;
@@ -873,6 +1202,14 @@ void PlayerInputCommand::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   if (from._internal_has_input()) {
     _this->_internal_mutable_input()->::BattleSyncPackage::PlayerConfirmedInput::MergeFrom(
         from._internal_input());
+  }
+  if (from._internal_has_position()) {
+    _this->_internal_mutable_position()->::UnityMath::Vector3D::MergeFrom(
+        from._internal_position());
+  }
+  if (from._internal_has_eulaangle()) {
+    _this->_internal_mutable_eulaangle()->::UnityMath::Vector3D::MergeFrom(
+        from._internal_eulaangle());
   }
   if (from._internal_playerid() != 0) {
     _this->_internal_set_playerid(from._internal_playerid());
@@ -908,7 +1245,7 @@ void PlayerInputCommand::InternalSwap(PlayerInputCommand* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerInputCommand::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
-      file_level_metadata_BattleSyncPackage_2eproto[2]);
+      file_level_metadata_BattleSyncPackage_2eproto[3]);
 }
 
 // ===================================================================
@@ -1254,15 +1591,19 @@ void PlayerState::InternalSwap(PlayerState* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerState::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
-      file_level_metadata_BattleSyncPackage_2eproto[3]);
+      file_level_metadata_BattleSyncPackage_2eproto[4]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace BattleSyncPackage
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::BattleSyncPackage::BattleSync*
-Arena::CreateMaybeMessage< ::BattleSyncPackage::BattleSync >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::BattleSyncPackage::BattleSync >(arena);
+template<> PROTOBUF_NOINLINE ::BattleSyncPackage::BattleSyncRequest*
+Arena::CreateMaybeMessage< ::BattleSyncPackage::BattleSyncRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::BattleSyncPackage::BattleSyncRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::BattleSyncPackage::BattleSyncResponse*
+Arena::CreateMaybeMessage< ::BattleSyncPackage::BattleSyncResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::BattleSyncPackage::BattleSyncResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::BattleSyncPackage::PlayerConfirmedInput*
 Arena::CreateMaybeMessage< ::BattleSyncPackage::PlayerConfirmedInput >(Arena* arena) {

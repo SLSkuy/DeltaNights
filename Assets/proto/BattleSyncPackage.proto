@@ -7,8 +7,22 @@ import "UnityMath.proto";
 /* --------------------------------------------------
   顶层封装-战局同步包
 -------------------------------------------------- */
-message BattleSync {
-  uint32 eventID = 1; // 事件ID
+// 本地战局同步请求
+enum LocalBattleEvent {
+  PlayerInput = 0;
+}
+
+message BattleSyncRequest {
+  LocalBattleEvent eventID = 1;
+}
+
+// 远程战局同步回应
+enum RemoteBattleEvent {
+  PlayerStateUpdate = 0;
+}
+
+message BattleSyncResponse {
+  RemoteBattleEvent eventID = 1;
 }
 
 /* --------------------------------------------------
@@ -30,6 +44,10 @@ message PlayerInputCommand {
   uint32 tick = 2;
   
   PlayerConfirmedInput input = 3;
+  
+  // 测试使用，服务器暂未做世界模拟，客户端直接传输状态信息用于同步
+  UnityMath.Vector3D position = 4;
+  UnityMath.Vector3D eulaAngle = 5;
 }
 
 // 服务器返回玩家状态

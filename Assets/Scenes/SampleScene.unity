@@ -907,6 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f090bdba02a42264080b5629a5ad5858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManage.CameraManager
+  orientation: {fileID: 564631962}
   cameras:
   - state: 0
     camera: {fileID: 2049303078}

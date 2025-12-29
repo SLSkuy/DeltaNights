@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package AckPackage;
+
+/* --------------------------------------------------
+  确认同步包汇总
+-------------------------------------------------- */
+enum AckSyncEvent {
+  HeartBeat = 0;
+}
+
+message AckSyncRequest {
+  AckSyncEvent eventID = 1;
+}
+
+/* --------------------------------------------------
+  心跳包
+-------------------------------------------------- */
+message HeartBeatPackage {
+  uint32 clientID = 1;
+}

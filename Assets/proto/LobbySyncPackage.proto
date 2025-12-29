@@ -5,6 +5,10 @@ package LobbySyncPackage;
 /* --------------------------------------------------
   顶层封装-大厅操作事件
 -------------------------------------------------- */
-message LobbySync {
-  uint32 eventID = 1; // 事件ID
+enum LobbyEvent {
+  Login = 0;
+}
+
+message LobbySyncRequest {
+  LobbyEvent eventID = 1;
 }

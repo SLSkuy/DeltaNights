@@ -21,48 +21,50 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace LobbySyncPackage {
-PROTOBUF_CONSTEXPR LobbySync::LobbySync(
+PROTOBUF_CONSTEXPR LobbySyncRequest::LobbySyncRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.eventid_)*/0u
+    /*decltype(_impl_.eventid_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct LobbySyncDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR LobbySyncDefaultTypeInternal()
+struct LobbySyncRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LobbySyncRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~LobbySyncDefaultTypeInternal() {}
+  ~LobbySyncRequestDefaultTypeInternal() {}
   union {
-    LobbySync _instance;
+    LobbySyncRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LobbySyncDefaultTypeInternal _LobbySync_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LobbySyncRequestDefaultTypeInternal _LobbySyncRequest_default_instance_;
 }  // namespace LobbySyncPackage
 static ::_pb::Metadata file_level_metadata_LobbySyncPackage_2eproto[1];
-static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_LobbySyncPackage_2eproto = nullptr;
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_LobbySyncPackage_2eproto[1];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_LobbySyncPackage_2eproto = nullptr;
 
 const uint32_t TableStruct_LobbySyncPackage_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::LobbySync, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::LobbySyncRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::LobbySync, _impl_.eventid_),
+  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::LobbySyncRequest, _impl_.eventid_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::LobbySyncPackage::LobbySync)},
+  { 0, -1, -1, sizeof(::LobbySyncPackage::LobbySyncRequest)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::LobbySyncPackage::_LobbySync_default_instance_._instance,
+  &::LobbySyncPackage::_LobbySyncRequest_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_LobbySyncPackage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\026LobbySyncPackage.proto\022\020LobbySyncPacka"
-  "ge\"\034\n\tLobbySync\022\017\n\007eventID\030\001 \001(\rb\006proto3"
+  "ge\"A\n\020LobbySyncRequest\022-\n\007eventID\030\001 \001(\0162"
+  "\034.LobbySyncPackage.LobbyEvent*\027\n\nLobbyEv"
+  "ent\022\t\n\005Login\020\000b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_LobbySyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_LobbySyncPackage_2eproto = {
-    false, false, 80, descriptor_table_protodef_LobbySyncPackage_2eproto,
+    false, false, 142, descriptor_table_protodef_LobbySyncPackage_2eproto,
     "LobbySyncPackage.proto",
     &descriptor_table_LobbySyncPackage_2eproto_once, nullptr, 0, 1,
     schemas, file_default_instances, TableStruct_LobbySyncPackage_2eproto::offsets,
@@ -76,43 +78,56 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_LobbySyn
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_LobbySyncPackage_2eproto(&descriptor_table_LobbySyncPackage_2eproto);
 namespace LobbySyncPackage {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LobbyEvent_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_LobbySyncPackage_2eproto);
+  return file_level_enum_descriptors_LobbySyncPackage_2eproto[0];
+}
+bool LobbyEvent_IsValid(int value) {
+  switch (value) {
+    case 0:
+      return true;
+    default:
+      return false;
+  }
+}
+
 
 // ===================================================================
 
-class LobbySync::_Internal {
+class LobbySyncRequest::_Internal {
  public:
 };
 
-LobbySync::LobbySync(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+LobbySyncRequest::LobbySyncRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:LobbySyncPackage.LobbySync)
+  // @@protoc_insertion_point(arena_constructor:LobbySyncPackage.LobbySyncRequest)
 }
-LobbySync::LobbySync(const LobbySync& from)
+LobbySyncRequest::LobbySyncRequest(const LobbySyncRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  LobbySync* const _this = this; (void)_this;
+  LobbySyncRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.eventid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.eventid_ = from._impl_.eventid_;
-  // @@protoc_insertion_point(copy_constructor:LobbySyncPackage.LobbySync)
+  // @@protoc_insertion_point(copy_constructor:LobbySyncPackage.LobbySyncRequest)
 }
 
-inline void LobbySync::SharedCtor(
+inline void LobbySyncRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.eventid_){0u}
+      decltype(_impl_.eventid_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
-LobbySync::~LobbySync() {
-  // @@protoc_insertion_point(destructor:LobbySyncPackage.LobbySync)
+LobbySyncRequest::~LobbySyncRequest() {
+  // @@protoc_insertion_point(destructor:LobbySyncPackage.LobbySyncRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -120,35 +135,36 @@ LobbySync::~LobbySync() {
   SharedDtor();
 }
 
-inline void LobbySync::SharedDtor() {
+inline void LobbySyncRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void LobbySync::SetCachedSize(int size) const {
+void LobbySyncRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void LobbySync::Clear() {
-// @@protoc_insertion_point(message_clear_start:LobbySyncPackage.LobbySync)
+void LobbySyncRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:LobbySyncPackage.LobbySyncRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.eventid_ = 0u;
+  _impl_.eventid_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* LobbySync::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* LobbySyncRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 eventID = 1;
+      // .LobbySyncPackage.LobbyEvent eventID = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.eventid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+          _internal_set_eventid(static_cast<::LobbySyncPackage::LobbyEvent>(val));
         } else
           goto handle_unusual;
         continue;
@@ -175,53 +191,55 @@ failure:
 #undef CHK_
 }
 
-uint8_t* LobbySync::_InternalSerialize(
+uint8_t* LobbySyncRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:LobbySyncPackage.LobbySync)
+  // @@protoc_insertion_point(serialize_to_array_start:LobbySyncPackage.LobbySyncRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 eventID = 1;
+  // .LobbySyncPackage.LobbyEvent eventID = 1;
   if (this->_internal_eventid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_eventid(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_eventid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:LobbySyncPackage.LobbySync)
+  // @@protoc_insertion_point(serialize_to_array_end:LobbySyncPackage.LobbySyncRequest)
   return target;
 }
 
-size_t LobbySync::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:LobbySyncPackage.LobbySync)
+size_t LobbySyncRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:LobbySyncPackage.LobbySyncRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint32 eventID = 1;
+  // .LobbySyncPackage.LobbyEvent eventID = 1;
   if (this->_internal_eventid() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_eventid());
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_eventid());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData LobbySync::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData LobbySyncRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    LobbySync::MergeImpl
+    LobbySyncRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*LobbySync::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*LobbySyncRequest::GetClassData() const { return &_class_data_; }
 
 
-void LobbySync::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<LobbySync*>(&to_msg);
-  auto& from = static_cast<const LobbySync&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:LobbySyncPackage.LobbySync)
+void LobbySyncRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<LobbySyncRequest*>(&to_msg);
+  auto& from = static_cast<const LobbySyncRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:LobbySyncPackage.LobbySyncRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -232,24 +250,24 @@ void LobbySync::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROT
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void LobbySync::CopyFrom(const LobbySync& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:LobbySyncPackage.LobbySync)
+void LobbySyncRequest::CopyFrom(const LobbySyncRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:LobbySyncPackage.LobbySyncRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool LobbySync::IsInitialized() const {
+bool LobbySyncRequest::IsInitialized() const {
   return true;
 }
 
-void LobbySync::InternalSwap(LobbySync* other) {
+void LobbySyncRequest::InternalSwap(LobbySyncRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.eventid_, other->_impl_.eventid_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata LobbySync::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata LobbySyncRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_LobbySyncPackage_2eproto_getter, &descriptor_table_LobbySyncPackage_2eproto_once,
       file_level_metadata_LobbySyncPackage_2eproto[0]);
@@ -258,9 +276,9 @@ void LobbySync::InternalSwap(LobbySync* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace LobbySyncPackage
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::LobbySyncPackage::LobbySync*
-Arena::CreateMaybeMessage< ::LobbySyncPackage::LobbySync >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::LobbySyncPackage::LobbySync >(arena);
+template<> PROTOBUF_NOINLINE ::LobbySyncPackage::LobbySyncRequest*
+Arena::CreateMaybeMessage< ::LobbySyncPackage::LobbySyncRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::LobbySyncPackage::LobbySyncRequest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

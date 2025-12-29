@@ -36,6 +36,7 @@ add_executable(DeltaNights-Server
   CollisionSystem/collider.h CollisionSystem/collider.cpp
   CollisionSystem/collisionsystem.h CollisionSystem/collisionsystem.cpp
   LobbySyncPackage.pb.cc LobbySyncPackage.pb.h UnityMath.pb.cc UnityMath.pb.h SyncPackage.pb.cc SyncPackage.pb.h
+  AckPackage.pb.cc AckPackage.pb.h
 )
 
 # 指定protobuf库位置

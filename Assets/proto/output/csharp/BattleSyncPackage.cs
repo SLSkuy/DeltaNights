@@ -25,45 +25,64 @@ namespace BattleSyncPackage {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdCYXR0bGVTeW5jUGFja2FnZS5wcm90bxIRQmF0dGxlU3luY1BhY2thZ2Ua",
-            "D1VuaXR5TWF0aC5wcm90byIdCgpCYXR0bGVTeW5jEg8KB2V2ZW50SUQYASAB",
-            "KA0iZgoUUGxheWVyQ29uZmlybWVkSW5wdXQSJAoHbW92ZURpchgBIAEoCzIT",
-            "LlVuaXR5TWF0aC5WZWN0b3IyRBIMCgRqdW1wGAIgASgIEgsKA3lhdxgDIAEo",
-            "AhINCgVwaXRjaBgEIAEoAiJsChJQbGF5ZXJJbnB1dENvbW1hbmQSEAoIcGxh",
-            "eWVySUQYASABKA0SDAoEdGljaxgCIAEoDRI2CgVpbnB1dBgDIAEoCzInLkJh",
-            "dHRsZVN5bmNQYWNrYWdlLlBsYXllckNvbmZpcm1lZElucHV0IrQBCgtQbGF5",
-            "ZXJTdGF0ZRIQCghwbGF5ZXJJRBgBIAEoDRIMCgR0aWNrGAIgASgNEjYKBWlu",
-            "cHV0GAMgASgLMicuQmF0dGxlU3luY1BhY2thZ2UuUGxheWVyQ29uZmlybWVk",
-            "SW5wdXQSJQoIcG9zaXRpb24YBCABKAsyEy5Vbml0eU1hdGguVmVjdG9yM0QS",
-            "JgoJZXVsYUFuZ2xlGAUgASgLMhMuVW5pdHlNYXRoLlZlY3RvcjNEYgZwcm90",
-            "bzM="));
+            "D1VuaXR5TWF0aC5wcm90byJJChFCYXR0bGVTeW5jUmVxdWVzdBI0CgdldmVu",
+            "dElEGAEgASgOMiMuQmF0dGxlU3luY1BhY2thZ2UuTG9jYWxCYXR0bGVFdmVu",
+            "dCJLChJCYXR0bGVTeW5jUmVzcG9uc2USNQoHZXZlbnRJRBgBIAEoDjIkLkJh",
+            "dHRsZVN5bmNQYWNrYWdlLlJlbW90ZUJhdHRsZUV2ZW50ImYKFFBsYXllckNv",
+            "bmZpcm1lZElucHV0EiQKB21vdmVEaXIYASABKAsyEy5Vbml0eU1hdGguVmVj",
+            "dG9yMkQSDAoEanVtcBgCIAEoCBILCgN5YXcYAyABKAISDQoFcGl0Y2gYBCAB",
+            "KAIiuwEKElBsYXllcklucHV0Q29tbWFuZBIQCghwbGF5ZXJJRBgBIAEoDRIM",
+            "CgR0aWNrGAIgASgNEjYKBWlucHV0GAMgASgLMicuQmF0dGxlU3luY1BhY2th",
+            "Z2UuUGxheWVyQ29uZmlybWVkSW5wdXQSJQoIcG9zaXRpb24YBCABKAsyEy5V",
+            "bml0eU1hdGguVmVjdG9yM0QSJgoJZXVsYUFuZ2xlGAUgASgLMhMuVW5pdHlN",
+            "YXRoLlZlY3RvcjNEIrQBCgtQbGF5ZXJTdGF0ZRIQCghwbGF5ZXJJRBgBIAEo",
+            "DRIMCgR0aWNrGAIgASgNEjYKBWlucHV0GAMgASgLMicuQmF0dGxlU3luY1Bh",
+            "Y2thZ2UuUGxheWVyQ29uZmlybWVkSW5wdXQSJQoIcG9zaXRpb24YBCABKAsy",
+            "Ey5Vbml0eU1hdGguVmVjdG9yM0QSJgoJZXVsYUFuZ2xlGAUgASgLMhMuVW5p",
+            "dHlNYXRoLlZlY3RvcjNEKiMKEExvY2FsQmF0dGxlRXZlbnQSDwoLUGxheWVy",
+            "SW5wdXQQACoqChFSZW1vdGVCYXR0bGVFdmVudBIVChFQbGF5ZXJTdGF0ZVVw",
+            "ZGF0ZRAAYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::UnityMath.UnityMathReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.BattleSync), global::BattleSyncPackage.BattleSync.Parser, new[]{ "EventID" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::BattleSyncPackage.LocalBattleEvent), typeof(global::BattleSyncPackage.RemoteBattleEvent), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.BattleSyncRequest), global::BattleSyncPackage.BattleSyncRequest.Parser, new[]{ "EventID" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.BattleSyncResponse), global::BattleSyncPackage.BattleSyncResponse.Parser, new[]{ "EventID" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.PlayerConfirmedInput), global::BattleSyncPackage.PlayerConfirmedInput.Parser, new[]{ "MoveDir", "Jump", "Yaw", "Pitch" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.PlayerInputCommand), global::BattleSyncPackage.PlayerInputCommand.Parser, new[]{ "PlayerID", "Tick", "Input" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.PlayerInputCommand), global::BattleSyncPackage.PlayerInputCommand.Parser, new[]{ "PlayerID", "Tick", "Input", "Position", "EulaAngle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.PlayerState), global::BattleSyncPackage.PlayerState.Parser, new[]{ "PlayerID", "Tick", "Input", "Position", "EulaAngle" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
-  #region Messages
+  #region Enums
   /// <summary>
-  /// --------------------------------------------------
-  ///顶层封装-战局同步包
-  ///-------------------------------------------------- 
+  /// 本地战局同步请求
   /// </summary>
-  public sealed partial class BattleSync : pb::IMessage<BattleSync>
+  public enum LocalBattleEvent {
+    [pbr::OriginalName("PlayerInput")] PlayerInput = 0,
+  }
+
+  /// <summary>
+  /// 远程战局同步回应
+  /// </summary>
+  public enum RemoteBattleEvent {
+    [pbr::OriginalName("PlayerStateUpdate")] PlayerStateUpdate = 0,
+  }
+
+  #endregion
+
+  #region Messages
+  public sealed partial class BattleSyncRequest : pb::IMessage<BattleSyncRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<BattleSync> _parser = new pb::MessageParser<BattleSync>(() => new BattleSync());
+    private static readonly pb::MessageParser<BattleSyncRequest> _parser = new pb::MessageParser<BattleSyncRequest>(() => new BattleSyncRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<BattleSync> Parser { get { return _parser; } }
+    public static pb::MessageParser<BattleSyncRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -79,7 +98,7 @@ namespace BattleSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleSync() {
+    public BattleSyncRequest() {
       OnConstruction();
     }
 
@@ -87,26 +106,23 @@ namespace BattleSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleSync(BattleSync other) : this() {
+    public BattleSyncRequest(BattleSyncRequest other) : this() {
       eventID_ = other.eventID_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BattleSync Clone() {
-      return new BattleSync(this);
+    public BattleSyncRequest Clone() {
+      return new BattleSyncRequest(this);
     }
 
     /// <summary>Field number for the "eventID" field.</summary>
     public const int EventIDFieldNumber = 1;
-    private uint eventID_;
-    /// <summary>
-    /// 事件ID
-    /// </summary>
+    private global::BattleSyncPackage.LocalBattleEvent eventID_ = global::BattleSyncPackage.LocalBattleEvent.PlayerInput;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint EventID {
+    public global::BattleSyncPackage.LocalBattleEvent EventID {
       get { return eventID_; }
       set {
         eventID_ = value;
@@ -116,12 +132,12 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as BattleSync);
+      return Equals(other as BattleSyncRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(BattleSync other) {
+    public bool Equals(BattleSyncRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -136,7 +152,7 @@ namespace BattleSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EventID != 0) hash ^= EventID.GetHashCode();
+      if (EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) hash ^= EventID.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -155,9 +171,9 @@ namespace BattleSyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EventID != 0) {
+      if (EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) {
         output.WriteRawTag(8);
-        output.WriteUInt32(EventID);
+        output.WriteEnum((int) EventID);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -169,9 +185,9 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EventID != 0) {
+      if (EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) {
         output.WriteRawTag(8);
-        output.WriteUInt32(EventID);
+        output.WriteEnum((int) EventID);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -183,8 +199,8 @@ namespace BattleSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EventID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(EventID);
+      if (EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -194,11 +210,11 @@ namespace BattleSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(BattleSync other) {
+    public void MergeFrom(BattleSyncRequest other) {
       if (other == null) {
         return;
       }
-      if (other.EventID != 0) {
+      if (other.EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) {
         EventID = other.EventID;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -217,7 +233,7 @@ namespace BattleSyncPackage {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            EventID = input.ReadUInt32();
+            EventID = (global::BattleSyncPackage.LocalBattleEvent) input.ReadEnum();
             break;
           }
         }
@@ -236,7 +252,196 @@ namespace BattleSyncPackage {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            EventID = input.ReadUInt32();
+            EventID = (global::BattleSyncPackage.LocalBattleEvent) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class BattleSyncResponse : pb::IMessage<BattleSyncResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<BattleSyncResponse> _parser = new pb::MessageParser<BattleSyncResponse>(() => new BattleSyncResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<BattleSyncResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BattleSyncResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BattleSyncResponse(BattleSyncResponse other) : this() {
+      eventID_ = other.eventID_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BattleSyncResponse Clone() {
+      return new BattleSyncResponse(this);
+    }
+
+    /// <summary>Field number for the "eventID" field.</summary>
+    public const int EventIDFieldNumber = 1;
+    private global::BattleSyncPackage.RemoteBattleEvent eventID_ = global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::BattleSyncPackage.RemoteBattleEvent EventID {
+      get { return eventID_; }
+      set {
+        eventID_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as BattleSyncResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(BattleSyncResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (EventID != other.EventID) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) hash ^= EventID.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) EventID);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) EventID);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(BattleSyncResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) {
+        EventID = other.EventID;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            EventID = (global::BattleSyncPackage.RemoteBattleEvent) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            EventID = (global::BattleSyncPackage.RemoteBattleEvent) input.ReadEnum();
             break;
           }
         }
@@ -265,7 +470,7 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[1]; }
+      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -577,7 +782,7 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[2]; }
+      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -600,6 +805,8 @@ namespace BattleSyncPackage {
       playerID_ = other.playerID_;
       tick_ = other.tick_;
       input_ = other.input_ != null ? other.input_.Clone() : null;
+      position_ = other.position_ != null ? other.position_.Clone() : null;
+      eulaAngle_ = other.eulaAngle_ != null ? other.eulaAngle_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -645,6 +852,33 @@ namespace BattleSyncPackage {
       }
     }
 
+    /// <summary>Field number for the "position" field.</summary>
+    public const int PositionFieldNumber = 4;
+    private global::UnityMath.Vector3D position_;
+    /// <summary>
+    /// 测试使用，服务器暂未做世界模拟，客户端直接传输状态信息用于同步
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::UnityMath.Vector3D Position {
+      get { return position_; }
+      set {
+        position_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "eulaAngle" field.</summary>
+    public const int EulaAngleFieldNumber = 5;
+    private global::UnityMath.Vector3D eulaAngle_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::UnityMath.Vector3D EulaAngle {
+      get { return eulaAngle_; }
+      set {
+        eulaAngle_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -663,6 +897,8 @@ namespace BattleSyncPackage {
       if (PlayerID != other.PlayerID) return false;
       if (Tick != other.Tick) return false;
       if (!object.Equals(Input, other.Input)) return false;
+      if (!object.Equals(Position, other.Position)) return false;
+      if (!object.Equals(EulaAngle, other.EulaAngle)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -673,6 +909,8 @@ namespace BattleSyncPackage {
       if (PlayerID != 0) hash ^= PlayerID.GetHashCode();
       if (Tick != 0) hash ^= Tick.GetHashCode();
       if (input_ != null) hash ^= Input.GetHashCode();
+      if (position_ != null) hash ^= Position.GetHashCode();
+      if (eulaAngle_ != null) hash ^= EulaAngle.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -703,6 +941,14 @@ namespace BattleSyncPackage {
         output.WriteRawTag(26);
         output.WriteMessage(Input);
       }
+      if (position_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Position);
+      }
+      if (eulaAngle_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(EulaAngle);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -725,6 +971,14 @@ namespace BattleSyncPackage {
         output.WriteRawTag(26);
         output.WriteMessage(Input);
       }
+      if (position_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Position);
+      }
+      if (eulaAngle_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(EulaAngle);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -743,6 +997,12 @@ namespace BattleSyncPackage {
       }
       if (input_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Input);
+      }
+      if (position_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+      }
+      if (eulaAngle_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(EulaAngle);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -767,6 +1027,18 @@ namespace BattleSyncPackage {
           Input = new global::BattleSyncPackage.PlayerConfirmedInput();
         }
         Input.MergeFrom(other.Input);
+      }
+      if (other.position_ != null) {
+        if (position_ == null) {
+          Position = new global::UnityMath.Vector3D();
+        }
+        Position.MergeFrom(other.Position);
+      }
+      if (other.eulaAngle_ != null) {
+        if (eulaAngle_ == null) {
+          EulaAngle = new global::UnityMath.Vector3D();
+        }
+        EulaAngle.MergeFrom(other.EulaAngle);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -796,6 +1068,20 @@ namespace BattleSyncPackage {
               Input = new global::BattleSyncPackage.PlayerConfirmedInput();
             }
             input.ReadMessage(Input);
+            break;
+          }
+          case 34: {
+            if (position_ == null) {
+              Position = new global::UnityMath.Vector3D();
+            }
+            input.ReadMessage(Position);
+            break;
+          }
+          case 42: {
+            if (eulaAngle_ == null) {
+              EulaAngle = new global::UnityMath.Vector3D();
+            }
+            input.ReadMessage(EulaAngle);
             break;
           }
         }
@@ -828,6 +1114,20 @@ namespace BattleSyncPackage {
             input.ReadMessage(Input);
             break;
           }
+          case 34: {
+            if (position_ == null) {
+              Position = new global::UnityMath.Vector3D();
+            }
+            input.ReadMessage(Position);
+            break;
+          }
+          case 42: {
+            if (eulaAngle_ == null) {
+              EulaAngle = new global::UnityMath.Vector3D();
+            }
+            input.ReadMessage(EulaAngle);
+            break;
+          }
         }
       }
     }
@@ -852,7 +1152,7 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[3]; }
+      get { return global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
