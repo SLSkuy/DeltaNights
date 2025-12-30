@@ -4,60 +4,60 @@ package BattleSyncPackage;
 
 import "UnityMath.proto";
 
-/* --------------------------------------------------
+/* ==================================================
   顶层封装-战局同步包
--------------------------------------------------- */
-// 本地战局同步请求
+================================================== */
 enum LocalBattleEvent {
   PlayerInput = 0;
 }
 
+// ===== 本地战局同步请求包 =====
 message BattleSyncRequest {
   LocalBattleEvent eventID = 1;
 }
 
-// 远程战局同步回应
-enum RemoteBattleEvent {
-  PlayerStateUpdate = 0;
-}
-
-message BattleSyncResponse {
-  RemoteBattleEvent eventID = 1;
-}
-
-/* --------------------------------------------------
-  玩家输入抽象
--------------------------------------------------- */ 
-message PlayerConfirmedInput {
-  UnityMath.Vector2D moveDir = 1;
-  bool jump = 2;
-  float yaw = 3;
-  float pitch = 4;
-}
-
-/* --------------------------------------------------
-  同步事件
--------------------------------------------------- */
-// 玩家输入同步
+// ===== 玩家输入同步 =====
 message PlayerInputCommand {
   uint32 playerID = 1;
   uint32 tick = 2;
-  
+
   PlayerConfirmedInput input = 3;
-  
+
   // 测试使用，服务器暂未做世界模拟，客户端直接传输状态信息用于同步
   UnityMath.Vector3D position = 4;
   UnityMath.Vector3D eulaAngle = 5;
 }
 
-// 服务器返回玩家状态
+/* ==================================================
+  顶层封装-战局同步包
+================================================== */
+enum RemoteBattleEvent {
+  PlayerStateUpdate = 0;
+}
+
+// ===== 远程战局同步回应包 ======
+message BattleSyncResponse {
+  RemoteBattleEvent eventID = 1;
+}
+
+// ===== 服务器返回玩家状态 =====
 message PlayerState {
   uint32 playerID = 1;
   uint32 tick = 2;
 
   PlayerConfirmedInput input = 3;
-  
+
   // 权威状态同步
   UnityMath.Vector3D position = 4;
   UnityMath.Vector3D eulaAngle = 5;
+}
+
+/* ==================================================
+  玩家输入抽象
+================================================== */
+message PlayerConfirmedInput {
+  UnityMath.Vector2D moveDir = 1;
+  bool jump = 2;
+  float yaw = 3;
+  float pitch = 4;
 }

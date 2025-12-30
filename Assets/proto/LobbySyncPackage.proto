@@ -2,13 +2,26 @@ syntax = "proto3";
 
 package LobbySyncPackage;
 
-/* --------------------------------------------------
-  顶层封装-大厅操作事件
--------------------------------------------------- */
-enum LobbyEvent {
-  Login = 0;
+/* ==================================================
+  顶层封装-大厅操作请求事件
+================================================== */
+enum LocalLobbyEvent {
+  LoginRequest = 0;
 }
 
+// ===== 大厅操作请求包 =====
 message LobbySyncRequest {
-  LobbyEvent eventID = 1;
+  LocalLobbyEvent eventID = 1;
+}
+
+/* ==================================================
+  顶层封装-大厅操作回应事件
+================================================== */
+enum RemoteLobbyEvent {
+  LoginResponse = 0;
+}
+
+// ===== 大厅操作回应包 =====
+message LobbySyncResponse {
+  RemoteLobbyEvent eventID = 1;
 }

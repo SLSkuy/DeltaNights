@@ -699,6 +699,8 @@ MonoBehaviour:
   ip: 127.0.0.1
   tcpPort: 11451
   udpPort: 19198
+  clientID: 0
+  heartBeatStep: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

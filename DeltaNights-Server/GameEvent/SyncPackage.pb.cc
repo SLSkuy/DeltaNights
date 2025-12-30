@@ -39,7 +39,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR RemoteSyncPackage::RemoteSyncPackage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.eventid_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+  , /*decltype(_impl_.content_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct RemoteSyncPackageDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RemoteSyncPackageDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -69,10 +71,14 @@ const uint32_t TableStruct_SyncPackage_2eproto::offsets[] PROTOBUF_SECTION_VARIA
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::SyncPackage::RemoteSyncPackage, _internal_metadata_),
   ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
+  PROTOBUF_FIELD_OFFSET(::SyncPackage::RemoteSyncPackage, _impl_._oneof_case_[0]),
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::SyncPackage::RemoteSyncPackage, _impl_.eventid_),
+  ::_pbi::kInvalidFieldOffsetTag,
+  ::_pbi::kInvalidFieldOffsetTag,
+  ::_pbi::kInvalidFieldOffsetTag,
+  PROTOBUF_FIELD_OFFSET(::SyncPackage::RemoteSyncPackage, _impl_.content_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::SyncPackage::LocalSyncPackage)},
@@ -93,12 +99,17 @@ const char descriptor_table_protodef_SyncPackage_2eproto[] PROTOBUF_SECTION_VARI
   "ncPackage.BattleSyncRequestH\000\0227\n\tlobbySy"
   "nc\030\003 \001(\0132\".LobbySyncPackage.LobbySyncReq"
   "uestH\000\022-\n\007ackSync\030\004 \001(\0132\032.AckPackage.Ack"
-  "SyncRequestH\000B\t\n\007content\"B\n\021RemoteSyncPa"
-  "ckage\022-\n\007eventID\030\001 \001(\0162\034.SyncPackage.Rem"
-  "oteSyncEvent*>\n\016LocalSyncEvent\022\021\n\rBattle"
-  "Request\020\000\022\020\n\014LobbyRequest\020\001\022\007\n\003Ack\020\002*8\n\017"
-  "RemoteSyncEvent\022\022\n\016BattleResponse\020\000\022\021\n\rL"
-  "obbyResponse\020\001b\006proto3"
+  "SyncRequestH\000B\t\n\007content\"\372\001\n\021RemoteSyncP"
+  "ackage\022-\n\007eventID\030\001 \001(\0162\034.SyncPackage.Re"
+  "moteSyncEvent\022>\n\rbattlePackage\030\002 \001(\0132%.B"
+  "attleSyncPackage.BattleSyncResponseH\000\022;\n"
+  "\014lobbyPackage\030\003 \001(\0132#.LobbySyncPackage.L"
+  "obbySyncResponseH\000\022.\n\007ackSync\030\004 \001(\0132\033.Ac"
+  "kPackage.AckSyncResponseH\000B\t\n\007content*E\n"
+  "\016LocalSyncEvent\022\021\n\rBattleRequest\020\000\022\020\n\014Lo"
+  "bbyRequest\020\001\022\016\n\nAckRequest\020\002*I\n\017RemoteSy"
+  "ncEvent\022\022\n\016BattleResponse\020\000\022\021\n\rLobbyResp"
+  "onse\020\001\022\017\n\013AckResponse\020\002b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_SyncPackage_2eproto_deps[3] = {
   &::descriptor_table_AckPackage_2eproto,
@@ -107,7 +118,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_SyncPackage_2eproto
 };
 static ::_pbi::once_flag descriptor_table_SyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_SyncPackage_2eproto = {
-    false, false, 542, descriptor_table_protodef_SyncPackage_2eproto,
+    false, false, 751, descriptor_table_protodef_SyncPackage_2eproto,
     "SyncPackage.proto",
     &descriptor_table_SyncPackage_2eproto_once, descriptor_table_SyncPackage_2eproto_deps, 3, 2,
     schemas, file_default_instances, TableStruct_SyncPackage_2eproto::offsets,
@@ -144,6 +155,7 @@ bool RemoteSyncEvent_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -575,8 +587,95 @@ void LocalSyncPackage::InternalSwap(LocalSyncPackage* other) {
 
 class RemoteSyncPackage::_Internal {
  public:
+  static const ::BattleSyncPackage::BattleSyncResponse& battlepackage(const RemoteSyncPackage* msg);
+  static const ::LobbySyncPackage::LobbySyncResponse& lobbypackage(const RemoteSyncPackage* msg);
+  static const ::AckPackage::AckSyncResponse& acksync(const RemoteSyncPackage* msg);
 };
 
+const ::BattleSyncPackage::BattleSyncResponse&
+RemoteSyncPackage::_Internal::battlepackage(const RemoteSyncPackage* msg) {
+  return *msg->_impl_.content_.battlepackage_;
+}
+const ::LobbySyncPackage::LobbySyncResponse&
+RemoteSyncPackage::_Internal::lobbypackage(const RemoteSyncPackage* msg) {
+  return *msg->_impl_.content_.lobbypackage_;
+}
+const ::AckPackage::AckSyncResponse&
+RemoteSyncPackage::_Internal::acksync(const RemoteSyncPackage* msg) {
+  return *msg->_impl_.content_.acksync_;
+}
+void RemoteSyncPackage::set_allocated_battlepackage(::BattleSyncPackage::BattleSyncResponse* battlepackage) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_content();
+  if (battlepackage) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(battlepackage));
+    if (message_arena != submessage_arena) {
+      battlepackage = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, battlepackage, submessage_arena);
+    }
+    set_has_battlepackage();
+    _impl_.content_.battlepackage_ = battlepackage;
+  }
+  // @@protoc_insertion_point(field_set_allocated:SyncPackage.RemoteSyncPackage.battlePackage)
+}
+void RemoteSyncPackage::clear_battlepackage() {
+  if (_internal_has_battlepackage()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.content_.battlepackage_;
+    }
+    clear_has_content();
+  }
+}
+void RemoteSyncPackage::set_allocated_lobbypackage(::LobbySyncPackage::LobbySyncResponse* lobbypackage) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_content();
+  if (lobbypackage) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(lobbypackage));
+    if (message_arena != submessage_arena) {
+      lobbypackage = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, lobbypackage, submessage_arena);
+    }
+    set_has_lobbypackage();
+    _impl_.content_.lobbypackage_ = lobbypackage;
+  }
+  // @@protoc_insertion_point(field_set_allocated:SyncPackage.RemoteSyncPackage.lobbyPackage)
+}
+void RemoteSyncPackage::clear_lobbypackage() {
+  if (_internal_has_lobbypackage()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.content_.lobbypackage_;
+    }
+    clear_has_content();
+  }
+}
+void RemoteSyncPackage::set_allocated_acksync(::AckPackage::AckSyncResponse* acksync) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_content();
+  if (acksync) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(acksync));
+    if (message_arena != submessage_arena) {
+      acksync = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, acksync, submessage_arena);
+    }
+    set_has_acksync();
+    _impl_.content_.acksync_ = acksync;
+  }
+  // @@protoc_insertion_point(field_set_allocated:SyncPackage.RemoteSyncPackage.ackSync)
+}
+void RemoteSyncPackage::clear_acksync() {
+  if (_internal_has_acksync()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.content_.acksync_;
+    }
+    clear_has_content();
+  }
+}
 RemoteSyncPackage::RemoteSyncPackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -588,10 +687,33 @@ RemoteSyncPackage::RemoteSyncPackage(const RemoteSyncPackage& from)
   RemoteSyncPackage* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.eventid_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
+    , decltype(_impl_.content_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.eventid_ = from._impl_.eventid_;
+  clear_has_content();
+  switch (from.content_case()) {
+    case kBattlePackage: {
+      _this->_internal_mutable_battlepackage()->::BattleSyncPackage::BattleSyncResponse::MergeFrom(
+          from._internal_battlepackage());
+      break;
+    }
+    case kLobbyPackage: {
+      _this->_internal_mutable_lobbypackage()->::LobbySyncPackage::LobbySyncResponse::MergeFrom(
+          from._internal_lobbypackage());
+      break;
+    }
+    case kAckSync: {
+      _this->_internal_mutable_acksync()->::AckPackage::AckSyncResponse::MergeFrom(
+          from._internal_acksync());
+      break;
+    }
+    case CONTENT_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:SyncPackage.RemoteSyncPackage)
 }
 
@@ -601,8 +723,11 @@ inline void RemoteSyncPackage::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.eventid_){0}
+    , decltype(_impl_.content_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
   };
+  clear_has_content();
 }
 
 RemoteSyncPackage::~RemoteSyncPackage() {
@@ -616,11 +741,43 @@ RemoteSyncPackage::~RemoteSyncPackage() {
 
 inline void RemoteSyncPackage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_content()) {
+    clear_content();
+  }
 }
 
 void RemoteSyncPackage::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
+
+void RemoteSyncPackage::clear_content() {
+// @@protoc_insertion_point(one_of_clear_start:SyncPackage.RemoteSyncPackage)
+  switch (content_case()) {
+    case kBattlePackage: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.content_.battlepackage_;
+      }
+      break;
+    }
+    case kLobbyPackage: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.content_.lobbypackage_;
+      }
+      break;
+    }
+    case kAckSync: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.content_.acksync_;
+      }
+      break;
+    }
+    case CONTENT_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = CONTENT_NOT_SET;
+}
+
 
 void RemoteSyncPackage::Clear() {
 // @@protoc_insertion_point(message_clear_start:SyncPackage.RemoteSyncPackage)
@@ -629,6 +786,7 @@ void RemoteSyncPackage::Clear() {
   (void) cached_has_bits;
 
   _impl_.eventid_ = 0;
+  clear_content();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -644,6 +802,30 @@ const char* RemoteSyncPackage::_InternalParse(const char* ptr, ::_pbi::ParseCont
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_eventid(static_cast<::SyncPackage::RemoteSyncEvent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .BattleSyncPackage.BattleSyncResponse battlePackage = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_battlepackage(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .LobbySyncPackage.LobbySyncResponse lobbyPackage = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_lobbypackage(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .AckPackage.AckSyncResponse ackSync = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_acksync(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -683,6 +865,27 @@ uint8_t* RemoteSyncPackage::_InternalSerialize(
       1, this->_internal_eventid(), target);
   }
 
+  // .BattleSyncPackage.BattleSyncResponse battlePackage = 2;
+  if (_internal_has_battlepackage()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::battlepackage(this),
+        _Internal::battlepackage(this).GetCachedSize(), target, stream);
+  }
+
+  // .LobbySyncPackage.LobbySyncResponse lobbyPackage = 3;
+  if (_internal_has_lobbypackage()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::lobbypackage(this),
+        _Internal::lobbypackage(this).GetCachedSize(), target, stream);
+  }
+
+  // .AckPackage.AckSyncResponse ackSync = 4;
+  if (_internal_has_acksync()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::acksync(this),
+        _Internal::acksync(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -705,6 +908,32 @@ size_t RemoteSyncPackage::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_eventid());
   }
 
+  switch (content_case()) {
+    // .BattleSyncPackage.BattleSyncResponse battlePackage = 2;
+    case kBattlePackage: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.content_.battlepackage_);
+      break;
+    }
+    // .LobbySyncPackage.LobbySyncResponse lobbyPackage = 3;
+    case kLobbyPackage: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.content_.lobbypackage_);
+      break;
+    }
+    // .AckPackage.AckSyncResponse ackSync = 4;
+    case kAckSync: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.content_.acksync_);
+      break;
+    }
+    case CONTENT_NOT_SET: {
+      break;
+    }
+  }
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -726,6 +955,26 @@ void RemoteSyncPackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   if (from._internal_eventid() != 0) {
     _this->_internal_set_eventid(from._internal_eventid());
   }
+  switch (from.content_case()) {
+    case kBattlePackage: {
+      _this->_internal_mutable_battlepackage()->::BattleSyncPackage::BattleSyncResponse::MergeFrom(
+          from._internal_battlepackage());
+      break;
+    }
+    case kLobbyPackage: {
+      _this->_internal_mutable_lobbypackage()->::LobbySyncPackage::LobbySyncResponse::MergeFrom(
+          from._internal_lobbypackage());
+      break;
+    }
+    case kAckSync: {
+      _this->_internal_mutable_acksync()->::AckPackage::AckSyncResponse::MergeFrom(
+          from._internal_acksync());
+      break;
+    }
+    case CONTENT_NOT_SET: {
+      break;
+    }
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -744,6 +993,8 @@ void RemoteSyncPackage::InternalSwap(RemoteSyncPackage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.eventid_, other->_impl_.eventid_);
+  swap(_impl_.content_, other->_impl_.content_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RemoteSyncPackage::GetMetadata() const {

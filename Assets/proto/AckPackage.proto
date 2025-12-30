@@ -2,38 +2,54 @@ syntax = "proto3";
 
 package AckPackage;
 
-/* --------------------------------------------------
-  确认同步包汇总
--------------------------------------------------- */
-enum AckSyncEvent {
+/* ==================================================
+  确认同步请求包事件
+================================================== */
+enum LocalAckEvent {
   HeartBeat = 0;
   Connect = 1;
   Disconnect = 2;
 }
 
+// ===== ACK请求包 =====
 message AckSyncRequest {
-  AckSyncEvent eventID = 1;
+  LocalAckEvent eventID = 1;
   oneof content {
     HeartBeatPackage heartBeat = 2;
     ConnectPackage connect = 3;
-    DisconnectPackage disconnect = 4;
   }
 }
 
-/* --------------------------------------------------
-  心跳包
--------------------------------------------------- */
+// ===== 事件包 =====
 message HeartBeatPackage {
   uint32 clientID = 1;
 }
 
-/* --------------------------------------------------
-  连接请求包
--------------------------------------------------- */
+// ===== 连接请求包 =====
 message ConnectPackage {
-   int32 port = 1;
-}
-
-message DisconnectPackage {
   int32 port = 1;
 }
+
+/* ==================================================
+  确认同步回应包事件
+================================================== */
+enum RemoteAckEvent {
+  Reconnect = 0;
+}
+
+// ===== ACK回应包 =====
+message AckSyncResponse {
+  RemoteAckEvent eventID = 1;
+  oneof content {
+    ReconnectPackage reconnect = 2;
+  }
+}
+
+// ===== 重连回应包 =====
+message ReconnectPackage {
+  uint32 clientID = 1;
+}
+
+
+
+

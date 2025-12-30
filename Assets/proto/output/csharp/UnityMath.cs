@@ -39,9 +39,9 @@ namespace UnityMath {
   }
   #region Messages
   /// <summary>
-  /// --------------------------------------------------
+  /// ==================================================
   ///Unity 数据结构
-  ///-------------------------------------------------- 
+  ///================================================== 
   /// </summary>
   public sealed partial class Vector2D : pb::IMessage<Vector2D>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE

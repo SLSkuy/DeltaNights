@@ -6,35 +6,42 @@ import "BattleSyncPackage.proto";
 import "LobbySyncPackage.proto";
 import "AckPackage.proto";
 
-/* --------------------------------------------------
-  客户端同步包汇总
--------------------------------------------------- */
+
+/* ==================================================
+  客户端->服务端同步包汇总
+================================================== */
 enum LocalSyncEvent {
   BattleRequest = 0;
   LobbyRequest = 1;
-  Ack = 2;
+  AckRequest = 2;
 }
 
 // 客户端发送给服务器的同步包
 message LocalSyncPackage {
   LocalSyncEvent eventID = 1;
-  oneof content{
+  oneof content {
     BattleSyncPackage.BattleSyncRequest battlePackage = 2;
     LobbySyncPackage.LobbySyncRequest lobbySync = 3;
     AckPackage.AckSyncRequest ackSync = 4;
   }
 }
 
-/* --------------------------------------------------
-  服务端同步包汇总
--------------------------------------------------- */
+/* ==================================================
+  服务端->客户端同步包汇总
+================================================== */
 enum RemoteSyncEvent {
   BattleResponse = 0;
   LobbyResponse = 1;
+  AckResponse = 2;
 }
 
 // 服务器发送给客户端的同步包
 message RemoteSyncPackage {
   RemoteSyncEvent eventID = 1;
+  oneof content {
+    BattleSyncPackage.BattleSyncResponse battlePackage = 2;
+    LobbySyncPackage.LobbySyncResponse lobbyPackage = 3;
+    AckPackage.AckSyncResponse ackSync = 4;
+  }
 }
     

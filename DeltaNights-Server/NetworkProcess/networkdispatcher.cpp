@@ -75,7 +75,7 @@ void NetworkDispatcher::processQueueMessage()
 
 /* ============================================================
  * TCP消息处理
- * ============================================================ */
+============================================================ */
 void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& data)
 {
     using namespace SyncPackage;
@@ -91,7 +91,7 @@ void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& d
     // ===== 按类型分发 =====
     switch (pkg.eventid())
     {
-        case LocalSyncEvent::Ack:
+        case LocalSyncEvent::AckRequest:
             handleTcpAckPackage(socket,pkg.acksync());
             break;
         case LocalSyncEvent::LobbyRequest:
@@ -109,11 +109,11 @@ void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const AckPackage
 
     switch (pkg.eventid())
     {
-        case AckSyncEvent::HeartBeat:
+        case LocalAckEvent::HeartBeat:
             // TODO: 心跳消息处理
             emit clientHeartBeat(socket);
             break;
-        case AckSyncEvent::Connect:
+        case LocalAckEvent::Connect:
             // TODO: 客户端连接请求
             emit clientBindUdpPort(socket, pkg.connect().port());
             break;
@@ -125,7 +125,7 @@ void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const AckPackage
 
 /* ============================================================
  * UDP消息处理
- * ============================================================ */
+============================================================ */
 void handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& data)
 {
     using namespace SyncPackage;
@@ -141,7 +141,7 @@ void handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& 
     // ===== 按类型分发 =====
     switch (pkg.eventid())
     {
-    case LocalSyncEvent::Ack:
+    case LocalSyncEvent::AckRequest:
         // TODO: 处理ACK类同步包
         break;
     case LocalSyncEvent::BattleRequest:

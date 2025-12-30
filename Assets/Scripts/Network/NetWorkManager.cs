@@ -55,11 +55,17 @@ namespace Network
         
         #region 成员方法
 
+        /// <summary>
+        /// UDP发送Protobuf事件
+        /// </summary>
         public void SendUdp(LocalSyncPackage syncPackage)
         {
             _udp.EnqueueSendProtobuf(syncPackage);
         }
 
+        /// <summary>
+        /// TCP发送Protobuf事件
+        /// </summary>
         public void SendTcp(LocalSyncPackage syncPackage)
         {
             _tcp.EnqueueSendProtobuf(syncPackage);
@@ -75,10 +81,10 @@ namespace Network
             
             _heartBeatPackage ??= new LocalSyncPackage
             {
-                EventID = LocalSyncEvent.Ack,
+                EventID = LocalSyncEvent.AckRequest,
                 AckSync = new AckSyncRequest
                 {
-                    EventID = AckSyncEvent.HeartBeat,
+                    EventID = LocalAckEvent.HeartBeat,
                     HeartBeat = new HeartBeatPackage
                     {
                         ClientID = clientID
@@ -119,10 +125,10 @@ namespace Network
 
             LocalSyncPackage syncPackage = new LocalSyncPackage
             {
-                EventID = LocalSyncEvent.Ack,
+                EventID = LocalSyncEvent.AckRequest,
                 AckSync = new AckSyncRequest
                 {
-                    EventID = AckSyncEvent.Connect,
+                    EventID = LocalAckEvent.Connect,
                     Connect = new ConnectPackage
                     {
                         Port = _udp.UdpPort

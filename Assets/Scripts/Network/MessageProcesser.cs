@@ -19,17 +19,17 @@ namespace Network
 {
     public class MessageProcessor
     {
-        private readonly Dictionary<uint, Action<IMessage>> _handlers = new();
+        private readonly Dictionary<NetEvent, Action<IMessage>> _handlers = new();
 
         /// <summary>
         /// 注册Protobuf事件
         /// </summary>
-        /// <param name="msgId">事件ID</param>
+        /// <param name="eventId">事件ID</param>
         /// <param name="handler">事件</param>
         /// <typeparam name="T">事件参数</typeparam>
-        public void Register<T>(uint msgId, Action<T> handler) where T : IMessage, new()
+        public void Register<T>(NetEvent eventId, Action<T> handler) where T : IMessage, new()
         {
-            _handlers[msgId] = msg => handler((T)msg);
+            _handlers[eventId] = msg => handler((T)msg);
         }
 
         /// <summary>

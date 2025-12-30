@@ -270,344 +270,6 @@ class BattleSyncRequest final :
 };
 // -------------------------------------------------------------------
 
-class BattleSyncResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BattleSyncPackage.BattleSyncResponse) */ {
- public:
-  inline BattleSyncResponse() : BattleSyncResponse(nullptr) {}
-  ~BattleSyncResponse() override;
-  explicit PROTOBUF_CONSTEXPR BattleSyncResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  BattleSyncResponse(const BattleSyncResponse& from);
-  BattleSyncResponse(BattleSyncResponse&& from) noexcept
-    : BattleSyncResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline BattleSyncResponse& operator=(const BattleSyncResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline BattleSyncResponse& operator=(BattleSyncResponse&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const BattleSyncResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const BattleSyncResponse* internal_default_instance() {
-    return reinterpret_cast<const BattleSyncResponse*>(
-               &_BattleSyncResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(BattleSyncResponse& a, BattleSyncResponse& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(BattleSyncResponse* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(BattleSyncResponse* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  BattleSyncResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<BattleSyncResponse>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const BattleSyncResponse& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const BattleSyncResponse& from) {
-    BattleSyncResponse::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(BattleSyncResponse* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "BattleSyncPackage.BattleSyncResponse";
-  }
-  protected:
-  explicit BattleSyncResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kEventIDFieldNumber = 1,
-  };
-  // .BattleSyncPackage.RemoteBattleEvent eventID = 1;
-  void clear_eventid();
-  ::BattleSyncPackage::RemoteBattleEvent eventid() const;
-  void set_eventid(::BattleSyncPackage::RemoteBattleEvent value);
-  private:
-  ::BattleSyncPackage::RemoteBattleEvent _internal_eventid() const;
-  void _internal_set_eventid(::BattleSyncPackage::RemoteBattleEvent value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:BattleSyncPackage.BattleSyncResponse)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    int eventid_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_BattleSyncPackage_2eproto;
-};
-// -------------------------------------------------------------------
-
-class PlayerConfirmedInput final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BattleSyncPackage.PlayerConfirmedInput) */ {
- public:
-  inline PlayerConfirmedInput() : PlayerConfirmedInput(nullptr) {}
-  ~PlayerConfirmedInput() override;
-  explicit PROTOBUF_CONSTEXPR PlayerConfirmedInput(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  PlayerConfirmedInput(const PlayerConfirmedInput& from);
-  PlayerConfirmedInput(PlayerConfirmedInput&& from) noexcept
-    : PlayerConfirmedInput() {
-    *this = ::std::move(from);
-  }
-
-  inline PlayerConfirmedInput& operator=(const PlayerConfirmedInput& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline PlayerConfirmedInput& operator=(PlayerConfirmedInput&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const PlayerConfirmedInput& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const PlayerConfirmedInput* internal_default_instance() {
-    return reinterpret_cast<const PlayerConfirmedInput*>(
-               &_PlayerConfirmedInput_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  friend void swap(PlayerConfirmedInput& a, PlayerConfirmedInput& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(PlayerConfirmedInput* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(PlayerConfirmedInput* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  PlayerConfirmedInput* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<PlayerConfirmedInput>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const PlayerConfirmedInput& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const PlayerConfirmedInput& from) {
-    PlayerConfirmedInput::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(PlayerConfirmedInput* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "BattleSyncPackage.PlayerConfirmedInput";
-  }
-  protected:
-  explicit PlayerConfirmedInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kMoveDirFieldNumber = 1,
-    kJumpFieldNumber = 2,
-    kYawFieldNumber = 3,
-    kPitchFieldNumber = 4,
-  };
-  // .UnityMath.Vector2D moveDir = 1;
-  bool has_movedir() const;
-  private:
-  bool _internal_has_movedir() const;
-  public:
-  void clear_movedir();
-  const ::UnityMath::Vector2D& movedir() const;
-  PROTOBUF_NODISCARD ::UnityMath::Vector2D* release_movedir();
-  ::UnityMath::Vector2D* mutable_movedir();
-  void set_allocated_movedir(::UnityMath::Vector2D* movedir);
-  private:
-  const ::UnityMath::Vector2D& _internal_movedir() const;
-  ::UnityMath::Vector2D* _internal_mutable_movedir();
-  public:
-  void unsafe_arena_set_allocated_movedir(
-      ::UnityMath::Vector2D* movedir);
-  ::UnityMath::Vector2D* unsafe_arena_release_movedir();
-
-  // bool jump = 2;
-  void clear_jump();
-  bool jump() const;
-  void set_jump(bool value);
-  private:
-  bool _internal_jump() const;
-  void _internal_set_jump(bool value);
-  public:
-
-  // float yaw = 3;
-  void clear_yaw();
-  float yaw() const;
-  void set_yaw(float value);
-  private:
-  float _internal_yaw() const;
-  void _internal_set_yaw(float value);
-  public:
-
-  // float pitch = 4;
-  void clear_pitch();
-  float pitch() const;
-  void set_pitch(float value);
-  private:
-  float _internal_pitch() const;
-  void _internal_set_pitch(float value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:BattleSyncPackage.PlayerConfirmedInput)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::UnityMath::Vector2D* movedir_;
-    bool jump_;
-    float yaw_;
-    float pitch_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_BattleSyncPackage_2eproto;
-};
-// -------------------------------------------------------------------
-
 class PlayerInputCommand final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BattleSyncPackage.PlayerInputCommand) */ {
  public:
@@ -656,7 +318,7 @@ class PlayerInputCommand final :
                &_PlayerInputCommand_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    1;
 
   friend void swap(PlayerInputCommand& a, PlayerInputCommand& b) {
     a.Swap(&b);
@@ -827,6 +489,154 @@ class PlayerInputCommand final :
 };
 // -------------------------------------------------------------------
 
+class BattleSyncResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BattleSyncPackage.BattleSyncResponse) */ {
+ public:
+  inline BattleSyncResponse() : BattleSyncResponse(nullptr) {}
+  ~BattleSyncResponse() override;
+  explicit PROTOBUF_CONSTEXPR BattleSyncResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  BattleSyncResponse(const BattleSyncResponse& from);
+  BattleSyncResponse(BattleSyncResponse&& from) noexcept
+    : BattleSyncResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline BattleSyncResponse& operator=(const BattleSyncResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BattleSyncResponse& operator=(BattleSyncResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const BattleSyncResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BattleSyncResponse* internal_default_instance() {
+    return reinterpret_cast<const BattleSyncResponse*>(
+               &_BattleSyncResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(BattleSyncResponse& a, BattleSyncResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(BattleSyncResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BattleSyncResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BattleSyncResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BattleSyncResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const BattleSyncResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const BattleSyncResponse& from) {
+    BattleSyncResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(BattleSyncResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "BattleSyncPackage.BattleSyncResponse";
+  }
+  protected:
+  explicit BattleSyncResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEventIDFieldNumber = 1,
+  };
+  // .BattleSyncPackage.RemoteBattleEvent eventID = 1;
+  void clear_eventid();
+  ::BattleSyncPackage::RemoteBattleEvent eventid() const;
+  void set_eventid(::BattleSyncPackage::RemoteBattleEvent value);
+  private:
+  ::BattleSyncPackage::RemoteBattleEvent _internal_eventid() const;
+  void _internal_set_eventid(::BattleSyncPackage::RemoteBattleEvent value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:BattleSyncPackage.BattleSyncResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int eventid_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_BattleSyncPackage_2eproto;
+};
+// -------------------------------------------------------------------
+
 class PlayerState final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BattleSyncPackage.PlayerState) */ {
  public:
@@ -875,7 +685,7 @@ class PlayerState final :
                &_PlayerState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(PlayerState& a, PlayerState& b) {
     a.Swap(&b);
@@ -1044,6 +854,196 @@ class PlayerState final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_BattleSyncPackage_2eproto;
 };
+// -------------------------------------------------------------------
+
+class PlayerConfirmedInput final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:BattleSyncPackage.PlayerConfirmedInput) */ {
+ public:
+  inline PlayerConfirmedInput() : PlayerConfirmedInput(nullptr) {}
+  ~PlayerConfirmedInput() override;
+  explicit PROTOBUF_CONSTEXPR PlayerConfirmedInput(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PlayerConfirmedInput(const PlayerConfirmedInput& from);
+  PlayerConfirmedInput(PlayerConfirmedInput&& from) noexcept
+    : PlayerConfirmedInput() {
+    *this = ::std::move(from);
+  }
+
+  inline PlayerConfirmedInput& operator=(const PlayerConfirmedInput& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PlayerConfirmedInput& operator=(PlayerConfirmedInput&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PlayerConfirmedInput& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PlayerConfirmedInput* internal_default_instance() {
+    return reinterpret_cast<const PlayerConfirmedInput*>(
+               &_PlayerConfirmedInput_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(PlayerConfirmedInput& a, PlayerConfirmedInput& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PlayerConfirmedInput* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PlayerConfirmedInput* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PlayerConfirmedInput* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PlayerConfirmedInput>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const PlayerConfirmedInput& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const PlayerConfirmedInput& from) {
+    PlayerConfirmedInput::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PlayerConfirmedInput* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "BattleSyncPackage.PlayerConfirmedInput";
+  }
+  protected:
+  explicit PlayerConfirmedInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMoveDirFieldNumber = 1,
+    kJumpFieldNumber = 2,
+    kYawFieldNumber = 3,
+    kPitchFieldNumber = 4,
+  };
+  // .UnityMath.Vector2D moveDir = 1;
+  bool has_movedir() const;
+  private:
+  bool _internal_has_movedir() const;
+  public:
+  void clear_movedir();
+  const ::UnityMath::Vector2D& movedir() const;
+  PROTOBUF_NODISCARD ::UnityMath::Vector2D* release_movedir();
+  ::UnityMath::Vector2D* mutable_movedir();
+  void set_allocated_movedir(::UnityMath::Vector2D* movedir);
+  private:
+  const ::UnityMath::Vector2D& _internal_movedir() const;
+  ::UnityMath::Vector2D* _internal_mutable_movedir();
+  public:
+  void unsafe_arena_set_allocated_movedir(
+      ::UnityMath::Vector2D* movedir);
+  ::UnityMath::Vector2D* unsafe_arena_release_movedir();
+
+  // bool jump = 2;
+  void clear_jump();
+  bool jump() const;
+  void set_jump(bool value);
+  private:
+  bool _internal_jump() const;
+  void _internal_set_jump(bool value);
+  public:
+
+  // float yaw = 3;
+  void clear_yaw();
+  float yaw() const;
+  void set_yaw(float value);
+  private:
+  float _internal_yaw() const;
+  void _internal_set_yaw(float value);
+  public:
+
+  // float pitch = 4;
+  void clear_pitch();
+  float pitch() const;
+  void set_pitch(float value);
+  private:
+  float _internal_pitch() const;
+  void _internal_set_pitch(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:BattleSyncPackage.PlayerConfirmedInput)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::UnityMath::Vector2D* movedir_;
+    bool jump_;
+    float yaw_;
+    float pitch_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_BattleSyncPackage_2eproto;
+};
 // ===================================================================
 
 
@@ -1073,179 +1073,6 @@ inline void BattleSyncRequest::_internal_set_eventid(::BattleSyncPackage::LocalB
 inline void BattleSyncRequest::set_eventid(::BattleSyncPackage::LocalBattleEvent value) {
   _internal_set_eventid(value);
   // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncRequest.eventID)
-}
-
-// -------------------------------------------------------------------
-
-// BattleSyncResponse
-
-// .BattleSyncPackage.RemoteBattleEvent eventID = 1;
-inline void BattleSyncResponse::clear_eventid() {
-  _impl_.eventid_ = 0;
-}
-inline ::BattleSyncPackage::RemoteBattleEvent BattleSyncResponse::_internal_eventid() const {
-  return static_cast< ::BattleSyncPackage::RemoteBattleEvent >(_impl_.eventid_);
-}
-inline ::BattleSyncPackage::RemoteBattleEvent BattleSyncResponse::eventid() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.BattleSyncResponse.eventID)
-  return _internal_eventid();
-}
-inline void BattleSyncResponse::_internal_set_eventid(::BattleSyncPackage::RemoteBattleEvent value) {
-  
-  _impl_.eventid_ = value;
-}
-inline void BattleSyncResponse::set_eventid(::BattleSyncPackage::RemoteBattleEvent value) {
-  _internal_set_eventid(value);
-  // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncResponse.eventID)
-}
-
-// -------------------------------------------------------------------
-
-// PlayerConfirmedInput
-
-// .UnityMath.Vector2D moveDir = 1;
-inline bool PlayerConfirmedInput::_internal_has_movedir() const {
-  return this != internal_default_instance() && _impl_.movedir_ != nullptr;
-}
-inline bool PlayerConfirmedInput::has_movedir() const {
-  return _internal_has_movedir();
-}
-inline const ::UnityMath::Vector2D& PlayerConfirmedInput::_internal_movedir() const {
-  const ::UnityMath::Vector2D* p = _impl_.movedir_;
-  return p != nullptr ? *p : reinterpret_cast<const ::UnityMath::Vector2D&>(
-      ::UnityMath::_Vector2D_default_instance_);
-}
-inline const ::UnityMath::Vector2D& PlayerConfirmedInput::movedir() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerConfirmedInput.moveDir)
-  return _internal_movedir();
-}
-inline void PlayerConfirmedInput::unsafe_arena_set_allocated_movedir(
-    ::UnityMath::Vector2D* movedir) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.movedir_);
-  }
-  _impl_.movedir_ = movedir;
-  if (movedir) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:BattleSyncPackage.PlayerConfirmedInput.moveDir)
-}
-inline ::UnityMath::Vector2D* PlayerConfirmedInput::release_movedir() {
-  
-  ::UnityMath::Vector2D* temp = _impl_.movedir_;
-  _impl_.movedir_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::UnityMath::Vector2D* PlayerConfirmedInput::unsafe_arena_release_movedir() {
-  // @@protoc_insertion_point(field_release:BattleSyncPackage.PlayerConfirmedInput.moveDir)
-  
-  ::UnityMath::Vector2D* temp = _impl_.movedir_;
-  _impl_.movedir_ = nullptr;
-  return temp;
-}
-inline ::UnityMath::Vector2D* PlayerConfirmedInput::_internal_mutable_movedir() {
-  
-  if (_impl_.movedir_ == nullptr) {
-    auto* p = CreateMaybeMessage<::UnityMath::Vector2D>(GetArenaForAllocation());
-    _impl_.movedir_ = p;
-  }
-  return _impl_.movedir_;
-}
-inline ::UnityMath::Vector2D* PlayerConfirmedInput::mutable_movedir() {
-  ::UnityMath::Vector2D* _msg = _internal_mutable_movedir();
-  // @@protoc_insertion_point(field_mutable:BattleSyncPackage.PlayerConfirmedInput.moveDir)
-  return _msg;
-}
-inline void PlayerConfirmedInput::set_allocated_movedir(::UnityMath::Vector2D* movedir) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.movedir_);
-  }
-  if (movedir) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(movedir));
-    if (message_arena != submessage_arena) {
-      movedir = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, movedir, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.movedir_ = movedir;
-  // @@protoc_insertion_point(field_set_allocated:BattleSyncPackage.PlayerConfirmedInput.moveDir)
-}
-
-// bool jump = 2;
-inline void PlayerConfirmedInput::clear_jump() {
-  _impl_.jump_ = false;
-}
-inline bool PlayerConfirmedInput::_internal_jump() const {
-  return _impl_.jump_;
-}
-inline bool PlayerConfirmedInput::jump() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerConfirmedInput.jump)
-  return _internal_jump();
-}
-inline void PlayerConfirmedInput::_internal_set_jump(bool value) {
-  
-  _impl_.jump_ = value;
-}
-inline void PlayerConfirmedInput::set_jump(bool value) {
-  _internal_set_jump(value);
-  // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerConfirmedInput.jump)
-}
-
-// float yaw = 3;
-inline void PlayerConfirmedInput::clear_yaw() {
-  _impl_.yaw_ = 0;
-}
-inline float PlayerConfirmedInput::_internal_yaw() const {
-  return _impl_.yaw_;
-}
-inline float PlayerConfirmedInput::yaw() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerConfirmedInput.yaw)
-  return _internal_yaw();
-}
-inline void PlayerConfirmedInput::_internal_set_yaw(float value) {
-  
-  _impl_.yaw_ = value;
-}
-inline void PlayerConfirmedInput::set_yaw(float value) {
-  _internal_set_yaw(value);
-  // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerConfirmedInput.yaw)
-}
-
-// float pitch = 4;
-inline void PlayerConfirmedInput::clear_pitch() {
-  _impl_.pitch_ = 0;
-}
-inline float PlayerConfirmedInput::_internal_pitch() const {
-  return _impl_.pitch_;
-}
-inline float PlayerConfirmedInput::pitch() const {
-  // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerConfirmedInput.pitch)
-  return _internal_pitch();
-}
-inline void PlayerConfirmedInput::_internal_set_pitch(float value) {
-  
-  _impl_.pitch_ = value;
-}
-inline void PlayerConfirmedInput::set_pitch(float value) {
-  _internal_set_pitch(value);
-  // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerConfirmedInput.pitch)
 }
 
 // -------------------------------------------------------------------
@@ -1554,6 +1381,30 @@ inline void PlayerInputCommand::set_allocated_eulaangle(::UnityMath::Vector3D* e
 
 // -------------------------------------------------------------------
 
+// BattleSyncResponse
+
+// .BattleSyncPackage.RemoteBattleEvent eventID = 1;
+inline void BattleSyncResponse::clear_eventid() {
+  _impl_.eventid_ = 0;
+}
+inline ::BattleSyncPackage::RemoteBattleEvent BattleSyncResponse::_internal_eventid() const {
+  return static_cast< ::BattleSyncPackage::RemoteBattleEvent >(_impl_.eventid_);
+}
+inline ::BattleSyncPackage::RemoteBattleEvent BattleSyncResponse::eventid() const {
+  // @@protoc_insertion_point(field_get:BattleSyncPackage.BattleSyncResponse.eventID)
+  return _internal_eventid();
+}
+inline void BattleSyncResponse::_internal_set_eventid(::BattleSyncPackage::RemoteBattleEvent value) {
+  
+  _impl_.eventid_ = value;
+}
+inline void BattleSyncResponse::set_eventid(::BattleSyncPackage::RemoteBattleEvent value) {
+  _internal_set_eventid(value);
+  // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncResponse.eventID)
+}
+
+// -------------------------------------------------------------------
+
 // PlayerState
 
 // uint32 playerID = 1;
@@ -1854,6 +1705,155 @@ inline void PlayerState::set_allocated_eulaangle(::UnityMath::Vector3D* eulaangl
   }
   _impl_.eulaangle_ = eulaangle;
   // @@protoc_insertion_point(field_set_allocated:BattleSyncPackage.PlayerState.eulaAngle)
+}
+
+// -------------------------------------------------------------------
+
+// PlayerConfirmedInput
+
+// .UnityMath.Vector2D moveDir = 1;
+inline bool PlayerConfirmedInput::_internal_has_movedir() const {
+  return this != internal_default_instance() && _impl_.movedir_ != nullptr;
+}
+inline bool PlayerConfirmedInput::has_movedir() const {
+  return _internal_has_movedir();
+}
+inline const ::UnityMath::Vector2D& PlayerConfirmedInput::_internal_movedir() const {
+  const ::UnityMath::Vector2D* p = _impl_.movedir_;
+  return p != nullptr ? *p : reinterpret_cast<const ::UnityMath::Vector2D&>(
+      ::UnityMath::_Vector2D_default_instance_);
+}
+inline const ::UnityMath::Vector2D& PlayerConfirmedInput::movedir() const {
+  // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerConfirmedInput.moveDir)
+  return _internal_movedir();
+}
+inline void PlayerConfirmedInput::unsafe_arena_set_allocated_movedir(
+    ::UnityMath::Vector2D* movedir) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.movedir_);
+  }
+  _impl_.movedir_ = movedir;
+  if (movedir) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:BattleSyncPackage.PlayerConfirmedInput.moveDir)
+}
+inline ::UnityMath::Vector2D* PlayerConfirmedInput::release_movedir() {
+  
+  ::UnityMath::Vector2D* temp = _impl_.movedir_;
+  _impl_.movedir_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::UnityMath::Vector2D* PlayerConfirmedInput::unsafe_arena_release_movedir() {
+  // @@protoc_insertion_point(field_release:BattleSyncPackage.PlayerConfirmedInput.moveDir)
+  
+  ::UnityMath::Vector2D* temp = _impl_.movedir_;
+  _impl_.movedir_ = nullptr;
+  return temp;
+}
+inline ::UnityMath::Vector2D* PlayerConfirmedInput::_internal_mutable_movedir() {
+  
+  if (_impl_.movedir_ == nullptr) {
+    auto* p = CreateMaybeMessage<::UnityMath::Vector2D>(GetArenaForAllocation());
+    _impl_.movedir_ = p;
+  }
+  return _impl_.movedir_;
+}
+inline ::UnityMath::Vector2D* PlayerConfirmedInput::mutable_movedir() {
+  ::UnityMath::Vector2D* _msg = _internal_mutable_movedir();
+  // @@protoc_insertion_point(field_mutable:BattleSyncPackage.PlayerConfirmedInput.moveDir)
+  return _msg;
+}
+inline void PlayerConfirmedInput::set_allocated_movedir(::UnityMath::Vector2D* movedir) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.movedir_);
+  }
+  if (movedir) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(movedir));
+    if (message_arena != submessage_arena) {
+      movedir = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, movedir, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.movedir_ = movedir;
+  // @@protoc_insertion_point(field_set_allocated:BattleSyncPackage.PlayerConfirmedInput.moveDir)
+}
+
+// bool jump = 2;
+inline void PlayerConfirmedInput::clear_jump() {
+  _impl_.jump_ = false;
+}
+inline bool PlayerConfirmedInput::_internal_jump() const {
+  return _impl_.jump_;
+}
+inline bool PlayerConfirmedInput::jump() const {
+  // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerConfirmedInput.jump)
+  return _internal_jump();
+}
+inline void PlayerConfirmedInput::_internal_set_jump(bool value) {
+  
+  _impl_.jump_ = value;
+}
+inline void PlayerConfirmedInput::set_jump(bool value) {
+  _internal_set_jump(value);
+  // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerConfirmedInput.jump)
+}
+
+// float yaw = 3;
+inline void PlayerConfirmedInput::clear_yaw() {
+  _impl_.yaw_ = 0;
+}
+inline float PlayerConfirmedInput::_internal_yaw() const {
+  return _impl_.yaw_;
+}
+inline float PlayerConfirmedInput::yaw() const {
+  // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerConfirmedInput.yaw)
+  return _internal_yaw();
+}
+inline void PlayerConfirmedInput::_internal_set_yaw(float value) {
+  
+  _impl_.yaw_ = value;
+}
+inline void PlayerConfirmedInput::set_yaw(float value) {
+  _internal_set_yaw(value);
+  // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerConfirmedInput.yaw)
+}
+
+// float pitch = 4;
+inline void PlayerConfirmedInput::clear_pitch() {
+  _impl_.pitch_ = 0;
+}
+inline float PlayerConfirmedInput::_internal_pitch() const {
+  return _impl_.pitch_;
+}
+inline float PlayerConfirmedInput::pitch() const {
+  // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerConfirmedInput.pitch)
+  return _internal_pitch();
+}
+inline void PlayerConfirmedInput::_internal_set_pitch(float value) {
+  
+  _impl_.pitch_ = value;
+}
+inline void PlayerConfirmedInput::set_pitch(float value) {
+  _internal_set_pitch(value);
+  // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerConfirmedInput.pitch)
 }
 
 #ifdef __GNUC__
