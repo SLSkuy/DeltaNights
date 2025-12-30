@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2025.12.30
  *
  *  战局内玩家抽象实体
  *  记录客户端输入
@@ -14,6 +14,16 @@
 
 #include "../UnityMath.pb.h"
 #include "../GameData/characterprops.h"
+
+struct PlayerInput
+{
+    UnityMath::Vector2D moveDir;
+    bool jump = false;
+    bool fire = false;
+
+    float yaw = 0.0f;
+    float pitch = 0.0f;
+};
 
 class ClientInfo;
 class PlayerInfo;
@@ -30,9 +40,7 @@ public:
 public:
     quint32 uuid() const {return m_uuid;}
     QString nickname() const {return m_nickname;}
-    bool jump() const {return m_jump;}
-    float yaw() const {return m_yaw;}
-    float pitch() const {return m_pitch;}
+    PlayerInput& input() {return m_input;}
     const UnityMath::Vector3D& position() const {return m_position;}
     const UnityMath::Vector3D& eulaAngle() const {return m_eulaAngle;}
     ClientInfo* client() const {return m_client;}
@@ -46,10 +54,7 @@ private:
     int m_jumpCount = 0;    // 连跳次数
 
     // 客户端输入
-    UnityMath::Vector2D m_moveDir;
-    bool m_jump;
-    float m_yaw;
-    float m_pitch;
+    PlayerInput m_input;
 
     // 期望移动
     UnityMath::Vector3D m_desiredVelocity;

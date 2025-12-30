@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2025.12.30
  *
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
@@ -16,8 +16,8 @@
 #include <memory>
 #include <unordered_map>
 
-#include "../UnityMath.pb.h"
 #include "../GameData/gamemap.h"
+#include "playerentity.h"
 
 class UdpEndpoint;
 class ClientInfo;
@@ -35,16 +35,6 @@ struct GameRoomConfig
 {
     int maxPlayers = 10;
     // TODO: 房间属性设置
-};
-
-struct PlayerInput
-{
-    UnityMath::Vector2D moveDir;
-    bool jump = false;
-    bool fire = false;
-
-    float yaw = 0.0f;
-    float pitch = 0.0f;
 };
 
 class GameRoom : public QObject
@@ -76,7 +66,7 @@ private:
     // ========== 房间数据 ==========
     quint32 m_roomID;
     int m_playerCount = 0;
-    GameState m_state;
+    GameState m_state = GameState::Waiting;
     GameRoomConfig m_config;
 
     // ========== Tick处理 ==========
@@ -91,5 +81,5 @@ private:
 
     // ========== 玩家数据处理 ==========
     std::unordered_map<quint32, std::unique_ptr<PlayerEntity>> m_players; // uuid -> PlayerEntity
-    std::unordered_map<quint32, PlayerInput> m_inputBuffer;
+    std::unordered_map<quint32, PlayerInput> m_inputBuffer; // 每次Tick如果有输入则覆盖PlayerEntity，没有则保持PlayerEntity中的输入
 };

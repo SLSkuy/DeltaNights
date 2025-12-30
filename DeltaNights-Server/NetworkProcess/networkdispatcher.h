@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2025.12.30
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -47,6 +47,9 @@ public:
     void broadcastRoomFrame(GameRoom* room);    // 广播战局事件
 
 signals:
+    // 客户端连接事件
+    void clientConnect(QTcpSocket* socket);
+
     // 发送各种事件信号
     void loginRequest();
 

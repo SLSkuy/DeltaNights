@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2025.12.30
  *
  *  TCP封装头文件
  *
@@ -85,7 +85,9 @@ void TcpEndpoint::onSocketReadyRead()
         buffer.remove(0, 4 + bodyLen);  //  去除已处理字节
 
         // 测试消息
-        Logger::Info() << "Receive Message: " << QString::fromUtf8(data);
+        Logger::Info() << "Receive Message: " << QString::fromUtf8(data)
+                       << " from: " << socket->peerAddress().toString()
+                       << ":" << socket->peerPort();
         send(socket,QString("服务器收到TCP连接").toUtf8());
 
         emit messageReceived(socket, data);

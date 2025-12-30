@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.11.19
- *  LastUpdate:  2025.12.22
+ *  LastUpdate:  2025.12.30
  * 
  *  功能简述：
  *  PlayerAimController 负责玩家视角与角色朝向的联动控制，
@@ -76,7 +76,17 @@ namespace PlayerControl
             
             // 非本地玩家，无法控制摄像机属性
             if (isLocalPlayer)
+            {
                 _inputAxisController = GameInput.Instance.GetComponent<CinemachineInputAxisController>();
+                
+                // 逻辑注册
+                _controller.PostUpdate += UpdatePlayerRotation;
+                _controller.OnShoulderAim += UpdateShoulderAimState;
+                _controller.OnAim += UpdateAimState;
+            
+                // 更新摄像机设置
+                UpdateCameraMode(GameCameraState.Normal);
+            }
         }
         
         /// <summary>
@@ -193,17 +203,6 @@ namespace PlayerControl
         {
             // 初始化赋值
             _curRotationDamping = rotationDamping;
-        }
-
-        private void Start()
-        {
-            // 逻辑注册
-            _controller.PostUpdate += UpdatePlayerRotation;
-            _controller.OnShoulderAim += UpdateShoulderAimState;
-            _controller.OnAim += UpdateAimState;
-            
-            // 更新摄像机设置
-            UpdateCameraMode(GameCameraState.Normal);
         }
 
         private void OnEnable()

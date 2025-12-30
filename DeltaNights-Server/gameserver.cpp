@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2025.12.30
  *
  *  功能：
  *  - 封装服务器所有核心模块
@@ -66,6 +66,9 @@ void GameServer::setupLogic()
 void GameServer::setupConnections()
 {
     // TODO: 信号连接
+
+    // 客户端连接处理
+    connect(_dispatcher,&NetworkDispatcher::clientConnect,_clientMgr,&ClientManager::createNewClient);
 }
 
 bool GameServer::start(quint16 tcpPort, quint16 udpPort)

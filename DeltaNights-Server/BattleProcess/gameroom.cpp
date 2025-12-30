@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2025.12.30
  *
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
@@ -73,10 +73,17 @@ void GameRoom::onTick()
     if (m_state != GameState::Running)
         return;
 
-    // TODO: 将输入写入 PlayerEntity
+    // 将输入写入 PlayerEntity
     for (auto& [uuid, player] : m_players)
     {
-
+        // 上一tick玩家有输入则更新PlayerEntity中的输入
+        auto it = m_inputBuffer.find(uuid);
+        if (it != m_inputBuffer.end())
+        {
+            player->input() = it->second;
+        }else{
+            // 上一tick没有输入，保持PlayerEntity中的输入缓存
+        }
     }
 
     // TODO: 玩家输入预期逻辑（不含碰撞）

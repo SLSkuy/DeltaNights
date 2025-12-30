@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.23
+ *  LastUpdate: 2025.12.30
  *
  *  客户端连接抽象
  *  每一个客户端对应一个ClientInfo
@@ -11,10 +11,9 @@
 #include "ClientInfo.h"
 #include <QDateTime>
 
-ClientInfo::ClientInfo(const QHostAddress& ip, quint16 port, quint32 clientID, QObject* parent)
+ClientInfo::ClientInfo(QTcpSocket* socket, quint32 clientID, QObject* parent)
     : QObject(parent)
-    , m_ip(ip)
-    , m_port(port)
+    , m_tcp(socket)
     , m_clientID(clientID)
 {
     updateLastActiveTime();
@@ -23,6 +22,11 @@ ClientInfo::ClientInfo(const QHostAddress& ip, quint16 port, quint32 clientID, Q
 const QHostAddress& ClientInfo::ip() const
 {
     return m_ip;
+}
+
+void ClientInfo::bindUdpPort(quint16 port)
+{
+    m_port = port;
 }
 
 quint16 ClientInfo::port() const
@@ -35,12 +39,17 @@ quint32 ClientInfo::clientID() const
     return m_clientID;
 }
 
+QTcpSocket* ClientInfo::tcpSocket() const
+{
+    return m_tcp;
+}
+
 void ClientInfo::updateLastActiveTime()
 {
     m_lastActive = QDateTime::currentMSecsSinceEpoch();
 }
 
-quint64 ClientInfo::lastActiveTime() const
+const quint64& ClientInfo::lastActiveTime() const
 {
     return m_lastActive;
 }

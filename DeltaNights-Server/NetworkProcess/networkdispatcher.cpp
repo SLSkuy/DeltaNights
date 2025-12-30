@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2025.12.30
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -16,6 +16,8 @@ NetworkDispatcher::NetworkDispatcher(UdpEndpoint* udp, TcpEndpoint* tcp, QObject
     : _udp(udp), _tcp(tcp)
     , QObject(parent)
 {
+    // TCP信号
+    connect(_tcp,&TcpEndpoint::clientConnected,this,&NetworkDispatcher::clientConnect, Qt::QueuedConnection);
 }
 
 void NetworkDispatcher::broadcastRoomFrame(GameRoom* room)
