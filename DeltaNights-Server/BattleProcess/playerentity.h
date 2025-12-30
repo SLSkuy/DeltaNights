@@ -12,7 +12,7 @@
 
 #include <memory.h>
 
-#include "../UnityMath.pb.h"
+#include "../GameEvent/UnityMath.pb.h"
 #include "../GameData/characterprops.h"
 
 struct PlayerInput

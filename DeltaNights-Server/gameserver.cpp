@@ -16,9 +16,9 @@
 #include "NetworkProcess/udpendpoint.h"
 #include "NetworkProcess/networkdispatcher.h"
 
-// Player
-#include "PlayerInfo/clientmanager.h"
-#include "PlayerInfo/playerinfomanager.h"
+// Client
+#include "ClientManage/clientmanager.h"
+#include "ClientManage/playerinfomanager.h"
 
 // Battle
 #include "BattleProcess/gameroommanager.h"

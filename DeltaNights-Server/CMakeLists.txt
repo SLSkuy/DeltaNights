@@ -17,17 +17,12 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/protobuf/include)
 
 add_executable(DeltaNights-Server
   main.cpp
-  BattleSyncPackage.pb.cc BattleSyncPackage.pb.h
   Logger/logger.cpp Logger/logger.h
   NetworkProcess/udpendpoint.cpp NetworkProcess/udpendpoint.h
   NetworkProcess/networkdispatcher.cpp NetworkProcess/networkdispatcher.h
   BattleProcess/gameroom.cpp BattleProcess/gameroom.h
   BattleProcess/gameroommanager.cpp BattleProcess/gameroommanager.h
   BattleProcess/playerentity.cpp BattleProcess/playerentity.h
-  PlayerInfo/clientinfo.cpp PlayerInfo/clientinfo.h
-  PlayerInfo/clientmanager.cpp PlayerInfo/clientmanager.h
-  PlayerInfo/playerinfo.cpp PlayerInfo/playerinfo.h
-  PlayerInfo/playerinfomanager.cpp PlayerInfo/playerinfomanager.h
   GameData/characterprops.cpp GameData/characterprops.h
   NetworkProcess/tcpendpoint.h NetworkProcess/tcpendpoint.cpp
   gameserver.h gameserver.cpp
@@ -35,8 +30,15 @@ add_executable(DeltaNights-Server
   GameData/gamemap.h GameData/gamemap.cpp
   CollisionSystem/collider.h CollisionSystem/collider.cpp
   CollisionSystem/collisionsystem.h CollisionSystem/collisionsystem.cpp
-  LobbySyncPackage.pb.cc LobbySyncPackage.pb.h UnityMath.pb.cc UnityMath.pb.h SyncPackage.pb.cc SyncPackage.pb.h
-  AckPackage.pb.cc AckPackage.pb.h
+  ClientManage/clientinfo.cpp ClientManage/clientinfo.h
+  ClientManage/clientmanager.cpp ClientManage/clientmanager.h
+  ClientManage/playerinfo.cpp ClientManage/playerinfo.h
+  ClientManage/playerinfomanager.cpp ClientManage/playerinfomanager.h
+  GameEvent/AckPackage.pb.cc GameEvent/AckPackage.pb.h
+  GameEvent/BattleSyncPackage.pb.cc GameEvent/BattleSyncPackage.pb.h
+  GameEvent/LobbySyncPackage.pb.cc GameEvent/LobbySyncPackage.pb.h
+  GameEvent/SyncPackage.pb.cc GameEvent/SyncPackage.pb.h
+  GameEvent/UnityMath.pb.cc GameEvent/UnityMath.pb.h
 )
 
 # 指定protobuf库位置

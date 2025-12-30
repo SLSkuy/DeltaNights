@@ -39,7 +39,7 @@ void ClientManager::createNewClient(QTcpSocket* socket)
     m_clientsByID.emplace(client->clientID(), client);
     m_clientsByTcp.emplace(socket, client);
 
-    Logger::Info() << "[ClientManager]: New client connect on "
+    Logger::Info() << "[ClientManager]: New client connect from "
                    << socket->peerAddress().toString()
                    << ":" << socket->peerPort();
 }
@@ -108,7 +108,7 @@ bool ClientManager::removeClientById(quint32 clientId)
     return true;
 }
 
-/* ===========================================================
+/* ============================================================
  * 超时处理
  * ============================================================ */
 void ClientManager::updateClientLastActive(QTcpSocket* socket)

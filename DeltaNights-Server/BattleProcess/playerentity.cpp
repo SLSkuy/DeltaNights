@@ -8,7 +8,7 @@
  * ------------------------------------------------------------ */
 
 #include "playerentity.h"
-#include "../PlayerInfo/playerinfo.h"
+#include "../ClientManage/playerinfo.h"
 
 PlayerEntity::PlayerEntity(PlayerInfo* info)
     : m_uuid(info->uuid())

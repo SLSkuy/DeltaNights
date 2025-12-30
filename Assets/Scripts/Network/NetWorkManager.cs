@@ -115,7 +115,7 @@ namespace Network
         void Start()
         {
             // 测试使用
-            // _udp.EnqueueSend(Encoding.UTF8.GetBytes("UDP连接测试"));
+            _udp.EnqueueSend(Encoding.UTF8.GetBytes("UDP连接测试"));
 
             LocalSyncPackage syncPackage = new LocalSyncPackage
             {

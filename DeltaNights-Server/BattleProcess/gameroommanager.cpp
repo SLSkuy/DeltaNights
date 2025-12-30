@@ -10,7 +10,7 @@
 #include "memory"
 
 #include "../Logger/logger.h"
-#include "../PlayerInfo/playerinfo.h"
+#include "../ClientManage/playerinfo.h"
 #include "playerentity.h"
 #include "gameroommanager.h"
 #include "gameroom.h"
