@@ -24,20 +24,20 @@ public:
 
     void createNewClient(QTcpSocket* socket);
     void clientBindUdpPort(QTcpSocket* socket, quint16 port);
-    void clientDisconnect(QTcpSocket* socket);
     ClientInfo* findClientByID(quint32 clientID);
     ClientInfo* findClientByTcp(QTcpSocket* socket);
     ClientInfo* findClientByUdp(const QHostAddress& ip, quint16 port) const;
 
-    // 删除超时客户端
-    void removeTimeoutClients(quint64 timeout);
+    // ===== 超时处理 =====
+    void updateClientLastActive(QTcpSocket* socket);
+    void removeTimeoutClients();
 
 private:
     bool removeClientById(quint32 clientId);
     QString makeKey(const QHostAddress& ip, quint16 port) const;
 
 private:
-    int m_timeToRemove = 5; // 心跳时间上限，超过则删除客户端
+    int m_timeToRemove = 5000; // 心跳时间上限（ms），超过则删除客户端
     quint32 m_nextClientID = 1;
 
     std::unordered_map<quint32, ClientInfo*> m_clientsByID;    // 主索引：逻辑客户端ID

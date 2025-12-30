@@ -55,30 +55,12 @@ void ClientManager::clientBindUdpPort(QTcpSocket* socket, quint16 port)
     }
 
     client->bindUdpPort(port);
-    m_clientsByUdp[makeKey(client->tcpSocket()->peerAddress(), client->port())] = client;
+    m_clientsByUdp[makeKey(client->ip(), client->port())] = client;
 
     Logger::Info() << "[ClientManager]: Client "
                    << socket->peerAddress().toString()
                    << ":" << socket->peerPort()
                    << " bind udp port on " << port;
-}
-
-void ClientManager::clientDisconnect(QTcpSocket* socket)
-{
-    ClientInfo* client = findClientByTcp(socket);
-
-    if(!client)
-    {
-        Logger::Error() << "[ClientManager]: Failed to dispose client";
-        return;
-    }
-
-    QString key = makeKey(client->tcpSocket()->peerAddress(),client->port());
-
-    if(removeClientById(client->clientID()))
-    {
-        Logger::Info() << "[ClientManager]: Client " << key << " disconnect";
-    }
 }
 
 ClientInfo* ClientManager::findClientByID(quint32 clientID)
@@ -118,7 +100,7 @@ bool ClientManager::removeClientById(quint32 clientId)
 
     // 清理 UDP 索引
     if (client->port())
-        m_clientsByUdp.erase(makeKey(client->tcpSocket()->peerAddress(), client->port()));
+        m_clientsByUdp.erase(makeKey(client->ip(), client->port()));
 
     client->deleteLater();
     m_clientsByID.erase(it);
@@ -126,21 +108,34 @@ bool ClientManager::removeClientById(quint32 clientId)
     return true;
 }
 
+/* ===========================================================
+ * 超时处理
+ * ============================================================ */
+void ClientManager::updateClientLastActive(QTcpSocket* socket)
+{
+    ClientInfo* client = findClientByTcp(socket);
+    if(client)
+    {
+        client->updateLastActiveTime();
+    }
+}
 
-void ClientManager::removeTimeoutClients(quint64 timeout)
+void ClientManager::removeTimeoutClients()
 {
     const quint64 now = QDateTime::currentMSecsSinceEpoch();
 
     for (auto it = m_clientsByID.begin(); it != m_clientsByID.end();)
     {
         ClientInfo* client = it->second;
-        if (now - client->lastActiveTime() > timeout)
+        if (now - client->lastActiveTime() > m_timeToRemove)
         {
-            m_clientsByTcp.erase(client->tcpSocket()); // 删除TCP索引
-            m_clientsByUdp.erase(makeKey(client->tcpSocket()->peerAddress(),client->port()));    // 删除UDP索引
-            client->deleteLater();  // 删除客户端
+            Logger::Info() << "[ClientManager]: Client "
+                           << makeKey(client->ip(), client->port()) << " timeout";
 
+            m_clientsByTcp.erase(client->tcpSocket()); // 删除TCP索引
+            m_clientsByUdp.erase(makeKey(client->ip(), client->port()));    // 删除UDP索引
             it = m_clientsByID.erase(it);   // 删除ID索引
+            client->deleteLater();  // 删除客户端
         }
         else
         {

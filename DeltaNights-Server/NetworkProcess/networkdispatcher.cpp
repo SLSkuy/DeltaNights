@@ -104,14 +104,11 @@ void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const AckPackage
     {
         case AckSyncEvent::HeartBeat:
             // TODO: 心跳消息处理
+            emit clientHeartBeat(socket);
             break;
         case AckSyncEvent::Connect:
             // TODO: 客户端连接请求
             emit clientBindUdpPort(socket, pkg.connect().port());
-            break;
-        case AckSyncEvent::Disconnect:
-            // TODO: 客户端断开连接请求
-            emit clientDisconnect(socket);
             break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown TCP_ACK package type:" << pkg.eventid();

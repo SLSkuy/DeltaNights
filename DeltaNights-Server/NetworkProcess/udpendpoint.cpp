@@ -43,11 +43,11 @@ bool UdpEndpoint::bind(quint16 port, QHostAddress address)
 
     if (!ok)
     {
-        Logger::Warning() << "UDP bind failed:" << _socket->errorString();
+        Logger::Warning() << "[UdpEndpoint]: UDP bind failed:" << _socket->errorString();
     }
     else
     {
-        Logger::Info() << "UDP bind on " << address.toString() << ":" << port;
+        Logger::Info() << "[UdpEndpoint]: UDP bind on " << address.toString() << ":" << port;
     }
     return ok;
 }

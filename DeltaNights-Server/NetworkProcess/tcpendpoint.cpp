@@ -45,7 +45,7 @@ bool TcpEndpoint::listen(quint16 port, QHostAddress address)
         connect(_server, &QTcpServer::newConnection,this, &TcpEndpoint::onNewConnection);
     }
 
-    Logger::Info() << "TCP Listen on " << address.toString() << ":" << port;
+    Logger::Info() << "[TcpEndpoint]: TCP Listen on " << address.toString() << ":" << port;
     return _server->listen(address, port);
 }
 
@@ -77,13 +77,11 @@ void TcpEndpoint::onSocketReadyRead()
         if (buffer.size() < 4)
             return;
 
-        qint32 bodyLen = qFromBigEndian<qint32>(
-            reinterpret_cast<const uchar*>(buffer.constData())
-            );
+        qint32 bodyLen = qFromBigEndian<qint32>(reinterpret_cast<const uchar*>(buffer.constData()));
 
         if (bodyLen <= 0 || bodyLen > 10 * 1024 * 1024)
         {
-            Logger::Error() << "Invalid TCP bodyLen:" << bodyLen;
+            Logger::Error() << "[TcpEndpoint]: Invalid TCP bodyLen:" << bodyLen;
             buffer.clear();
             return;
         }

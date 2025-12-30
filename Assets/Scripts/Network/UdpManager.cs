@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using SyncPackage;
+using UnityEngine;
 
 namespace Network
 {

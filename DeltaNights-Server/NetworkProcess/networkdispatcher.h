@@ -48,10 +48,10 @@ public:
     void broadcastRoomFrame(GameRoom* room);    // 广播战局事件
 
 signals:
-    // 客户端连接事件
+    // 客户端相关事件
     void clientConnect(QTcpSocket* socket);
-    void clientDisconnect(QTcpSocket* socket);
     void clientBindUdpPort(QTcpSocket* socket, quint16 port);
+    void clientHeartBeat(QTcpSocket* socket);
 
     // 发送各种事件信号
     void loginRequest();

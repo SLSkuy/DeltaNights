@@ -35,15 +35,24 @@ namespace Network
         [SerializeField]private short tcpPort = 11451;
         [SerializeField]private short udpPort = 19198;
 
+        [Header("玩家信息")] 
+        public uint clientID = 0;
+
         [Header("网络属性配置")] 
         [SerializeField] [Tooltip("网路心跳间隔")] private float heartBeatStep = 1f;
 
+        // 组件引用
         private TcpManager _tcp;
         private UdpManager _udp;
         private MessageProcessor _processor;
 
-        private readonly ConcurrentQueue<byte[]> _mainThreadQueue = new();    // Unity主线程处理调用事件
+        // Unity主线程处理调用队列
+        private readonly ConcurrentQueue<byte[]> _mainThreadQueue = new();
 
+        // 心跳包缓存
+        private LocalSyncPackage _heartBeatPackage;
+        private float _heartBeatTimer;
+        
         #region 成员方法
 
         public void SendUdp(LocalSyncPackage syncPackage)
@@ -54,6 +63,32 @@ namespace Network
         public void SendTcp(LocalSyncPackage syncPackage)
         {
             _tcp.EnqueueSendProtobuf(syncPackage);
+        }
+
+        /// <summary>
+        /// 心跳包，每隔一段固定时间进行发送
+        /// </summary>
+        private void HeartBeat()
+        {
+            // 断开连接时暂停发送心跳包
+            if (!_tcp.Connected) return;
+            
+            _heartBeatPackage ??= new LocalSyncPackage
+            {
+                EventID = LocalSyncEvent.Ack,
+                AckSync = new AckSyncRequest
+                {
+                    EventID = AckSyncEvent.HeartBeat,
+                    HeartBeat = new HeartBeatPackage
+                    {
+                        ClientID = clientID
+                    }
+                }
+            };
+            
+            // 发送心跳包
+            SendTcp(_heartBeatPackage);
+            _heartBeatTimer = heartBeatStep;
         }
 
         #endregion
@@ -80,7 +115,7 @@ namespace Network
         void Start()
         {
             // 测试使用
-            _udp.EnqueueSend(Encoding.UTF8.GetBytes("UDP连接测试"));
+            // _udp.EnqueueSend(Encoding.UTF8.GetBytes("UDP连接测试"));
 
             LocalSyncPackage syncPackage = new LocalSyncPackage
             {
@@ -99,6 +134,7 @@ namespace Network
 
         void Update()
         {
+            // 消息队列处理
             while (_mainThreadQueue.Count > 0)
             {
                 if (_mainThreadQueue.TryDequeue(out var data))
@@ -106,6 +142,12 @@ namespace Network
                     _processor.DeSerialize(data);
                 }
             }
+
+            // 心跳包处理
+            if (_heartBeatTimer > 0)
+                _heartBeatTimer -= Time.deltaTime;
+            else
+                HeartBeat();
         }
 
         void OnDestroy()

@@ -30,7 +30,7 @@ public:
     explicit GameServer(QObject* parent = nullptr);
     ~GameServer();
 
-    bool start(quint16 tcpPort, quint16 udpPort, int logicRate = 60);
+    bool start(quint16 tcpPort, quint16 udpPort);
     void stop();
 
 private:

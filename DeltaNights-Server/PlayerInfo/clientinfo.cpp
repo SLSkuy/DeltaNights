@@ -13,7 +13,7 @@
 
 ClientInfo::ClientInfo(QTcpSocket* socket, quint32 clientID, QObject* parent)
     : QObject(parent)
-    , m_tcp(socket)
+    , _tcp(socket)
     , m_clientID(clientID)
 {
     updateLastActiveTime();
@@ -22,6 +22,12 @@ ClientInfo::ClientInfo(QTcpSocket* socket, quint32 clientID, QObject* parent)
 void ClientInfo::bindUdpPort(quint16 port)
 {
     m_port = port;
+    m_ip = _tcp->peerAddress();
+}
+
+const QHostAddress& ClientInfo::ip()
+{
+    return m_ip;
 }
 
 quint16 ClientInfo::port() const
@@ -36,7 +42,7 @@ quint32 ClientInfo::clientID() const
 
 QTcpSocket* ClientInfo::tcpSocket() const
 {
-    return m_tcp;
+    return _tcp;
 }
 
 void ClientInfo::updateLastActiveTime()

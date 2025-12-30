@@ -69,19 +69,22 @@ void GameServer::setupConnections()
     // TODO: 信号连接
     // 客户端连接处理
     connect(_dispatcher,&NetworkDispatcher::clientConnect,_clientMgr,&ClientManager::createNewClient);
-    connect(_dispatcher,&NetworkDispatcher::clientDisconnect,_clientMgr,&ClientManager::clientDisconnect);
     connect(_dispatcher,&NetworkDispatcher::clientBindUdpPort,_clientMgr,&ClientManager::clientBindUdpPort);
+    connect(_dispatcher,&NetworkDispatcher::clientHeartBeat,_clientMgr,&ClientManager::updateClientLastActive);
+
+    // 服务器逻辑更新
+    connect(_logicTimer,&QTimer::timeout,_dispatcher,&NetworkDispatcher::processQueueMessage);
+    connect(_logicTimer,&QTimer::timeout,_clientMgr,&ClientManager::removeTimeoutClients);
 }
 
-bool GameServer::start(quint16 tcpPort, quint16 udpPort, int logicRate)
+bool GameServer::start(quint16 tcpPort, quint16 udpPort)
 {
     // 跨线程启用TCP、UDP连接
     QMetaObject::invokeMethod(_tcp,[=]() { _tcp->listen(tcpPort); },Qt::QueuedConnection);
     QMetaObject::invokeMethod(_udp,[=]() { _udp->bind(udpPort); },Qt::QueuedConnection);
 
     // 启用逻辑更新计时器
-    connect(_logicTimer,&QTimer::timeout,_dispatcher,&NetworkDispatcher::processQueueMessage);
-    _logicTimer->start(1000 / logicRate);
+    _logicTimer->start(1000 / m_logicRate);
 
     return true;
 }
@@ -95,5 +98,5 @@ void GameServer::stop()
         _netThread->wait();
     }
 
-    Logger::Info() << "服务器已关闭";
+    Logger::Info() << "[GameServer]: 服务器已关闭";
 }
