@@ -19,11 +19,6 @@ ClientInfo::ClientInfo(QTcpSocket* socket, quint32 clientID, QObject* parent)
     updateLastActiveTime();
 }
 
-const QHostAddress& ClientInfo::ip() const
-{
-    return m_ip;
-}
-
 void ClientInfo::bindUdpPort(quint16 port)
 {
     m_port = port;

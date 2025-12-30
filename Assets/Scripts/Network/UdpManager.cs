@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.28
- *  LastUpdate:  2025.12.28
+ *  LastUpdate:  2025.12.30
  *
  *  封装UDP
  *  负责处理所有的UDP网络传输事件
@@ -31,6 +31,18 @@ namespace Network
         #endregion
 
         #region UDP控制
+        
+        /// <summary>
+        /// 获取UDP绑定的端口
+        /// </summary>
+        public int UdpPort
+        {
+            get
+            {
+                if (_socket?.LocalEndPoint is IPEndPoint ep) return ep.Port;
+                return -1;
+            }
+        }
 
         /// <summary>
         /// 开启UDP连接

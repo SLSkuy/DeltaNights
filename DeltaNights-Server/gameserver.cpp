@@ -61,27 +61,27 @@ void GameServer::setupLogic()
     _clientMgr = new ClientManager(this);
     _playerInfoMgr = new PlayerInfoManager(this);
     _roomMgr = new GameRoomManager(this);
+    _logicTimer = new QTimer(this);
 }
 
 void GameServer::setupConnections()
 {
     // TODO: 信号连接
-
     // 客户端连接处理
     connect(_dispatcher,&NetworkDispatcher::clientConnect,_clientMgr,&ClientManager::createNewClient);
+    connect(_dispatcher,&NetworkDispatcher::clientDisconnect,_clientMgr,&ClientManager::clientDisconnect);
+    connect(_dispatcher,&NetworkDispatcher::clientBindUdpPort,_clientMgr,&ClientManager::clientBindUdpPort);
 }
 
-bool GameServer::start(quint16 tcpPort, quint16 udpPort)
+bool GameServer::start(quint16 tcpPort, quint16 udpPort, int logicRate)
 {
     // 跨线程启用TCP、UDP连接
     QMetaObject::invokeMethod(_tcp,[=]() { _tcp->listen(tcpPort); },Qt::QueuedConnection);
     QMetaObject::invokeMethod(_udp,[=]() { _udp->bind(udpPort); },Qt::QueuedConnection);
 
-    connect(_tcp, &TcpEndpoint::messageReceived,
-            _dispatcher, &NetworkDispatcher::onTcpMessage, Qt::QueuedConnection);
-
-    connect(_udp, &UdpEndpoint::messageReceived,
-            _dispatcher, &NetworkDispatcher::onUdpMessage, Qt::QueuedConnection);
+    // 启用逻辑更新计时器
+    connect(_logicTimer,&QTimer::timeout,_dispatcher,&NetworkDispatcher::processQueueMessage);
+    _logicTimer->start(1000 / logicRate);
 
     return true;
 }

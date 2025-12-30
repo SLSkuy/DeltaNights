@@ -84,12 +84,6 @@ void TcpEndpoint::onSocketReadyRead()
         QByteArray data = buffer.mid(4, bodyLen);
         buffer.remove(0, 4 + bodyLen);  //  去除已处理字节
 
-        // 测试消息
-        Logger::Info() << "Receive Message: " << QString::fromUtf8(data)
-                       << " from: " << socket->peerAddress().toString()
-                       << ":" << socket->peerPort();
-        send(socket,QString("服务器收到TCP连接").toUtf8());
-
         emit messageReceived(socket, data);
     }
 }

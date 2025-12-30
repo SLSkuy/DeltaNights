@@ -24,7 +24,9 @@ namespace AckPackage {
 PROTOBUF_CONSTEXPR AckSyncRequest::AckSyncRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.eventid_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+  , /*decltype(_impl_.content_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct AckSyncRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AckSyncRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -47,8 +49,34 @@ struct HeartBeatPackageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HeartBeatPackageDefaultTypeInternal _HeartBeatPackage_default_instance_;
+PROTOBUF_CONSTEXPR ConnectPackage::ConnectPackage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.port_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ConnectPackageDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ConnectPackageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ConnectPackageDefaultTypeInternal() {}
+  union {
+    ConnectPackage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConnectPackageDefaultTypeInternal _ConnectPackage_default_instance_;
+PROTOBUF_CONSTEXPR DisconnectPackage::DisconnectPackage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.port_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct DisconnectPackageDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DisconnectPackageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DisconnectPackageDefaultTypeInternal() {}
+  union {
+    DisconnectPackage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DisconnectPackageDefaultTypeInternal _DisconnectPackage_default_instance_;
 }  // namespace AckPackage
-static ::_pb::Metadata file_level_metadata_AckPackage_2eproto[2];
+static ::_pb::Metadata file_level_metadata_AckPackage_2eproto[4];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_AckPackage_2eproto[1];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_AckPackage_2eproto = nullptr;
 
@@ -56,10 +84,14 @@ const uint32_t TableStruct_AckPackage_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::AckPackage::AckSyncRequest, _internal_metadata_),
   ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
+  PROTOBUF_FIELD_OFFSET(::AckPackage::AckSyncRequest, _impl_._oneof_case_[0]),
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::AckPackage::AckSyncRequest, _impl_.eventid_),
+  ::_pbi::kInvalidFieldOffsetTag,
+  ::_pbi::kInvalidFieldOffsetTag,
+  ::_pbi::kInvalidFieldOffsetTag,
+  PROTOBUF_FIELD_OFFSET(::AckPackage::AckSyncRequest, _impl_.content_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::AckPackage::HeartBeatPackage, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -67,29 +99,53 @@ const uint32_t TableStruct_AckPackage_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::AckPackage::HeartBeatPackage, _impl_.clientid_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::AckPackage::ConnectPackage, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::AckPackage::ConnectPackage, _impl_.port_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::AckPackage::DisconnectPackage, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::AckPackage::DisconnectPackage, _impl_.port_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::AckPackage::AckSyncRequest)},
-  { 7, -1, -1, sizeof(::AckPackage::HeartBeatPackage)},
+  { 11, -1, -1, sizeof(::AckPackage::HeartBeatPackage)},
+  { 18, -1, -1, sizeof(::AckPackage::ConnectPackage)},
+  { 25, -1, -1, sizeof(::AckPackage::DisconnectPackage)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::AckPackage::_AckSyncRequest_default_instance_._instance,
   &::AckPackage::_HeartBeatPackage_default_instance_._instance,
+  &::AckPackage::_ConnectPackage_default_instance_._instance,
+  &::AckPackage::_DisconnectPackage_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_AckPackage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\020AckPackage.proto\022\nAckPackage\";\n\016AckSyn"
-  "cRequest\022)\n\007eventID\030\001 \001(\0162\030.AckPackage.A"
-  "ckSyncEvent\"$\n\020HeartBeatPackage\022\020\n\010clien"
-  "tID\030\001 \001(\r*\035\n\014AckSyncEvent\022\r\n\tHeartBeat\020\000"
-  "b\006proto3"
+  "\n\020AckPackage.proto\022\nAckPackage\"\335\001\n\016AckSy"
+  "ncRequest\022)\n\007eventID\030\001 \001(\0162\030.AckPackage."
+  "AckSyncEvent\0221\n\theartBeat\030\002 \001(\0132\034.AckPac"
+  "kage.HeartBeatPackageH\000\022-\n\007connect\030\003 \001(\013"
+  "2\032.AckPackage.ConnectPackageH\000\0223\n\ndiscon"
+  "nect\030\004 \001(\0132\035.AckPackage.DisconnectPackag"
+  "eH\000B\t\n\007content\"$\n\020HeartBeatPackage\022\020\n\010cl"
+  "ientID\030\001 \001(\r\"\036\n\016ConnectPackage\022\014\n\004port\030\001"
+  " \001(\005\"!\n\021DisconnectPackage\022\014\n\004port\030\001 \001(\005*"
+  ":\n\014AckSyncEvent\022\r\n\tHeartBeat\020\000\022\013\n\007Connec"
+  "t\020\001\022\016\n\nDisconnect\020\002b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_AckPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_AckPackage_2eproto = {
-    false, false, 168, descriptor_table_protodef_AckPackage_2eproto,
+    false, false, 427, descriptor_table_protodef_AckPackage_2eproto,
     "AckPackage.proto",
-    &descriptor_table_AckPackage_2eproto_once, nullptr, 0, 2,
+    &descriptor_table_AckPackage_2eproto_once, nullptr, 0, 4,
     schemas, file_default_instances, TableStruct_AckPackage_2eproto::offsets,
     file_level_metadata_AckPackage_2eproto, file_level_enum_descriptors_AckPackage_2eproto,
     file_level_service_descriptors_AckPackage_2eproto,
@@ -108,6 +164,8 @@ const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AckSyncEvent_descriptor() {
 bool AckSyncEvent_IsValid(int value) {
   switch (value) {
     case 0:
+    case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -119,8 +177,68 @@ bool AckSyncEvent_IsValid(int value) {
 
 class AckSyncRequest::_Internal {
  public:
+  static const ::AckPackage::HeartBeatPackage& heartbeat(const AckSyncRequest* msg);
+  static const ::AckPackage::ConnectPackage& connect(const AckSyncRequest* msg);
+  static const ::AckPackage::DisconnectPackage& disconnect(const AckSyncRequest* msg);
 };
 
+const ::AckPackage::HeartBeatPackage&
+AckSyncRequest::_Internal::heartbeat(const AckSyncRequest* msg) {
+  return *msg->_impl_.content_.heartbeat_;
+}
+const ::AckPackage::ConnectPackage&
+AckSyncRequest::_Internal::connect(const AckSyncRequest* msg) {
+  return *msg->_impl_.content_.connect_;
+}
+const ::AckPackage::DisconnectPackage&
+AckSyncRequest::_Internal::disconnect(const AckSyncRequest* msg) {
+  return *msg->_impl_.content_.disconnect_;
+}
+void AckSyncRequest::set_allocated_heartbeat(::AckPackage::HeartBeatPackage* heartbeat) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_content();
+  if (heartbeat) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(heartbeat);
+    if (message_arena != submessage_arena) {
+      heartbeat = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, heartbeat, submessage_arena);
+    }
+    set_has_heartbeat();
+    _impl_.content_.heartbeat_ = heartbeat;
+  }
+  // @@protoc_insertion_point(field_set_allocated:AckPackage.AckSyncRequest.heartBeat)
+}
+void AckSyncRequest::set_allocated_connect(::AckPackage::ConnectPackage* connect) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_content();
+  if (connect) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(connect);
+    if (message_arena != submessage_arena) {
+      connect = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, connect, submessage_arena);
+    }
+    set_has_connect();
+    _impl_.content_.connect_ = connect;
+  }
+  // @@protoc_insertion_point(field_set_allocated:AckPackage.AckSyncRequest.connect)
+}
+void AckSyncRequest::set_allocated_disconnect(::AckPackage::DisconnectPackage* disconnect) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_content();
+  if (disconnect) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(disconnect);
+    if (message_arena != submessage_arena) {
+      disconnect = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, disconnect, submessage_arena);
+    }
+    set_has_disconnect();
+    _impl_.content_.disconnect_ = disconnect;
+  }
+  // @@protoc_insertion_point(field_set_allocated:AckPackage.AckSyncRequest.disconnect)
+}
 AckSyncRequest::AckSyncRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -132,10 +250,33 @@ AckSyncRequest::AckSyncRequest(const AckSyncRequest& from)
   AckSyncRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.eventid_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
+    , decltype(_impl_.content_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.eventid_ = from._impl_.eventid_;
+  clear_has_content();
+  switch (from.content_case()) {
+    case kHeartBeat: {
+      _this->_internal_mutable_heartbeat()->::AckPackage::HeartBeatPackage::MergeFrom(
+          from._internal_heartbeat());
+      break;
+    }
+    case kConnect: {
+      _this->_internal_mutable_connect()->::AckPackage::ConnectPackage::MergeFrom(
+          from._internal_connect());
+      break;
+    }
+    case kDisconnect: {
+      _this->_internal_mutable_disconnect()->::AckPackage::DisconnectPackage::MergeFrom(
+          from._internal_disconnect());
+      break;
+    }
+    case CONTENT_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:AckPackage.AckSyncRequest)
 }
 
@@ -145,8 +286,11 @@ inline void AckSyncRequest::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.eventid_){0}
+    , decltype(_impl_.content_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
   };
+  clear_has_content();
 }
 
 AckSyncRequest::~AckSyncRequest() {
@@ -160,11 +304,43 @@ AckSyncRequest::~AckSyncRequest() {
 
 inline void AckSyncRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_content()) {
+    clear_content();
+  }
 }
 
 void AckSyncRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
+
+void AckSyncRequest::clear_content() {
+// @@protoc_insertion_point(one_of_clear_start:AckPackage.AckSyncRequest)
+  switch (content_case()) {
+    case kHeartBeat: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.content_.heartbeat_;
+      }
+      break;
+    }
+    case kConnect: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.content_.connect_;
+      }
+      break;
+    }
+    case kDisconnect: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.content_.disconnect_;
+      }
+      break;
+    }
+    case CONTENT_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = CONTENT_NOT_SET;
+}
+
 
 void AckSyncRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:AckPackage.AckSyncRequest)
@@ -173,6 +349,7 @@ void AckSyncRequest::Clear() {
   (void) cached_has_bits;
 
   _impl_.eventid_ = 0;
+  clear_content();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -188,6 +365,30 @@ const char* AckSyncRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_eventid(static_cast<::AckPackage::AckSyncEvent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .AckPackage.HeartBeatPackage heartBeat = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_heartbeat(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .AckPackage.ConnectPackage connect = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_connect(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .AckPackage.DisconnectPackage disconnect = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_disconnect(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -227,6 +428,27 @@ uint8_t* AckSyncRequest::_InternalSerialize(
       1, this->_internal_eventid(), target);
   }
 
+  // .AckPackage.HeartBeatPackage heartBeat = 2;
+  if (_internal_has_heartbeat()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::heartbeat(this),
+        _Internal::heartbeat(this).GetCachedSize(), target, stream);
+  }
+
+  // .AckPackage.ConnectPackage connect = 3;
+  if (_internal_has_connect()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::connect(this),
+        _Internal::connect(this).GetCachedSize(), target, stream);
+  }
+
+  // .AckPackage.DisconnectPackage disconnect = 4;
+  if (_internal_has_disconnect()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::disconnect(this),
+        _Internal::disconnect(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -249,6 +471,32 @@ size_t AckSyncRequest::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_eventid());
   }
 
+  switch (content_case()) {
+    // .AckPackage.HeartBeatPackage heartBeat = 2;
+    case kHeartBeat: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.content_.heartbeat_);
+      break;
+    }
+    // .AckPackage.ConnectPackage connect = 3;
+    case kConnect: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.content_.connect_);
+      break;
+    }
+    // .AckPackage.DisconnectPackage disconnect = 4;
+    case kDisconnect: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.content_.disconnect_);
+      break;
+    }
+    case CONTENT_NOT_SET: {
+      break;
+    }
+  }
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -270,6 +518,26 @@ void AckSyncRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
   if (from._internal_eventid() != 0) {
     _this->_internal_set_eventid(from._internal_eventid());
   }
+  switch (from.content_case()) {
+    case kHeartBeat: {
+      _this->_internal_mutable_heartbeat()->::AckPackage::HeartBeatPackage::MergeFrom(
+          from._internal_heartbeat());
+      break;
+    }
+    case kConnect: {
+      _this->_internal_mutable_connect()->::AckPackage::ConnectPackage::MergeFrom(
+          from._internal_connect());
+      break;
+    }
+    case kDisconnect: {
+      _this->_internal_mutable_disconnect()->::AckPackage::DisconnectPackage::MergeFrom(
+          from._internal_disconnect());
+      break;
+    }
+    case CONTENT_NOT_SET: {
+      break;
+    }
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -288,6 +556,8 @@ void AckSyncRequest::InternalSwap(AckSyncRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.eventid_, other->_impl_.eventid_);
+  swap(_impl_.content_, other->_impl_.content_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AckSyncRequest::GetMetadata() const {
@@ -474,6 +744,362 @@ void HeartBeatPackage::InternalSwap(HeartBeatPackage* other) {
       file_level_metadata_AckPackage_2eproto[1]);
 }
 
+// ===================================================================
+
+class ConnectPackage::_Internal {
+ public:
+};
+
+ConnectPackage::ConnectPackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:AckPackage.ConnectPackage)
+}
+ConnectPackage::ConnectPackage(const ConnectPackage& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ConnectPackage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.port_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.port_ = from._impl_.port_;
+  // @@protoc_insertion_point(copy_constructor:AckPackage.ConnectPackage)
+}
+
+inline void ConnectPackage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.port_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+ConnectPackage::~ConnectPackage() {
+  // @@protoc_insertion_point(destructor:AckPackage.ConnectPackage)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ConnectPackage::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ConnectPackage::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ConnectPackage::Clear() {
+// @@protoc_insertion_point(message_clear_start:AckPackage.ConnectPackage)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.port_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ConnectPackage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 port = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ConnectPackage::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:AckPackage.ConnectPackage)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 port = 1;
+  if (this->_internal_port() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_port(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:AckPackage.ConnectPackage)
+  return target;
+}
+
+size_t ConnectPackage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:AckPackage.ConnectPackage)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 port = 1;
+  if (this->_internal_port() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_port());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ConnectPackage::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    ConnectPackage::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ConnectPackage::GetClassData() const { return &_class_data_; }
+
+
+void ConnectPackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ConnectPackage*>(&to_msg);
+  auto& from = static_cast<const ConnectPackage&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:AckPackage.ConnectPackage)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_port() != 0) {
+    _this->_internal_set_port(from._internal_port());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void ConnectPackage::CopyFrom(const ConnectPackage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:AckPackage.ConnectPackage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ConnectPackage::IsInitialized() const {
+  return true;
+}
+
+void ConnectPackage::InternalSwap(ConnectPackage* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.port_, other->_impl_.port_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ConnectPackage::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_AckPackage_2eproto_getter, &descriptor_table_AckPackage_2eproto_once,
+      file_level_metadata_AckPackage_2eproto[2]);
+}
+
+// ===================================================================
+
+class DisconnectPackage::_Internal {
+ public:
+};
+
+DisconnectPackage::DisconnectPackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:AckPackage.DisconnectPackage)
+}
+DisconnectPackage::DisconnectPackage(const DisconnectPackage& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  DisconnectPackage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.port_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.port_ = from._impl_.port_;
+  // @@protoc_insertion_point(copy_constructor:AckPackage.DisconnectPackage)
+}
+
+inline void DisconnectPackage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.port_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+DisconnectPackage::~DisconnectPackage() {
+  // @@protoc_insertion_point(destructor:AckPackage.DisconnectPackage)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DisconnectPackage::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DisconnectPackage::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void DisconnectPackage::Clear() {
+// @@protoc_insertion_point(message_clear_start:AckPackage.DisconnectPackage)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.port_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* DisconnectPackage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 port = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DisconnectPackage::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:AckPackage.DisconnectPackage)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 port = 1;
+  if (this->_internal_port() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_port(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:AckPackage.DisconnectPackage)
+  return target;
+}
+
+size_t DisconnectPackage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:AckPackage.DisconnectPackage)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 port = 1;
+  if (this->_internal_port() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_port());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData DisconnectPackage::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    DisconnectPackage::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DisconnectPackage::GetClassData() const { return &_class_data_; }
+
+
+void DisconnectPackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<DisconnectPackage*>(&to_msg);
+  auto& from = static_cast<const DisconnectPackage&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:AckPackage.DisconnectPackage)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_port() != 0) {
+    _this->_internal_set_port(from._internal_port());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void DisconnectPackage::CopyFrom(const DisconnectPackage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:AckPackage.DisconnectPackage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DisconnectPackage::IsInitialized() const {
+  return true;
+}
+
+void DisconnectPackage::InternalSwap(DisconnectPackage* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.port_, other->_impl_.port_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata DisconnectPackage::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_AckPackage_2eproto_getter, &descriptor_table_AckPackage_2eproto_once,
+      file_level_metadata_AckPackage_2eproto[3]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace AckPackage
 PROTOBUF_NAMESPACE_OPEN
@@ -484,6 +1110,14 @@ Arena::CreateMaybeMessage< ::AckPackage::AckSyncRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::AckPackage::HeartBeatPackage*
 Arena::CreateMaybeMessage< ::AckPackage::HeartBeatPackage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::AckPackage::HeartBeatPackage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::AckPackage::ConnectPackage*
+Arena::CreateMaybeMessage< ::AckPackage::ConnectPackage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::AckPackage::ConnectPackage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::AckPackage::DisconnectPackage*
+Arena::CreateMaybeMessage< ::AckPackage::DisconnectPackage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::AckPackage::DisconnectPackage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

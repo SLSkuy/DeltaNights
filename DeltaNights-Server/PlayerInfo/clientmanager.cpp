@@ -39,10 +39,12 @@ void ClientManager::createNewClient(QTcpSocket* socket)
     m_clientsByID.emplace(client->clientID(), client);
     m_clientsByTcp.emplace(socket, client);
 
-    Logger::Info() << "[ClientManager]: New client connect on " << socket->peerAddress().toString();
+    Logger::Info() << "[ClientManager]: New client connect on "
+                   << socket->peerAddress().toString()
+                   << ":" << socket->peerPort();
 }
 
-void ClientManager::bindClientUdpPort(QTcpSocket* socket, quint16 port)
+void ClientManager::clientBindUdpPort(QTcpSocket* socket, quint16 port)
 {
     ClientInfo* client = findClientByTcp(socket);
 
@@ -53,7 +55,30 @@ void ClientManager::bindClientUdpPort(QTcpSocket* socket, quint16 port)
     }
 
     client->bindUdpPort(port);
-    m_clientsByUdp[makeKey(client->ip(), client->port())] = client;
+    m_clientsByUdp[makeKey(client->tcpSocket()->peerAddress(), client->port())] = client;
+
+    Logger::Info() << "[ClientManager]: Client "
+                   << socket->peerAddress().toString()
+                   << ":" << socket->peerPort()
+                   << " bind udp port on " << port;
+}
+
+void ClientManager::clientDisconnect(QTcpSocket* socket)
+{
+    ClientInfo* client = findClientByTcp(socket);
+
+    if(!client)
+    {
+        Logger::Error() << "[ClientManager]: Failed to dispose client";
+        return;
+    }
+
+    QString key = makeKey(client->tcpSocket()->peerAddress(),client->port());
+
+    if(removeClientById(client->clientID()))
+    {
+        Logger::Info() << "[ClientManager]: Client " << key << " disconnect";
+    }
 }
 
 ClientInfo* ClientManager::findClientByID(quint32 clientID)
@@ -76,11 +101,14 @@ ClientInfo* ClientManager::findClientByUdp(const QHostAddress& ip, quint16 port)
     return it != m_clientsByUdp.end() ? it->second : nullptr;
 }
 
-void ClientManager::removeClientById(quint32 clientId)
+bool ClientManager::removeClientById(quint32 clientId)
 {
     auto it = m_clientsByID.find(clientId);
     if (it == m_clientsByID.end())
-        return;
+    {
+        Logger::Error() << "[ClientManager]: Fail to remove client with ID " << clientId;
+        return false;
+    }
 
     ClientInfo* client = it->second;
 
@@ -90,10 +118,12 @@ void ClientManager::removeClientById(quint32 clientId)
 
     // 清理 UDP 索引
     if (client->port())
-        m_clientsByUdp.erase(makeKey(client->ip(), client->port()));
+        m_clientsByUdp.erase(makeKey(client->tcpSocket()->peerAddress(), client->port()));
 
     client->deleteLater();
     m_clientsByID.erase(it);
+
+    return true;
 }
 
 
@@ -107,7 +137,7 @@ void ClientManager::removeTimeoutClients(quint64 timeout)
         if (now - client->lastActiveTime() > timeout)
         {
             m_clientsByTcp.erase(client->tcpSocket()); // 删除TCP索引
-            m_clientsByUdp.erase(makeKey(client->ip(),client->port()));    // 删除UDP索引
+            m_clientsByUdp.erase(makeKey(client->tcpSocket()->peerAddress(),client->port()));    // 删除UDP索引
             client->deleteLater();  // 删除客户端
 
             it = m_clientsByID.erase(it);   // 删除ID索引

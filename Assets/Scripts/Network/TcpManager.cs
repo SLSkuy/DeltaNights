@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.28
- *  LastUpdate:  2025.12.28
+ *  LastUpdate:  2025.12.30
  *
  *  封装TCP
  *  负责处理所有的TCP网络传输事件
@@ -13,6 +13,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using Google.Protobuf;
+using SyncPackage;
 
 namespace Network
 {
@@ -89,6 +91,20 @@ namespace Network
 
             _socket.Send(packet);
         }
+
+        /// <summary>
+        /// 发送Protobuf消息给服务器
+        /// 自动序列化处理为字节流
+        /// </summary>
+        /// <param name="package"></param>
+        public void SendProtobuf(LocalSyncPackage package)
+        {
+            if (!Connected) return;
+            if (package == null) return;
+            
+            byte[] data = package.ToByteArray();
+            Send(data);
+        }
         
         #endregion
         
@@ -106,11 +122,11 @@ namespace Network
                     if (len <= 0)
                         break;
 
-                    // 1. 拷贝到缓存
+                    // 拷贝到缓存
                     Array.Copy(buffer, 0, _receiveBuffer, _receiveCount, len);
                     _receiveCount += len;
 
-                    // 2. 尝试拆包（可能一次拆多个）
+                    // 尝试拆包（可能一次拆多个）
                     ProcessBuffer();
                 }
                 catch

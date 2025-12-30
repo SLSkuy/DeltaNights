@@ -23,16 +23,17 @@ public:
     explicit ClientManager(QObject* parent = nullptr);
 
     void createNewClient(QTcpSocket* socket);
-    void bindClientUdpPort(QTcpSocket* socket, quint16 port);
+    void clientBindUdpPort(QTcpSocket* socket, quint16 port);
+    void clientDisconnect(QTcpSocket* socket);
     ClientInfo* findClientByID(quint32 clientID);
     ClientInfo* findClientByTcp(QTcpSocket* socket);
     ClientInfo* findClientByUdp(const QHostAddress& ip, quint16 port) const;
-    void removeClientById(quint32 clientId);
 
     // 删除超时客户端
     void removeTimeoutClients(quint64 timeout);
 
 private:
+    bool removeClientById(quint32 clientId);
     QString makeKey(const QHostAddress& ip, quint16 port) const;
 
 private:

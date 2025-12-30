@@ -72,7 +72,7 @@ private:
     // ========== Tick处理 ==========
     quint32 m_tick;
     float m_deltaTime;
-    int m_ticRate;
+    int m_tickRate;
     QTimer* _timer = nullptr; // Tick计时器
 
     // ========== 世界模拟 ==========

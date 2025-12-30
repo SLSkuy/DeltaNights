@@ -24,7 +24,6 @@ public:
 
 public:
     // IP信息
-    const QHostAddress& ip() const;
     void bindUdpPort(quint16 port);
     quint16 port() const;
     QTcpSocket* tcpSocket() const;
@@ -43,7 +42,6 @@ private:
     quint32 m_clientID = 0;
     quint64 m_lastActive = 0;
 
-    QHostAddress m_ip;
     quint16 m_port = 0; // UDP端口
     QTcpSocket* m_tcp = nullptr;    // 连接时绑定TCP
 

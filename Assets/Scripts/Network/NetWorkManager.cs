@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.10.28
- *  LastUpdate:  2025.12.28
+ *  LastUpdate:  2025.12.30
  *
  *  功能简述：
  *  NetWorkManager 负责管理客户端的网络连接与消息通信，
@@ -20,6 +20,8 @@
 
 using System.Collections.Generic;
 using System.Text;
+using AckPackage;
+using SyncPackage;
 using UnityEngine;
 
 namespace Network
@@ -58,8 +60,36 @@ namespace Network
 
         void Start()
         {
-            _tcp.Send(Encoding.UTF8.GetBytes("TCP连接测试"));
             _udp.Send(Encoding.UTF8.GetBytes("UDP连接测试"));
+
+            LocalSyncPackage syncPackage = new LocalSyncPackage
+            {
+                EventID = LocalSyncEvent.Ack,
+                AckSync = new AckSyncRequest
+                {
+                    EventID = AckSyncEvent.Connect,
+                    Connect = new ConnectPackage
+                    {
+                        Port = _udp.UdpPort
+                    }
+                }
+            };
+            _tcp.SendProtobuf(syncPackage);
+            
+            // 发送离线消息给服务端
+            LocalSyncPackage syncPackage2 = new LocalSyncPackage
+            {
+                EventID = LocalSyncEvent.Ack,
+                AckSync = new AckSyncRequest
+                {
+                    EventID = AckSyncEvent.Disconnect,
+                    Disconnect = new DisconnectPackage
+                    {
+                        Port = _udp.UdpPort
+                    }
+                }
+            };
+            _tcp.SendProtobuf(syncPackage2);
         }
 
         void Update()

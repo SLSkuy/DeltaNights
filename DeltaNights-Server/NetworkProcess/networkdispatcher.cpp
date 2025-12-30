@@ -11,13 +11,19 @@
 #include "networkdispatcher.h"
 #include "tcpendpoint.h"
 #include "udpendpoint.h"
+#include "../Logger/logger.h"
+#include "../SyncPackage.pb.h"
 
 NetworkDispatcher::NetworkDispatcher(UdpEndpoint* udp, TcpEndpoint* tcp, QObject* parent)
     : _udp(udp), _tcp(tcp)
     , QObject(parent)
 {
     // TCP信号
-    connect(_tcp,&TcpEndpoint::clientConnected,this,&NetworkDispatcher::clientConnect, Qt::QueuedConnection);
+    connect(_tcp, &TcpEndpoint::messageReceived, this, &NetworkDispatcher::onTcpMessage, Qt::QueuedConnection);
+    connect(_tcp, &TcpEndpoint::clientConnected, this, &NetworkDispatcher::clientConnect, Qt::QueuedConnection);
+
+    // UDP信号
+    connect(_udp, &UdpEndpoint::messageReceived, this, &NetworkDispatcher::onUdpMessage, Qt::QueuedConnection);
 }
 
 void NetworkDispatcher::broadcastRoomFrame(GameRoom* room)
@@ -53,6 +59,8 @@ void NetworkDispatcher::processQueueMessage()
     {
         // TODO: Protobuf 反序列化
         // TODO: 登录 / 房间 / 控制指令
+        const NetMessage& msg = tcpMsgs.dequeue();
+        handleTcpPackage(msg.socket, msg.data);
     }
 
     // ===== 处理 UDP 消息 =====
@@ -63,3 +71,50 @@ void NetworkDispatcher::processQueueMessage()
     }
 }
 
+void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& data)
+{
+    using namespace SyncPackage;
+
+    LocalSyncPackage pkg;
+    if (!pkg.ParseFromArray(data.constData(), data.size()))
+    {
+        Logger::Warning() << "[NetworkDispatcher] TCP protobuf parse failed"
+                   << "size = " << data.size();
+        return;
+    }
+
+    // ===== 按类型分发 =====
+    switch (pkg.eventid())
+    {
+        case LocalSyncEvent::Ack:
+            handleTcpAckPackage(socket,pkg.acksync());
+            break;
+
+        default:
+            Logger::Warning() << "[NetworkDispatcher] Unknown TCP package type:" << pkg.eventid();
+            break;
+    }
+}
+
+void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const AckPackage::AckSyncRequest& pkg)
+{
+    using namespace AckPackage;
+
+    switch (pkg.eventid())
+    {
+        case AckSyncEvent::HeartBeat:
+            // TODO: 心跳消息处理
+            break;
+        case AckSyncEvent::Connect:
+            // TODO: 客户端连接请求
+            emit clientBindUdpPort(socket, pkg.connect().port());
+            break;
+        case AckSyncEvent::Disconnect:
+            // TODO: 客户端断开连接请求
+            emit clientDisconnect(socket);
+            break;
+        default:
+            Logger::Warning() << "[NetworkDispatcher] Unknown TCP_ACK package type:" << pkg.eventid();
+            break;
+    }
+}

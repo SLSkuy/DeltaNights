@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2025.12.30
  *
  *  功能：
  *  - 封装服务器所有核心模块
@@ -12,6 +12,7 @@
 
 #include <QObject>
 #include <QThread>
+#include <QTimer>
 
 class TcpEndpoint;
 class UdpEndpoint;
@@ -29,7 +30,7 @@ public:
     explicit GameServer(QObject* parent = nullptr);
     ~GameServer();
 
-    bool start(quint16 tcpPort, quint16 udpPort);
+    bool start(quint16 tcpPort, quint16 udpPort, int logicRate = 60);
     void stop();
 
 private:
@@ -38,6 +39,9 @@ private:
     void setupConnections();
 
 private:
+    int m_logicRate = 60;   // 60Hz
+    QTimer* _logicTimer = nullptr;  // 逻辑更新计时器
+
     // ================= 网络层 =================
     QThread* _netThread = nullptr;
     TcpEndpoint* _tcp = nullptr;

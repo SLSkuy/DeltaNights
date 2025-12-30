@@ -15,6 +15,8 @@
 #include <QTcpSocket>
 #include <QQueue>
 
+#include "../AckPackage.pb.h"
+
 class UdpEndpoint;
 class TcpEndpoint;
 class GameRoom;
@@ -41,7 +43,6 @@ public:
     // 将网络线程获取数据加入队列处理
     void onTcpMessage(QTcpSocket* socket, const QByteArray& data);
     void onUdpMessage(const QHostAddress& addr, quint16 port, const QByteArray& data);
-
     void processQueueMessage();  // 处理队列中的字节流
 
     void broadcastRoomFrame(GameRoom* room);    // 广播战局事件
@@ -49,9 +50,15 @@ public:
 signals:
     // 客户端连接事件
     void clientConnect(QTcpSocket* socket);
+    void clientDisconnect(QTcpSocket* socket);
+    void clientBindUdpPort(QTcpSocket* socket, quint16 port);
 
     // 发送各种事件信号
     void loginRequest();
+
+private:
+    void handleTcpPackage(QTcpSocket* socket, const QByteArray& data);
+    void handleTcpAckPackage(QTcpSocket* socket, const AckPackage::AckSyncRequest& pkg);
 
 private:
     UdpEndpoint* _udp = nullptr;
