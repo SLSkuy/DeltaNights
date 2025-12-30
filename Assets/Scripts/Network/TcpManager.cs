@@ -9,6 +9,7 @@
  * ------------------------------------------------------------ */
 
 using System;
+using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -29,6 +30,10 @@ namespace Network
         // 黏包处理
         private readonly byte[] _receiveBuffer = new byte[BUFFER_SIZE];
         private int _receiveCount = 0;
+        
+        // 异步发送队列
+        private readonly ConcurrentQueue<byte[]> _sendQueue = new();
+        private readonly SemaphoreSlim _sendSignal = new(0);
 
         #region 事件
 
@@ -46,8 +51,6 @@ namespace Network
         /// <param name="serverPort">服务器端口</param>
         public void Connect(string serverIp, short serverPort)
         {
-            Disconnect();
-
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             try
@@ -55,6 +58,7 @@ namespace Network
                 _socket.Connect(IPAddress.Parse(serverIp), serverPort);
                 _cts = new CancellationTokenSource();
                 _ = Task.Run(() => ReceiveLoop(_cts.Token));
+                _ = Task.Run(() => SendLoop(_cts.Token));;
             }
             catch (Exception e)
             {
@@ -66,6 +70,8 @@ namespace Network
         {
             _cts?.Cancel();
 
+            _sendSignal?.Release();
+
             if (_socket == null) return;
 
             if (_socket.Connected)
@@ -76,39 +82,68 @@ namespace Network
         }
 
         /// <summary>
-        /// 发送TCP字节流给服务器
+        /// 异步发送TCP字节流给服务器
         /// </summary>
-        public void Send(byte[] data)
+        public void EnqueueSend(byte[] data)
         {
-            if (!Connected) return;
+            if (!Connected || data == null) return;
 
-            // 构造消息头
-            byte[] length = BitConverter.GetBytes(data.Length);
+            int len = data.Length;
+
+            // 统一使用大端序列
+            byte[] length = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(len));
+
             byte[] packet = new byte[length.Length + data.Length];
-
             Buffer.BlockCopy(length, 0, packet, 0, length.Length);
             Buffer.BlockCopy(data, 0, packet, length.Length, data.Length);
 
-            _socket.Send(packet);
+            _sendQueue.Enqueue(packet);
+            _sendSignal.Release();
         }
 
+
         /// <summary>
-        /// 发送Protobuf消息给服务器
+        /// 异步发送Protobuf消息给服务器
         /// 自动序列化处理为字节流
         /// </summary>
-        /// <param name="package"></param>
-        public void SendProtobuf(LocalSyncPackage package)
+        public void EnqueueSendProtobuf(LocalSyncPackage package)
         {
             if (!Connected) return;
             if (package == null) return;
             
             byte[] data = package.ToByteArray();
-            Send(data);
+            EnqueueSend(data);
         }
         
         #endregion
         
         #region 内部处理方法
+        
+        private async Task SendLoop(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    await _sendSignal.WaitAsync(token);
+
+                    if (_sendQueue.TryDequeue(out var data))
+                    {
+                        await _socket.SendAsync(data, SocketFlags.None, token);
+                    }
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Socket 被 Close，正常退出
+                    break;
+                }
+                catch (SocketException)
+                {
+                    // 网络异常
+                    break;
+                }
+            }
+        }
         
         private async Task ReceiveLoop(CancellationToken token)
         {
@@ -121,16 +156,20 @@ namespace Network
                     int len = await _socket.ReceiveAsync(buffer, SocketFlags.None, token);
                     if (len <= 0)
                         break;
-
-                    // 拷贝到缓存
+                    
                     Array.Copy(buffer, 0, _receiveBuffer, _receiveCount, len);
                     _receiveCount += len;
-
-                    // 尝试拆包（可能一次拆多个）
+                    
                     ProcessBuffer();
                 }
-                catch
+                catch (ObjectDisposedException)
                 {
+                    // Socket 被 Close，正常退出
+                    break;
+                }
+                catch (SocketException)
+                {
+                    // 网络异常
                     break;
                 }
             }
@@ -148,7 +187,14 @@ namespace Network
                 if (_receiveCount - offset < 4)
                     break;
 
-                int bodyLength = BitConverter.ToInt32(_receiveBuffer, offset);
+                int bodyLength = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(_receiveBuffer, offset));
+
+                if (bodyLength is <= 0 or > 10 * 1024 * 1024)
+                {
+                    // 非法包，直接清空
+                    _receiveCount = 0;
+                    break;
+                }
 
                 // 数据不完整，等待下次接收
                 if (_receiveCount - offset - 4 < bodyLength)

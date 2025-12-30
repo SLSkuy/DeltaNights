@@ -18,7 +18,7 @@
  *  - 不直接在网络线程中处理游戏逻辑
  * ------------------------------------------------------------ */
 
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Text;
 using AckPackage;
 using SyncPackage;
@@ -30,17 +30,36 @@ namespace Network
     {
         public static NetWorkManager Instance;
         
-        [Header("Network Settings")]
+        [Header("服务器配置")]
         [SerializeField]private string ip = "127.0.0.1";
         [SerializeField]private short tcpPort = 11451;
         [SerializeField]private short udpPort = 19198;
+
+        [Header("网络属性配置")] 
+        [SerializeField] [Tooltip("网路心跳间隔")] private float heartBeatStep = 1f;
 
         private TcpManager _tcp;
         private UdpManager _udp;
         private MessageProcessor _processor;
 
-        private readonly Queue<byte[]> _mainThreadQueue = new();    // Unity主线程处理调用事件
+        private readonly ConcurrentQueue<byte[]> _mainThreadQueue = new();    // Unity主线程处理调用事件
 
+        #region 成员方法
+
+        public void SendUdp(LocalSyncPackage syncPackage)
+        {
+            _udp.EnqueueSendProtobuf(syncPackage);
+        }
+
+        public void SendTcp(LocalSyncPackage syncPackage)
+        {
+            _tcp.EnqueueSendProtobuf(syncPackage);
+        }
+
+        #endregion
+        
+        #region 周期函数
+        
         void Awake()
         {
             Instance = this;
@@ -60,7 +79,8 @@ namespace Network
 
         void Start()
         {
-            _udp.Send(Encoding.UTF8.GetBytes("UDP连接测试"));
+            // 测试使用
+            _udp.EnqueueSend(Encoding.UTF8.GetBytes("UDP连接测试"));
 
             LocalSyncPackage syncPackage = new LocalSyncPackage
             {
@@ -74,30 +94,17 @@ namespace Network
                     }
                 }
             };
-            _tcp.SendProtobuf(syncPackage);
-            
-            // 发送离线消息给服务端
-            LocalSyncPackage syncPackage2 = new LocalSyncPackage
-            {
-                EventID = LocalSyncEvent.Ack,
-                AckSync = new AckSyncRequest
-                {
-                    EventID = AckSyncEvent.Disconnect,
-                    Disconnect = new DisconnectPackage
-                    {
-                        Port = _udp.UdpPort
-                    }
-                }
-            };
-            _tcp.SendProtobuf(syncPackage2);
+            _tcp.EnqueueSendProtobuf(syncPackage);
         }
 
         void Update()
         {
             while (_mainThreadQueue.Count > 0)
             {
-                var data = _mainThreadQueue.Dequeue();
-                _processor.DeSerialize(data);
+                if (_mainThreadQueue.TryDequeue(out var data))
+                {
+                    _processor.DeSerialize(data);
+                }
             }
         }
 
@@ -106,5 +113,7 @@ namespace Network
             _tcp?.Disconnect();
             _udp?.Stop();
         }
+        
+        #endregion
     }
 }

@@ -12,6 +12,7 @@
  * ------------------------------------------------------------ */
 
 #include <QHostAddress>
+#include <QtEndian>
 
 #include "tcpendpoint.h"
 #include "../Logger/logger.h"
@@ -73,20 +74,30 @@ void TcpEndpoint::onSocketReadyRead()
 
     while (true)
     {
-        // 无消息头，丢弃
         if (buffer.size() < 4)
             return;
 
-        int bodyLen;
-        memcpy(&bodyLen, buffer.constData(), 4);    // 取出4字节头部信息
-        if (buffer.size() < 4 + bodyLen) return;
+        qint32 bodyLen = qFromBigEndian<qint32>(
+            reinterpret_cast<const uchar*>(buffer.constData())
+            );
+
+        if (bodyLen <= 0 || bodyLen > 10 * 1024 * 1024)
+        {
+            Logger::Error() << "Invalid TCP bodyLen:" << bodyLen;
+            buffer.clear();
+            return;
+        }
+
+        if (buffer.size() < 4 + bodyLen)
+            return;
 
         QByteArray data = buffer.mid(4, bodyLen);
-        buffer.remove(0, 4 + bodyLen);  //  去除已处理字节
+        buffer.remove(0, 4 + bodyLen);
 
         emit messageReceived(socket, data);
     }
 }
+
 
 void TcpEndpoint::onSocketDisconnected()
 {
@@ -106,12 +117,12 @@ bool TcpEndpoint::send(QTcpSocket* socket, const QByteArray& data)
         return false;
 
     QByteArray packet;
-    int len = data.size();
+    qint32 len = data.size();
+    qint32 beLen = qToBigEndian(len);   // 统一使用大端序列
 
-    packet.append(reinterpret_cast<const char*>(&len), sizeof(int));
+    packet.append(reinterpret_cast<const char*>(&beLen), sizeof(qint32));
     packet.append(data);
 
     socket->write(packet);
     return socket->flush();
 }
-

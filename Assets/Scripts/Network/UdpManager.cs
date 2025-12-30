@@ -9,10 +9,13 @@
  * ------------------------------------------------------------ */
 
 using System;
+using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using Google.Protobuf;
+using SyncPackage;
 
 namespace Network
 {
@@ -23,6 +26,11 @@ namespace Network
         private CancellationTokenSource _cts;
 
         private const int BUFFER_SIZE = 1024 * 64;
+        
+        // 发送队列
+        private readonly ConcurrentQueue<byte[]> _sendQueue = new();
+        private readonly SemaphoreSlim _sendSignal = new(0);
+        private Task _sendTask;
 
         #region 事件
         
@@ -59,29 +67,74 @@ namespace Network
 
             _cts = new CancellationTokenSource();
             _ = Task.Run(() => ReceiveLoop(_cts.Token));
+            _ =  Task.Run(() => SendLoop(_cts.Token));
         }
         
         public void Stop()
         {
             _cts?.Cancel();
+            _sendSignal?.Release();
             _socket?.Close();
             _socket = null;
         }
-
+        
         /// <summary>
-        /// 发送UDP字节流给服务器
+        /// 异步发送UDP字节流给服务器
         /// </summary>
-        public void Send(byte[] data)
+        public void EnqueueSend(byte[] data)
         {
-            if (_socket == null) return;
+            if (_socket == null || _serverEndPoint == null || data == null)
+                return;
 
-            if (_serverEndPoint == null) return;
-            _socket.SendTo(data, _serverEndPoint);
+            _sendQueue.Enqueue(data);
+            _sendSignal.Release();
+        }
+        
+        /// <summary>
+        /// 异步发送Protobuf消息给服务器
+        /// 自动序列化处理为字节流
+        /// </summary>
+        public void EnqueueSendProtobuf(LocalSyncPackage package)
+        {
+            if (package == null) return;
+            
+            byte[] data = package.ToByteArray();
+            EnqueueSend(data);
         }
 
         #endregion
         
         #region 内部处理方法
+        
+        private async Task SendLoop(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    await _sendSignal.WaitAsync(token);
+
+                    if (_sendQueue.TryDequeue(out var data))
+                    {
+                        await _socket.SendToAsync(
+                            new ArraySegment<byte>(data),
+                            SocketFlags.None,
+                            _serverEndPoint
+                        );
+                    }
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Socket 被 Close，正常退出
+                    break;
+                }
+                catch (SocketException)
+                {
+                    // 网络异常
+                    break;
+                }
+            }
+        }
         
         private async Task ReceiveLoop(CancellationToken token)
         {
