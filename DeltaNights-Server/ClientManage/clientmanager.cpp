@@ -155,3 +155,14 @@ void ClientManager::removeTimeoutClients()
         }
     }
 }
+
+/* ============================================================
+ * 控制台命令
+ * ============================================================ */
+void ClientManager::printClientsInfo()
+{
+    for(const auto& it : m_clientsByID)
+    {
+        qDebug().noquote() << "[ClientInfo: ID:[" << it.first << "] IP:[" << it.second->ip().toString() << "]]";
+    }
+}

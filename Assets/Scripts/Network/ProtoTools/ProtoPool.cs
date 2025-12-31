@@ -8,68 +8,57 @@
  *  避免频繁的创建与销毁操作
  * ------------------------------------------------------------ */
 
+using AckSyncPackage;
+using BattleSyncPackage;
+using LobbySyncPackage;
 using SyncPackage;
-using ObjPool;
 
 namespace Network.ProtoTools
 {
     /// <summary>
-    /// Protobuf对象池
-    /// 缓存Protobuf对象复用
-    /// 减少创建与销毁Protobuf对象
+    /// Protobuf 对象池统一入口
     /// </summary>
     public static class ProtoPool
     {
-        /// <summary>
-        /// 本地请求包对象池
-        /// </summary>
-        private static readonly ObjectPool<LocalSyncPackage> LocalSyncPackagePool =
-            new(ProtoResetter.ResetLocalPackage, 64);
+        private static readonly ProtoObjectPool<LocalSyncPackage> LocalPool = new(24);
+        private static readonly ProtoObjectPool<RemoteSyncPackage> RemotePool = new(24);
 
-        /// <summary>
-        /// 远程回应包对象池
-        /// </summary>
-        private static readonly ObjectPool<RemoteSyncPackage> RemoteSyncPackagePool =
-            new(ProtoResetter.ResetRemotePackage, 64);
+        private static readonly ProtoObjectPool<AckSyncRequest> AckReqPool = new(8);
+        private static readonly ProtoObjectPool<BattleSyncRequest> BattleReqPool = new(8);
+        private static readonly ProtoObjectPool<LobbySyncRequest> LobbyReqPool = new(8);
 
-        /// <summary>
-        /// 获取新的LocalSyncPackage包
-        /// </summary>
-        /// <returns></returns>
-        public static LocalSyncPackage NewLocalSyncPackage()
-        {
-            // TODO: 快捷创建Protobuf对象
-            return LocalSyncPackagePool.GetObject();
-        }
+        private static readonly ProtoObjectPool<AckSyncResponse> AckRespPool = new(8);
+        private static readonly ProtoObjectPool<BattleSyncResponse> BattleRespPool = new(8);
+        private static readonly ProtoObjectPool<LobbySyncResponse> LobbyRespPool = new(8);
 
-        /// <summary>
-        /// 拓展销毁方法，直接通过对象调用方法回收到对象池
-        /// </summary>
-        public static void Dispose(this LocalSyncPackage pkg)
-        {
-            if (pkg == null) return;
-            
-            LocalSyncPackagePool.ReturnObject(pkg);
-        }
+        #region 创建Protobuf包
 
-        /// <summary>
-        /// 获取新的RemoteSyncPackage包
-        /// </summary>
-        /// <returns></returns>
-        public static RemoteSyncPackage NewRemoteSyncPackage()
-        {
-            // TODO: 快捷创建Protobuf对象
-            return RemoteSyncPackagePool.GetObject();
-        }
+        public static LocalSyncPackage NewLocal() => LocalPool.Get();
+        public static RemoteSyncPackage NewRemote() => RemotePool.Get();
 
-        /// <summary>
-        /// 拓展销毁方法，直接通过对象调用方法回收到对象池
-        /// </summary>
-        public static void Dispose(this RemoteSyncPackage pkg)
-        {
-            if (pkg == null) return;
-            
-            RemoteSyncPackagePool.ReturnObject(pkg);
-        }
+        public static AckSyncRequest NewAckReq() => AckReqPool.Get();
+        public static BattleSyncRequest NewBattleReq() => BattleReqPool.Get();
+        public static LobbySyncRequest NewLobbyReq() => LobbyReqPool.Get();
+
+        public static AckSyncResponse NewAckResp() => AckRespPool.Get();
+        public static BattleSyncResponse NewBattleResp() => BattleRespPool.Get();
+        public static LobbySyncResponse NewLobbyResp() => LobbyRespPool.Get();
+
+        #endregion
+
+        #region 回收Protobuf包
+
+        public static void Dispose(this LocalSyncPackage p) => LocalPool.Return(p);
+        public static void Dispose(this RemoteSyncPackage p) => RemotePool.Return(p);
+
+        public static void Dispose(this AckSyncRequest p) => AckReqPool.Return(p);
+        public static void Dispose(this BattleSyncRequest p) => BattleReqPool.Return(p);
+        public static void Dispose(this LobbySyncRequest p) => LobbyReqPool.Return(p);
+
+        public static void Dispose(this AckSyncResponse p) => AckRespPool.Return(p);
+        public static void Dispose(this BattleSyncResponse p) => BattleRespPool.Return(p);
+        public static void Dispose(this LobbySyncResponse p) => LobbyRespPool.Return(p);
+
+        #endregion
     }
 }

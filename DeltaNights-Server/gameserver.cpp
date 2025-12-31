@@ -8,6 +8,8 @@
  *  - 负责模块初始化、连接、生命周期管理
  * ------------------------------------------------------------ */
 
+#include <QCoreApplication>
+
 #include "gameserver.h"
 #include "Logger/logger.h"
 
@@ -100,4 +102,21 @@ void GameServer::stop()
     }
 
     Logger::Info() << "[GameServer]: 服务器已关闭";
+}
+
+void GameServer::handleConsoleCommand(const QString& cmd)
+{
+    if (cmd == "stop")
+    {
+        Logger::Info() << "[GameServer]: Game server start to shut down";
+        QCoreApplication::quit();
+    }else if(cmd == "list clients")
+    {
+        Logger::Info() << "[GameServer]: Current connect clients: ";
+        _clientMgr->printClientsInfo();
+    }
+    else
+    {
+        Logger::Warning() << "[GameServer]: Unknown command: " << cmd;
+    }
 }

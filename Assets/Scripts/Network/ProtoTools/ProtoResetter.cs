@@ -1,12 +1,5 @@
-/* ------------------------------------------------------------
- *  Author:  2023051604044 wanrui
- *  Date:  2025.12.31
- *  LastUpdate:  2025.12.31
- *
- *  负责Protobuf对象的重置处理
- *  以回收进对象池实现复用
- * ------------------------------------------------------------ */
-
+using System;
+using System.Collections.Generic;
 using AckSyncPackage;
 using BattleSyncPackage;
 using LobbySyncPackage;
@@ -15,98 +8,236 @@ using SyncPackage;
 namespace Network.ProtoTools
 {
     /// <summary>
-    /// Protobuf对象重置工具
-    /// 负责快捷重置Protobuf对象
+    /// Protobuf 重置逻辑集中管理
     /// </summary>
-    public static class ProtoResetter
+    internal static class ProtoResetter
     {
-        /* ==================================================
-          本地同步包重置处理
-        ================================================== */
-        public static void ResetLocalPackage(LocalSyncPackage pkg)
+        #region LocalSyncPackage
+
+        /// <summary>
+        /// LocalSyncPackage重置处理事件存储
+        /// </summary>
+        private static readonly Dictionary<LocalSyncPackage.ContentOneofCase, Action<LocalSyncPackage>> LocalResetMap = new()
         {
-            switch (pkg.EventID)
             {
-                case LocalSyncEvent.LocalNone:
-                    break;
-                case LocalSyncEvent.AckRequest:
-                    ResetAckRequestPackage(pkg.AckSync);
-                    break;
-                case LocalSyncEvent.BattleRequest:
-                    ResetBattleRequestPackage(pkg.BattleSync);
-                    break;
-                case LocalSyncEvent.LobbyRequest:
-                    ResetLobbyRequestPackage(pkg.LobbySync);
-                    break;
-                default:
-                    break;
+                LocalSyncPackage.ContentOneofCase.AckSync,
+                p => { p.AckSync.Dispose(); p.AckSync = null; }
+            },
+            {
+                LocalSyncPackage.ContentOneofCase.BattleSync,
+                p => { p.BattleSync.Dispose(); p.BattleSync = null; }
+            },
+            {
+                LocalSyncPackage.ContentOneofCase.LobbySync,
+                p => { p.LobbySync.Dispose(); p.LobbySync = null; }
             }
+        };
+
+        /// <summary>
+        /// LocalSyncPackage重置处理方法
+        /// </summary>
+        public static void Reset(LocalSyncPackage pkg)
+        {
+            if (pkg == null) return;
+
+            if (LocalResetMap.TryGetValue(pkg.ContentCase, out var reset))
+                reset(pkg);
+
+            pkg.ClearContent();
             pkg.EventID = LocalSyncEvent.LocalNone;
         }
 
-        public static void ResetAckRequestPackage(AckSyncRequest pkg)
+        #endregion
+
+        #region AckSyncRequest
+
+        /// <summary>
+        /// AckSyncRequest重置处理事件存储
+        /// </summary>
+        private static readonly Dictionary<AckSyncRequest.ContentOneofCase, Action<AckSyncRequest>> AckReqResetMap = new()
         {
-            switch (pkg.EventID)
-            {
-                case LocalAckEvent.LocalAckNone:
-                    break;
-                case LocalAckEvent.HeartBeat:
-                    pkg.HeartBeat.ClientID = 0;
-                    break;
-                case LocalAckEvent.ConnectRequest:
-                    pkg.Connect.Port = 0;
-                    break;
-                default:
-                    break;
-            }
+            { AckSyncRequest.ContentOneofCase.HeartBeat, p => p.HeartBeat = null },
+            { AckSyncRequest.ContentOneofCase.Connect,   p => p.Connect = null }
+        };
+
+        /// <summary>
+        /// AckSyncRequest重置处理方法
+        /// </summary>
+        public static void Reset(AckSyncRequest pkg)
+        {
+            if (pkg == null) return;
+
+            if (AckReqResetMap.TryGetValue(pkg.ContentCase, out var reset))
+                reset(pkg);
+
+            pkg.ClearContent();
             pkg.EventID = LocalAckEvent.LocalAckNone;
         }
 
-        public static void ResetBattleRequestPackage(BattleSyncRequest pkg)
+        #endregion
+
+        #region BattleSyncRequest
+        
+        // /// <summary>
+        // /// BattleSyncResponse重置处理事件存储
+        // /// </summary>
+        // private static readonly Dictionary<BattleSyncRequest.ContentOneofCase, Action<BattleSyncRequest>> BattleReqResetMap = new()
+        // {
+        //     
+        // };
+
+        /// <summary>
+        /// BattleSyncRequest重置处理方法
+        /// </summary>
+        public static void Reset(BattleSyncRequest pkg)
         {
-            switch (pkg.EventID)
-            {
-                case LocalBattleEvent.LocalBattleNone:
-                    break;
-                default:
-                    break;
-            }
+            if (pkg == null) return;
+            
+            // if (BattleReqResetMap.TryGetValue(pkg.ContentCase, out var reset))
+            //     reset(pkg);
+            
+            // pkg.ClearContent();
             pkg.EventID = LocalBattleEvent.LocalBattleNone;
         }
+        
+        #endregion
+        
+        #region LobbySyncPackage
+        
+        // /// <summary>
+        // /// LobbySyncRequest重置处理事件存储
+        // /// </summary>
+        // private static readonly Dictionary<LobbySyncRequest.ContentOneofCase, Action<LobbySyncRequest>> LobbyReqResetMap = new()
+        // {
+        //     
+        // };
 
-        public static void ResetLobbyRequestPackage(LobbySyncRequest pkg)
+        /// <summary>
+        /// LobbySyncRequest重置处理方法
+        /// </summary>
+        public static void Reset(LobbySyncRequest pkg)
         {
-            switch (pkg.EventID)
-            {
-                case LocalLobbyEvent.LocalLobbyNone:
-                    break;
-                default:
-                    break;
-            }
+            if (pkg == null) return;
+            
+            // if (LobbyReqResetMap.TryGetValue(pkg.ContentCase, out var reset))
+            //     reset(pkg);
+            
+            // pkg.ClearContent();
             pkg.EventID = LocalLobbyEvent.LocalLobbyNone;
         }
+
+        #endregion
+
+        #region RemoteSyncPackage
+
+        /// <summary>
+        /// RemoteSyncPackage重置处理事件存储
+        /// </summary>
+        private static readonly Dictionary<RemoteSyncPackage.ContentOneofCase, Action<RemoteSyncPackage>> RemoteResetMap = new()
+        {
+            {
+                RemoteSyncPackage.ContentOneofCase.AckSync,
+                p => { p.AckSync.Dispose(); p.AckSync = null; }
+            },
+            {
+                RemoteSyncPackage.ContentOneofCase.BattlePackage,
+                p => { p.BattlePackage.Dispose(); p.BattlePackage = null; }
+            },
+            {
+                RemoteSyncPackage.ContentOneofCase.LobbyPackage,
+                p => { p.LobbyPackage.Dispose(); p.LobbyPackage = null; }
+            }
+        };
+
+        /// <summary>
+        /// RemoteSyncPackage重置处理方法
+        /// </summary>
+        public static void Reset(RemoteSyncPackage pkg)
+        {
+            if (pkg == null) return;
+
+            if (RemoteResetMap.TryGetValue(pkg.ContentCase, out var reset))
+                reset(pkg);
+
+            pkg.ClearContent();
+            pkg.EventID = RemoteSyncEvent.RemoteNone;
+        }
+
+        #endregion
+
+        #region AckSyncResponse
         
-        /* ==================================================
-          远程同步包重置处理
-        ================================================== */
-        public static void ResetRemotePackage(RemoteSyncPackage pkg)
+        // /// <summary>
+        // /// AckSyncResponse重置处理事件存储
+        // /// </summary>
+        // private static readonly Dictionary<AckSyncResponse.ContentOneofCase, Action<AckSyncResponse>> AckResponseResetMap = new()
+        // {
+        //     
+        // };
+
+        /// <summary>
+        /// AckSyncResponse重置处理方法
+        /// </summary>
+        public static void Reset(AckSyncResponse pkg)
         {
+            if (pkg == null) return;
+
+            // if (AckResponseResetMap.TryGetValue(pkg.ContentCase, out var reset))
+            //     reset(pkg);
             
+            pkg.ClearContent();
+            pkg.EventID = RemoteAckEvent.RemoteAckNone;
+        }
+        
+        #endregion
+        
+        #region BattleSyncResponse
+        
+        // /// <summary>
+        // /// AckSyncResponse重置处理事件存储
+        // /// </summary>
+        // private static readonly Dictionary<BattleSyncResponse.ContentOneofCase, Action<BattleSyncResponse>> BattleResponseResetMap = new()
+        // {
+        //     
+        // };
+        
+        /// <summary>
+        /// BattleSyncResponse重置处理事件存储
+        /// </summary>
+        public static void Reset(BattleSyncResponse pkg)
+        {
+            if (pkg == null) return;
+            
+            // if (BattleResponseResetMap.TryGetValue(pkg.ContentCase, out var reset))
+            //     reset(pkg);
+            
+            // pkg.ClearContent();
+            pkg.EventID = RemoteBattleEvent.RemoteBattleNone;
         }
 
-        public static void ResetAckResponsePackage(AckSyncResponse pkg)
+        #endregion
+        
+        #region LobbySyncResponse
+        
+        // /// <summary>
+        // /// AckSyncResponse重置处理事件存储
+        // /// </summary>
+        // private static readonly Dictionary<LobbySyncResponse.ContentOneofCase, Action<LobbySyncResponse>> LobbyResponseResetMap = new()
+        // {
+        //     
+        // };
+        
+        public static void Reset(LobbySyncResponse pkg)
         {
+            if (pkg == null) return;
             
+            // if (LobbyResponseResetMap.TryGetValue(pkg.ContentCase, out var reset))
+            //     reset(pkg);
+            
+            // pkg.ClearContent();
+            pkg.EventID = RemoteLobbyEvent.RemoteLobbyNone;
         }
 
-        public static void ResetBattleResponsePackage(BattleSyncResponse pkg)
-        {
-            
-        }
-
-        public static void ResetLobbyResponsePackage(LobbySyncResponse pkg)
-        {
-            
-        }
+        #endregion
     }
 }

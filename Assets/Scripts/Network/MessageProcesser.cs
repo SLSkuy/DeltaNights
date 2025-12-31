@@ -14,6 +14,7 @@ using AckSyncPackage;
 using BattleSyncPackage;
 using Google.Protobuf;
 using LobbySyncPackage;
+using Network.ProtoTools;
 using SyncPackage;
 using UnityEngine;
 
@@ -73,27 +74,35 @@ namespace Network
         /// </summary>
         public void DeSerialize(byte[] data)
         {
-            RemoteSyncPackage pkg = RemoteSyncPackage.Parser.ParseFrom(data);
-            switch (pkg.EventID)
+            RemoteSyncPackage pkg = ProtoPool.NewRemote();
+            try
             {
-                case RemoteSyncEvent.AckResponse:
-                    AckResponseProcess(pkg.AckSync);
-                    break;
-                case RemoteSyncEvent.LobbyResponse:
-                    LobbyResponseProcess(pkg.LobbyPackage);
-                    break;
-                case RemoteSyncEvent.BattleResponse:
-                    BattleResponseProcess(pkg.BattlePackage);
-                    break;
-                default:
-                    Debug.Log("Unknown EventID: " + pkg.EventID);
-                    break;
+                pkg.MergeFrom(data);
+                switch (pkg.EventID)
+                {
+                    case RemoteSyncEvent.AckResponse:
+                        AckResponseProcess(pkg.AckSync);
+                        break;
+                    case RemoteSyncEvent.LobbyResponse:
+                        LobbyResponseProcess(pkg.LobbyPackage);
+                        break;
+                    case RemoteSyncEvent.BattleResponse:
+                        BattleResponseProcess(pkg.BattlePackage);
+                        break;
+                    default:
+                        Debug.Log("Unknown EventID: " + pkg.EventID);
+                        break;
+                }
+            }
+            finally
+            {
+                pkg.Dispose();
             }
         }
 
+        /// 处理ACK回应消息，此处进行分发相应的网络事件
         private void AckResponseProcess(AckSyncResponse response)
         {
-            // TODO: 处理ACK回应消息，此处进行分发相应的网络事件
             switch (response.EventID)
             {
                 case RemoteAckEvent.ConnectResponse:
@@ -104,9 +113,9 @@ namespace Network
             }
         }
 
+        /// 处理Lobby回应消息，此处进行分发相应的网络事件
         private void LobbyResponseProcess(LobbySyncResponse response)
         {
-            // TODO: 处理Lobby回应消息，此处进行分发相应的网络事件
             switch (response.EventID)
             {
                 default:
@@ -114,9 +123,9 @@ namespace Network
             }
         }
 
+        /// 处理Battle回应消息，此处进行分发相应的网络事件
         private void BattleResponseProcess(BattleSyncResponse response)
         {
-            // TODO: 处理Battle回应消息，此处进行分发相应的网络事件
             switch (response.EventID)
             {
                 default:

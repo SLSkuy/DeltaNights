@@ -143,7 +143,7 @@ namespace Network
         void Start()
         {
             // 使用对象池管理Protobuf对象，避免频繁的创建与销毁
-            LocalSyncPackage syncPackage = ProtoPool.NewLocalSyncPackage();
+            LocalSyncPackage syncPackage = ProtoPool.NewLocal();
             syncPackage.EventID = LocalSyncEvent.AckRequest;
             syncPackage.AckSync = new AckSyncRequest
             {
