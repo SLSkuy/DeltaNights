@@ -95,6 +95,14 @@ namespace Network
         private void AckResponseProcess(AckSyncResponse response)
         {
             // TODO: 处理ACK回应消息，此处进行分发相应的网络事件
+            switch (response.EventID)
+            {
+                case RemoteAckEvent.ConnectResponse:
+                    Dispatch(NetEvent.ConnectResponse, response.ConnectResponse);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void LobbyResponseProcess(LobbySyncResponse response)

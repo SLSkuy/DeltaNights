@@ -7,8 +7,8 @@ package AckSyncPackage;
 ================================================== */
 enum LocalAckEvent {
   HeartBeat = 0;
-  Connect = 1;
-  Disconnect = 2;
+  ConnectRequest = 1;
+  DisconnectRequest = 2;
 }
 
 // ===== ACK请求包 =====
@@ -16,7 +16,7 @@ message AckSyncRequest {
   LocalAckEvent eventID = 1;
   oneof content {
     HeartBeatPackage heartBeat = 2;
-    ConnectPackage connect = 3;
+    ConnectRequestPackage connect = 3;
   }
 }
 
@@ -26,7 +26,7 @@ message HeartBeatPackage {
 }
 
 // ===== 连接请求包 =====
-message ConnectPackage {
+message ConnectRequestPackage {
   int32 port = 1;
 }
 
@@ -34,20 +34,20 @@ message ConnectPackage {
   确认同步回应包事件
 ================================================== */
 enum RemoteAckEvent {
-  Reconnect = 0;
+  ConnectResponse = 0;
 }
 
 // ===== ACK回应包 =====
 message AckSyncResponse {
   RemoteAckEvent eventID = 1;
   oneof content {
-    ReconnectPackage reconnect = 2;
+    ConnectResponsePackage connectResponse = 2;
   }
 }
 
-// ===== 重连回应包 =====
-message ReconnectPackage {
-  uint32 clientID = 1;
+// ===== 连接回应包 =====
+message ConnectResponsePackage {
+  string content = 1;
 }
 
 

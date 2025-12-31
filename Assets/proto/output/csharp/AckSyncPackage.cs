@@ -24,27 +24,28 @@ namespace AckSyncPackage {
     static AckSyncPackageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChRBY2tTeW5jUGFja2FnZS5wcm90bxIOQWNrU3luY1BhY2thZ2UitQEKDkFj",
+            "ChRBY2tTeW5jUGFja2FnZS5wcm90bxIOQWNrU3luY1BhY2thZ2UivAEKDkFj",
             "a1N5bmNSZXF1ZXN0Ei4KB2V2ZW50SUQYASABKA4yHS5BY2tTeW5jUGFja2Fn",
             "ZS5Mb2NhbEFja0V2ZW50EjUKCWhlYXJ0QmVhdBgCIAEoCzIgLkFja1N5bmNQ",
-            "YWNrYWdlLkhlYXJ0QmVhdFBhY2thZ2VIABIxCgdjb25uZWN0GAMgASgLMh4u",
-            "QWNrU3luY1BhY2thZ2UuQ29ubmVjdFBhY2thZ2VIAEIJCgdjb250ZW50IiQK",
-            "EEhlYXJ0QmVhdFBhY2thZ2USEAoIY2xpZW50SUQYASABKA0iHgoOQ29ubmVj",
-            "dFBhY2thZ2USDAoEcG9ydBgBIAEoBSKEAQoPQWNrU3luY1Jlc3BvbnNlEi8K",
-            "B2V2ZW50SUQYASABKA4yHi5BY2tTeW5jUGFja2FnZS5SZW1vdGVBY2tFdmVu",
-            "dBI1CglyZWNvbm5lY3QYAiABKAsyIC5BY2tTeW5jUGFja2FnZS5SZWNvbm5l",
-            "Y3RQYWNrYWdlSABCCQoHY29udGVudCIkChBSZWNvbm5lY3RQYWNrYWdlEhAK",
-            "CGNsaWVudElEGAEgASgNKjsKDUxvY2FsQWNrRXZlbnQSDQoJSGVhcnRCZWF0",
-            "EAASCwoHQ29ubmVjdBABEg4KCkRpc2Nvbm5lY3QQAiofCg5SZW1vdGVBY2tF",
-            "dmVudBINCglSZWNvbm5lY3QQAGIGcHJvdG8z"));
+            "YWNrYWdlLkhlYXJ0QmVhdFBhY2thZ2VIABI4Cgdjb25uZWN0GAMgASgLMiUu",
+            "QWNrU3luY1BhY2thZ2UuQ29ubmVjdFJlcXVlc3RQYWNrYWdlSABCCQoHY29u",
+            "dGVudCIkChBIZWFydEJlYXRQYWNrYWdlEhAKCGNsaWVudElEGAEgASgNIiUK",
+            "FUNvbm5lY3RSZXF1ZXN0UGFja2FnZRIMCgRwb3J0GAEgASgFIpABCg9BY2tT",
+            "eW5jUmVzcG9uc2USLwoHZXZlbnRJRBgBIAEoDjIeLkFja1N5bmNQYWNrYWdl",
+            "LlJlbW90ZUFja0V2ZW50EkEKD2Nvbm5lY3RSZXNwb25zZRgCIAEoCzImLkFj",
+            "a1N5bmNQYWNrYWdlLkNvbm5lY3RSZXNwb25zZVBhY2thZ2VIAEIJCgdjb250",
+            "ZW50IikKFkNvbm5lY3RSZXNwb25zZVBhY2thZ2USDwoHY29udGVudBgBIAEo",
+            "CSpJCg1Mb2NhbEFja0V2ZW50Eg0KCUhlYXJ0QmVhdBAAEhIKDkNvbm5lY3RS",
+            "ZXF1ZXN0EAESFQoRRGlzY29ubmVjdFJlcXVlc3QQAiolCg5SZW1vdGVBY2tF",
+            "dmVudBITCg9Db25uZWN0UmVzcG9uc2UQAGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::AckSyncPackage.LocalAckEvent), typeof(global::AckSyncPackage.RemoteAckEvent), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::AckSyncPackage.AckSyncRequest), global::AckSyncPackage.AckSyncRequest.Parser, new[]{ "EventID", "HeartBeat", "Connect" }, new[]{ "Content" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AckSyncPackage.HeartBeatPackage), global::AckSyncPackage.HeartBeatPackage.Parser, new[]{ "ClientID" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AckSyncPackage.ConnectPackage), global::AckSyncPackage.ConnectPackage.Parser, new[]{ "Port" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AckSyncPackage.AckSyncResponse), global::AckSyncPackage.AckSyncResponse.Parser, new[]{ "EventID", "Reconnect" }, new[]{ "Content" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AckSyncPackage.ReconnectPackage), global::AckSyncPackage.ReconnectPackage.Parser, new[]{ "ClientID" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::AckSyncPackage.ConnectRequestPackage), global::AckSyncPackage.ConnectRequestPackage.Parser, new[]{ "Port" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AckSyncPackage.AckSyncResponse), global::AckSyncPackage.AckSyncResponse.Parser, new[]{ "EventID", "ConnectResponse" }, new[]{ "Content" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AckSyncPackage.ConnectResponsePackage), global::AckSyncPackage.ConnectResponsePackage.Parser, new[]{ "Content" }, null, null, null, null)
           }));
     }
     #endregion
@@ -58,8 +59,8 @@ namespace AckSyncPackage {
   /// </summary>
   public enum LocalAckEvent {
     [pbr::OriginalName("HeartBeat")] HeartBeat = 0,
-    [pbr::OriginalName("Connect")] Connect = 1,
-    [pbr::OriginalName("Disconnect")] Disconnect = 2,
+    [pbr::OriginalName("ConnectRequest")] ConnectRequest = 1,
+    [pbr::OriginalName("DisconnectRequest")] DisconnectRequest = 2,
   }
 
   /// <summary>
@@ -68,7 +69,7 @@ namespace AckSyncPackage {
   ///================================================== 
   /// </summary>
   public enum RemoteAckEvent {
-    [pbr::OriginalName("Reconnect")] Reconnect = 0,
+    [pbr::OriginalName("ConnectResponse")] ConnectResponse = 0,
   }
 
   #endregion
@@ -158,8 +159,8 @@ namespace AckSyncPackage {
     public const int ConnectFieldNumber = 3;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::AckSyncPackage.ConnectPackage Connect {
-      get { return contentCase_ == ContentOneofCase.Connect ? (global::AckSyncPackage.ConnectPackage) content_ : null; }
+    public global::AckSyncPackage.ConnectRequestPackage Connect {
+      get { return contentCase_ == ContentOneofCase.Connect ? (global::AckSyncPackage.ConnectRequestPackage) content_ : null; }
       set {
         content_ = value;
         contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.Connect;
@@ -312,7 +313,7 @@ namespace AckSyncPackage {
           break;
         case ContentOneofCase.Connect:
           if (Connect == null) {
-            Connect = new global::AckSyncPackage.ConnectPackage();
+            Connect = new global::AckSyncPackage.ConnectRequestPackage();
           }
           Connect.MergeFrom(other.Connect);
           break;
@@ -347,7 +348,7 @@ namespace AckSyncPackage {
             break;
           }
           case 26: {
-            global::AckSyncPackage.ConnectPackage subBuilder = new global::AckSyncPackage.ConnectPackage();
+            global::AckSyncPackage.ConnectRequestPackage subBuilder = new global::AckSyncPackage.ConnectRequestPackage();
             if (contentCase_ == ContentOneofCase.Connect) {
               subBuilder.MergeFrom(Connect);
             }
@@ -384,7 +385,7 @@ namespace AckSyncPackage {
             break;
           }
           case 26: {
-            global::AckSyncPackage.ConnectPackage subBuilder = new global::AckSyncPackage.ConnectPackage();
+            global::AckSyncPackage.ConnectRequestPackage subBuilder = new global::AckSyncPackage.ConnectRequestPackage();
             if (contentCase_ == ContentOneofCase.Connect) {
               subBuilder.MergeFrom(Connect);
             }
@@ -594,16 +595,16 @@ namespace AckSyncPackage {
   /// <summary>
   /// ===== 连接请求包 =====
   /// </summary>
-  public sealed partial class ConnectPackage : pb::IMessage<ConnectPackage>
+  public sealed partial class ConnectRequestPackage : pb::IMessage<ConnectRequestPackage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ConnectPackage> _parser = new pb::MessageParser<ConnectPackage>(() => new ConnectPackage());
+    private static readonly pb::MessageParser<ConnectRequestPackage> _parser = new pb::MessageParser<ConnectRequestPackage>(() => new ConnectRequestPackage());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ConnectPackage> Parser { get { return _parser; } }
+    public static pb::MessageParser<ConnectRequestPackage> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -619,7 +620,7 @@ namespace AckSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ConnectPackage() {
+    public ConnectRequestPackage() {
       OnConstruction();
     }
 
@@ -627,15 +628,15 @@ namespace AckSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ConnectPackage(ConnectPackage other) : this() {
+    public ConnectRequestPackage(ConnectRequestPackage other) : this() {
       port_ = other.port_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ConnectPackage Clone() {
-      return new ConnectPackage(this);
+    public ConnectRequestPackage Clone() {
+      return new ConnectRequestPackage(this);
     }
 
     /// <summary>Field number for the "port" field.</summary>
@@ -653,12 +654,12 @@ namespace AckSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ConnectPackage);
+      return Equals(other as ConnectRequestPackage);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ConnectPackage other) {
+    public bool Equals(ConnectRequestPackage other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -731,7 +732,7 @@ namespace AckSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ConnectPackage other) {
+    public void MergeFrom(ConnectRequestPackage other) {
       if (other == null) {
         return;
       }
@@ -822,8 +823,8 @@ namespace AckSyncPackage {
     public AckSyncResponse(AckSyncResponse other) : this() {
       eventID_ = other.eventID_;
       switch (other.ContentCase) {
-        case ContentOneofCase.Reconnect:
-          Reconnect = other.Reconnect.Clone();
+        case ContentOneofCase.ConnectResponse:
+          ConnectResponse = other.ConnectResponse.Clone();
           break;
       }
 
@@ -838,7 +839,7 @@ namespace AckSyncPackage {
 
     /// <summary>Field number for the "eventID" field.</summary>
     public const int EventIDFieldNumber = 1;
-    private global::AckSyncPackage.RemoteAckEvent eventID_ = global::AckSyncPackage.RemoteAckEvent.Reconnect;
+    private global::AckSyncPackage.RemoteAckEvent eventID_ = global::AckSyncPackage.RemoteAckEvent.ConnectResponse;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::AckSyncPackage.RemoteAckEvent EventID {
@@ -848,15 +849,15 @@ namespace AckSyncPackage {
       }
     }
 
-    /// <summary>Field number for the "reconnect" field.</summary>
-    public const int ReconnectFieldNumber = 2;
+    /// <summary>Field number for the "connectResponse" field.</summary>
+    public const int ConnectResponseFieldNumber = 2;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::AckSyncPackage.ReconnectPackage Reconnect {
-      get { return contentCase_ == ContentOneofCase.Reconnect ? (global::AckSyncPackage.ReconnectPackage) content_ : null; }
+    public global::AckSyncPackage.ConnectResponsePackage ConnectResponse {
+      get { return contentCase_ == ContentOneofCase.ConnectResponse ? (global::AckSyncPackage.ConnectResponsePackage) content_ : null; }
       set {
         content_ = value;
-        contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.Reconnect;
+        contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.ConnectResponse;
       }
     }
 
@@ -864,7 +865,7 @@ namespace AckSyncPackage {
     /// <summary>Enum of possible cases for the "content" oneof.</summary>
     public enum ContentOneofCase {
       None = 0,
-      Reconnect = 2,
+      ConnectResponse = 2,
     }
     private ContentOneofCase contentCase_ = ContentOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -896,7 +897,7 @@ namespace AckSyncPackage {
         return true;
       }
       if (EventID != other.EventID) return false;
-      if (!object.Equals(Reconnect, other.Reconnect)) return false;
+      if (!object.Equals(ConnectResponse, other.ConnectResponse)) return false;
       if (ContentCase != other.ContentCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -905,8 +906,8 @@ namespace AckSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EventID != global::AckSyncPackage.RemoteAckEvent.Reconnect) hash ^= EventID.GetHashCode();
-      if (contentCase_ == ContentOneofCase.Reconnect) hash ^= Reconnect.GetHashCode();
+      if (EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) hash ^= EventID.GetHashCode();
+      if (contentCase_ == ContentOneofCase.ConnectResponse) hash ^= ConnectResponse.GetHashCode();
       hash ^= (int) contentCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -926,13 +927,13 @@ namespace AckSyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EventID != global::AckSyncPackage.RemoteAckEvent.Reconnect) {
+      if (EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
-      if (contentCase_ == ContentOneofCase.Reconnect) {
+      if (contentCase_ == ContentOneofCase.ConnectResponse) {
         output.WriteRawTag(18);
-        output.WriteMessage(Reconnect);
+        output.WriteMessage(ConnectResponse);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -944,13 +945,13 @@ namespace AckSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EventID != global::AckSyncPackage.RemoteAckEvent.Reconnect) {
+      if (EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
-      if (contentCase_ == ContentOneofCase.Reconnect) {
+      if (contentCase_ == ContentOneofCase.ConnectResponse) {
         output.WriteRawTag(18);
-        output.WriteMessage(Reconnect);
+        output.WriteMessage(ConnectResponse);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -962,11 +963,11 @@ namespace AckSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EventID != global::AckSyncPackage.RemoteAckEvent.Reconnect) {
+      if (EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
       }
-      if (contentCase_ == ContentOneofCase.Reconnect) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Reconnect);
+      if (contentCase_ == ContentOneofCase.ConnectResponse) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ConnectResponse);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -980,15 +981,15 @@ namespace AckSyncPackage {
       if (other == null) {
         return;
       }
-      if (other.EventID != global::AckSyncPackage.RemoteAckEvent.Reconnect) {
+      if (other.EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) {
         EventID = other.EventID;
       }
       switch (other.ContentCase) {
-        case ContentOneofCase.Reconnect:
-          if (Reconnect == null) {
-            Reconnect = new global::AckSyncPackage.ReconnectPackage();
+        case ContentOneofCase.ConnectResponse:
+          if (ConnectResponse == null) {
+            ConnectResponse = new global::AckSyncPackage.ConnectResponsePackage();
           }
-          Reconnect.MergeFrom(other.Reconnect);
+          ConnectResponse.MergeFrom(other.ConnectResponse);
           break;
       }
 
@@ -1012,12 +1013,12 @@ namespace AckSyncPackage {
             break;
           }
           case 18: {
-            global::AckSyncPackage.ReconnectPackage subBuilder = new global::AckSyncPackage.ReconnectPackage();
-            if (contentCase_ == ContentOneofCase.Reconnect) {
-              subBuilder.MergeFrom(Reconnect);
+            global::AckSyncPackage.ConnectResponsePackage subBuilder = new global::AckSyncPackage.ConnectResponsePackage();
+            if (contentCase_ == ContentOneofCase.ConnectResponse) {
+              subBuilder.MergeFrom(ConnectResponse);
             }
             input.ReadMessage(subBuilder);
-            Reconnect = subBuilder;
+            ConnectResponse = subBuilder;
             break;
           }
         }
@@ -1040,12 +1041,12 @@ namespace AckSyncPackage {
             break;
           }
           case 18: {
-            global::AckSyncPackage.ReconnectPackage subBuilder = new global::AckSyncPackage.ReconnectPackage();
-            if (contentCase_ == ContentOneofCase.Reconnect) {
-              subBuilder.MergeFrom(Reconnect);
+            global::AckSyncPackage.ConnectResponsePackage subBuilder = new global::AckSyncPackage.ConnectResponsePackage();
+            if (contentCase_ == ContentOneofCase.ConnectResponse) {
+              subBuilder.MergeFrom(ConnectResponse);
             }
             input.ReadMessage(subBuilder);
-            Reconnect = subBuilder;
+            ConnectResponse = subBuilder;
             break;
           }
         }
@@ -1056,18 +1057,18 @@ namespace AckSyncPackage {
   }
 
   /// <summary>
-  /// ===== 重连回应包 =====
+  /// ===== 连接回应包 =====
   /// </summary>
-  public sealed partial class ReconnectPackage : pb::IMessage<ReconnectPackage>
+  public sealed partial class ConnectResponsePackage : pb::IMessage<ConnectResponsePackage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ReconnectPackage> _parser = new pb::MessageParser<ReconnectPackage>(() => new ReconnectPackage());
+    private static readonly pb::MessageParser<ConnectResponsePackage> _parser = new pb::MessageParser<ConnectResponsePackage>(() => new ConnectResponsePackage());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ReconnectPackage> Parser { get { return _parser; } }
+    public static pb::MessageParser<ConnectResponsePackage> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1083,7 +1084,7 @@ namespace AckSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ReconnectPackage() {
+    public ConnectResponsePackage() {
       OnConstruction();
     }
 
@@ -1091,45 +1092,45 @@ namespace AckSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ReconnectPackage(ReconnectPackage other) : this() {
-      clientID_ = other.clientID_;
+    public ConnectResponsePackage(ConnectResponsePackage other) : this() {
+      content_ = other.content_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ReconnectPackage Clone() {
-      return new ReconnectPackage(this);
+    public ConnectResponsePackage Clone() {
+      return new ConnectResponsePackage(this);
     }
 
-    /// <summary>Field number for the "clientID" field.</summary>
-    public const int ClientIDFieldNumber = 1;
-    private uint clientID_;
+    /// <summary>Field number for the "content" field.</summary>
+    public const int ContentFieldNumber = 1;
+    private string content_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint ClientID {
-      get { return clientID_; }
+    public string Content {
+      get { return content_; }
       set {
-        clientID_ = value;
+        content_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ReconnectPackage);
+      return Equals(other as ConnectResponsePackage);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ReconnectPackage other) {
+    public bool Equals(ConnectResponsePackage other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (ClientID != other.ClientID) return false;
+      if (Content != other.Content) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1137,7 +1138,7 @@ namespace AckSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (ClientID != 0) hash ^= ClientID.GetHashCode();
+      if (Content.Length != 0) hash ^= Content.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1156,9 +1157,9 @@ namespace AckSyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (ClientID != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(ClientID);
+      if (Content.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Content);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1170,9 +1171,9 @@ namespace AckSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (ClientID != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(ClientID);
+      if (Content.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Content);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1184,8 +1185,8 @@ namespace AckSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (ClientID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ClientID);
+      if (Content.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Content);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1195,12 +1196,12 @@ namespace AckSyncPackage {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ReconnectPackage other) {
+    public void MergeFrom(ConnectResponsePackage other) {
       if (other == null) {
         return;
       }
-      if (other.ClientID != 0) {
-        ClientID = other.ClientID;
+      if (other.Content.Length != 0) {
+        Content = other.Content;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1217,8 +1218,8 @@ namespace AckSyncPackage {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            ClientID = input.ReadUInt32();
+          case 10: {
+            Content = input.ReadString();
             break;
           }
         }
@@ -1236,8 +1237,8 @@ namespace AckSyncPackage {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            ClientID = input.ReadUInt32();
+          case 10: {
+            Content = input.ReadString();
             break;
           }
         }

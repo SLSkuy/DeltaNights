@@ -151,7 +151,7 @@ void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const AckSyncPac
             // TODO: 心跳消息处理
             emit clientHeartBeat(socket);
             break;
-        case LocalAckEvent::Connect:
+        case LocalAckEvent::ConnectRequest:
             // TODO: 客户端连接请求
             emit clientBindUdpPort(socket, pkg.connect().port());
             break;

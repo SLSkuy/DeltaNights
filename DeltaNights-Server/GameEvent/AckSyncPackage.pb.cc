@@ -49,19 +49,19 @@ struct HeartBeatPackageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HeartBeatPackageDefaultTypeInternal _HeartBeatPackage_default_instance_;
-PROTOBUF_CONSTEXPR ConnectPackage::ConnectPackage(
+PROTOBUF_CONSTEXPR ConnectRequestPackage::ConnectRequestPackage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.port_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct ConnectPackageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ConnectPackageDefaultTypeInternal()
+struct ConnectRequestPackageDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ConnectRequestPackageDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ConnectPackageDefaultTypeInternal() {}
+  ~ConnectRequestPackageDefaultTypeInternal() {}
   union {
-    ConnectPackage _instance;
+    ConnectRequestPackage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConnectPackageDefaultTypeInternal _ConnectPackage_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConnectRequestPackageDefaultTypeInternal _ConnectRequestPackage_default_instance_;
 PROTOBUF_CONSTEXPR AckSyncResponse::AckSyncResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.eventid_)*/0
@@ -77,19 +77,19 @@ struct AckSyncResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AckSyncResponseDefaultTypeInternal _AckSyncResponse_default_instance_;
-PROTOBUF_CONSTEXPR ReconnectPackage::ReconnectPackage(
+PROTOBUF_CONSTEXPR ConnectResponsePackage::ConnectResponsePackage(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.clientid_)*/0u
+    /*decltype(_impl_.content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct ReconnectPackageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ReconnectPackageDefaultTypeInternal()
+struct ConnectResponsePackageDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ConnectResponsePackageDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ReconnectPackageDefaultTypeInternal() {}
+  ~ConnectResponsePackageDefaultTypeInternal() {}
   union {
-    ReconnectPackage _instance;
+    ConnectResponsePackage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReconnectPackageDefaultTypeInternal _ReconnectPackage_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConnectResponsePackageDefaultTypeInternal _ConnectResponsePackage_default_instance_;
 }  // namespace AckSyncPackage
 static ::_pb::Metadata file_level_metadata_AckSyncPackage_2eproto[5];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_AckSyncPackage_2eproto[2];
@@ -114,12 +114,12 @@ const uint32_t TableStruct_AckSyncPackage_2eproto::offsets[] PROTOBUF_SECTION_VA
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::AckSyncPackage::HeartBeatPackage, _impl_.clientid_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::AckSyncPackage::ConnectPackage, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::AckSyncPackage::ConnectRequestPackage, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::AckSyncPackage::ConnectPackage, _impl_.port_),
+  PROTOBUF_FIELD_OFFSET(::AckSyncPackage::ConnectRequestPackage, _impl_.port_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::AckSyncPackage::AckSyncResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -130,49 +130,50 @@ const uint32_t TableStruct_AckSyncPackage_2eproto::offsets[] PROTOBUF_SECTION_VA
   ::_pbi::kInvalidFieldOffsetTag,
   PROTOBUF_FIELD_OFFSET(::AckSyncPackage::AckSyncResponse, _impl_.content_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::AckSyncPackage::ReconnectPackage, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::AckSyncPackage::ConnectResponsePackage, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::AckSyncPackage::ReconnectPackage, _impl_.clientid_),
+  PROTOBUF_FIELD_OFFSET(::AckSyncPackage::ConnectResponsePackage, _impl_.content_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::AckSyncPackage::AckSyncRequest)},
   { 10, -1, -1, sizeof(::AckSyncPackage::HeartBeatPackage)},
-  { 17, -1, -1, sizeof(::AckSyncPackage::ConnectPackage)},
+  { 17, -1, -1, sizeof(::AckSyncPackage::ConnectRequestPackage)},
   { 24, -1, -1, sizeof(::AckSyncPackage::AckSyncResponse)},
-  { 33, -1, -1, sizeof(::AckSyncPackage::ReconnectPackage)},
+  { 33, -1, -1, sizeof(::AckSyncPackage::ConnectResponsePackage)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::AckSyncPackage::_AckSyncRequest_default_instance_._instance,
   &::AckSyncPackage::_HeartBeatPackage_default_instance_._instance,
-  &::AckSyncPackage::_ConnectPackage_default_instance_._instance,
+  &::AckSyncPackage::_ConnectRequestPackage_default_instance_._instance,
   &::AckSyncPackage::_AckSyncResponse_default_instance_._instance,
-  &::AckSyncPackage::_ReconnectPackage_default_instance_._instance,
+  &::AckSyncPackage::_ConnectResponsePackage_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_AckSyncPackage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\024AckSyncPackage.proto\022\016AckSyncPackage\"\265"
+  "\n\024AckSyncPackage.proto\022\016AckSyncPackage\"\274"
   "\001\n\016AckSyncRequest\022.\n\007eventID\030\001 \001(\0162\035.Ack"
   "SyncPackage.LocalAckEvent\0225\n\theartBeat\030\002"
   " \001(\0132 .AckSyncPackage.HeartBeatPackageH\000"
-  "\0221\n\007connect\030\003 \001(\0132\036.AckSyncPackage.Conne"
-  "ctPackageH\000B\t\n\007content\"$\n\020HeartBeatPacka"
-  "ge\022\020\n\010clientID\030\001 \001(\r\"\036\n\016ConnectPackage\022\014"
-  "\n\004port\030\001 \001(\005\"\204\001\n\017AckSyncResponse\022/\n\007even"
-  "tID\030\001 \001(\0162\036.AckSyncPackage.RemoteAckEven"
-  "t\0225\n\treconnect\030\002 \001(\0132 .AckSyncPackage.Re"
-  "connectPackageH\000B\t\n\007content\"$\n\020Reconnect"
-  "Package\022\020\n\010clientID\030\001 \001(\r*;\n\rLocalAckEve"
-  "nt\022\r\n\tHeartBeat\020\000\022\013\n\007Connect\020\001\022\016\n\nDiscon"
-  "nect\020\002*\037\n\016RemoteAckEvent\022\r\n\tReconnect\020\000b"
-  "\006proto3"
+  "\0228\n\007connect\030\003 \001(\0132%.AckSyncPackage.Conne"
+  "ctRequestPackageH\000B\t\n\007content\"$\n\020HeartBe"
+  "atPackage\022\020\n\010clientID\030\001 \001(\r\"%\n\025ConnectRe"
+  "questPackage\022\014\n\004port\030\001 \001(\005\"\220\001\n\017AckSyncRe"
+  "sponse\022/\n\007eventID\030\001 \001(\0162\036.AckSyncPackage"
+  ".RemoteAckEvent\022A\n\017connectResponse\030\002 \001(\013"
+  "2&.AckSyncPackage.ConnectResponsePackage"
+  "H\000B\t\n\007content\")\n\026ConnectResponsePackage\022"
+  "\017\n\007content\030\001 \001(\t*I\n\rLocalAckEvent\022\r\n\tHea"
+  "rtBeat\020\000\022\022\n\016ConnectRequest\020\001\022\025\n\021Disconne"
+  "ctRequest\020\002*%\n\016RemoteAckEvent\022\023\n\017Connect"
+  "Response\020\000b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_AckSyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_AckSyncPackage_2eproto = {
-    false, false, 567, descriptor_table_protodef_AckSyncPackage_2eproto,
+    false, false, 618, descriptor_table_protodef_AckSyncPackage_2eproto,
     "AckSyncPackage.proto",
     &descriptor_table_AckSyncPackage_2eproto_once, nullptr, 0, 5,
     schemas, file_default_instances, TableStruct_AckSyncPackage_2eproto::offsets,
@@ -220,14 +221,14 @@ bool RemoteAckEvent_IsValid(int value) {
 class AckSyncRequest::_Internal {
  public:
   static const ::AckSyncPackage::HeartBeatPackage& heartbeat(const AckSyncRequest* msg);
-  static const ::AckSyncPackage::ConnectPackage& connect(const AckSyncRequest* msg);
+  static const ::AckSyncPackage::ConnectRequestPackage& connect(const AckSyncRequest* msg);
 };
 
 const ::AckSyncPackage::HeartBeatPackage&
 AckSyncRequest::_Internal::heartbeat(const AckSyncRequest* msg) {
   return *msg->_impl_.content_.heartbeat_;
 }
-const ::AckSyncPackage::ConnectPackage&
+const ::AckSyncPackage::ConnectRequestPackage&
 AckSyncRequest::_Internal::connect(const AckSyncRequest* msg) {
   return *msg->_impl_.content_.connect_;
 }
@@ -246,7 +247,7 @@ void AckSyncRequest::set_allocated_heartbeat(::AckSyncPackage::HeartBeatPackage*
   }
   // @@protoc_insertion_point(field_set_allocated:AckSyncPackage.AckSyncRequest.heartBeat)
 }
-void AckSyncRequest::set_allocated_connect(::AckSyncPackage::ConnectPackage* connect) {
+void AckSyncRequest::set_allocated_connect(::AckSyncPackage::ConnectRequestPackage* connect) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_content();
   if (connect) {
@@ -286,7 +287,7 @@ AckSyncRequest::AckSyncRequest(const AckSyncRequest& from)
       break;
     }
     case kConnect: {
-      _this->_internal_mutable_connect()->::AckSyncPackage::ConnectPackage::MergeFrom(
+      _this->_internal_mutable_connect()->::AckSyncPackage::ConnectRequestPackage::MergeFrom(
           from._internal_connect());
       break;
     }
@@ -387,7 +388,7 @@ const char* AckSyncRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
-      // .AckSyncPackage.ConnectPackage connect = 3;
+      // .AckSyncPackage.ConnectRequestPackage connect = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_connect(), ptr);
@@ -438,7 +439,7 @@ uint8_t* AckSyncRequest::_InternalSerialize(
         _Internal::heartbeat(this).GetCachedSize(), target, stream);
   }
 
-  // .AckSyncPackage.ConnectPackage connect = 3;
+  // .AckSyncPackage.ConnectRequestPackage connect = 3;
   if (_internal_has_connect()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::connect(this),
@@ -475,7 +476,7 @@ size_t AckSyncRequest::ByteSizeLong() const {
           *_impl_.content_.heartbeat_);
       break;
     }
-    // .AckSyncPackage.ConnectPackage connect = 3;
+    // .AckSyncPackage.ConnectRequestPackage connect = 3;
     case kConnect: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -514,7 +515,7 @@ void AckSyncRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
       break;
     }
     case kConnect: {
-      _this->_internal_mutable_connect()->::AckSyncPackage::ConnectPackage::MergeFrom(
+      _this->_internal_mutable_connect()->::AckSyncPackage::ConnectRequestPackage::MergeFrom(
           from._internal_connect());
       break;
     }
@@ -730,29 +731,29 @@ void HeartBeatPackage::InternalSwap(HeartBeatPackage* other) {
 
 // ===================================================================
 
-class ConnectPackage::_Internal {
+class ConnectRequestPackage::_Internal {
  public:
 };
 
-ConnectPackage::ConnectPackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ConnectRequestPackage::ConnectRequestPackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:AckSyncPackage.ConnectPackage)
+  // @@protoc_insertion_point(arena_constructor:AckSyncPackage.ConnectRequestPackage)
 }
-ConnectPackage::ConnectPackage(const ConnectPackage& from)
+ConnectRequestPackage::ConnectRequestPackage(const ConnectRequestPackage& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  ConnectPackage* const _this = this; (void)_this;
+  ConnectRequestPackage* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.port_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.port_ = from._impl_.port_;
-  // @@protoc_insertion_point(copy_constructor:AckSyncPackage.ConnectPackage)
+  // @@protoc_insertion_point(copy_constructor:AckSyncPackage.ConnectRequestPackage)
 }
 
-inline void ConnectPackage::SharedCtor(
+inline void ConnectRequestPackage::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -762,8 +763,8 @@ inline void ConnectPackage::SharedCtor(
   };
 }
 
-ConnectPackage::~ConnectPackage() {
-  // @@protoc_insertion_point(destructor:AckSyncPackage.ConnectPackage)
+ConnectRequestPackage::~ConnectRequestPackage() {
+  // @@protoc_insertion_point(destructor:AckSyncPackage.ConnectRequestPackage)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -771,16 +772,16 @@ ConnectPackage::~ConnectPackage() {
   SharedDtor();
 }
 
-inline void ConnectPackage::SharedDtor() {
+inline void ConnectRequestPackage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ConnectPackage::SetCachedSize(int size) const {
+void ConnectRequestPackage::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void ConnectPackage::Clear() {
-// @@protoc_insertion_point(message_clear_start:AckSyncPackage.ConnectPackage)
+void ConnectRequestPackage::Clear() {
+// @@protoc_insertion_point(message_clear_start:AckSyncPackage.ConnectRequestPackage)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -789,7 +790,7 @@ void ConnectPackage::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ConnectPackage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ConnectRequestPackage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -826,9 +827,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ConnectPackage::_InternalSerialize(
+uint8_t* ConnectRequestPackage::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:AckSyncPackage.ConnectPackage)
+  // @@protoc_insertion_point(serialize_to_array_start:AckSyncPackage.ConnectRequestPackage)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -842,12 +843,12 @@ uint8_t* ConnectPackage::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:AckSyncPackage.ConnectPackage)
+  // @@protoc_insertion_point(serialize_to_array_end:AckSyncPackage.ConnectRequestPackage)
   return target;
 }
 
-size_t ConnectPackage::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:AckSyncPackage.ConnectPackage)
+size_t ConnectRequestPackage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:AckSyncPackage.ConnectRequestPackage)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -862,17 +863,17 @@ size_t ConnectPackage::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ConnectPackage::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ConnectRequestPackage::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    ConnectPackage::MergeImpl
+    ConnectRequestPackage::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ConnectPackage::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ConnectRequestPackage::GetClassData() const { return &_class_data_; }
 
 
-void ConnectPackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<ConnectPackage*>(&to_msg);
-  auto& from = static_cast<const ConnectPackage&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:AckSyncPackage.ConnectPackage)
+void ConnectRequestPackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ConnectRequestPackage*>(&to_msg);
+  auto& from = static_cast<const ConnectRequestPackage&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:AckSyncPackage.ConnectRequestPackage)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -883,24 +884,24 @@ void ConnectPackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void ConnectPackage::CopyFrom(const ConnectPackage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:AckSyncPackage.ConnectPackage)
+void ConnectRequestPackage::CopyFrom(const ConnectRequestPackage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:AckSyncPackage.ConnectRequestPackage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ConnectPackage::IsInitialized() const {
+bool ConnectRequestPackage::IsInitialized() const {
   return true;
 }
 
-void ConnectPackage::InternalSwap(ConnectPackage* other) {
+void ConnectRequestPackage::InternalSwap(ConnectRequestPackage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.port_, other->_impl_.port_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ConnectPackage::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ConnectRequestPackage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_AckSyncPackage_2eproto_getter, &descriptor_table_AckSyncPackage_2eproto_once,
       file_level_metadata_AckSyncPackage_2eproto[2]);
@@ -910,27 +911,27 @@ void ConnectPackage::InternalSwap(ConnectPackage* other) {
 
 class AckSyncResponse::_Internal {
  public:
-  static const ::AckSyncPackage::ReconnectPackage& reconnect(const AckSyncResponse* msg);
+  static const ::AckSyncPackage::ConnectResponsePackage& connectresponse(const AckSyncResponse* msg);
 };
 
-const ::AckSyncPackage::ReconnectPackage&
-AckSyncResponse::_Internal::reconnect(const AckSyncResponse* msg) {
-  return *msg->_impl_.content_.reconnect_;
+const ::AckSyncPackage::ConnectResponsePackage&
+AckSyncResponse::_Internal::connectresponse(const AckSyncResponse* msg) {
+  return *msg->_impl_.content_.connectresponse_;
 }
-void AckSyncResponse::set_allocated_reconnect(::AckSyncPackage::ReconnectPackage* reconnect) {
+void AckSyncResponse::set_allocated_connectresponse(::AckSyncPackage::ConnectResponsePackage* connectresponse) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_content();
-  if (reconnect) {
+  if (connectresponse) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(reconnect);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(connectresponse);
     if (message_arena != submessage_arena) {
-      reconnect = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, reconnect, submessage_arena);
+      connectresponse = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, connectresponse, submessage_arena);
     }
-    set_has_reconnect();
-    _impl_.content_.reconnect_ = reconnect;
+    set_has_connectresponse();
+    _impl_.content_.connectresponse_ = connectresponse;
   }
-  // @@protoc_insertion_point(field_set_allocated:AckSyncPackage.AckSyncResponse.reconnect)
+  // @@protoc_insertion_point(field_set_allocated:AckSyncPackage.AckSyncResponse.connectResponse)
 }
 AckSyncResponse::AckSyncResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -951,9 +952,9 @@ AckSyncResponse::AckSyncResponse(const AckSyncResponse& from)
   _this->_impl_.eventid_ = from._impl_.eventid_;
   clear_has_content();
   switch (from.content_case()) {
-    case kReconnect: {
-      _this->_internal_mutable_reconnect()->::AckSyncPackage::ReconnectPackage::MergeFrom(
-          from._internal_reconnect());
+    case kConnectResponse: {
+      _this->_internal_mutable_connectresponse()->::AckSyncPackage::ConnectResponsePackage::MergeFrom(
+          from._internal_connectresponse());
       break;
     }
     case CONTENT_NOT_SET: {
@@ -999,9 +1000,9 @@ void AckSyncResponse::SetCachedSize(int size) const {
 void AckSyncResponse::clear_content() {
 // @@protoc_insertion_point(one_of_clear_start:AckSyncPackage.AckSyncResponse)
   switch (content_case()) {
-    case kReconnect: {
+    case kConnectResponse: {
       if (GetArenaForAllocation() == nullptr) {
-        delete _impl_.content_.reconnect_;
+        delete _impl_.content_.connectresponse_;
       }
       break;
     }
@@ -1039,10 +1040,10 @@ const char* AckSyncResponse::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // .AckSyncPackage.ReconnectPackage reconnect = 2;
+      // .AckSyncPackage.ConnectResponsePackage connectResponse = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_reconnect(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_connectresponse(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1083,11 +1084,11 @@ uint8_t* AckSyncResponse::_InternalSerialize(
       1, this->_internal_eventid(), target);
   }
 
-  // .AckSyncPackage.ReconnectPackage reconnect = 2;
-  if (_internal_has_reconnect()) {
+  // .AckSyncPackage.ConnectResponsePackage connectResponse = 2;
+  if (_internal_has_connectresponse()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::reconnect(this),
-        _Internal::reconnect(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(2, _Internal::connectresponse(this),
+        _Internal::connectresponse(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1113,11 +1114,11 @@ size_t AckSyncResponse::ByteSizeLong() const {
   }
 
   switch (content_case()) {
-    // .AckSyncPackage.ReconnectPackage reconnect = 2;
-    case kReconnect: {
+    // .AckSyncPackage.ConnectResponsePackage connectResponse = 2;
+    case kConnectResponse: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.content_.reconnect_);
+          *_impl_.content_.connectresponse_);
       break;
     }
     case CONTENT_NOT_SET: {
@@ -1146,9 +1147,9 @@ void AckSyncResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
     _this->_internal_set_eventid(from._internal_eventid());
   }
   switch (from.content_case()) {
-    case kReconnect: {
-      _this->_internal_mutable_reconnect()->::AckSyncPackage::ReconnectPackage::MergeFrom(
-          from._internal_reconnect());
+    case kConnectResponse: {
+      _this->_internal_mutable_connectresponse()->::AckSyncPackage::ConnectResponsePackage::MergeFrom(
+          from._internal_connectresponse());
       break;
     }
     case CONTENT_NOT_SET: {
@@ -1185,40 +1186,51 @@ void AckSyncResponse::InternalSwap(AckSyncResponse* other) {
 
 // ===================================================================
 
-class ReconnectPackage::_Internal {
+class ConnectResponsePackage::_Internal {
  public:
 };
 
-ReconnectPackage::ReconnectPackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ConnectResponsePackage::ConnectResponsePackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:AckSyncPackage.ReconnectPackage)
+  // @@protoc_insertion_point(arena_constructor:AckSyncPackage.ConnectResponsePackage)
 }
-ReconnectPackage::ReconnectPackage(const ReconnectPackage& from)
+ConnectResponsePackage::ConnectResponsePackage(const ConnectResponsePackage& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  ReconnectPackage* const _this = this; (void)_this;
+  ConnectResponsePackage* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.clientid_){}
+      decltype(_impl_.content_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.clientid_ = from._impl_.clientid_;
-  // @@protoc_insertion_point(copy_constructor:AckSyncPackage.ReconnectPackage)
+  _impl_.content_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.content_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_content().empty()) {
+    _this->_impl_.content_.Set(from._internal_content(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:AckSyncPackage.ConnectResponsePackage)
 }
 
-inline void ReconnectPackage::SharedCtor(
+inline void ConnectResponsePackage::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.clientid_){0u}
+      decltype(_impl_.content_){}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.content_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.content_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-ReconnectPackage::~ReconnectPackage() {
-  // @@protoc_insertion_point(destructor:AckSyncPackage.ReconnectPackage)
+ConnectResponsePackage::~ConnectResponsePackage() {
+  // @@protoc_insertion_point(destructor:AckSyncPackage.ConnectResponsePackage)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -1226,35 +1238,38 @@ ReconnectPackage::~ReconnectPackage() {
   SharedDtor();
 }
 
-inline void ReconnectPackage::SharedDtor() {
+inline void ConnectResponsePackage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.content_.Destroy();
 }
 
-void ReconnectPackage::SetCachedSize(int size) const {
+void ConnectResponsePackage::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void ReconnectPackage::Clear() {
-// @@protoc_insertion_point(message_clear_start:AckSyncPackage.ReconnectPackage)
+void ConnectResponsePackage::Clear() {
+// @@protoc_insertion_point(message_clear_start:AckSyncPackage.ConnectResponsePackage)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.clientid_ = 0u;
+  _impl_.content_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ReconnectPackage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ConnectResponsePackage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 clientID = 1;
+      // string content = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.clientid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_content();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "AckSyncPackage.ConnectResponsePackage.content"));
         } else
           goto handle_unusual;
         continue;
@@ -1281,81 +1296,92 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ReconnectPackage::_InternalSerialize(
+uint8_t* ConnectResponsePackage::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:AckSyncPackage.ReconnectPackage)
+  // @@protoc_insertion_point(serialize_to_array_start:AckSyncPackage.ConnectResponsePackage)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 clientID = 1;
-  if (this->_internal_clientid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_clientid(), target);
+  // string content = 1;
+  if (!this->_internal_content().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_content().data(), static_cast<int>(this->_internal_content().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "AckSyncPackage.ConnectResponsePackage.content");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_content(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:AckSyncPackage.ReconnectPackage)
+  // @@protoc_insertion_point(serialize_to_array_end:AckSyncPackage.ConnectResponsePackage)
   return target;
 }
 
-size_t ReconnectPackage::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:AckSyncPackage.ReconnectPackage)
+size_t ConnectResponsePackage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:AckSyncPackage.ConnectResponsePackage)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint32 clientID = 1;
-  if (this->_internal_clientid() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_clientid());
+  // string content = 1;
+  if (!this->_internal_content().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_content());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ReconnectPackage::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ConnectResponsePackage::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    ReconnectPackage::MergeImpl
+    ConnectResponsePackage::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ReconnectPackage::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ConnectResponsePackage::GetClassData() const { return &_class_data_; }
 
 
-void ReconnectPackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<ReconnectPackage*>(&to_msg);
-  auto& from = static_cast<const ReconnectPackage&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:AckSyncPackage.ReconnectPackage)
+void ConnectResponsePackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ConnectResponsePackage*>(&to_msg);
+  auto& from = static_cast<const ConnectResponsePackage&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:AckSyncPackage.ConnectResponsePackage)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_clientid() != 0) {
-    _this->_internal_set_clientid(from._internal_clientid());
+  if (!from._internal_content().empty()) {
+    _this->_internal_set_content(from._internal_content());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void ReconnectPackage::CopyFrom(const ReconnectPackage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:AckSyncPackage.ReconnectPackage)
+void ConnectResponsePackage::CopyFrom(const ConnectResponsePackage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:AckSyncPackage.ConnectResponsePackage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ReconnectPackage::IsInitialized() const {
+bool ConnectResponsePackage::IsInitialized() const {
   return true;
 }
 
-void ReconnectPackage::InternalSwap(ReconnectPackage* other) {
+void ConnectResponsePackage::InternalSwap(ConnectResponsePackage* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.clientid_, other->_impl_.clientid_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.content_, lhs_arena,
+      &other->_impl_.content_, rhs_arena
+  );
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ReconnectPackage::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ConnectResponsePackage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_AckSyncPackage_2eproto_getter, &descriptor_table_AckSyncPackage_2eproto_once,
       file_level_metadata_AckSyncPackage_2eproto[4]);
@@ -1372,17 +1398,17 @@ template<> PROTOBUF_NOINLINE ::AckSyncPackage::HeartBeatPackage*
 Arena::CreateMaybeMessage< ::AckSyncPackage::HeartBeatPackage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::AckSyncPackage::HeartBeatPackage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::AckSyncPackage::ConnectPackage*
-Arena::CreateMaybeMessage< ::AckSyncPackage::ConnectPackage >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::AckSyncPackage::ConnectPackage >(arena);
+template<> PROTOBUF_NOINLINE ::AckSyncPackage::ConnectRequestPackage*
+Arena::CreateMaybeMessage< ::AckSyncPackage::ConnectRequestPackage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::AckSyncPackage::ConnectRequestPackage >(arena);
 }
 template<> PROTOBUF_NOINLINE ::AckSyncPackage::AckSyncResponse*
 Arena::CreateMaybeMessage< ::AckSyncPackage::AckSyncResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::AckSyncPackage::AckSyncResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::AckSyncPackage::ReconnectPackage*
-Arena::CreateMaybeMessage< ::AckSyncPackage::ReconnectPackage >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::AckSyncPackage::ReconnectPackage >(arena);
+template<> PROTOBUF_NOINLINE ::AckSyncPackage::ConnectResponsePackage*
+Arena::CreateMaybeMessage< ::AckSyncPackage::ConnectResponsePackage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::AckSyncPackage::ConnectResponsePackage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

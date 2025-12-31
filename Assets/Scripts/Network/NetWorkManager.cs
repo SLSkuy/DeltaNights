@@ -146,14 +146,14 @@ namespace Network
                 EventID = LocalSyncEvent.AckRequest,
                 AckSync = new AckSyncRequest
                 {
-                    EventID = LocalAckEvent.Connect,
-                    Connect = new ConnectPackage
+                    EventID = LocalAckEvent.ConnectRequest,
+                    Connect = new ConnectRequestPackage
                     {
                         Port = _udp.UdpPort
                     }
                 }
             };
-            _udp.EnqueueSendProtobuf(syncPackage);
+            // 发送连接服务器请求
             _tcp.EnqueueSendProtobuf(syncPackage);
         }
 

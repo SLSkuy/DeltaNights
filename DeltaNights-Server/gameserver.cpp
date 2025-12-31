@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.30
+ *  LastUpdate: 2025.12.31
  *
  *  功能：
  *  - 封装服务器所有核心模块
@@ -71,6 +71,7 @@ void GameServer::setupConnections()
     connect(_dispatcher,&NetworkDispatcher::clientConnect,_clientMgr,&ClientManager::createNewClient);
     connect(_dispatcher,&NetworkDispatcher::clientBindUdpPort,_clientMgr,&ClientManager::clientBindUdpPort);
     connect(_dispatcher,&NetworkDispatcher::clientHeartBeat,_clientMgr,&ClientManager::updateClientLastActive);
+    connect(_clientMgr,&ClientManager::clientConnectResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
 
     // 服务器逻辑更新
     connect(_logicTimer,&QTimer::timeout,_dispatcher,&NetworkDispatcher::processQueueMessage);

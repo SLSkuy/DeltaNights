@@ -10,9 +10,10 @@ namespace Network
 {
     /// <summary>
     /// 服务端发送回来的事件类型
+    /// 对应与Protobuf-Response包中的各种枚举类型
     /// </summary>
     public enum NetEvent
     {
-        Reconnect
+        ConnectResponse
     }
 }

@@ -42,6 +42,18 @@ void ClientManager::createNewClient(QTcpSocket* socket)
     Logger::Info() << "[ClientManager]: New client connect from "
                    << socket->peerAddress().toString()
                    << ":" << socket->peerPort();
+
+    // 创建回复Protobuf包
+    using namespace SyncPackage;
+    RemoteSyncPackage response;
+    response.set_eventid(RemoteSyncEvent::AckResponse);
+    auto* type = response.mutable_acksync();
+    type->set_eventid(AckSyncPackage::RemoteAckEvent::ConnectResponse);
+    auto* connectResponsePkg = type->mutable_connectresponse();
+    connectResponsePkg->set_content(QString("服务器连接成功").toStdString());
+
+    // 触发连接回复信号
+    emit clientConnectResponse(socket, response);
 }
 
 void ClientManager::clientBindUdpPort(QTcpSocket* socket, quint16 port)

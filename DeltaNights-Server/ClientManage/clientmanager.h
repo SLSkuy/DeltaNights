@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.30
+ *  LastUpdate: 2025.12.31
  *
  *  客户端管理
  *  维护所有客户端的连接
@@ -13,6 +13,8 @@
 #include <QHostAddress>
 #include <unordered_map>
 #include <QTcpSocket>
+
+#include "../GameEvent/SyncPackage.pb.h"
 
 class ClientInfo;
 
@@ -31,6 +33,9 @@ public:
     // ===== 超时处理 =====
     void updateClientLastActive(QTcpSocket* socket);
     void removeTimeoutClients();
+
+signals:
+    void clientConnectResponse(QTcpSocket* socket, const SyncPackage::RemoteSyncPackage& pkg);
 
 private:
     bool removeClientById(quint32 clientId);
