@@ -60,13 +60,13 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace LobbySyncPackage {
 
 enum LocalLobbyEvent : int {
-  LoginRequest = 0,
+  Local_Lobby_None = 0,
   LocalLobbyEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   LocalLobbyEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool LocalLobbyEvent_IsValid(int value);
-constexpr LocalLobbyEvent LocalLobbyEvent_MIN = LoginRequest;
-constexpr LocalLobbyEvent LocalLobbyEvent_MAX = LoginRequest;
+constexpr LocalLobbyEvent LocalLobbyEvent_MIN = Local_Lobby_None;
+constexpr LocalLobbyEvent LocalLobbyEvent_MAX = Local_Lobby_None;
 constexpr int LocalLobbyEvent_ARRAYSIZE = LocalLobbyEvent_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LocalLobbyEvent_descriptor();
@@ -84,13 +84,13 @@ inline bool LocalLobbyEvent_Parse(
     LocalLobbyEvent_descriptor(), name, value);
 }
 enum RemoteLobbyEvent : int {
-  LoginResponse = 0,
+  Remote_Lobby_None = 0,
   RemoteLobbyEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RemoteLobbyEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RemoteLobbyEvent_IsValid(int value);
-constexpr RemoteLobbyEvent RemoteLobbyEvent_MIN = LoginResponse;
-constexpr RemoteLobbyEvent RemoteLobbyEvent_MAX = LoginResponse;
+constexpr RemoteLobbyEvent RemoteLobbyEvent_MIN = Remote_Lobby_None;
+constexpr RemoteLobbyEvent RemoteLobbyEvent_MAX = Remote_Lobby_None;
 constexpr int RemoteLobbyEvent_ARRAYSIZE = RemoteLobbyEvent_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RemoteLobbyEvent_descriptor();

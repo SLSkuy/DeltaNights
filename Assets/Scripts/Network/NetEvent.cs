@@ -14,6 +14,6 @@ namespace Network
     /// </summary>
     public enum NetEvent
     {
-        ConnectResponse
+        ConnectResponse,    // AckSyncPackage - RemoteAckEvent - ConnectResponse事件
     }
 }

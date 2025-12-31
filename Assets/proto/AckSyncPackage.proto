@@ -6,9 +6,10 @@ package AckSyncPackage;
   确认同步请求包事件
 ================================================== */
 enum LocalAckEvent {
-  HeartBeat = 0;
-  ConnectRequest = 1;
-  DisconnectRequest = 2;
+  Local_ACK_None = 0;
+  HeartBeat = 1;
+  ConnectRequest = 2;
+  DisconnectRequest = 3;
 }
 
 // ===== ACK请求包 =====
@@ -34,7 +35,8 @@ message ConnectRequestPackage {
   确认同步回应包事件
 ================================================== */
 enum RemoteAckEvent {
-  ConnectResponse = 0;
+  Remote_ACK_None = 0;
+  ConnectResponse = 1;
 }
 
 // ===== ACK回应包 =====

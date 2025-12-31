@@ -11,16 +11,17 @@ import "AckSyncPackage.proto";
   客户端->服务端同步包汇总
 ================================================== */
 enum LocalSyncEvent {
-  BattleRequest = 0;
-  LobbyRequest = 1;
-  AckRequest = 2;
+  Local_None = 0;
+  BattleRequest = 1;
+  LobbyRequest = 2;
+  AckRequest = 3;
 }
 
 // 客户端发送给服务器的同步包
 message LocalSyncPackage {
   LocalSyncEvent eventID = 1;
   oneof content {
-    BattleSyncPackage.BattleSyncRequest battlePackage = 2;
+    BattleSyncPackage.BattleSyncRequest battleSync = 2;
     LobbySyncPackage.LobbySyncRequest lobbySync = 3;
     AckSyncPackage.AckSyncRequest ackSync = 4;
   }
@@ -30,9 +31,10 @@ message LocalSyncPackage {
   服务端->客户端同步包汇总
 ================================================== */
 enum RemoteSyncEvent {
-  BattleResponse = 0;
-  LobbyResponse = 1;
-  AckResponse = 2;
+  Remote_None = 0;
+  BattleResponse = 1;
+  LobbyResponse = 2;
+  AckResponse = 3;
 }
 
 // 服务器发送给客户端的同步包

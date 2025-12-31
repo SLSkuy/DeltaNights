@@ -93,24 +93,24 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_SyncPackage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\021SyncPackage.proto\022\013SyncPackage\032\027Battle"
   "SyncPackage.proto\032\026LobbySyncPackage.prot"
-  "o\032\024AckSyncPackage.proto\"\366\001\n\020LocalSyncPac"
+  "o\032\024AckSyncPackage.proto\"\363\001\n\020LocalSyncPac"
   "kage\022,\n\007eventID\030\001 \001(\0162\033.SyncPackage.Loca"
-  "lSyncEvent\022=\n\rbattlePackage\030\002 \001(\0132$.Batt"
-  "leSyncPackage.BattleSyncRequestH\000\0227\n\tlob"
-  "bySync\030\003 \001(\0132\".LobbySyncPackage.LobbySyn"
-  "cRequestH\000\0221\n\007ackSync\030\004 \001(\0132\036.AckSyncPac"
-  "kage.AckSyncRequestH\000B\t\n\007content\"\376\001\n\021Rem"
-  "oteSyncPackage\022-\n\007eventID\030\001 \001(\0162\034.SyncPa"
-  "ckage.RemoteSyncEvent\022>\n\rbattlePackage\030\002"
-  " \001(\0132%.BattleSyncPackage.BattleSyncRespo"
-  "nseH\000\022;\n\014lobbyPackage\030\003 \001(\0132#.LobbySyncP"
-  "ackage.LobbySyncResponseH\000\0222\n\007ackSync\030\004 "
-  "\001(\0132\037.AckSyncPackage.AckSyncResponseH\000B\t"
-  "\n\007content*E\n\016LocalSyncEvent\022\021\n\rBattleReq"
-  "uest\020\000\022\020\n\014LobbyRequest\020\001\022\016\n\nAckRequest\020\002"
-  "*I\n\017RemoteSyncEvent\022\022\n\016BattleResponse\020\000\022"
-  "\021\n\rLobbyResponse\020\001\022\017\n\013AckResponse\020\002b\006pro"
-  "to3"
+  "lSyncEvent\022:\n\nbattleSync\030\002 \001(\0132$.BattleS"
+  "yncPackage.BattleSyncRequestH\000\0227\n\tlobbyS"
+  "ync\030\003 \001(\0132\".LobbySyncPackage.LobbySyncRe"
+  "questH\000\0221\n\007ackSync\030\004 \001(\0132\036.AckSyncPackag"
+  "e.AckSyncRequestH\000B\t\n\007content\"\376\001\n\021Remote"
+  "SyncPackage\022-\n\007eventID\030\001 \001(\0162\034.SyncPacka"
+  "ge.RemoteSyncEvent\022>\n\rbattlePackage\030\002 \001("
+  "\0132%.BattleSyncPackage.BattleSyncResponse"
+  "H\000\022;\n\014lobbyPackage\030\003 \001(\0132#.LobbySyncPack"
+  "age.LobbySyncResponseH\000\0222\n\007ackSync\030\004 \001(\013"
+  "2\037.AckSyncPackage.AckSyncResponseH\000B\t\n\007c"
+  "ontent*U\n\016LocalSyncEvent\022\016\n\nLocal_None\020\000"
+  "\022\021\n\rBattleRequest\020\001\022\020\n\014LobbyRequest\020\002\022\016\n"
+  "\nAckRequest\020\003*Z\n\017RemoteSyncEvent\022\017\n\013Remo"
+  "te_None\020\000\022\022\n\016BattleResponse\020\001\022\021\n\rLobbyRe"
+  "sponse\020\002\022\017\n\013AckResponse\020\003b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_SyncPackage_2eproto_deps[3] = {
   &::descriptor_table_AckSyncPackage_2eproto,
@@ -119,7 +119,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_SyncPackage_2eproto
 };
 static ::_pbi::once_flag descriptor_table_SyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_SyncPackage_2eproto = {
-    false, false, 763, descriptor_table_protodef_SyncPackage_2eproto,
+    false, false, 793, descriptor_table_protodef_SyncPackage_2eproto,
     "SyncPackage.proto",
     &descriptor_table_SyncPackage_2eproto_once, descriptor_table_SyncPackage_2eproto_deps, 3, 2,
     schemas, file_default_instances, TableStruct_SyncPackage_2eproto::offsets,
@@ -142,6 +142,7 @@ bool LocalSyncEvent_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -157,6 +158,7 @@ bool RemoteSyncEvent_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -168,14 +170,14 @@ bool RemoteSyncEvent_IsValid(int value) {
 
 class LocalSyncPackage::_Internal {
  public:
-  static const ::BattleSyncPackage::BattleSyncRequest& battlepackage(const LocalSyncPackage* msg);
+  static const ::BattleSyncPackage::BattleSyncRequest& battlesync(const LocalSyncPackage* msg);
   static const ::LobbySyncPackage::LobbySyncRequest& lobbysync(const LocalSyncPackage* msg);
   static const ::AckSyncPackage::AckSyncRequest& acksync(const LocalSyncPackage* msg);
 };
 
 const ::BattleSyncPackage::BattleSyncRequest&
-LocalSyncPackage::_Internal::battlepackage(const LocalSyncPackage* msg) {
-  return *msg->_impl_.content_.battlepackage_;
+LocalSyncPackage::_Internal::battlesync(const LocalSyncPackage* msg) {
+  return *msg->_impl_.content_.battlesync_;
 }
 const ::LobbySyncPackage::LobbySyncRequest&
 LocalSyncPackage::_Internal::lobbysync(const LocalSyncPackage* msg) {
@@ -185,26 +187,26 @@ const ::AckSyncPackage::AckSyncRequest&
 LocalSyncPackage::_Internal::acksync(const LocalSyncPackage* msg) {
   return *msg->_impl_.content_.acksync_;
 }
-void LocalSyncPackage::set_allocated_battlepackage(::BattleSyncPackage::BattleSyncRequest* battlepackage) {
+void LocalSyncPackage::set_allocated_battlesync(::BattleSyncPackage::BattleSyncRequest* battlesync) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_content();
-  if (battlepackage) {
+  if (battlesync) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
         ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(battlepackage));
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(battlesync));
     if (message_arena != submessage_arena) {
-      battlepackage = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, battlepackage, submessage_arena);
+      battlesync = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, battlesync, submessage_arena);
     }
-    set_has_battlepackage();
-    _impl_.content_.battlepackage_ = battlepackage;
+    set_has_battlesync();
+    _impl_.content_.battlesync_ = battlesync;
   }
-  // @@protoc_insertion_point(field_set_allocated:SyncPackage.LocalSyncPackage.battlePackage)
+  // @@protoc_insertion_point(field_set_allocated:SyncPackage.LocalSyncPackage.battleSync)
 }
-void LocalSyncPackage::clear_battlepackage() {
-  if (_internal_has_battlepackage()) {
+void LocalSyncPackage::clear_battlesync() {
+  if (_internal_has_battlesync()) {
     if (GetArenaForAllocation() == nullptr) {
-      delete _impl_.content_.battlepackage_;
+      delete _impl_.content_.battlesync_;
     }
     clear_has_content();
   }
@@ -276,9 +278,9 @@ LocalSyncPackage::LocalSyncPackage(const LocalSyncPackage& from)
   _this->_impl_.eventid_ = from._impl_.eventid_;
   clear_has_content();
   switch (from.content_case()) {
-    case kBattlePackage: {
-      _this->_internal_mutable_battlepackage()->::BattleSyncPackage::BattleSyncRequest::MergeFrom(
-          from._internal_battlepackage());
+    case kBattleSync: {
+      _this->_internal_mutable_battlesync()->::BattleSyncPackage::BattleSyncRequest::MergeFrom(
+          from._internal_battlesync());
       break;
     }
     case kLobbySync: {
@@ -334,9 +336,9 @@ void LocalSyncPackage::SetCachedSize(int size) const {
 void LocalSyncPackage::clear_content() {
 // @@protoc_insertion_point(one_of_clear_start:SyncPackage.LocalSyncPackage)
   switch (content_case()) {
-    case kBattlePackage: {
+    case kBattleSync: {
       if (GetArenaForAllocation() == nullptr) {
-        delete _impl_.content_.battlepackage_;
+        delete _impl_.content_.battlesync_;
       }
       break;
     }
@@ -386,10 +388,10 @@ const char* LocalSyncPackage::_InternalParse(const char* ptr, ::_pbi::ParseConte
         } else
           goto handle_unusual;
         continue;
-      // .BattleSyncPackage.BattleSyncRequest battlePackage = 2;
+      // .BattleSyncPackage.BattleSyncRequest battleSync = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_battlepackage(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_battlesync(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -446,11 +448,11 @@ uint8_t* LocalSyncPackage::_InternalSerialize(
       1, this->_internal_eventid(), target);
   }
 
-  // .BattleSyncPackage.BattleSyncRequest battlePackage = 2;
-  if (_internal_has_battlepackage()) {
+  // .BattleSyncPackage.BattleSyncRequest battleSync = 2;
+  if (_internal_has_battlesync()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::battlepackage(this),
-        _Internal::battlepackage(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(2, _Internal::battlesync(this),
+        _Internal::battlesync(this).GetCachedSize(), target, stream);
   }
 
   // .LobbySyncPackage.LobbySyncRequest lobbySync = 3;
@@ -490,11 +492,11 @@ size_t LocalSyncPackage::ByteSizeLong() const {
   }
 
   switch (content_case()) {
-    // .BattleSyncPackage.BattleSyncRequest battlePackage = 2;
-    case kBattlePackage: {
+    // .BattleSyncPackage.BattleSyncRequest battleSync = 2;
+    case kBattleSync: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.content_.battlepackage_);
+          *_impl_.content_.battlesync_);
       break;
     }
     // .LobbySyncPackage.LobbySyncRequest lobbySync = 3;
@@ -537,9 +539,9 @@ void LocalSyncPackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
     _this->_internal_set_eventid(from._internal_eventid());
   }
   switch (from.content_case()) {
-    case kBattlePackage: {
-      _this->_internal_mutable_battlepackage()->::BattleSyncPackage::BattleSyncRequest::MergeFrom(
-          from._internal_battlepackage());
+    case kBattleSync: {
+      _this->_internal_mutable_battlesync()->::BattleSyncPackage::BattleSyncRequest::MergeFrom(
+          from._internal_battlesync());
       break;
     }
     case kLobbySync: {

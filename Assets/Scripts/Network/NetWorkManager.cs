@@ -24,6 +24,7 @@ using SyncPackage;
 using UnityEngine;
 using System;
 using Google.Protobuf;
+using Network.ProtoTools;
 
 namespace Network
 {
@@ -141,20 +142,20 @@ namespace Network
 
         void Start()
         {
-            LocalSyncPackage syncPackage = new LocalSyncPackage
+            // 使用对象池管理Protobuf对象，避免频繁的创建与销毁
+            LocalSyncPackage syncPackage = ProtoPool.NewLocalSyncPackage();
+            syncPackage.EventID = LocalSyncEvent.AckRequest;
+            syncPackage.AckSync = new AckSyncRequest
             {
-                EventID = LocalSyncEvent.AckRequest,
-                AckSync = new AckSyncRequest
+                EventID = LocalAckEvent.ConnectRequest,
+                Connect = new ConnectRequestPackage
                 {
-                    EventID = LocalAckEvent.ConnectRequest,
-                    Connect = new ConnectRequestPackage
-                    {
-                        Port = _udp.UdpPort
-                    }
+                    Port = _udp.UdpPort
                 }
             };
             // 发送连接服务器请求
             _tcp.EnqueueSendProtobuf(syncPackage);
+            syncPackage.Dispose();  // 返回对象池
         }
 
         void Update()

@@ -35,9 +35,10 @@ namespace AckSyncPackage {
             "LlJlbW90ZUFja0V2ZW50EkEKD2Nvbm5lY3RSZXNwb25zZRgCIAEoCzImLkFj",
             "a1N5bmNQYWNrYWdlLkNvbm5lY3RSZXNwb25zZVBhY2thZ2VIAEIJCgdjb250",
             "ZW50IikKFkNvbm5lY3RSZXNwb25zZVBhY2thZ2USDwoHY29udGVudBgBIAEo",
-            "CSpJCg1Mb2NhbEFja0V2ZW50Eg0KCUhlYXJ0QmVhdBAAEhIKDkNvbm5lY3RS",
-            "ZXF1ZXN0EAESFQoRRGlzY29ubmVjdFJlcXVlc3QQAiolCg5SZW1vdGVBY2tF",
-            "dmVudBITCg9Db25uZWN0UmVzcG9uc2UQAGIGcHJvdG8z"));
+            "CSpdCg1Mb2NhbEFja0V2ZW50EhIKDkxvY2FsX0FDS19Ob25lEAASDQoJSGVh",
+            "cnRCZWF0EAESEgoOQ29ubmVjdFJlcXVlc3QQAhIVChFEaXNjb25uZWN0UmVx",
+            "dWVzdBADKjoKDlJlbW90ZUFja0V2ZW50EhMKD1JlbW90ZV9BQ0tfTm9uZRAA",
+            "EhMKD0Nvbm5lY3RSZXNwb25zZRABYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::AckSyncPackage.LocalAckEvent), typeof(global::AckSyncPackage.RemoteAckEvent), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -58,9 +59,10 @@ namespace AckSyncPackage {
   ///================================================== 
   /// </summary>
   public enum LocalAckEvent {
-    [pbr::OriginalName("HeartBeat")] HeartBeat = 0,
-    [pbr::OriginalName("ConnectRequest")] ConnectRequest = 1,
-    [pbr::OriginalName("DisconnectRequest")] DisconnectRequest = 2,
+    [pbr::OriginalName("Local_ACK_None")] LocalAckNone = 0,
+    [pbr::OriginalName("HeartBeat")] HeartBeat = 1,
+    [pbr::OriginalName("ConnectRequest")] ConnectRequest = 2,
+    [pbr::OriginalName("DisconnectRequest")] DisconnectRequest = 3,
   }
 
   /// <summary>
@@ -69,7 +71,8 @@ namespace AckSyncPackage {
   ///================================================== 
   /// </summary>
   public enum RemoteAckEvent {
-    [pbr::OriginalName("ConnectResponse")] ConnectResponse = 0,
+    [pbr::OriginalName("Remote_ACK_None")] RemoteAckNone = 0,
+    [pbr::OriginalName("ConnectResponse")] ConnectResponse = 1,
   }
 
   #endregion
@@ -133,7 +136,7 @@ namespace AckSyncPackage {
 
     /// <summary>Field number for the "eventID" field.</summary>
     public const int EventIDFieldNumber = 1;
-    private global::AckSyncPackage.LocalAckEvent eventID_ = global::AckSyncPackage.LocalAckEvent.HeartBeat;
+    private global::AckSyncPackage.LocalAckEvent eventID_ = global::AckSyncPackage.LocalAckEvent.LocalAckNone;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::AckSyncPackage.LocalAckEvent EventID {
@@ -214,7 +217,7 @@ namespace AckSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EventID != global::AckSyncPackage.LocalAckEvent.HeartBeat) hash ^= EventID.GetHashCode();
+      if (EventID != global::AckSyncPackage.LocalAckEvent.LocalAckNone) hash ^= EventID.GetHashCode();
       if (contentCase_ == ContentOneofCase.HeartBeat) hash ^= HeartBeat.GetHashCode();
       if (contentCase_ == ContentOneofCase.Connect) hash ^= Connect.GetHashCode();
       hash ^= (int) contentCase_;
@@ -236,7 +239,7 @@ namespace AckSyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EventID != global::AckSyncPackage.LocalAckEvent.HeartBeat) {
+      if (EventID != global::AckSyncPackage.LocalAckEvent.LocalAckNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
@@ -258,7 +261,7 @@ namespace AckSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EventID != global::AckSyncPackage.LocalAckEvent.HeartBeat) {
+      if (EventID != global::AckSyncPackage.LocalAckEvent.LocalAckNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
@@ -280,7 +283,7 @@ namespace AckSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EventID != global::AckSyncPackage.LocalAckEvent.HeartBeat) {
+      if (EventID != global::AckSyncPackage.LocalAckEvent.LocalAckNone) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
       }
       if (contentCase_ == ContentOneofCase.HeartBeat) {
@@ -301,7 +304,7 @@ namespace AckSyncPackage {
       if (other == null) {
         return;
       }
-      if (other.EventID != global::AckSyncPackage.LocalAckEvent.HeartBeat) {
+      if (other.EventID != global::AckSyncPackage.LocalAckEvent.LocalAckNone) {
         EventID = other.EventID;
       }
       switch (other.ContentCase) {
@@ -839,7 +842,7 @@ namespace AckSyncPackage {
 
     /// <summary>Field number for the "eventID" field.</summary>
     public const int EventIDFieldNumber = 1;
-    private global::AckSyncPackage.RemoteAckEvent eventID_ = global::AckSyncPackage.RemoteAckEvent.ConnectResponse;
+    private global::AckSyncPackage.RemoteAckEvent eventID_ = global::AckSyncPackage.RemoteAckEvent.RemoteAckNone;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::AckSyncPackage.RemoteAckEvent EventID {
@@ -906,7 +909,7 @@ namespace AckSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) hash ^= EventID.GetHashCode();
+      if (EventID != global::AckSyncPackage.RemoteAckEvent.RemoteAckNone) hash ^= EventID.GetHashCode();
       if (contentCase_ == ContentOneofCase.ConnectResponse) hash ^= ConnectResponse.GetHashCode();
       hash ^= (int) contentCase_;
       if (_unknownFields != null) {
@@ -927,7 +930,7 @@ namespace AckSyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) {
+      if (EventID != global::AckSyncPackage.RemoteAckEvent.RemoteAckNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
@@ -945,7 +948,7 @@ namespace AckSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) {
+      if (EventID != global::AckSyncPackage.RemoteAckEvent.RemoteAckNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
@@ -963,7 +966,7 @@ namespace AckSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) {
+      if (EventID != global::AckSyncPackage.RemoteAckEvent.RemoteAckNone) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
       }
       if (contentCase_ == ContentOneofCase.ConnectResponse) {
@@ -981,7 +984,7 @@ namespace AckSyncPackage {
       if (other == null) {
         return;
       }
-      if (other.EventID != global::AckSyncPackage.RemoteAckEvent.ConnectResponse) {
+      if (other.EventID != global::AckSyncPackage.RemoteAckEvent.RemoteAckNone) {
         EventID = other.EventID;
       }
       switch (other.ContentCase) {

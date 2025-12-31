@@ -72,14 +72,15 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace AckSyncPackage {
 
 enum LocalAckEvent : int {
-  HeartBeat = 0,
-  ConnectRequest = 1,
-  DisconnectRequest = 2,
+  Local_ACK_None = 0,
+  HeartBeat = 1,
+  ConnectRequest = 2,
+  DisconnectRequest = 3,
   LocalAckEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   LocalAckEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool LocalAckEvent_IsValid(int value);
-constexpr LocalAckEvent LocalAckEvent_MIN = HeartBeat;
+constexpr LocalAckEvent LocalAckEvent_MIN = Local_ACK_None;
 constexpr LocalAckEvent LocalAckEvent_MAX = DisconnectRequest;
 constexpr int LocalAckEvent_ARRAYSIZE = LocalAckEvent_MAX + 1;
 
@@ -98,12 +99,13 @@ inline bool LocalAckEvent_Parse(
     LocalAckEvent_descriptor(), name, value);
 }
 enum RemoteAckEvent : int {
-  ConnectResponse = 0,
+  Remote_ACK_None = 0,
+  ConnectResponse = 1,
   RemoteAckEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RemoteAckEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RemoteAckEvent_IsValid(int value);
-constexpr RemoteAckEvent RemoteAckEvent_MIN = ConnectResponse;
+constexpr RemoteAckEvent RemoteAckEvent_MIN = Remote_ACK_None;
 constexpr RemoteAckEvent RemoteAckEvent_MAX = ConnectResponse;
 constexpr int RemoteAckEvent_ARRAYSIZE = RemoteAckEvent_MAX + 1;
 

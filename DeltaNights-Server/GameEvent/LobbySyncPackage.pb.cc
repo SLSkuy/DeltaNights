@@ -83,13 +83,13 @@ const char descriptor_table_protodef_LobbySyncPackage_2eproto[] PROTOBUF_SECTION
   "ge\"F\n\020LobbySyncRequest\0222\n\007eventID\030\001 \001(\0162"
   "!.LobbySyncPackage.LocalLobbyEvent\"H\n\021Lo"
   "bbySyncResponse\0223\n\007eventID\030\001 \001(\0162\".Lobby"
-  "SyncPackage.RemoteLobbyEvent*#\n\017LocalLob"
-  "byEvent\022\020\n\014LoginRequest\020\000*%\n\020RemoteLobby"
-  "Event\022\021\n\rLoginResponse\020\000b\006proto3"
+  "SyncPackage.RemoteLobbyEvent*\'\n\017LocalLob"
+  "byEvent\022\024\n\020Local_Lobby_None\020\000*)\n\020RemoteL"
+  "obbyEvent\022\025\n\021Remote_Lobby_None\020\000b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_LobbySyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_LobbySyncPackage_2eproto = {
-    false, false, 272, descriptor_table_protodef_LobbySyncPackage_2eproto,
+    false, false, 280, descriptor_table_protodef_LobbySyncPackage_2eproto,
     "LobbySyncPackage.proto",
     &descriptor_table_LobbySyncPackage_2eproto_once, nullptr, 0, 2,
     schemas, file_default_instances, TableStruct_LobbySyncPackage_2eproto::offsets,

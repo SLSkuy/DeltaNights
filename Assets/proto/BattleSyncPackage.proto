@@ -8,7 +8,7 @@ import "UnityMath.proto";
   顶层封装-战局同步包
 ================================================== */
 enum LocalBattleEvent {
-  PlayerInput = 0;
+  Local_Battle_None = 0;
 }
 
 // ===== 本地战局同步请求包 =====
@@ -32,7 +32,7 @@ message PlayerInputCommand {
   顶层封装-战局同步包
 ================================================== */
 enum RemoteBattleEvent {
-  PlayerStateUpdate = 0;
+  Remote_Battle_None = 0;
 }
 
 // ===== 远程战局同步回应包 ======

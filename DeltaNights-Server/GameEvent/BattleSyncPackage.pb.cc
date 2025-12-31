@@ -184,16 +184,16 @@ const char descriptor_table_protodef_BattleSyncPackage_2eproto[] PROTOBUF_SECTIO
   "\005 \001(\0132\023.UnityMath.Vector3D\"f\n\024PlayerConf"
   "irmedInput\022$\n\007moveDir\030\001 \001(\0132\023.UnityMath."
   "Vector2D\022\014\n\004jump\030\002 \001(\010\022\013\n\003yaw\030\003 \001(\002\022\r\n\005p"
-  "itch\030\004 \001(\002*#\n\020LocalBattleEvent\022\017\n\013Player"
-  "Input\020\000**\n\021RemoteBattleEvent\022\025\n\021PlayerSt"
-  "ateUpdate\020\000b\006proto3"
+  "itch\030\004 \001(\002*)\n\020LocalBattleEvent\022\025\n\021Local_"
+  "Battle_None\020\000*+\n\021RemoteBattleEvent\022\026\n\022Re"
+  "mote_Battle_None\020\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_BattleSyncPackage_2eproto_deps[1] = {
   &::descriptor_table_UnityMath_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_BattleSyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_BattleSyncPackage_2eproto = {
-    false, false, 779, descriptor_table_protodef_BattleSyncPackage_2eproto,
+    false, false, 786, descriptor_table_protodef_BattleSyncPackage_2eproto,
     "BattleSyncPackage.proto",
     &descriptor_table_BattleSyncPackage_2eproto_once, descriptor_table_BattleSyncPackage_2eproto_deps, 1, 5,
     schemas, file_default_instances, TableStruct_BattleSyncPackage_2eproto::offsets,

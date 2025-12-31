@@ -73,13 +73,13 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace BattleSyncPackage {
 
 enum LocalBattleEvent : int {
-  PlayerInput = 0,
+  Local_Battle_None = 0,
   LocalBattleEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   LocalBattleEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool LocalBattleEvent_IsValid(int value);
-constexpr LocalBattleEvent LocalBattleEvent_MIN = PlayerInput;
-constexpr LocalBattleEvent LocalBattleEvent_MAX = PlayerInput;
+constexpr LocalBattleEvent LocalBattleEvent_MIN = Local_Battle_None;
+constexpr LocalBattleEvent LocalBattleEvent_MAX = Local_Battle_None;
 constexpr int LocalBattleEvent_ARRAYSIZE = LocalBattleEvent_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LocalBattleEvent_descriptor();
@@ -97,13 +97,13 @@ inline bool LocalBattleEvent_Parse(
     LocalBattleEvent_descriptor(), name, value);
 }
 enum RemoteBattleEvent : int {
-  PlayerStateUpdate = 0,
+  Remote_Battle_None = 0,
   RemoteBattleEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RemoteBattleEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RemoteBattleEvent_IsValid(int value);
-constexpr RemoteBattleEvent RemoteBattleEvent_MIN = PlayerStateUpdate;
-constexpr RemoteBattleEvent RemoteBattleEvent_MAX = PlayerStateUpdate;
+constexpr RemoteBattleEvent RemoteBattleEvent_MIN = Remote_Battle_None;
+constexpr RemoteBattleEvent RemoteBattleEvent_MAX = Remote_Battle_None;
 constexpr int RemoteBattleEvent_ARRAYSIZE = RemoteBattleEvent_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RemoteBattleEvent_descriptor();

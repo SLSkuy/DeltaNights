@@ -26,7 +26,7 @@ namespace Network
         #region 事件处理
 
         /// <summary>
-        /// 注册Protobuf事件
+        /// 注册Protobuf事件处理器
         /// </summary>
         /// <param name="eventId">事件ID</param>
         /// <param name="handler">事件</param>
@@ -38,10 +38,9 @@ namespace Network
         }
 
         /// <summary>
-        /// 注销Protobuf事件
+        /// 注销所有Protobuf事件处理器
         /// </summary>
         /// <param name="eventId">事件ID</param>
-        /// <typeparam name="T">Protobuf事件类型</typeparam>
         public void UnRegister(NetEvent eventId)
         {
             _handlers.Remove(eventId);
@@ -108,11 +107,21 @@ namespace Network
         private void LobbyResponseProcess(LobbySyncResponse response)
         {
             // TODO: 处理Lobby回应消息，此处进行分发相应的网络事件
+            switch (response.EventID)
+            {
+                default:
+                    break;
+            }
         }
 
         private void BattleResponseProcess(BattleSyncResponse response)
         {
             // TODO: 处理Battle回应消息，此处进行分发相应的网络事件
+            switch (response.EventID)
+            {
+                default:
+                    break;
+            }
         }
 
         #endregion

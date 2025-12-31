@@ -166,14 +166,15 @@ const char descriptor_table_protodef_AckSyncPackage_2eproto[] PROTOBUF_SECTION_V
   ".RemoteAckEvent\022A\n\017connectResponse\030\002 \001(\013"
   "2&.AckSyncPackage.ConnectResponsePackage"
   "H\000B\t\n\007content\")\n\026ConnectResponsePackage\022"
-  "\017\n\007content\030\001 \001(\t*I\n\rLocalAckEvent\022\r\n\tHea"
-  "rtBeat\020\000\022\022\n\016ConnectRequest\020\001\022\025\n\021Disconne"
-  "ctRequest\020\002*%\n\016RemoteAckEvent\022\023\n\017Connect"
-  "Response\020\000b\006proto3"
+  "\017\n\007content\030\001 \001(\t*]\n\rLocalAckEvent\022\022\n\016Loc"
+  "al_ACK_None\020\000\022\r\n\tHeartBeat\020\001\022\022\n\016ConnectR"
+  "equest\020\002\022\025\n\021DisconnectRequest\020\003*:\n\016Remot"
+  "eAckEvent\022\023\n\017Remote_ACK_None\020\000\022\023\n\017Connec"
+  "tResponse\020\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_AckSyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_AckSyncPackage_2eproto = {
-    false, false, 618, descriptor_table_protodef_AckSyncPackage_2eproto,
+    false, false, 659, descriptor_table_protodef_AckSyncPackage_2eproto,
     "AckSyncPackage.proto",
     &descriptor_table_AckSyncPackage_2eproto_once, nullptr, 0, 5,
     schemas, file_default_instances, TableStruct_AckSyncPackage_2eproto::offsets,
@@ -196,6 +197,7 @@ bool LocalAckEvent_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -209,6 +211,7 @@ const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RemoteAckEvent_descriptor() {
 bool RemoteAckEvent_IsValid(int value) {
   switch (value) {
     case 0:
+    case 1:
       return true;
     default:
       return false;

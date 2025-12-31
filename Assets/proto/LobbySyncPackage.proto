@@ -6,7 +6,7 @@ package LobbySyncPackage;
   顶层封装-大厅操作请求事件
 ================================================== */
 enum LocalLobbyEvent {
-  LoginRequest = 0;
+  Local_Lobby_None = 0;
 }
 
 // ===== 大厅操作请求包 =====
@@ -18,7 +18,7 @@ message LobbySyncRequest {
   顶层封装-大厅操作回应事件
 ================================================== */
 enum RemoteLobbyEvent {
-  LoginResponse = 0;
+  Remote_Lobby_None = 0;
 }
 
 // ===== 大厅操作回应包 =====

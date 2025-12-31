@@ -173,6 +173,7 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
             break;
     }
 }
+
 /* ============================================================
  * UDP消息处理
 ============================================================ */
@@ -194,7 +195,7 @@ void NetworkDispatcher::handleUdpPackage(const QHostAddress& addr, quint16 port,
             handleUdpAckPackage(addr, port, pkg.acksync());
             break;
         case LocalSyncEvent::BattleRequest:
-            handleUdpBattlePackage(addr, port, pkg.battlepackage());
+            handleUdpBattlePackage(addr, port, pkg.battlesync());
             break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown UDP package type:" << pkg.eventid();

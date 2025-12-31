@@ -63,14 +63,15 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace SyncPackage {
 
 enum LocalSyncEvent : int {
-  BattleRequest = 0,
-  LobbyRequest = 1,
-  AckRequest = 2,
+  Local_None = 0,
+  BattleRequest = 1,
+  LobbyRequest = 2,
+  AckRequest = 3,
   LocalSyncEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   LocalSyncEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool LocalSyncEvent_IsValid(int value);
-constexpr LocalSyncEvent LocalSyncEvent_MIN = BattleRequest;
+constexpr LocalSyncEvent LocalSyncEvent_MIN = Local_None;
 constexpr LocalSyncEvent LocalSyncEvent_MAX = AckRequest;
 constexpr int LocalSyncEvent_ARRAYSIZE = LocalSyncEvent_MAX + 1;
 
@@ -89,14 +90,15 @@ inline bool LocalSyncEvent_Parse(
     LocalSyncEvent_descriptor(), name, value);
 }
 enum RemoteSyncEvent : int {
-  BattleResponse = 0,
-  LobbyResponse = 1,
-  AckResponse = 2,
+  Remote_None = 0,
+  BattleResponse = 1,
+  LobbyResponse = 2,
+  AckResponse = 3,
   RemoteSyncEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RemoteSyncEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RemoteSyncEvent_IsValid(int value);
-constexpr RemoteSyncEvent RemoteSyncEvent_MIN = BattleResponse;
+constexpr RemoteSyncEvent RemoteSyncEvent_MIN = Remote_None;
 constexpr RemoteSyncEvent RemoteSyncEvent_MAX = AckResponse;
 constexpr int RemoteSyncEvent_ARRAYSIZE = RemoteSyncEvent_MAX + 1;
 
@@ -160,7 +162,7 @@ class LocalSyncPackage final :
     return *internal_default_instance();
   }
   enum ContentCase {
-    kBattlePackage = 2,
+    kBattleSync = 2,
     kLobbySync = 3,
     kAckSync = 4,
     CONTENT_NOT_SET = 0,
@@ -245,7 +247,7 @@ class LocalSyncPackage final :
 
   enum : int {
     kEventIDFieldNumber = 1,
-    kBattlePackageFieldNumber = 2,
+    kBattleSyncFieldNumber = 2,
     kLobbySyncFieldNumber = 3,
     kAckSyncFieldNumber = 4,
   };
@@ -258,23 +260,23 @@ class LocalSyncPackage final :
   void _internal_set_eventid(::SyncPackage::LocalSyncEvent value);
   public:
 
-  // .BattleSyncPackage.BattleSyncRequest battlePackage = 2;
-  bool has_battlepackage() const;
+  // .BattleSyncPackage.BattleSyncRequest battleSync = 2;
+  bool has_battlesync() const;
   private:
-  bool _internal_has_battlepackage() const;
+  bool _internal_has_battlesync() const;
   public:
-  void clear_battlepackage();
-  const ::BattleSyncPackage::BattleSyncRequest& battlepackage() const;
-  PROTOBUF_NODISCARD ::BattleSyncPackage::BattleSyncRequest* release_battlepackage();
-  ::BattleSyncPackage::BattleSyncRequest* mutable_battlepackage();
-  void set_allocated_battlepackage(::BattleSyncPackage::BattleSyncRequest* battlepackage);
+  void clear_battlesync();
+  const ::BattleSyncPackage::BattleSyncRequest& battlesync() const;
+  PROTOBUF_NODISCARD ::BattleSyncPackage::BattleSyncRequest* release_battlesync();
+  ::BattleSyncPackage::BattleSyncRequest* mutable_battlesync();
+  void set_allocated_battlesync(::BattleSyncPackage::BattleSyncRequest* battlesync);
   private:
-  const ::BattleSyncPackage::BattleSyncRequest& _internal_battlepackage() const;
-  ::BattleSyncPackage::BattleSyncRequest* _internal_mutable_battlepackage();
+  const ::BattleSyncPackage::BattleSyncRequest& _internal_battlesync() const;
+  ::BattleSyncPackage::BattleSyncRequest* _internal_mutable_battlesync();
   public:
-  void unsafe_arena_set_allocated_battlepackage(
-      ::BattleSyncPackage::BattleSyncRequest* battlepackage);
-  ::BattleSyncPackage::BattleSyncRequest* unsafe_arena_release_battlepackage();
+  void unsafe_arena_set_allocated_battlesync(
+      ::BattleSyncPackage::BattleSyncRequest* battlesync);
+  ::BattleSyncPackage::BattleSyncRequest* unsafe_arena_release_battlesync();
 
   // .LobbySyncPackage.LobbySyncRequest lobbySync = 3;
   bool has_lobbysync() const;
@@ -317,7 +319,7 @@ class LocalSyncPackage final :
   // @@protoc_insertion_point(class_scope:SyncPackage.LocalSyncPackage)
  private:
   class _Internal;
-  void set_has_battlepackage();
+  void set_has_battlesync();
   void set_has_lobbysync();
   void set_has_acksync();
 
@@ -332,7 +334,7 @@ class LocalSyncPackage final :
     union ContentUnion {
       constexpr ContentUnion() : _constinit_{} {}
         ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-      ::BattleSyncPackage::BattleSyncRequest* battlepackage_;
+      ::BattleSyncPackage::BattleSyncRequest* battlesync_;
       ::LobbySyncPackage::LobbySyncRequest* lobbysync_;
       ::AckSyncPackage::AckSyncRequest* acksync_;
     } content_;
@@ -603,69 +605,69 @@ inline void LocalSyncPackage::set_eventid(::SyncPackage::LocalSyncEvent value) {
   // @@protoc_insertion_point(field_set:SyncPackage.LocalSyncPackage.eventID)
 }
 
-// .BattleSyncPackage.BattleSyncRequest battlePackage = 2;
-inline bool LocalSyncPackage::_internal_has_battlepackage() const {
-  return content_case() == kBattlePackage;
+// .BattleSyncPackage.BattleSyncRequest battleSync = 2;
+inline bool LocalSyncPackage::_internal_has_battlesync() const {
+  return content_case() == kBattleSync;
 }
-inline bool LocalSyncPackage::has_battlepackage() const {
-  return _internal_has_battlepackage();
+inline bool LocalSyncPackage::has_battlesync() const {
+  return _internal_has_battlesync();
 }
-inline void LocalSyncPackage::set_has_battlepackage() {
-  _impl_._oneof_case_[0] = kBattlePackage;
+inline void LocalSyncPackage::set_has_battlesync() {
+  _impl_._oneof_case_[0] = kBattleSync;
 }
-inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::release_battlepackage() {
-  // @@protoc_insertion_point(field_release:SyncPackage.LocalSyncPackage.battlePackage)
-  if (_internal_has_battlepackage()) {
+inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::release_battlesync() {
+  // @@protoc_insertion_point(field_release:SyncPackage.LocalSyncPackage.battleSync)
+  if (_internal_has_battlesync()) {
     clear_has_content();
-    ::BattleSyncPackage::BattleSyncRequest* temp = _impl_.content_.battlepackage_;
+    ::BattleSyncPackage::BattleSyncRequest* temp = _impl_.content_.battlesync_;
     if (GetArenaForAllocation() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
-    _impl_.content_.battlepackage_ = nullptr;
+    _impl_.content_.battlesync_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::BattleSyncPackage::BattleSyncRequest& LocalSyncPackage::_internal_battlepackage() const {
-  return _internal_has_battlepackage()
-      ? *_impl_.content_.battlepackage_
+inline const ::BattleSyncPackage::BattleSyncRequest& LocalSyncPackage::_internal_battlesync() const {
+  return _internal_has_battlesync()
+      ? *_impl_.content_.battlesync_
       : reinterpret_cast< ::BattleSyncPackage::BattleSyncRequest&>(::BattleSyncPackage::_BattleSyncRequest_default_instance_);
 }
-inline const ::BattleSyncPackage::BattleSyncRequest& LocalSyncPackage::battlepackage() const {
-  // @@protoc_insertion_point(field_get:SyncPackage.LocalSyncPackage.battlePackage)
-  return _internal_battlepackage();
+inline const ::BattleSyncPackage::BattleSyncRequest& LocalSyncPackage::battlesync() const {
+  // @@protoc_insertion_point(field_get:SyncPackage.LocalSyncPackage.battleSync)
+  return _internal_battlesync();
 }
-inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::unsafe_arena_release_battlepackage() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:SyncPackage.LocalSyncPackage.battlePackage)
-  if (_internal_has_battlepackage()) {
+inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::unsafe_arena_release_battlesync() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:SyncPackage.LocalSyncPackage.battleSync)
+  if (_internal_has_battlesync()) {
     clear_has_content();
-    ::BattleSyncPackage::BattleSyncRequest* temp = _impl_.content_.battlepackage_;
-    _impl_.content_.battlepackage_ = nullptr;
+    ::BattleSyncPackage::BattleSyncRequest* temp = _impl_.content_.battlesync_;
+    _impl_.content_.battlesync_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void LocalSyncPackage::unsafe_arena_set_allocated_battlepackage(::BattleSyncPackage::BattleSyncRequest* battlepackage) {
+inline void LocalSyncPackage::unsafe_arena_set_allocated_battlesync(::BattleSyncPackage::BattleSyncRequest* battlesync) {
   clear_content();
-  if (battlepackage) {
-    set_has_battlepackage();
-    _impl_.content_.battlepackage_ = battlepackage;
+  if (battlesync) {
+    set_has_battlesync();
+    _impl_.content_.battlesync_ = battlesync;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SyncPackage.LocalSyncPackage.battlePackage)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SyncPackage.LocalSyncPackage.battleSync)
 }
-inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::_internal_mutable_battlepackage() {
-  if (!_internal_has_battlepackage()) {
+inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::_internal_mutable_battlesync() {
+  if (!_internal_has_battlesync()) {
     clear_content();
-    set_has_battlepackage();
-    _impl_.content_.battlepackage_ = CreateMaybeMessage< ::BattleSyncPackage::BattleSyncRequest >(GetArenaForAllocation());
+    set_has_battlesync();
+    _impl_.content_.battlesync_ = CreateMaybeMessage< ::BattleSyncPackage::BattleSyncRequest >(GetArenaForAllocation());
   }
-  return _impl_.content_.battlepackage_;
+  return _impl_.content_.battlesync_;
 }
-inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::mutable_battlepackage() {
-  ::BattleSyncPackage::BattleSyncRequest* _msg = _internal_mutable_battlepackage();
-  // @@protoc_insertion_point(field_mutable:SyncPackage.LocalSyncPackage.battlePackage)
+inline ::BattleSyncPackage::BattleSyncRequest* LocalSyncPackage::mutable_battlesync() {
+  ::BattleSyncPackage::BattleSyncRequest* _msg = _internal_mutable_battlesync();
+  // @@protoc_insertion_point(field_mutable:SyncPackage.LocalSyncPackage.battleSync)
   return _msg;
 }
 

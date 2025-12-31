@@ -39,9 +39,9 @@ namespace BattleSyncPackage {
             "Y3RvcjNEEiYKCWV1bGFBbmdsZRgFIAEoCzITLlVuaXR5TWF0aC5WZWN0b3Iz",
             "RCJmChRQbGF5ZXJDb25maXJtZWRJbnB1dBIkCgdtb3ZlRGlyGAEgASgLMhMu",
             "VW5pdHlNYXRoLlZlY3RvcjJEEgwKBGp1bXAYAiABKAgSCwoDeWF3GAMgASgC",
-            "Eg0KBXBpdGNoGAQgASgCKiMKEExvY2FsQmF0dGxlRXZlbnQSDwoLUGxheWVy",
-            "SW5wdXQQACoqChFSZW1vdGVCYXR0bGVFdmVudBIVChFQbGF5ZXJTdGF0ZVVw",
-            "ZGF0ZRAAYgZwcm90bzM="));
+            "Eg0KBXBpdGNoGAQgASgCKikKEExvY2FsQmF0dGxlRXZlbnQSFQoRTG9jYWxf",
+            "QmF0dGxlX05vbmUQACorChFSZW1vdGVCYXR0bGVFdmVudBIWChJSZW1vdGVf",
+            "QmF0dGxlX05vbmUQAGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::UnityMath.UnityMathReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::BattleSyncPackage.LocalBattleEvent), typeof(global::BattleSyncPackage.RemoteBattleEvent), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -62,7 +62,7 @@ namespace BattleSyncPackage {
   ///================================================== 
   /// </summary>
   public enum LocalBattleEvent {
-    [pbr::OriginalName("PlayerInput")] PlayerInput = 0,
+    [pbr::OriginalName("Local_Battle_None")] LocalBattleNone = 0,
   }
 
   /// <summary>
@@ -71,7 +71,7 @@ namespace BattleSyncPackage {
   ///================================================== 
   /// </summary>
   public enum RemoteBattleEvent {
-    [pbr::OriginalName("PlayerStateUpdate")] PlayerStateUpdate = 0,
+    [pbr::OriginalName("Remote_Battle_None")] RemoteBattleNone = 0,
   }
 
   #endregion
@@ -126,7 +126,7 @@ namespace BattleSyncPackage {
 
     /// <summary>Field number for the "eventID" field.</summary>
     public const int EventIDFieldNumber = 1;
-    private global::BattleSyncPackage.LocalBattleEvent eventID_ = global::BattleSyncPackage.LocalBattleEvent.PlayerInput;
+    private global::BattleSyncPackage.LocalBattleEvent eventID_ = global::BattleSyncPackage.LocalBattleEvent.LocalBattleNone;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::BattleSyncPackage.LocalBattleEvent EventID {
@@ -159,7 +159,7 @@ namespace BattleSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) hash ^= EventID.GetHashCode();
+      if (EventID != global::BattleSyncPackage.LocalBattleEvent.LocalBattleNone) hash ^= EventID.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -178,7 +178,7 @@ namespace BattleSyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) {
+      if (EventID != global::BattleSyncPackage.LocalBattleEvent.LocalBattleNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
@@ -192,7 +192,7 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) {
+      if (EventID != global::BattleSyncPackage.LocalBattleEvent.LocalBattleNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
@@ -206,7 +206,7 @@ namespace BattleSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) {
+      if (EventID != global::BattleSyncPackage.LocalBattleEvent.LocalBattleNone) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
       }
       if (_unknownFields != null) {
@@ -221,7 +221,7 @@ namespace BattleSyncPackage {
       if (other == null) {
         return;
       }
-      if (other.EventID != global::BattleSyncPackage.LocalBattleEvent.PlayerInput) {
+      if (other.EventID != global::BattleSyncPackage.LocalBattleEvent.LocalBattleNone) {
         EventID = other.EventID;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -688,7 +688,7 @@ namespace BattleSyncPackage {
 
     /// <summary>Field number for the "eventID" field.</summary>
     public const int EventIDFieldNumber = 1;
-    private global::BattleSyncPackage.RemoteBattleEvent eventID_ = global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate;
+    private global::BattleSyncPackage.RemoteBattleEvent eventID_ = global::BattleSyncPackage.RemoteBattleEvent.RemoteBattleNone;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::BattleSyncPackage.RemoteBattleEvent EventID {
@@ -721,7 +721,7 @@ namespace BattleSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) hash ^= EventID.GetHashCode();
+      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.RemoteBattleNone) hash ^= EventID.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -740,7 +740,7 @@ namespace BattleSyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) {
+      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.RemoteBattleNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
@@ -754,7 +754,7 @@ namespace BattleSyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) {
+      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.RemoteBattleNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
@@ -768,7 +768,7 @@ namespace BattleSyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) {
+      if (EventID != global::BattleSyncPackage.RemoteBattleEvent.RemoteBattleNone) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
       }
       if (_unknownFields != null) {
@@ -783,7 +783,7 @@ namespace BattleSyncPackage {
       if (other == null) {
         return;
       }
-      if (other.EventID != global::BattleSyncPackage.RemoteBattleEvent.PlayerStateUpdate) {
+      if (other.EventID != global::BattleSyncPackage.RemoteBattleEvent.RemoteBattleNone) {
         EventID = other.EventID;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
