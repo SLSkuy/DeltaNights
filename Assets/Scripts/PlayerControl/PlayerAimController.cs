@@ -207,12 +207,12 @@ namespace PlayerControl
 
         private void OnEnable()
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnDisable()
         {
-            Cursor.lockState = CursorLockMode.None;
+            //Cursor.lockState = CursorLockMode.None;
         }
 
         private void OnDestroy()
