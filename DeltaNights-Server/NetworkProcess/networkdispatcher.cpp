@@ -220,11 +220,5 @@ void NetworkDispatcher::handleUdpBattlePackage(const QHostAddress& addr, quint16
 {
     using namespace BattleSyncPackage;
 
-    // ===== 按子类型分发 =====
-    switch (pkg.eventid())
-    {
-        default:
-            Logger::Warning() << "[NetworkDispatcher] Unknown UDP_Battle package type:" << pkg.eventid();
-            break;
-    }
+    // TODO: 处理战局同步包
 }

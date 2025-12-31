@@ -23,7 +23,14 @@ namespace _pbi = _pb::internal;
 namespace BattleSyncPackage {
 PROTOBUF_CONSTEXPR BattleSyncRequest::BattleSyncRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.eventid_)*/0
+    /*decltype(_impl_.movedir_)*/nullptr
+  , /*decltype(_impl_.position_)*/nullptr
+  , /*decltype(_impl_.eulaangle_)*/nullptr
+  , /*decltype(_impl_.playerid_)*/0u
+  , /*decltype(_impl_.tick_)*/0u
+  , /*decltype(_impl_.jump_)*/false
+  , /*decltype(_impl_.yaw_)*/0
+  , /*decltype(_impl_.pitch_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct BattleSyncRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR BattleSyncRequestDefaultTypeInternal()
@@ -34,26 +41,9 @@ struct BattleSyncRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BattleSyncRequestDefaultTypeInternal _BattleSyncRequest_default_instance_;
-PROTOBUF_CONSTEXPR PlayerInputCommand::PlayerInputCommand(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.input_)*/nullptr
-  , /*decltype(_impl_.position_)*/nullptr
-  , /*decltype(_impl_.eulaangle_)*/nullptr
-  , /*decltype(_impl_.playerid_)*/0u
-  , /*decltype(_impl_.tick_)*/0u
-  , /*decltype(_impl_._cached_size_)*/{}} {}
-struct PlayerInputCommandDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PlayerInputCommandDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~PlayerInputCommandDefaultTypeInternal() {}
-  union {
-    PlayerInputCommand _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerInputCommandDefaultTypeInternal _PlayerInputCommand_default_instance_;
 PROTOBUF_CONSTEXPR BattleSyncResponse::BattleSyncResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.eventid_)*/0
+    /*decltype(_impl_.states_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct BattleSyncResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR BattleSyncResponseDefaultTypeInternal()
@@ -66,11 +56,14 @@ struct BattleSyncResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BattleSyncResponseDefaultTypeInternal _BattleSyncResponse_default_instance_;
 PROTOBUF_CONSTEXPR PlayerState::PlayerState(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.input_)*/nullptr
+    /*decltype(_impl_.movedir_)*/nullptr
   , /*decltype(_impl_.position_)*/nullptr
   , /*decltype(_impl_.eulaangle_)*/nullptr
   , /*decltype(_impl_.playerid_)*/0u
   , /*decltype(_impl_.tick_)*/0u
+  , /*decltype(_impl_.jump_)*/false
+  , /*decltype(_impl_.yaw_)*/0
+  , /*decltype(_impl_.pitch_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PlayerStateDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PlayerStateDefaultTypeInternal()
@@ -81,25 +74,9 @@ struct PlayerStateDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerStateDefaultTypeInternal _PlayerState_default_instance_;
-PROTOBUF_CONSTEXPR PlayerConfirmedInput::PlayerConfirmedInput(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.movedir_)*/nullptr
-  , /*decltype(_impl_.jump_)*/false
-  , /*decltype(_impl_.yaw_)*/0
-  , /*decltype(_impl_.pitch_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
-struct PlayerConfirmedInputDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR PlayerConfirmedInputDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~PlayerConfirmedInputDefaultTypeInternal() {}
-  union {
-    PlayerConfirmedInput _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerConfirmedInputDefaultTypeInternal _PlayerConfirmedInput_default_instance_;
 }  // namespace BattleSyncPackage
-static ::_pb::Metadata file_level_metadata_BattleSyncPackage_2eproto[5];
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_BattleSyncPackage_2eproto[2];
+static ::_pb::Metadata file_level_metadata_BattleSyncPackage_2eproto[3];
+static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_BattleSyncPackage_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_BattleSyncPackage_2eproto = nullptr;
 
 const uint32_t TableStruct_BattleSyncPackage_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -109,25 +86,21 @@ const uint32_t TableStruct_BattleSyncPackage_2eproto::offsets[] PROTOBUF_SECTION
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.eventid_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.playerid_),
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.tick_),
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.input_),
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.position_),
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerInputCommand, _impl_.eulaangle_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.playerid_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.tick_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.movedir_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.jump_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.yaw_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.pitch_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.position_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.eulaangle_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncResponse, _impl_.eventid_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncResponse, _impl_.states_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -136,66 +109,49 @@ const uint32_t TableStruct_BattleSyncPackage_2eproto::offsets[] PROTOBUF_SECTION
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.playerid_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.tick_),
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.input_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.movedir_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.jump_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.yaw_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.pitch_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.position_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.eulaangle_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerConfirmedInput, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerConfirmedInput, _impl_.movedir_),
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerConfirmedInput, _impl_.jump_),
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerConfirmedInput, _impl_.yaw_),
-  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerConfirmedInput, _impl_.pitch_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::BattleSyncPackage::BattleSyncRequest)},
-  { 7, -1, -1, sizeof(::BattleSyncPackage::PlayerInputCommand)},
-  { 18, -1, -1, sizeof(::BattleSyncPackage::BattleSyncResponse)},
-  { 25, -1, -1, sizeof(::BattleSyncPackage::PlayerState)},
-  { 36, -1, -1, sizeof(::BattleSyncPackage::PlayerConfirmedInput)},
+  { 14, -1, -1, sizeof(::BattleSyncPackage::BattleSyncResponse)},
+  { 21, -1, -1, sizeof(::BattleSyncPackage::PlayerState)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::BattleSyncPackage::_BattleSyncRequest_default_instance_._instance,
-  &::BattleSyncPackage::_PlayerInputCommand_default_instance_._instance,
   &::BattleSyncPackage::_BattleSyncResponse_default_instance_._instance,
   &::BattleSyncPackage::_PlayerState_default_instance_._instance,
-  &::BattleSyncPackage::_PlayerConfirmedInput_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_BattleSyncPackage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\027BattleSyncPackage.proto\022\021BattleSyncPac"
-  "kage\032\017UnityMath.proto\"I\n\021BattleSyncReque"
-  "st\0224\n\007eventID\030\001 \001(\0162#.BattleSyncPackage."
-  "LocalBattleEvent\"\273\001\n\022PlayerInputCommand\022"
-  "\020\n\010playerID\030\001 \001(\r\022\014\n\004tick\030\002 \001(\r\0226\n\005input"
-  "\030\003 \001(\0132\'.BattleSyncPackage.PlayerConfirm"
-  "edInput\022%\n\010position\030\004 \001(\0132\023.UnityMath.Ve"
-  "ctor3D\022&\n\teulaAngle\030\005 \001(\0132\023.UnityMath.Ve"
-  "ctor3D\"K\n\022BattleSyncResponse\0225\n\007eventID\030"
-  "\001 \001(\0162$.BattleSyncPackage.RemoteBattleEv"
-  "ent\"\264\001\n\013PlayerState\022\020\n\010playerID\030\001 \001(\r\022\014\n"
-  "\004tick\030\002 \001(\r\0226\n\005input\030\003 \001(\0132\'.BattleSyncP"
-  "ackage.PlayerConfirmedInput\022%\n\010position\030"
-  "\004 \001(\0132\023.UnityMath.Vector3D\022&\n\teulaAngle\030"
-  "\005 \001(\0132\023.UnityMath.Vector3D\"f\n\024PlayerConf"
-  "irmedInput\022$\n\007moveDir\030\001 \001(\0132\023.UnityMath."
-  "Vector2D\022\014\n\004jump\030\002 \001(\010\022\013\n\003yaw\030\003 \001(\002\022\r\n\005p"
-  "itch\030\004 \001(\002*)\n\020LocalBattleEvent\022\025\n\021Local_"
-  "Battle_None\020\000*+\n\021RemoteBattleEvent\022\026\n\022Re"
-  "mote_Battle_None\020\000b\006proto3"
+  "kage\032\017UnityMath.proto\"\322\001\n\021BattleSyncRequ"
+  "est\022\020\n\010playerID\030\001 \001(\r\022\014\n\004tick\030\002 \001(\r\022$\n\007m"
+  "oveDir\030\003 \001(\0132\023.UnityMath.Vector2D\022\014\n\004jum"
+  "p\030\004 \001(\010\022\013\n\003yaw\030\005 \001(\002\022\r\n\005pitch\030\006 \001(\002\022%\n\010p"
+  "osition\030\007 \001(\0132\023.UnityMath.Vector3D\022&\n\teu"
+  "laAngle\030\010 \001(\0132\023.UnityMath.Vector3D\"D\n\022Ba"
+  "ttleSyncResponse\022.\n\006states\030\001 \003(\0132\036.Battl"
+  "eSyncPackage.PlayerState\"\314\001\n\013PlayerState"
+  "\022\020\n\010playerID\030\001 \001(\r\022\014\n\004tick\030\002 \001(\r\022$\n\007move"
+  "Dir\030\003 \001(\0132\023.UnityMath.Vector2D\022\014\n\004jump\030\004"
+  " \001(\010\022\013\n\003yaw\030\005 \001(\002\022\r\n\005pitch\030\006 \001(\002\022%\n\010posi"
+  "tion\030\007 \001(\0132\023.UnityMath.Vector3D\022&\n\teulaA"
+  "ngle\030\010 \001(\0132\023.UnityMath.Vector3Db\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_BattleSyncPackage_2eproto_deps[1] = {
   &::descriptor_table_UnityMath_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_BattleSyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_BattleSyncPackage_2eproto = {
-    false, false, 786, descriptor_table_protodef_BattleSyncPackage_2eproto,
+    false, false, 559, descriptor_table_protodef_BattleSyncPackage_2eproto,
     "BattleSyncPackage.proto",
-    &descriptor_table_BattleSyncPackage_2eproto_once, descriptor_table_BattleSyncPackage_2eproto_deps, 1, 5,
+    &descriptor_table_BattleSyncPackage_2eproto_once, descriptor_table_BattleSyncPackage_2eproto_deps, 1, 3,
     schemas, file_default_instances, TableStruct_BattleSyncPackage_2eproto::offsets,
     file_level_metadata_BattleSyncPackage_2eproto, file_level_enum_descriptors_BattleSyncPackage_2eproto,
     file_level_service_descriptors_BattleSyncPackage_2eproto,
@@ -207,39 +163,46 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_BattleSy
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_BattleSyncPackage_2eproto(&descriptor_table_BattleSyncPackage_2eproto);
 namespace BattleSyncPackage {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LocalBattleEvent_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_BattleSyncPackage_2eproto);
-  return file_level_enum_descriptors_BattleSyncPackage_2eproto[0];
-}
-bool LocalBattleEvent_IsValid(int value) {
-  switch (value) {
-    case 0:
-      return true;
-    default:
-      return false;
-  }
-}
-
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RemoteBattleEvent_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_BattleSyncPackage_2eproto);
-  return file_level_enum_descriptors_BattleSyncPackage_2eproto[1];
-}
-bool RemoteBattleEvent_IsValid(int value) {
-  switch (value) {
-    case 0:
-      return true;
-    default:
-      return false;
-  }
-}
-
 
 // ===================================================================
 
 class BattleSyncRequest::_Internal {
  public:
+  static const ::UnityMath::Vector2D& movedir(const BattleSyncRequest* msg);
+  static const ::UnityMath::Vector3D& position(const BattleSyncRequest* msg);
+  static const ::UnityMath::Vector3D& eulaangle(const BattleSyncRequest* msg);
 };
 
+const ::UnityMath::Vector2D&
+BattleSyncRequest::_Internal::movedir(const BattleSyncRequest* msg) {
+  return *msg->_impl_.movedir_;
+}
+const ::UnityMath::Vector3D&
+BattleSyncRequest::_Internal::position(const BattleSyncRequest* msg) {
+  return *msg->_impl_.position_;
+}
+const ::UnityMath::Vector3D&
+BattleSyncRequest::_Internal::eulaangle(const BattleSyncRequest* msg) {
+  return *msg->_impl_.eulaangle_;
+}
+void BattleSyncRequest::clear_movedir() {
+  if (GetArenaForAllocation() == nullptr && _impl_.movedir_ != nullptr) {
+    delete _impl_.movedir_;
+  }
+  _impl_.movedir_ = nullptr;
+}
+void BattleSyncRequest::clear_position() {
+  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
+    delete _impl_.position_;
+  }
+  _impl_.position_ = nullptr;
+}
+void BattleSyncRequest::clear_eulaangle() {
+  if (GetArenaForAllocation() == nullptr && _impl_.eulaangle_ != nullptr) {
+    delete _impl_.eulaangle_;
+  }
+  _impl_.eulaangle_ = nullptr;
+}
 BattleSyncRequest::BattleSyncRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -250,11 +213,29 @@ BattleSyncRequest::BattleSyncRequest(const BattleSyncRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   BattleSyncRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.eventid_){}
+      decltype(_impl_.movedir_){nullptr}
+    , decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.eulaangle_){nullptr}
+    , decltype(_impl_.playerid_){}
+    , decltype(_impl_.tick_){}
+    , decltype(_impl_.jump_){}
+    , decltype(_impl_.yaw_){}
+    , decltype(_impl_.pitch_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.eventid_ = from._impl_.eventid_;
+  if (from._internal_has_movedir()) {
+    _this->_impl_.movedir_ = new ::UnityMath::Vector2D(*from._impl_.movedir_);
+  }
+  if (from._internal_has_position()) {
+    _this->_impl_.position_ = new ::UnityMath::Vector3D(*from._impl_.position_);
+  }
+  if (from._internal_has_eulaangle()) {
+    _this->_impl_.eulaangle_ = new ::UnityMath::Vector3D(*from._impl_.eulaangle_);
+  }
+  ::memcpy(&_impl_.playerid_, &from._impl_.playerid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.pitch_) -
+    reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.pitch_));
   // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.BattleSyncRequest)
 }
 
@@ -263,7 +244,14 @@ inline void BattleSyncRequest::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.eventid_){0}
+      decltype(_impl_.movedir_){nullptr}
+    , decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.eulaangle_){nullptr}
+    , decltype(_impl_.playerid_){0u}
+    , decltype(_impl_.tick_){0u}
+    , decltype(_impl_.jump_){false}
+    , decltype(_impl_.yaw_){0}
+    , decltype(_impl_.pitch_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -279,6 +267,9 @@ BattleSyncRequest::~BattleSyncRequest() {
 
 inline void BattleSyncRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.movedir_;
+  if (this != internal_default_instance()) delete _impl_.position_;
+  if (this != internal_default_instance()) delete _impl_.eulaangle_;
 }
 
 void BattleSyncRequest::SetCachedSize(int size) const {
@@ -291,7 +282,21 @@ void BattleSyncRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.eventid_ = 0;
+  if (GetArenaForAllocation() == nullptr && _impl_.movedir_ != nullptr) {
+    delete _impl_.movedir_;
+  }
+  _impl_.movedir_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
+    delete _impl_.position_;
+  }
+  _impl_.position_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.eulaangle_ != nullptr) {
+    delete _impl_.eulaangle_;
+  }
+  _impl_.eulaangle_ = nullptr;
+  ::memset(&_impl_.playerid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.pitch_) -
+      reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.pitch_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -301,12 +306,67 @@ const char* BattleSyncRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .BattleSyncPackage.LocalBattleEvent eventID = 1;
+      // uint32 playerID = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.playerid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          _internal_set_eventid(static_cast<::BattleSyncPackage::LocalBattleEvent>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 tick = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.tick_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .UnityMath.Vector2D moveDir = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_movedir(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool jump = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.jump_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float yaw = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
+          _impl_.yaw_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float pitch = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
+          _impl_.pitch_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // .UnityMath.Vector3D position = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .UnityMath.Vector3D eulaAngle = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr = ctx->ParseMessage(_internal_mutable_eulaangle(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -339,11 +399,63 @@ uint8_t* BattleSyncRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .BattleSyncPackage.LocalBattleEvent eventID = 1;
-  if (this->_internal_eventid() != 0) {
+  // uint32 playerID = 1;
+  if (this->_internal_playerid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_eventid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_playerid(), target);
+  }
+
+  // uint32 tick = 2;
+  if (this->_internal_tick() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_tick(), target);
+  }
+
+  // .UnityMath.Vector2D moveDir = 3;
+  if (this->_internal_has_movedir()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::movedir(this),
+        _Internal::movedir(this).GetCachedSize(), target, stream);
+  }
+
+  // bool jump = 4;
+  if (this->_internal_jump() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_jump(), target);
+  }
+
+  // float yaw = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_yaw = this->_internal_yaw();
+  uint32_t raw_yaw;
+  memcpy(&raw_yaw, &tmp_yaw, sizeof(tmp_yaw));
+  if (raw_yaw != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_yaw(), target);
+  }
+
+  // float pitch = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_pitch = this->_internal_pitch();
+  uint32_t raw_pitch;
+  memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
+  if (raw_pitch != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_pitch(), target);
+  }
+
+  // .UnityMath.Vector3D position = 7;
+  if (this->_internal_has_position()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(7, _Internal::position(this),
+        _Internal::position(this).GetCachedSize(), target, stream);
+  }
+
+  // .UnityMath.Vector3D eulaAngle = 8;
+  if (this->_internal_has_eulaangle()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(8, _Internal::eulaangle(this),
+        _Internal::eulaangle(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -362,10 +474,58 @@ size_t BattleSyncRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .BattleSyncPackage.LocalBattleEvent eventID = 1;
-  if (this->_internal_eventid() != 0) {
+  // .UnityMath.Vector2D moveDir = 3;
+  if (this->_internal_has_movedir()) {
     total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_eventid());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.movedir_);
+  }
+
+  // .UnityMath.Vector3D position = 7;
+  if (this->_internal_has_position()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.position_);
+  }
+
+  // .UnityMath.Vector3D eulaAngle = 8;
+  if (this->_internal_has_eulaangle()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.eulaangle_);
+  }
+
+  // uint32 playerID = 1;
+  if (this->_internal_playerid() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_playerid());
+  }
+
+  // uint32 tick = 2;
+  if (this->_internal_tick() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tick());
+  }
+
+  // bool jump = 4;
+  if (this->_internal_jump() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // float yaw = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_yaw = this->_internal_yaw();
+  uint32_t raw_yaw;
+  memcpy(&raw_yaw, &tmp_yaw, sizeof(tmp_yaw));
+  if (raw_yaw != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float pitch = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_pitch = this->_internal_pitch();
+  uint32_t raw_pitch;
+  memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
+  if (raw_pitch != 0) {
+    total_size += 1 + 4;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -386,8 +546,40 @@ void BattleSyncRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_eventid() != 0) {
-    _this->_internal_set_eventid(from._internal_eventid());
+  if (from._internal_has_movedir()) {
+    _this->_internal_mutable_movedir()->::UnityMath::Vector2D::MergeFrom(
+        from._internal_movedir());
+  }
+  if (from._internal_has_position()) {
+    _this->_internal_mutable_position()->::UnityMath::Vector3D::MergeFrom(
+        from._internal_position());
+  }
+  if (from._internal_has_eulaangle()) {
+    _this->_internal_mutable_eulaangle()->::UnityMath::Vector3D::MergeFrom(
+        from._internal_eulaangle());
+  }
+  if (from._internal_playerid() != 0) {
+    _this->_internal_set_playerid(from._internal_playerid());
+  }
+  if (from._internal_tick() != 0) {
+    _this->_internal_set_tick(from._internal_tick());
+  }
+  if (from._internal_jump() != 0) {
+    _this->_internal_set_jump(from._internal_jump());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_yaw = from._internal_yaw();
+  uint32_t raw_yaw;
+  memcpy(&raw_yaw, &tmp_yaw, sizeof(tmp_yaw));
+  if (raw_yaw != 0) {
+    _this->_internal_set_yaw(from._internal_yaw());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_pitch = from._internal_pitch();
+  uint32_t raw_pitch;
+  memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
+  if (raw_pitch != 0) {
+    _this->_internal_set_pitch(from._internal_pitch());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -406,359 +598,18 @@ bool BattleSyncRequest::IsInitialized() const {
 void BattleSyncRequest::InternalSwap(BattleSyncRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.eventid_, other->_impl_.eventid_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(BattleSyncRequest, _impl_.pitch_)
+      + sizeof(BattleSyncRequest::_impl_.pitch_)
+      - PROTOBUF_FIELD_OFFSET(BattleSyncRequest, _impl_.movedir_)>(
+          reinterpret_cast<char*>(&_impl_.movedir_),
+          reinterpret_cast<char*>(&other->_impl_.movedir_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata BattleSyncRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
       file_level_metadata_BattleSyncPackage_2eproto[0]);
-}
-
-// ===================================================================
-
-class PlayerInputCommand::_Internal {
- public:
-  static const ::BattleSyncPackage::PlayerConfirmedInput& input(const PlayerInputCommand* msg);
-  static const ::UnityMath::Vector3D& position(const PlayerInputCommand* msg);
-  static const ::UnityMath::Vector3D& eulaangle(const PlayerInputCommand* msg);
-};
-
-const ::BattleSyncPackage::PlayerConfirmedInput&
-PlayerInputCommand::_Internal::input(const PlayerInputCommand* msg) {
-  return *msg->_impl_.input_;
-}
-const ::UnityMath::Vector3D&
-PlayerInputCommand::_Internal::position(const PlayerInputCommand* msg) {
-  return *msg->_impl_.position_;
-}
-const ::UnityMath::Vector3D&
-PlayerInputCommand::_Internal::eulaangle(const PlayerInputCommand* msg) {
-  return *msg->_impl_.eulaangle_;
-}
-void PlayerInputCommand::clear_position() {
-  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
-    delete _impl_.position_;
-  }
-  _impl_.position_ = nullptr;
-}
-void PlayerInputCommand::clear_eulaangle() {
-  if (GetArenaForAllocation() == nullptr && _impl_.eulaangle_ != nullptr) {
-    delete _impl_.eulaangle_;
-  }
-  _impl_.eulaangle_ = nullptr;
-}
-PlayerInputCommand::PlayerInputCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:BattleSyncPackage.PlayerInputCommand)
-}
-PlayerInputCommand::PlayerInputCommand(const PlayerInputCommand& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PlayerInputCommand* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.input_){nullptr}
-    , decltype(_impl_.position_){nullptr}
-    , decltype(_impl_.eulaangle_){nullptr}
-    , decltype(_impl_.playerid_){}
-    , decltype(_impl_.tick_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_input()) {
-    _this->_impl_.input_ = new ::BattleSyncPackage::PlayerConfirmedInput(*from._impl_.input_);
-  }
-  if (from._internal_has_position()) {
-    _this->_impl_.position_ = new ::UnityMath::Vector3D(*from._impl_.position_);
-  }
-  if (from._internal_has_eulaangle()) {
-    _this->_impl_.eulaangle_ = new ::UnityMath::Vector3D(*from._impl_.eulaangle_);
-  }
-  ::memcpy(&_impl_.playerid_, &from._impl_.playerid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tick_) -
-    reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.tick_));
-  // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.PlayerInputCommand)
-}
-
-inline void PlayerInputCommand::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.input_){nullptr}
-    , decltype(_impl_.position_){nullptr}
-    , decltype(_impl_.eulaangle_){nullptr}
-    , decltype(_impl_.playerid_){0u}
-    , decltype(_impl_.tick_){0u}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-}
-
-PlayerInputCommand::~PlayerInputCommand() {
-  // @@protoc_insertion_point(destructor:BattleSyncPackage.PlayerInputCommand)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void PlayerInputCommand::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.input_;
-  if (this != internal_default_instance()) delete _impl_.position_;
-  if (this != internal_default_instance()) delete _impl_.eulaangle_;
-}
-
-void PlayerInputCommand::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void PlayerInputCommand::Clear() {
-// @@protoc_insertion_point(message_clear_start:BattleSyncPackage.PlayerInputCommand)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  if (GetArenaForAllocation() == nullptr && _impl_.input_ != nullptr) {
-    delete _impl_.input_;
-  }
-  _impl_.input_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
-    delete _impl_.position_;
-  }
-  _impl_.position_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && _impl_.eulaangle_ != nullptr) {
-    delete _impl_.eulaangle_;
-  }
-  _impl_.eulaangle_ = nullptr;
-  ::memset(&_impl_.playerid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.tick_) -
-      reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.tick_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* PlayerInputCommand::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // uint32 playerID = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.playerid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // uint32 tick = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.tick_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .BattleSyncPackage.PlayerConfirmedInput input = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_input(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .UnityMath.Vector3D position = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .UnityMath.Vector3D eulaAngle = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
-          ptr = ctx->ParseMessage(_internal_mutable_eulaangle(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* PlayerInputCommand::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:BattleSyncPackage.PlayerInputCommand)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // uint32 playerID = 1;
-  if (this->_internal_playerid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_playerid(), target);
-  }
-
-  // uint32 tick = 2;
-  if (this->_internal_tick() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_tick(), target);
-  }
-
-  // .BattleSyncPackage.PlayerConfirmedInput input = 3;
-  if (this->_internal_has_input()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::input(this),
-        _Internal::input(this).GetCachedSize(), target, stream);
-  }
-
-  // .UnityMath.Vector3D position = 4;
-  if (this->_internal_has_position()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::position(this),
-        _Internal::position(this).GetCachedSize(), target, stream);
-  }
-
-  // .UnityMath.Vector3D eulaAngle = 5;
-  if (this->_internal_has_eulaangle()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::eulaangle(this),
-        _Internal::eulaangle(this).GetCachedSize(), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:BattleSyncPackage.PlayerInputCommand)
-  return target;
-}
-
-size_t PlayerInputCommand::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:BattleSyncPackage.PlayerInputCommand)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // .BattleSyncPackage.PlayerConfirmedInput input = 3;
-  if (this->_internal_has_input()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.input_);
-  }
-
-  // .UnityMath.Vector3D position = 4;
-  if (this->_internal_has_position()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.position_);
-  }
-
-  // .UnityMath.Vector3D eulaAngle = 5;
-  if (this->_internal_has_eulaangle()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.eulaangle_);
-  }
-
-  // uint32 playerID = 1;
-  if (this->_internal_playerid() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_playerid());
-  }
-
-  // uint32 tick = 2;
-  if (this->_internal_tick() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tick());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PlayerInputCommand::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    PlayerInputCommand::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PlayerInputCommand::GetClassData() const { return &_class_data_; }
-
-
-void PlayerInputCommand::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<PlayerInputCommand*>(&to_msg);
-  auto& from = static_cast<const PlayerInputCommand&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:BattleSyncPackage.PlayerInputCommand)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_has_input()) {
-    _this->_internal_mutable_input()->::BattleSyncPackage::PlayerConfirmedInput::MergeFrom(
-        from._internal_input());
-  }
-  if (from._internal_has_position()) {
-    _this->_internal_mutable_position()->::UnityMath::Vector3D::MergeFrom(
-        from._internal_position());
-  }
-  if (from._internal_has_eulaangle()) {
-    _this->_internal_mutable_eulaangle()->::UnityMath::Vector3D::MergeFrom(
-        from._internal_eulaangle());
-  }
-  if (from._internal_playerid() != 0) {
-    _this->_internal_set_playerid(from._internal_playerid());
-  }
-  if (from._internal_tick() != 0) {
-    _this->_internal_set_tick(from._internal_tick());
-  }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void PlayerInputCommand::CopyFrom(const PlayerInputCommand& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:BattleSyncPackage.PlayerInputCommand)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool PlayerInputCommand::IsInitialized() const {
-  return true;
-}
-
-void PlayerInputCommand::InternalSwap(PlayerInputCommand* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PlayerInputCommand, _impl_.tick_)
-      + sizeof(PlayerInputCommand::_impl_.tick_)
-      - PROTOBUF_FIELD_OFFSET(PlayerInputCommand, _impl_.input_)>(
-          reinterpret_cast<char*>(&_impl_.input_),
-          reinterpret_cast<char*>(&other->_impl_.input_));
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata PlayerInputCommand::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
-      file_level_metadata_BattleSyncPackage_2eproto[1]);
 }
 
 // ===================================================================
@@ -777,11 +628,10 @@ BattleSyncResponse::BattleSyncResponse(const BattleSyncResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   BattleSyncResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.eventid_){}
+      decltype(_impl_.states_){from._impl_.states_}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.eventid_ = from._impl_.eventid_;
   // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.BattleSyncResponse)
 }
 
@@ -790,7 +640,7 @@ inline void BattleSyncResponse::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.eventid_){0}
+      decltype(_impl_.states_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -806,6 +656,7 @@ BattleSyncResponse::~BattleSyncResponse() {
 
 inline void BattleSyncResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.states_.~RepeatedPtrField();
 }
 
 void BattleSyncResponse::SetCachedSize(int size) const {
@@ -818,7 +669,7 @@ void BattleSyncResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.eventid_ = 0;
+  _impl_.states_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -828,12 +679,16 @@ const char* BattleSyncResponse::_InternalParse(const char* ptr, ::_pbi::ParseCon
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .BattleSyncPackage.RemoteBattleEvent eventID = 1;
+      // repeated .BattleSyncPackage.PlayerState states = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_eventid(static_cast<::BattleSyncPackage::RemoteBattleEvent>(val));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_states(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -866,11 +721,12 @@ uint8_t* BattleSyncResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .BattleSyncPackage.RemoteBattleEvent eventID = 1;
-  if (this->_internal_eventid() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_eventid(), target);
+  // repeated .BattleSyncPackage.PlayerState states = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_states_size()); i < n; i++) {
+    const auto& repfield = this->_internal_states(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -889,10 +745,11 @@ size_t BattleSyncResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .BattleSyncPackage.RemoteBattleEvent eventID = 1;
-  if (this->_internal_eventid() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_eventid());
+  // repeated .BattleSyncPackage.PlayerState states = 1;
+  total_size += 1UL * this->_internal_states_size();
+  for (const auto& msg : this->_impl_.states_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -913,9 +770,7 @@ void BattleSyncResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_eventid() != 0) {
-    _this->_internal_set_eventid(from._internal_eventid());
-  }
+  _this->_impl_.states_.MergeFrom(from._impl_.states_);
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -933,27 +788,27 @@ bool BattleSyncResponse::IsInitialized() const {
 void BattleSyncResponse::InternalSwap(BattleSyncResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.eventid_, other->_impl_.eventid_);
+  _impl_.states_.InternalSwap(&other->_impl_.states_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata BattleSyncResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
-      file_level_metadata_BattleSyncPackage_2eproto[2]);
+      file_level_metadata_BattleSyncPackage_2eproto[1]);
 }
 
 // ===================================================================
 
 class PlayerState::_Internal {
  public:
-  static const ::BattleSyncPackage::PlayerConfirmedInput& input(const PlayerState* msg);
+  static const ::UnityMath::Vector2D& movedir(const PlayerState* msg);
   static const ::UnityMath::Vector3D& position(const PlayerState* msg);
   static const ::UnityMath::Vector3D& eulaangle(const PlayerState* msg);
 };
 
-const ::BattleSyncPackage::PlayerConfirmedInput&
-PlayerState::_Internal::input(const PlayerState* msg) {
-  return *msg->_impl_.input_;
+const ::UnityMath::Vector2D&
+PlayerState::_Internal::movedir(const PlayerState* msg) {
+  return *msg->_impl_.movedir_;
 }
 const ::UnityMath::Vector3D&
 PlayerState::_Internal::position(const PlayerState* msg) {
@@ -962,6 +817,12 @@ PlayerState::_Internal::position(const PlayerState* msg) {
 const ::UnityMath::Vector3D&
 PlayerState::_Internal::eulaangle(const PlayerState* msg) {
   return *msg->_impl_.eulaangle_;
+}
+void PlayerState::clear_movedir() {
+  if (GetArenaForAllocation() == nullptr && _impl_.movedir_ != nullptr) {
+    delete _impl_.movedir_;
+  }
+  _impl_.movedir_ = nullptr;
 }
 void PlayerState::clear_position() {
   if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
@@ -985,16 +846,19 @@ PlayerState::PlayerState(const PlayerState& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   PlayerState* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.input_){nullptr}
+      decltype(_impl_.movedir_){nullptr}
     , decltype(_impl_.position_){nullptr}
     , decltype(_impl_.eulaangle_){nullptr}
     , decltype(_impl_.playerid_){}
     , decltype(_impl_.tick_){}
+    , decltype(_impl_.jump_){}
+    , decltype(_impl_.yaw_){}
+    , decltype(_impl_.pitch_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_input()) {
-    _this->_impl_.input_ = new ::BattleSyncPackage::PlayerConfirmedInput(*from._impl_.input_);
+  if (from._internal_has_movedir()) {
+    _this->_impl_.movedir_ = new ::UnityMath::Vector2D(*from._impl_.movedir_);
   }
   if (from._internal_has_position()) {
     _this->_impl_.position_ = new ::UnityMath::Vector3D(*from._impl_.position_);
@@ -1003,8 +867,8 @@ PlayerState::PlayerState(const PlayerState& from)
     _this->_impl_.eulaangle_ = new ::UnityMath::Vector3D(*from._impl_.eulaangle_);
   }
   ::memcpy(&_impl_.playerid_, &from._impl_.playerid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tick_) -
-    reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.tick_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.pitch_) -
+    reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.pitch_));
   // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.PlayerState)
 }
 
@@ -1013,11 +877,14 @@ inline void PlayerState::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.input_){nullptr}
+      decltype(_impl_.movedir_){nullptr}
     , decltype(_impl_.position_){nullptr}
     , decltype(_impl_.eulaangle_){nullptr}
     , decltype(_impl_.playerid_){0u}
     , decltype(_impl_.tick_){0u}
+    , decltype(_impl_.jump_){false}
+    , decltype(_impl_.yaw_){0}
+    , decltype(_impl_.pitch_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1033,7 +900,7 @@ PlayerState::~PlayerState() {
 
 inline void PlayerState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.input_;
+  if (this != internal_default_instance()) delete _impl_.movedir_;
   if (this != internal_default_instance()) delete _impl_.position_;
   if (this != internal_default_instance()) delete _impl_.eulaangle_;
 }
@@ -1048,10 +915,10 @@ void PlayerState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.input_ != nullptr) {
-    delete _impl_.input_;
+  if (GetArenaForAllocation() == nullptr && _impl_.movedir_ != nullptr) {
+    delete _impl_.movedir_;
   }
-  _impl_.input_ = nullptr;
+  _impl_.movedir_ = nullptr;
   if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
     delete _impl_.position_;
   }
@@ -1061,8 +928,8 @@ void PlayerState::Clear() {
   }
   _impl_.eulaangle_ = nullptr;
   ::memset(&_impl_.playerid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.tick_) -
-      reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.tick_));
+      reinterpret_cast<char*>(&_impl_.pitch_) -
+      reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.pitch_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1088,25 +955,49 @@ const char* PlayerState::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // .BattleSyncPackage.PlayerConfirmedInput input = 3;
+      // .UnityMath.Vector2D moveDir = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_input(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_movedir(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .UnityMath.Vector3D position = 4;
+      // bool jump = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.jump_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float yaw = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
+          _impl_.yaw_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float pitch = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
+          _impl_.pitch_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // .UnityMath.Vector3D position = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .UnityMath.Vector3D eulaAngle = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+      // .UnityMath.Vector3D eulaAngle = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_eulaangle(), ptr);
           CHK_(ptr);
         } else
@@ -1153,24 +1044,50 @@ uint8_t* PlayerState::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_tick(), target);
   }
 
-  // .BattleSyncPackage.PlayerConfirmedInput input = 3;
-  if (this->_internal_has_input()) {
+  // .UnityMath.Vector2D moveDir = 3;
+  if (this->_internal_has_movedir()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::input(this),
-        _Internal::input(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(3, _Internal::movedir(this),
+        _Internal::movedir(this).GetCachedSize(), target, stream);
   }
 
-  // .UnityMath.Vector3D position = 4;
+  // bool jump = 4;
+  if (this->_internal_jump() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_jump(), target);
+  }
+
+  // float yaw = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_yaw = this->_internal_yaw();
+  uint32_t raw_yaw;
+  memcpy(&raw_yaw, &tmp_yaw, sizeof(tmp_yaw));
+  if (raw_yaw != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_yaw(), target);
+  }
+
+  // float pitch = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_pitch = this->_internal_pitch();
+  uint32_t raw_pitch;
+  memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
+  if (raw_pitch != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_pitch(), target);
+  }
+
+  // .UnityMath.Vector3D position = 7;
   if (this->_internal_has_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::position(this),
+      InternalWriteMessage(7, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .UnityMath.Vector3D eulaAngle = 5;
+  // .UnityMath.Vector3D eulaAngle = 8;
   if (this->_internal_has_eulaangle()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, _Internal::eulaangle(this),
+      InternalWriteMessage(8, _Internal::eulaangle(this),
         _Internal::eulaangle(this).GetCachedSize(), target, stream);
   }
 
@@ -1190,21 +1107,21 @@ size_t PlayerState::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .BattleSyncPackage.PlayerConfirmedInput input = 3;
-  if (this->_internal_has_input()) {
+  // .UnityMath.Vector2D moveDir = 3;
+  if (this->_internal_has_movedir()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.input_);
+        *_impl_.movedir_);
   }
 
-  // .UnityMath.Vector3D position = 4;
+  // .UnityMath.Vector3D position = 7;
   if (this->_internal_has_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.position_);
   }
 
-  // .UnityMath.Vector3D eulaAngle = 5;
+  // .UnityMath.Vector3D eulaAngle = 8;
   if (this->_internal_has_eulaangle()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1219,6 +1136,29 @@ size_t PlayerState::ByteSizeLong() const {
   // uint32 tick = 2;
   if (this->_internal_tick() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tick());
+  }
+
+  // bool jump = 4;
+  if (this->_internal_jump() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // float yaw = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_yaw = this->_internal_yaw();
+  uint32_t raw_yaw;
+  memcpy(&raw_yaw, &tmp_yaw, sizeof(tmp_yaw));
+  if (raw_yaw != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float pitch = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_pitch = this->_internal_pitch();
+  uint32_t raw_pitch;
+  memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
+  if (raw_pitch != 0) {
+    total_size += 1 + 4;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1239,9 +1179,9 @@ void PlayerState::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_input()) {
-    _this->_internal_mutable_input()->::BattleSyncPackage::PlayerConfirmedInput::MergeFrom(
-        from._internal_input());
+  if (from._internal_has_movedir()) {
+    _this->_internal_mutable_movedir()->::UnityMath::Vector2D::MergeFrom(
+        from._internal_movedir());
   }
   if (from._internal_has_position()) {
     _this->_internal_mutable_position()->::UnityMath::Vector3D::MergeFrom(
@@ -1256,295 +1196,6 @@ void PlayerState::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   }
   if (from._internal_tick() != 0) {
     _this->_internal_set_tick(from._internal_tick());
-  }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void PlayerState::CopyFrom(const PlayerState& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:BattleSyncPackage.PlayerState)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool PlayerState::IsInitialized() const {
-  return true;
-}
-
-void PlayerState::InternalSwap(PlayerState* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PlayerState, _impl_.tick_)
-      + sizeof(PlayerState::_impl_.tick_)
-      - PROTOBUF_FIELD_OFFSET(PlayerState, _impl_.input_)>(
-          reinterpret_cast<char*>(&_impl_.input_),
-          reinterpret_cast<char*>(&other->_impl_.input_));
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata PlayerState::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
-      file_level_metadata_BattleSyncPackage_2eproto[3]);
-}
-
-// ===================================================================
-
-class PlayerConfirmedInput::_Internal {
- public:
-  static const ::UnityMath::Vector2D& movedir(const PlayerConfirmedInput* msg);
-};
-
-const ::UnityMath::Vector2D&
-PlayerConfirmedInput::_Internal::movedir(const PlayerConfirmedInput* msg) {
-  return *msg->_impl_.movedir_;
-}
-void PlayerConfirmedInput::clear_movedir() {
-  if (GetArenaForAllocation() == nullptr && _impl_.movedir_ != nullptr) {
-    delete _impl_.movedir_;
-  }
-  _impl_.movedir_ = nullptr;
-}
-PlayerConfirmedInput::PlayerConfirmedInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:BattleSyncPackage.PlayerConfirmedInput)
-}
-PlayerConfirmedInput::PlayerConfirmedInput(const PlayerConfirmedInput& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  PlayerConfirmedInput* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.movedir_){nullptr}
-    , decltype(_impl_.jump_){}
-    , decltype(_impl_.yaw_){}
-    , decltype(_impl_.pitch_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_movedir()) {
-    _this->_impl_.movedir_ = new ::UnityMath::Vector2D(*from._impl_.movedir_);
-  }
-  ::memcpy(&_impl_.jump_, &from._impl_.jump_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.pitch_) -
-    reinterpret_cast<char*>(&_impl_.jump_)) + sizeof(_impl_.pitch_));
-  // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.PlayerConfirmedInput)
-}
-
-inline void PlayerConfirmedInput::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.movedir_){nullptr}
-    , decltype(_impl_.jump_){false}
-    , decltype(_impl_.yaw_){0}
-    , decltype(_impl_.pitch_){0}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-}
-
-PlayerConfirmedInput::~PlayerConfirmedInput() {
-  // @@protoc_insertion_point(destructor:BattleSyncPackage.PlayerConfirmedInput)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void PlayerConfirmedInput::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.movedir_;
-}
-
-void PlayerConfirmedInput::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void PlayerConfirmedInput::Clear() {
-// @@protoc_insertion_point(message_clear_start:BattleSyncPackage.PlayerConfirmedInput)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  if (GetArenaForAllocation() == nullptr && _impl_.movedir_ != nullptr) {
-    delete _impl_.movedir_;
-  }
-  _impl_.movedir_ = nullptr;
-  ::memset(&_impl_.jump_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.pitch_) -
-      reinterpret_cast<char*>(&_impl_.jump_)) + sizeof(_impl_.pitch_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* PlayerConfirmedInput::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .UnityMath.Vector2D moveDir = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_movedir(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool jump = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.jump_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // float yaw = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
-          _impl_.yaw_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else
-          goto handle_unusual;
-        continue;
-      // float pitch = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
-          _impl_.pitch_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* PlayerConfirmedInput::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:BattleSyncPackage.PlayerConfirmedInput)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .UnityMath.Vector2D moveDir = 1;
-  if (this->_internal_has_movedir()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::movedir(this),
-        _Internal::movedir(this).GetCachedSize(), target, stream);
-  }
-
-  // bool jump = 2;
-  if (this->_internal_jump() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_jump(), target);
-  }
-
-  // float yaw = 3;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_yaw = this->_internal_yaw();
-  uint32_t raw_yaw;
-  memcpy(&raw_yaw, &tmp_yaw, sizeof(tmp_yaw));
-  if (raw_yaw != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_yaw(), target);
-  }
-
-  // float pitch = 4;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_pitch = this->_internal_pitch();
-  uint32_t raw_pitch;
-  memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
-  if (raw_pitch != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_pitch(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:BattleSyncPackage.PlayerConfirmedInput)
-  return target;
-}
-
-size_t PlayerConfirmedInput::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:BattleSyncPackage.PlayerConfirmedInput)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // .UnityMath.Vector2D moveDir = 1;
-  if (this->_internal_has_movedir()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.movedir_);
-  }
-
-  // bool jump = 2;
-  if (this->_internal_jump() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // float yaw = 3;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_yaw = this->_internal_yaw();
-  uint32_t raw_yaw;
-  memcpy(&raw_yaw, &tmp_yaw, sizeof(tmp_yaw));
-  if (raw_yaw != 0) {
-    total_size += 1 + 4;
-  }
-
-  // float pitch = 4;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_pitch = this->_internal_pitch();
-  uint32_t raw_pitch;
-  memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
-  if (raw_pitch != 0) {
-    total_size += 1 + 4;
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PlayerConfirmedInput::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    PlayerConfirmedInput::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PlayerConfirmedInput::GetClassData() const { return &_class_data_; }
-
-
-void PlayerConfirmedInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<PlayerConfirmedInput*>(&to_msg);
-  auto& from = static_cast<const PlayerConfirmedInput&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:BattleSyncPackage.PlayerConfirmedInput)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_has_movedir()) {
-    _this->_internal_mutable_movedir()->::UnityMath::Vector2D::MergeFrom(
-        from._internal_movedir());
   }
   if (from._internal_jump() != 0) {
     _this->_internal_set_jump(from._internal_jump());
@@ -1566,32 +1217,32 @@ void PlayerConfirmedInput::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, c
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void PlayerConfirmedInput::CopyFrom(const PlayerConfirmedInput& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:BattleSyncPackage.PlayerConfirmedInput)
+void PlayerState::CopyFrom(const PlayerState& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:BattleSyncPackage.PlayerState)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool PlayerConfirmedInput::IsInitialized() const {
+bool PlayerState::IsInitialized() const {
   return true;
 }
 
-void PlayerConfirmedInput::InternalSwap(PlayerConfirmedInput* other) {
+void PlayerState::InternalSwap(PlayerState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PlayerConfirmedInput, _impl_.pitch_)
-      + sizeof(PlayerConfirmedInput::_impl_.pitch_)
-      - PROTOBUF_FIELD_OFFSET(PlayerConfirmedInput, _impl_.movedir_)>(
+      PROTOBUF_FIELD_OFFSET(PlayerState, _impl_.pitch_)
+      + sizeof(PlayerState::_impl_.pitch_)
+      - PROTOBUF_FIELD_OFFSET(PlayerState, _impl_.movedir_)>(
           reinterpret_cast<char*>(&_impl_.movedir_),
           reinterpret_cast<char*>(&other->_impl_.movedir_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata PlayerConfirmedInput::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata PlayerState::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_BattleSyncPackage_2eproto_getter, &descriptor_table_BattleSyncPackage_2eproto_once,
-      file_level_metadata_BattleSyncPackage_2eproto[4]);
+      file_level_metadata_BattleSyncPackage_2eproto[2]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -1601,10 +1252,6 @@ template<> PROTOBUF_NOINLINE ::BattleSyncPackage::BattleSyncRequest*
 Arena::CreateMaybeMessage< ::BattleSyncPackage::BattleSyncRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::BattleSyncPackage::BattleSyncRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::BattleSyncPackage::PlayerInputCommand*
-Arena::CreateMaybeMessage< ::BattleSyncPackage::PlayerInputCommand >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::BattleSyncPackage::PlayerInputCommand >(arena);
-}
 template<> PROTOBUF_NOINLINE ::BattleSyncPackage::BattleSyncResponse*
 Arena::CreateMaybeMessage< ::BattleSyncPackage::BattleSyncResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::BattleSyncPackage::BattleSyncResponse >(arena);
@@ -1612,10 +1259,6 @@ Arena::CreateMaybeMessage< ::BattleSyncPackage::BattleSyncResponse >(Arena* aren
 template<> PROTOBUF_NOINLINE ::BattleSyncPackage::PlayerState*
 Arena::CreateMaybeMessage< ::BattleSyncPackage::PlayerState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::BattleSyncPackage::PlayerState >(arena);
-}
-template<> PROTOBUF_NOINLINE ::BattleSyncPackage::PlayerConfirmedInput*
-Arena::CreateMaybeMessage< ::BattleSyncPackage::PlayerConfirmedInput >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::BattleSyncPackage::PlayerConfirmedInput >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
