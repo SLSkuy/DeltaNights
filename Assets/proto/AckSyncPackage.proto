@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package AckPackage;
+package AckSyncPackage;
 
 /* ==================================================
   确认同步请求包事件

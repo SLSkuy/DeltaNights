@@ -129,11 +129,10 @@ void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& d
     switch (pkg.eventid())
     {
         case LocalSyncEvent::AckRequest:
-            // TODO: 处理ACK同步请求
-            handleTcpAckPackage(socket,pkg.acksync());
+            handleTcpAckPackage(socket, pkg.acksync());
             break;
         case LocalSyncEvent::LobbyRequest:
-            // TODO: 处理大厅操作请求
+            handleTcpLobbyPackage(socket, pkg.lobbysync());
             break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown TCP package type:" << pkg.eventid();
@@ -141,10 +140,11 @@ void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& d
     }
 }
 
-void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const AckPackage::AckSyncRequest& pkg)
+void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const AckSyncPackage::AckSyncRequest& pkg)
 {
-    using namespace AckPackage;
+    using namespace AckSyncPackage;
 
+    // ===== 按子类型分发 =====
     switch (pkg.eventid())
     {
         case LocalAckEvent::HeartBeat:
@@ -161,6 +161,18 @@ void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const AckPackage
     }
 }
 
+void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyncPackage::LobbySyncRequest& pkg)
+{
+    using namespace LobbySyncPackage;
+
+    // ===== 按子类型分发 =====
+    switch (pkg.eventid())
+    {
+        default:
+            Logger::Warning() << "[NetworkDispatcher] Unknown TCP_Lobby package type:" << pkg.eventid();
+            break;
+    }
+}
 /* ============================================================
  * UDP消息处理
 ============================================================ */
@@ -179,13 +191,39 @@ void NetworkDispatcher::handleUdpPackage(const QHostAddress& addr, quint16 port,
     switch (pkg.eventid())
     {
         case LocalSyncEvent::AckRequest:
-            // TODO: 处理ACK类同步包
+            handleUdpAckPackage(addr, port, pkg.acksync());
             break;
         case LocalSyncEvent::BattleRequest:
-            // TODO: 处理战局同步请求
+            handleUdpBattlePackage(addr, port, pkg.battlepackage());
             break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown UDP package type:" << pkg.eventid();
+            break;
+    }
+}
+
+void NetworkDispatcher::handleUdpAckPackage(const QHostAddress& addr, quint16 port, const AckSyncPackage::AckSyncRequest& pkg)
+{
+    using namespace AckSyncPackage;
+
+    // ===== 按子类型分发 =====
+    switch (pkg.eventid())
+    {
+        default:
+            Logger::Warning() << "[NetworkDispatcher] Unknown UDP_ACK package type:" << pkg.eventid();
+            break;
+    }
+}
+
+void NetworkDispatcher::handleUdpBattlePackage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncRequest& pkg)
+{
+    using namespace BattleSyncPackage;
+
+    // ===== 按子类型分发 =====
+    switch (pkg.eventid())
+    {
+        default:
+            Logger::Warning() << "[NetworkDispatcher] Unknown UDP_Battle package type:" << pkg.eventid();
             break;
     }
 }

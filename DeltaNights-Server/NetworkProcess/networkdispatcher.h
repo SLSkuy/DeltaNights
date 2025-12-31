@@ -15,8 +15,10 @@
 #include <QTcpSocket>
 #include <QQueue>
 
-#include "../GameEvent/AckPackage.pb.h"
+#include "../GameEvent/AckSyncPackage.pb.h"
 #include "../GameEvent/SyncPackage.pb.h"
+#include "../GameEvent/LobbySyncPackage.pb.h"
+#include "../GameEvent/BattleSyncPackage.pb.h"
 
 class UdpEndpoint;
 class TcpEndpoint;
@@ -65,8 +67,11 @@ signals:
 
 private:
     void handleTcpPackage(QTcpSocket* socket, const QByteArray& data);
-    void handleTcpAckPackage(QTcpSocket* socket, const AckPackage::AckSyncRequest& pkg);
+    void handleTcpAckPackage(QTcpSocket* socket, const AckSyncPackage::AckSyncRequest& pkg);
+    void handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyncPackage::LobbySyncRequest& pkg);
     void handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& data);
+    void handleUdpAckPackage(const QHostAddress& addr, quint16 port, const AckSyncPackage::AckSyncRequest& pkg);
+    void handleUdpBattlePackage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncRequest& pkg);
 
 private:
     UdpEndpoint* _udp = nullptr;

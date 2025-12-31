@@ -10,8 +10,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
+using AckSyncPackage;
+using BattleSyncPackage;
 using Google.Protobuf;
+using LobbySyncPackage;
 using SyncPackage;
 using UnityEngine;
 
@@ -21,33 +23,51 @@ namespace Network
     {
         private readonly Dictionary<NetEvent, Action<IMessage>> _handlers = new();
 
+        #region 事件处理
+
         /// <summary>
         /// 注册Protobuf事件
         /// </summary>
         /// <param name="eventId">事件ID</param>
         /// <param name="handler">事件</param>
-        /// <typeparam name="T">事件参数</typeparam>
+        /// <typeparam name="T">Protobuf事件类型</typeparam>
         public void Register<T>(NetEvent eventId, Action<T> handler) where T : IMessage, new()
         {
             _handlers[eventId] = msg => handler((T)msg);
+            Debug.Log($"[MessageProcesser] Registered event {eventId}");
         }
 
         /// <summary>
-        /// 将字节流转换为Protobuf事件
+        /// 注销Protobuf事件
         /// </summary>
-        public RemoteSyncPackage DeSerializeProtobuf(byte[] data)
+        /// <param name="eventId">事件ID</param>
+        /// <typeparam name="T">Protobuf事件类型</typeparam>
+        public void UnRegister(NetEvent eventId)
         {
-            RemoteSyncPackage syncPackage = RemoteSyncPackage.Parser.ParseFrom(data);
-            return syncPackage;
+            _handlers.Remove(eventId);
+            Debug.Log($"[MessageProcesser] Unregistered event {eventId}");
         }
         
         /// <summary>
-        /// 将Protobuf事件序列化为字节流
+        /// 分发Protobuf事件
         /// </summary>
-        public byte[] SerializeProtobuf(LocalSyncPackage syncPackage)
+        /// <param name="eventId">事件ID</param>
+        /// <param name="message">Protobuf事件实例</param>
+        private void Dispatch(NetEvent eventId, IMessage message)
         {
-            return syncPackage.ToByteArray();
+            if (_handlers.TryGetValue(eventId, out var handler))
+            {
+                handler(message);
+            }
+            else
+            {
+                Debug.LogWarning($"[MessageProcessor] No handler for event {eventId}");
+            }
         }
+
+        #endregion
+
+        #region 序列化处理
 
         /// <summary>
         /// 接受服务端发送的字符串，测试使用
@@ -58,18 +78,35 @@ namespace Network
             switch (pkg.EventID)
             {
                 case RemoteSyncEvent.AckResponse:
-                    Debug.Log("Ack Response");
-                    break;
-                case RemoteSyncEvent.BattleResponse:
-                    Debug.Log("Battle Response");
+                    AckResponseProcess(pkg.AckSync);
                     break;
                 case RemoteSyncEvent.LobbyResponse:
-                    Debug.Log("Lobby Response");
+                    LobbyResponseProcess(pkg.LobbyPackage);
+                    break;
+                case RemoteSyncEvent.BattleResponse:
+                    BattleResponseProcess(pkg.BattlePackage);
                     break;
                 default:
                     Debug.Log("Unknown EventID: " + pkg.EventID);
                     break;
             }
         }
+
+        private void AckResponseProcess(AckSyncResponse response)
+        {
+            // TODO: 处理ACK回应消息，此处进行分发相应的网络事件
+        }
+
+        private void LobbyResponseProcess(LobbySyncResponse response)
+        {
+            // TODO: 处理Lobby回应消息，此处进行分发相应的网络事件
+        }
+
+        private void BattleResponseProcess(BattleSyncResponse response)
+        {
+            // TODO: 处理Battle回应消息，此处进行分发相应的网络事件
+        }
+
+        #endregion
     }
 }

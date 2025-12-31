@@ -4,7 +4,7 @@ package SyncPackage;
 
 import "BattleSyncPackage.proto";
 import "LobbySyncPackage.proto";
-import "AckPackage.proto";
+import "AckSyncPackage.proto";
 
 
 /* ==================================================
@@ -22,7 +22,7 @@ message LocalSyncPackage {
   oneof content {
     BattleSyncPackage.BattleSyncRequest battlePackage = 2;
     LobbySyncPackage.LobbySyncRequest lobbySync = 3;
-    AckPackage.AckSyncRequest ackSync = 4;
+    AckSyncPackage.AckSyncRequest ackSync = 4;
   }
 }
 
@@ -41,7 +41,7 @@ message RemoteSyncPackage {
   oneof content {
     BattleSyncPackage.BattleSyncResponse battlePackage = 2;
     LobbySyncPackage.LobbySyncResponse lobbyPackage = 3;
-    AckPackage.AckSyncResponse ackSync = 4;
+    AckSyncPackage.AckSyncResponse ackSync = 4;
   }
 }
     

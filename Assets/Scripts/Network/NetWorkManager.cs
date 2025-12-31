@@ -19,16 +19,17 @@
  * ------------------------------------------------------------ */
 
 using System.Collections.Concurrent;
-using System.Text;
-using AckPackage;
+using AckSyncPackage;
 using SyncPackage;
 using UnityEngine;
+using System;
+using Google.Protobuf;
 
 namespace Network
 {
     public class NetWorkManager : MonoBehaviour
     {
-        public static NetWorkManager Instance;
+        public static NetWorkManager instance;
         
         [Header("服务器配置")]
         [SerializeField]private string ip = "127.0.0.1";
@@ -36,7 +37,7 @@ namespace Network
         [SerializeField]private short udpPort = 19198;
 
         [Header("玩家信息")] 
-        public uint clientID = 0;
+        public uint clientID;
 
         [Header("网络属性配置")] 
         [SerializeField] [Tooltip("网路心跳间隔")] private float heartBeatStep = 1f;
@@ -72,6 +73,26 @@ namespace Network
         }
 
         /// <summary>
+        /// 注册相应类的网络事件处理函数
+        /// </summary>
+        /// <param name="type">网络事件类型</param>
+        /// <param name="handler">处理函数</param>
+        /// <typeparam name="T">Protobuf事件类型</typeparam>
+        public void RegisterEventHandler<T>(NetEvent type, Action<T> handler) where T : IMessage, new()
+        {
+            _processor.Register<T>(type, handler);
+        }
+
+        /// <summary>
+        /// 注销网络事件处理函数
+        /// </summary>
+        /// <param name="type">网络事件类型</param>
+        public void UnRegisterEventHandler(NetEvent type)
+        {
+            _processor.UnRegister(type);
+        }
+
+        /// <summary>
         /// 心跳包，每隔一段固定时间进行发送
         /// </summary>
         private void HeartBeat()
@@ -103,7 +124,7 @@ namespace Network
         
         void Awake()
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
 
             _processor = new MessageProcessor();

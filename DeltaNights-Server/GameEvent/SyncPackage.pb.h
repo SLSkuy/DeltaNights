@@ -33,7 +33,7 @@
 #include <google/protobuf/unknown_field_set.h>
 #include "BattleSyncPackage.pb.h"
 #include "LobbySyncPackage.pb.h"
-#include "AckPackage.pb.h"
+#include "AckSyncPackage.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_SyncPackage_2eproto
@@ -294,23 +294,23 @@ class LocalSyncPackage final :
       ::LobbySyncPackage::LobbySyncRequest* lobbysync);
   ::LobbySyncPackage::LobbySyncRequest* unsafe_arena_release_lobbysync();
 
-  // .AckPackage.AckSyncRequest ackSync = 4;
+  // .AckSyncPackage.AckSyncRequest ackSync = 4;
   bool has_acksync() const;
   private:
   bool _internal_has_acksync() const;
   public:
   void clear_acksync();
-  const ::AckPackage::AckSyncRequest& acksync() const;
-  PROTOBUF_NODISCARD ::AckPackage::AckSyncRequest* release_acksync();
-  ::AckPackage::AckSyncRequest* mutable_acksync();
-  void set_allocated_acksync(::AckPackage::AckSyncRequest* acksync);
+  const ::AckSyncPackage::AckSyncRequest& acksync() const;
+  PROTOBUF_NODISCARD ::AckSyncPackage::AckSyncRequest* release_acksync();
+  ::AckSyncPackage::AckSyncRequest* mutable_acksync();
+  void set_allocated_acksync(::AckSyncPackage::AckSyncRequest* acksync);
   private:
-  const ::AckPackage::AckSyncRequest& _internal_acksync() const;
-  ::AckPackage::AckSyncRequest* _internal_mutable_acksync();
+  const ::AckSyncPackage::AckSyncRequest& _internal_acksync() const;
+  ::AckSyncPackage::AckSyncRequest* _internal_mutable_acksync();
   public:
   void unsafe_arena_set_allocated_acksync(
-      ::AckPackage::AckSyncRequest* acksync);
-  ::AckPackage::AckSyncRequest* unsafe_arena_release_acksync();
+      ::AckSyncPackage::AckSyncRequest* acksync);
+  ::AckSyncPackage::AckSyncRequest* unsafe_arena_release_acksync();
 
   void clear_content();
   ContentCase content_case() const;
@@ -334,7 +334,7 @@ class LocalSyncPackage final :
         ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
       ::BattleSyncPackage::BattleSyncRequest* battlepackage_;
       ::LobbySyncPackage::LobbySyncRequest* lobbysync_;
-      ::AckPackage::AckSyncRequest* acksync_;
+      ::AckSyncPackage::AckSyncRequest* acksync_;
     } content_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     uint32_t _oneof_case_[1];
@@ -523,23 +523,23 @@ class RemoteSyncPackage final :
       ::LobbySyncPackage::LobbySyncResponse* lobbypackage);
   ::LobbySyncPackage::LobbySyncResponse* unsafe_arena_release_lobbypackage();
 
-  // .AckPackage.AckSyncResponse ackSync = 4;
+  // .AckSyncPackage.AckSyncResponse ackSync = 4;
   bool has_acksync() const;
   private:
   bool _internal_has_acksync() const;
   public:
   void clear_acksync();
-  const ::AckPackage::AckSyncResponse& acksync() const;
-  PROTOBUF_NODISCARD ::AckPackage::AckSyncResponse* release_acksync();
-  ::AckPackage::AckSyncResponse* mutable_acksync();
-  void set_allocated_acksync(::AckPackage::AckSyncResponse* acksync);
+  const ::AckSyncPackage::AckSyncResponse& acksync() const;
+  PROTOBUF_NODISCARD ::AckSyncPackage::AckSyncResponse* release_acksync();
+  ::AckSyncPackage::AckSyncResponse* mutable_acksync();
+  void set_allocated_acksync(::AckSyncPackage::AckSyncResponse* acksync);
   private:
-  const ::AckPackage::AckSyncResponse& _internal_acksync() const;
-  ::AckPackage::AckSyncResponse* _internal_mutable_acksync();
+  const ::AckSyncPackage::AckSyncResponse& _internal_acksync() const;
+  ::AckSyncPackage::AckSyncResponse* _internal_mutable_acksync();
   public:
   void unsafe_arena_set_allocated_acksync(
-      ::AckPackage::AckSyncResponse* acksync);
-  ::AckPackage::AckSyncResponse* unsafe_arena_release_acksync();
+      ::AckSyncPackage::AckSyncResponse* acksync);
+  ::AckSyncPackage::AckSyncResponse* unsafe_arena_release_acksync();
 
   void clear_content();
   ContentCase content_case() const;
@@ -563,7 +563,7 @@ class RemoteSyncPackage final :
         ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
       ::BattleSyncPackage::BattleSyncResponse* battlepackage_;
       ::LobbySyncPackage::LobbySyncResponse* lobbypackage_;
-      ::AckPackage::AckSyncResponse* acksync_;
+      ::AckSyncPackage::AckSyncResponse* acksync_;
     } content_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     uint32_t _oneof_case_[1];
@@ -735,7 +735,7 @@ inline ::LobbySyncPackage::LobbySyncRequest* LocalSyncPackage::mutable_lobbysync
   return _msg;
 }
 
-// .AckPackage.AckSyncRequest ackSync = 4;
+// .AckSyncPackage.AckSyncRequest ackSync = 4;
 inline bool LocalSyncPackage::_internal_has_acksync() const {
   return content_case() == kAckSync;
 }
@@ -745,11 +745,11 @@ inline bool LocalSyncPackage::has_acksync() const {
 inline void LocalSyncPackage::set_has_acksync() {
   _impl_._oneof_case_[0] = kAckSync;
 }
-inline ::AckPackage::AckSyncRequest* LocalSyncPackage::release_acksync() {
+inline ::AckSyncPackage::AckSyncRequest* LocalSyncPackage::release_acksync() {
   // @@protoc_insertion_point(field_release:SyncPackage.LocalSyncPackage.ackSync)
   if (_internal_has_acksync()) {
     clear_has_content();
-    ::AckPackage::AckSyncRequest* temp = _impl_.content_.acksync_;
+    ::AckSyncPackage::AckSyncRequest* temp = _impl_.content_.acksync_;
     if (GetArenaForAllocation() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
@@ -759,27 +759,27 @@ inline ::AckPackage::AckSyncRequest* LocalSyncPackage::release_acksync() {
     return nullptr;
   }
 }
-inline const ::AckPackage::AckSyncRequest& LocalSyncPackage::_internal_acksync() const {
+inline const ::AckSyncPackage::AckSyncRequest& LocalSyncPackage::_internal_acksync() const {
   return _internal_has_acksync()
       ? *_impl_.content_.acksync_
-      : reinterpret_cast< ::AckPackage::AckSyncRequest&>(::AckPackage::_AckSyncRequest_default_instance_);
+      : reinterpret_cast< ::AckSyncPackage::AckSyncRequest&>(::AckSyncPackage::_AckSyncRequest_default_instance_);
 }
-inline const ::AckPackage::AckSyncRequest& LocalSyncPackage::acksync() const {
+inline const ::AckSyncPackage::AckSyncRequest& LocalSyncPackage::acksync() const {
   // @@protoc_insertion_point(field_get:SyncPackage.LocalSyncPackage.ackSync)
   return _internal_acksync();
 }
-inline ::AckPackage::AckSyncRequest* LocalSyncPackage::unsafe_arena_release_acksync() {
+inline ::AckSyncPackage::AckSyncRequest* LocalSyncPackage::unsafe_arena_release_acksync() {
   // @@protoc_insertion_point(field_unsafe_arena_release:SyncPackage.LocalSyncPackage.ackSync)
   if (_internal_has_acksync()) {
     clear_has_content();
-    ::AckPackage::AckSyncRequest* temp = _impl_.content_.acksync_;
+    ::AckSyncPackage::AckSyncRequest* temp = _impl_.content_.acksync_;
     _impl_.content_.acksync_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void LocalSyncPackage::unsafe_arena_set_allocated_acksync(::AckPackage::AckSyncRequest* acksync) {
+inline void LocalSyncPackage::unsafe_arena_set_allocated_acksync(::AckSyncPackage::AckSyncRequest* acksync) {
   clear_content();
   if (acksync) {
     set_has_acksync();
@@ -787,16 +787,16 @@ inline void LocalSyncPackage::unsafe_arena_set_allocated_acksync(::AckPackage::A
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SyncPackage.LocalSyncPackage.ackSync)
 }
-inline ::AckPackage::AckSyncRequest* LocalSyncPackage::_internal_mutable_acksync() {
+inline ::AckSyncPackage::AckSyncRequest* LocalSyncPackage::_internal_mutable_acksync() {
   if (!_internal_has_acksync()) {
     clear_content();
     set_has_acksync();
-    _impl_.content_.acksync_ = CreateMaybeMessage< ::AckPackage::AckSyncRequest >(GetArenaForAllocation());
+    _impl_.content_.acksync_ = CreateMaybeMessage< ::AckSyncPackage::AckSyncRequest >(GetArenaForAllocation());
   }
   return _impl_.content_.acksync_;
 }
-inline ::AckPackage::AckSyncRequest* LocalSyncPackage::mutable_acksync() {
-  ::AckPackage::AckSyncRequest* _msg = _internal_mutable_acksync();
+inline ::AckSyncPackage::AckSyncRequest* LocalSyncPackage::mutable_acksync() {
+  ::AckSyncPackage::AckSyncRequest* _msg = _internal_mutable_acksync();
   // @@protoc_insertion_point(field_mutable:SyncPackage.LocalSyncPackage.ackSync)
   return _msg;
 }
@@ -966,7 +966,7 @@ inline ::LobbySyncPackage::LobbySyncResponse* RemoteSyncPackage::mutable_lobbypa
   return _msg;
 }
 
-// .AckPackage.AckSyncResponse ackSync = 4;
+// .AckSyncPackage.AckSyncResponse ackSync = 4;
 inline bool RemoteSyncPackage::_internal_has_acksync() const {
   return content_case() == kAckSync;
 }
@@ -976,11 +976,11 @@ inline bool RemoteSyncPackage::has_acksync() const {
 inline void RemoteSyncPackage::set_has_acksync() {
   _impl_._oneof_case_[0] = kAckSync;
 }
-inline ::AckPackage::AckSyncResponse* RemoteSyncPackage::release_acksync() {
+inline ::AckSyncPackage::AckSyncResponse* RemoteSyncPackage::release_acksync() {
   // @@protoc_insertion_point(field_release:SyncPackage.RemoteSyncPackage.ackSync)
   if (_internal_has_acksync()) {
     clear_has_content();
-    ::AckPackage::AckSyncResponse* temp = _impl_.content_.acksync_;
+    ::AckSyncPackage::AckSyncResponse* temp = _impl_.content_.acksync_;
     if (GetArenaForAllocation() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
@@ -990,27 +990,27 @@ inline ::AckPackage::AckSyncResponse* RemoteSyncPackage::release_acksync() {
     return nullptr;
   }
 }
-inline const ::AckPackage::AckSyncResponse& RemoteSyncPackage::_internal_acksync() const {
+inline const ::AckSyncPackage::AckSyncResponse& RemoteSyncPackage::_internal_acksync() const {
   return _internal_has_acksync()
       ? *_impl_.content_.acksync_
-      : reinterpret_cast< ::AckPackage::AckSyncResponse&>(::AckPackage::_AckSyncResponse_default_instance_);
+      : reinterpret_cast< ::AckSyncPackage::AckSyncResponse&>(::AckSyncPackage::_AckSyncResponse_default_instance_);
 }
-inline const ::AckPackage::AckSyncResponse& RemoteSyncPackage::acksync() const {
+inline const ::AckSyncPackage::AckSyncResponse& RemoteSyncPackage::acksync() const {
   // @@protoc_insertion_point(field_get:SyncPackage.RemoteSyncPackage.ackSync)
   return _internal_acksync();
 }
-inline ::AckPackage::AckSyncResponse* RemoteSyncPackage::unsafe_arena_release_acksync() {
+inline ::AckSyncPackage::AckSyncResponse* RemoteSyncPackage::unsafe_arena_release_acksync() {
   // @@protoc_insertion_point(field_unsafe_arena_release:SyncPackage.RemoteSyncPackage.ackSync)
   if (_internal_has_acksync()) {
     clear_has_content();
-    ::AckPackage::AckSyncResponse* temp = _impl_.content_.acksync_;
+    ::AckSyncPackage::AckSyncResponse* temp = _impl_.content_.acksync_;
     _impl_.content_.acksync_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void RemoteSyncPackage::unsafe_arena_set_allocated_acksync(::AckPackage::AckSyncResponse* acksync) {
+inline void RemoteSyncPackage::unsafe_arena_set_allocated_acksync(::AckSyncPackage::AckSyncResponse* acksync) {
   clear_content();
   if (acksync) {
     set_has_acksync();
@@ -1018,16 +1018,16 @@ inline void RemoteSyncPackage::unsafe_arena_set_allocated_acksync(::AckPackage::
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SyncPackage.RemoteSyncPackage.ackSync)
 }
-inline ::AckPackage::AckSyncResponse* RemoteSyncPackage::_internal_mutable_acksync() {
+inline ::AckSyncPackage::AckSyncResponse* RemoteSyncPackage::_internal_mutable_acksync() {
   if (!_internal_has_acksync()) {
     clear_content();
     set_has_acksync();
-    _impl_.content_.acksync_ = CreateMaybeMessage< ::AckPackage::AckSyncResponse >(GetArenaForAllocation());
+    _impl_.content_.acksync_ = CreateMaybeMessage< ::AckSyncPackage::AckSyncResponse >(GetArenaForAllocation());
   }
   return _impl_.content_.acksync_;
 }
-inline ::AckPackage::AckSyncResponse* RemoteSyncPackage::mutable_acksync() {
-  ::AckPackage::AckSyncResponse* _msg = _internal_mutable_acksync();
+inline ::AckSyncPackage::AckSyncResponse* RemoteSyncPackage::mutable_acksync() {
+  ::AckSyncPackage::AckSyncResponse* _msg = _internal_mutable_acksync();
   // @@protoc_insertion_point(field_mutable:SyncPackage.RemoteSyncPackage.ackSync)
   return _msg;
 }

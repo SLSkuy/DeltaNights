@@ -25,24 +25,24 @@ namespace SyncPackage {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChFTeW5jUGFja2FnZS5wcm90bxILU3luY1BhY2thZ2UaF0JhdHRsZVN5bmNQ",
-            "YWNrYWdlLnByb3RvGhZMb2JieVN5bmNQYWNrYWdlLnByb3RvGhBBY2tQYWNr",
-            "YWdlLnByb3RvIvIBChBMb2NhbFN5bmNQYWNrYWdlEiwKB2V2ZW50SUQYASAB",
-            "KA4yGy5TeW5jUGFja2FnZS5Mb2NhbFN5bmNFdmVudBI9Cg1iYXR0bGVQYWNr",
-            "YWdlGAIgASgLMiQuQmF0dGxlU3luY1BhY2thZ2UuQmF0dGxlU3luY1JlcXVl",
-            "c3RIABI3Cglsb2JieVN5bmMYAyABKAsyIi5Mb2JieVN5bmNQYWNrYWdlLkxv",
-            "YmJ5U3luY1JlcXVlc3RIABItCgdhY2tTeW5jGAQgASgLMhouQWNrUGFja2Fn",
-            "ZS5BY2tTeW5jUmVxdWVzdEgAQgkKB2NvbnRlbnQi+gEKEVJlbW90ZVN5bmNQ",
-            "YWNrYWdlEi0KB2V2ZW50SUQYASABKA4yHC5TeW5jUGFja2FnZS5SZW1vdGVT",
-            "eW5jRXZlbnQSPgoNYmF0dGxlUGFja2FnZRgCIAEoCzIlLkJhdHRsZVN5bmNQ",
-            "YWNrYWdlLkJhdHRsZVN5bmNSZXNwb25zZUgAEjsKDGxvYmJ5UGFja2FnZRgD",
-            "IAEoCzIjLkxvYmJ5U3luY1BhY2thZ2UuTG9iYnlTeW5jUmVzcG9uc2VIABIu",
-            "CgdhY2tTeW5jGAQgASgLMhsuQWNrUGFja2FnZS5BY2tTeW5jUmVzcG9uc2VI",
-            "AEIJCgdjb250ZW50KkUKDkxvY2FsU3luY0V2ZW50EhEKDUJhdHRsZVJlcXVl",
-            "c3QQABIQCgxMb2JieVJlcXVlc3QQARIOCgpBY2tSZXF1ZXN0EAIqSQoPUmVt",
-            "b3RlU3luY0V2ZW50EhIKDkJhdHRsZVJlc3BvbnNlEAASEQoNTG9iYnlSZXNw",
-            "b25zZRABEg8KC0Fja1Jlc3BvbnNlEAJiBnByb3RvMw=="));
+            "YWNrYWdlLnByb3RvGhZMb2JieVN5bmNQYWNrYWdlLnByb3RvGhRBY2tTeW5j",
+            "UGFja2FnZS5wcm90byL2AQoQTG9jYWxTeW5jUGFja2FnZRIsCgdldmVudElE",
+            "GAEgASgOMhsuU3luY1BhY2thZ2UuTG9jYWxTeW5jRXZlbnQSPQoNYmF0dGxl",
+            "UGFja2FnZRgCIAEoCzIkLkJhdHRsZVN5bmNQYWNrYWdlLkJhdHRsZVN5bmNS",
+            "ZXF1ZXN0SAASNwoJbG9iYnlTeW5jGAMgASgLMiIuTG9iYnlTeW5jUGFja2Fn",
+            "ZS5Mb2JieVN5bmNSZXF1ZXN0SAASMQoHYWNrU3luYxgEIAEoCzIeLkFja1N5",
+            "bmNQYWNrYWdlLkFja1N5bmNSZXF1ZXN0SABCCQoHY29udGVudCL+AQoRUmVt",
+            "b3RlU3luY1BhY2thZ2USLQoHZXZlbnRJRBgBIAEoDjIcLlN5bmNQYWNrYWdl",
+            "LlJlbW90ZVN5bmNFdmVudBI+Cg1iYXR0bGVQYWNrYWdlGAIgASgLMiUuQmF0",
+            "dGxlU3luY1BhY2thZ2UuQmF0dGxlU3luY1Jlc3BvbnNlSAASOwoMbG9iYnlQ",
+            "YWNrYWdlGAMgASgLMiMuTG9iYnlTeW5jUGFja2FnZS5Mb2JieVN5bmNSZXNw",
+            "b25zZUgAEjIKB2Fja1N5bmMYBCABKAsyHy5BY2tTeW5jUGFja2FnZS5BY2tT",
+            "eW5jUmVzcG9uc2VIAEIJCgdjb250ZW50KkUKDkxvY2FsU3luY0V2ZW50EhEK",
+            "DUJhdHRsZVJlcXVlc3QQABIQCgxMb2JieVJlcXVlc3QQARIOCgpBY2tSZXF1",
+            "ZXN0EAIqSQoPUmVtb3RlU3luY0V2ZW50EhIKDkJhdHRsZVJlc3BvbnNlEAAS",
+            "EQoNTG9iYnlSZXNwb25zZRABEg8KC0Fja1Jlc3BvbnNlEAJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor, global::LobbySyncPackage.LobbySyncPackageReflection.Descriptor, global::AckPackage.AckPackageReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor, global::LobbySyncPackage.LobbySyncPackageReflection.Descriptor, global::AckSyncPackage.AckSyncPackageReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::SyncPackage.LocalSyncEvent), typeof(global::SyncPackage.RemoteSyncEvent), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::SyncPackage.LocalSyncPackage), global::SyncPackage.LocalSyncPackage.Parser, new[]{ "EventID", "BattlePackage", "LobbySync", "AckSync" }, new[]{ "Content" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SyncPackage.RemoteSyncPackage), global::SyncPackage.RemoteSyncPackage.Parser, new[]{ "EventID", "BattlePackage", "LobbyPackage", "AckSync" }, new[]{ "Content" }, null, null, null)
@@ -176,8 +176,8 @@ namespace SyncPackage {
     public const int AckSyncFieldNumber = 4;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::AckPackage.AckSyncRequest AckSync {
-      get { return contentCase_ == ContentOneofCase.AckSync ? (global::AckPackage.AckSyncRequest) content_ : null; }
+    public global::AckSyncPackage.AckSyncRequest AckSync {
+      get { return contentCase_ == ContentOneofCase.AckSync ? (global::AckSyncPackage.AckSyncRequest) content_ : null; }
       set {
         content_ = value;
         contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.AckSync;
@@ -350,7 +350,7 @@ namespace SyncPackage {
           break;
         case ContentOneofCase.AckSync:
           if (AckSync == null) {
-            AckSync = new global::AckPackage.AckSyncRequest();
+            AckSync = new global::AckSyncPackage.AckSyncRequest();
           }
           AckSync.MergeFrom(other.AckSync);
           break;
@@ -394,7 +394,7 @@ namespace SyncPackage {
             break;
           }
           case 34: {
-            global::AckPackage.AckSyncRequest subBuilder = new global::AckPackage.AckSyncRequest();
+            global::AckSyncPackage.AckSyncRequest subBuilder = new global::AckSyncPackage.AckSyncRequest();
             if (contentCase_ == ContentOneofCase.AckSync) {
               subBuilder.MergeFrom(AckSync);
             }
@@ -440,7 +440,7 @@ namespace SyncPackage {
             break;
           }
           case 34: {
-            global::AckPackage.AckSyncRequest subBuilder = new global::AckPackage.AckSyncRequest();
+            global::AckSyncPackage.AckSyncRequest subBuilder = new global::AckSyncPackage.AckSyncRequest();
             if (contentCase_ == ContentOneofCase.AckSync) {
               subBuilder.MergeFrom(AckSync);
             }
@@ -554,8 +554,8 @@ namespace SyncPackage {
     public const int AckSyncFieldNumber = 4;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::AckPackage.AckSyncResponse AckSync {
-      get { return contentCase_ == ContentOneofCase.AckSync ? (global::AckPackage.AckSyncResponse) content_ : null; }
+    public global::AckSyncPackage.AckSyncResponse AckSync {
+      get { return contentCase_ == ContentOneofCase.AckSync ? (global::AckSyncPackage.AckSyncResponse) content_ : null; }
       set {
         content_ = value;
         contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.AckSync;
@@ -728,7 +728,7 @@ namespace SyncPackage {
           break;
         case ContentOneofCase.AckSync:
           if (AckSync == null) {
-            AckSync = new global::AckPackage.AckSyncResponse();
+            AckSync = new global::AckSyncPackage.AckSyncResponse();
           }
           AckSync.MergeFrom(other.AckSync);
           break;
@@ -772,7 +772,7 @@ namespace SyncPackage {
             break;
           }
           case 34: {
-            global::AckPackage.AckSyncResponse subBuilder = new global::AckPackage.AckSyncResponse();
+            global::AckSyncPackage.AckSyncResponse subBuilder = new global::AckSyncPackage.AckSyncResponse();
             if (contentCase_ == ContentOneofCase.AckSync) {
               subBuilder.MergeFrom(AckSync);
             }
@@ -818,7 +818,7 @@ namespace SyncPackage {
             break;
           }
           case 34: {
-            global::AckPackage.AckSyncResponse subBuilder = new global::AckPackage.AckSyncResponse();
+            global::AckSyncPackage.AckSyncResponse subBuilder = new global::AckSyncPackage.AckSyncResponse();
             if (contentCase_ == ContentOneofCase.AckSync) {
               subBuilder.MergeFrom(AckSync);
             }
