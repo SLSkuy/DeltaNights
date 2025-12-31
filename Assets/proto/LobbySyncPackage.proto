@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package LobbySyncPackage;
+
+/* --------------------------------------------------
+  顶层封装-大厅操作事件
+-------------------------------------------------- */
+enum LobbyEvent {
+  Login = 0;
+}
+
+message LobbySyncRequest {
+  LobbyEvent eventID = 1;
+}

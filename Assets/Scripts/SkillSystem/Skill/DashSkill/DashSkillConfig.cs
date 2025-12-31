@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.21
- *  LastUpdate:  2025.12.21
+ *  LastUpdate:  2025.12.30
  * 
  *  功能简述：
  *  DashSkillConfig 为冲刺（Dash）技能的配置类，
@@ -26,7 +26,7 @@
 
 using UnityEngine;
 
-namespace SkillSystem.Skill.DshSkill
+namespace SkillSystem.Skill.DashSkill
 {
     /// <summary>
     /// 冲刺示例技能，继承SkillConfig实现额外逻辑

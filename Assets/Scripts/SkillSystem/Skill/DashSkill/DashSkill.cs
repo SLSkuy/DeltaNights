@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.21
- *  LastUpdate: 2025.12.21
+ *  LastUpdate: 2025.12.30
  * 
  *  功能简述：
  *  DashSkill 为冲刺技能的运行时实现类，
@@ -23,7 +23,7 @@ using DG.Tweening;
 using PlayerControl;
 using UnityEngine;
 
-namespace SkillSystem.Skill.DshSkill
+namespace SkillSystem.Skill.DashSkill
 {
     /// <summary>
     /// 冲刺技能具体实现，在此处实现每个技能的逻辑

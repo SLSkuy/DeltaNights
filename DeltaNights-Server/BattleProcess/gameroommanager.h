@@ -1,0 +1,41 @@
+/* ------------------------------------------------------------
+ *  Author:  2023051604044 wanrui
+ *  Date:  2025.12.23
+ *  LastUpdate: 2025.12.28
+ *
+ *  游戏战局房间管理
+ *  处理房间的创建、销毁、玩家与房间之间的交互逻辑
+ *  获取每个房间的Tick事件，并传给网络分发层进行网络同步
+ * ------------------------------------------------------------ */
+
+#pragma once
+
+#include <QObject>
+#include <unordered_map>
+
+class GameRoom;
+class PlayerInfo;
+
+class GameRoomManager : public QObject
+{
+    Q_OBJECT
+public:
+    explicit GameRoomManager(QObject *parent = nullptr);
+
+    // ========== 房间管理操作 ==========
+    GameRoom* createGameRoom();
+    GameRoom* findGameRoomByID(quint32 roomID);
+    void disposeGameRoom(quint32 roomID);
+
+    // ========== 玩家交互操作 ==========
+    bool joinGameRoom(quint32 roomID, PlayerInfo* player);
+    bool leaveGameRoom(quint32 roomID, PlayerInfo* player);
+
+signals:
+    void frameGenerated();  // 转发各个战局的信号
+
+private:
+    quint32 m_nextRoomID = 1;
+
+    std::unordered_map<quint32, GameRoom*> m_rooms; // roomID -> GameRoom
+};

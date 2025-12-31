@@ -1,14 +1,14 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.10.28
- *  LastUpdate: 2025.12.14
- * 
+ *  LastUpdate:  2025.12.30
+ *
  *  功能简述：
  *  NetWorkManager 负责管理客户端的网络连接与消息通信，
  *  提供与服务器之间的基础数据收发能力。
  *
  *  主要功能：
- *  - 建立并维护 TCP 网络连接
+ *  - 建立并维护 UDP、TCP 网络连接
  *  - 异步接收服务器消息并转发至主线程
  *  - 对外提供消息发送与接收事件接口
  *
@@ -18,13 +18,10 @@
  *  - 不直接在网络线程中处理游戏逻辑
  * ------------------------------------------------------------ */
 
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
+using System.Collections.Concurrent;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using AckPackage;
+using SyncPackage;
 using UnityEngine;
 
 namespace Network
@@ -32,112 +29,133 @@ namespace Network
     public class NetWorkManager : MonoBehaviour
     {
         public static NetWorkManager Instance;
+        
+        [Header("服务器配置")]
+        [SerializeField]private string ip = "127.0.0.1";
+        [SerializeField]private short tcpPort = 11451;
+        [SerializeField]private short udpPort = 19198;
 
-        public event Action<string> ReceiveMessage;
-        
-        private Socket _socket;
-        private CancellationTokenSource _cts;
-        
-        private string _ip;
-        private short _port;
+        [Header("玩家信息")] 
+        public uint clientID = 0;
 
-        private Queue<string> _receiveMsgs;
+        [Header("网络属性配置")] 
+        [SerializeField] [Tooltip("网路心跳间隔")] private float heartBeatStep = 1f;
+
+        // 组件引用
+        private TcpManager _tcp;
+        private UdpManager _udp;
+        private MessageProcessor _processor;
+
+        // Unity主线程处理调用队列
+        private readonly ConcurrentQueue<byte[]> _mainThreadQueue = new();
+
+        // 心跳包缓存
+        private LocalSyncPackage _heartBeatPackage;
+        private float _heartBeatTimer;
         
+        #region 成员方法
+
+        public void SendUdp(LocalSyncPackage syncPackage)
+        {
+            _udp.EnqueueSendProtobuf(syncPackage);
+        }
+
+        public void SendTcp(LocalSyncPackage syncPackage)
+        {
+            _tcp.EnqueueSendProtobuf(syncPackage);
+        }
+
+        /// <summary>
+        /// 心跳包，每隔一段固定时间进行发送
+        /// </summary>
+        private void HeartBeat()
+        {
+            // 断开连接时暂停发送心跳包
+            if (!_tcp.Connected) return;
+            
+            _heartBeatPackage ??= new LocalSyncPackage
+            {
+                EventID = LocalSyncEvent.Ack,
+                AckSync = new AckSyncRequest
+                {
+                    EventID = AckSyncEvent.HeartBeat,
+                    HeartBeat = new HeartBeatPackage
+                    {
+                        ClientID = clientID
+                    }
+                }
+            };
+            
+            // 发送心跳包
+            SendTcp(_heartBeatPackage);
+            _heartBeatTimer = heartBeatStep;
+        }
+
+        #endregion
+        
+        #region 周期函数
         
         void Awake()
         {
-            _receiveMsgs = new Queue<string>();
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Instance = this;
-            
             DontDestroyOnLoad(gameObject);
-            
-            ConnectToServer("127.0.0.1",11451);
+
+            _processor = new MessageProcessor();
+
+            _tcp = new TcpManager();
+            _tcp.OnMessageReceived += data => _mainThreadQueue.Enqueue(data);
+
+            _udp = new UdpManager();
+            _udp.OnDataReceived += data => _mainThreadQueue.Enqueue(data);
+
+            _udp.Start(ip, udpPort);    // 启动UDP连接
+            _tcp.Connect(ip, tcpPort);   // 开启TCP监听
         }
 
         void Start()
         {
-            _cts = new CancellationTokenSource();
-            _ = Task.Run(()=>ReceiveMsg(_cts.Token));
+            // 测试使用
+            _udp.EnqueueSend(Encoding.UTF8.GetBytes("UDP连接测试"));
+
+            LocalSyncPackage syncPackage = new LocalSyncPackage
+            {
+                EventID = LocalSyncEvent.Ack,
+                AckSync = new AckSyncRequest
+                {
+                    EventID = AckSyncEvent.Connect,
+                    Connect = new ConnectPackage
+                    {
+                        Port = _udp.UdpPort
+                    }
+                }
+            };
+            _tcp.EnqueueSendProtobuf(syncPackage);
         }
 
         void Update()
         {
-            while (_receiveMsgs.Count > 0)
+            // 消息队列处理
+            while (_mainThreadQueue.Count > 0)
             {
-                string msg = _receiveMsgs.Dequeue();
-                ReceiveMessage?.Invoke(msg); // 在主线程触发
-                Debug.Log($"Received From Server: {msg}");
-            }
-        }
-
-        public void ConnectToServer(string ip, short port)
-        {
-            if (_socket.Connected)
-            {
-                _socket.Shutdown(SocketShutdown.Both);
-                _socket.Close();
-            }
-
-            try
-            {
-                _socket.Connect(IPAddress.Parse(ip), port);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e);
-            }
-        }
-
-        public void SendMsg(string msg)
-        {
-            if (_socket != null && _socket.Connected)
-            {
-                _socket.Send(Encoding.UTF8.GetBytes(msg));
-            }
-        }
-
-        private async Task ReceiveMsg(CancellationToken token)
-        {
-            byte[] msgBytes = new byte[1024 * 1024];
-            while (!token.IsCancellationRequested)
-            {
-                try
+                if (_mainThreadQueue.TryDequeue(out var data))
                 {
-                    int len = await _socket.ReceiveAsync(msgBytes, SocketFlags.None, token);
-                    if (len <= 0)
-                    {
-                        Debug.LogWarning("Server Closed");
-                        break;
-                    }
-
-                    string msg = Encoding.UTF8.GetString(msgBytes, 0, len);
-                    _receiveMsgs.Enqueue(msg);
-                    Debug.Log($"Received From Server: {msg}");
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(e);
-                    break;
+                    _processor.DeSerialize(data);
                 }
             }
+
+            // 心跳包处理
+            if (_heartBeatTimer > 0)
+                _heartBeatTimer -= Time.deltaTime;
+            else
+                HeartBeat();
         }
 
         void OnDestroy()
         {
-            _cts?.Cancel();
-            
-            try
-            {
-                if (_socket != null && _socket.Connected)
-                {
-                    _socket.Shutdown(SocketShutdown.Both);
-                    _socket.Close();
-                }
-            }catch(Exception e)
-            {
-                Debug.LogError(e);
-            }
+            _tcp?.Disconnect();
+            _udp?.Stop();
         }
+        
+        #endregion
     }
 }
