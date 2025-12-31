@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.10.28
- *  LastUpdate:  2025.12.30
+ *  LastUpdate:  2025.12.31
  *
  *  功能简述：
  *  NetWorkManager 负责管理客户端的网络连接与消息通信，
@@ -120,9 +120,6 @@ namespace Network
 
         void Start()
         {
-            // 测试使用
-            _udp.EnqueueSend(Encoding.UTF8.GetBytes("UDP连接测试"));
-
             LocalSyncPackage syncPackage = new LocalSyncPackage
             {
                 EventID = LocalSyncEvent.AckRequest,
@@ -135,6 +132,7 @@ namespace Network
                     }
                 }
             };
+            _udp.EnqueueSendProtobuf(syncPackage);
             _tcp.EnqueueSendProtobuf(syncPackage);
         }
 

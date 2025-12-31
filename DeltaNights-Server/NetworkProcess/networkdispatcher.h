@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.30
+ *  LastUpdate: 2025.12.31
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -16,6 +16,7 @@
 #include <QQueue>
 
 #include "../GameEvent/AckPackage.pb.h"
+#include "../GameEvent/SyncPackage.pb.h"
 
 class UdpEndpoint;
 class TcpEndpoint;
@@ -45,9 +46,15 @@ public:
     void onUdpMessage(const QHostAddress& addr, quint16 port, const QByteArray& data);
     void processQueueMessage();  // 处理队列中的字节流
 
-    void broadcastRoomFrame(GameRoom* room);    // 广播战局事件
+    // 将发送数据传入网络线程
+    void sendTcpMessage(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
+    void sendUdpMessage(const QHostAddress& addr, quint16 port, const SyncPackage::RemoteSyncPackage& pkg);
 
 signals:
+    // 发送信号
+    void sendTcp(QTcpSocket* socket, const QByteArray& data);
+    void sendUdp(const QHostAddress& addr, quint16 port, const QByteArray& data);
+
     // 客户端相关事件
     void clientConnect(QTcpSocket* socket);
     void clientBindUdpPort(QTcpSocket* socket, quint16 port);
@@ -65,9 +72,9 @@ private:
     UdpEndpoint* _udp = nullptr;
     TcpEndpoint* _tcp = nullptr;
 
-    QMutex _mutex;
+    QMutex m_mutex;
     // TODO: 消息队列
     // TODO: 网络线程将消息加入队列，等待主线程取出处理
-    QQueue<NetMessage> _tcpQueue;
-    QQueue<NetMessage> _udpQueue;
+    QQueue<NetMessage> m_tcpQueue;
+    QQueue<NetMessage> m_udpQueue;
 };

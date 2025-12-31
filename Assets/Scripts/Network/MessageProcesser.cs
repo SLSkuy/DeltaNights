@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.28
- *  LastUpdate:  2025.12.30
+ *  LastUpdate:  2025.12.31
  *
  *  MessageProcesser负责序列化与反序列化所有接收到的网络字节流
  *  处理分发所有的网络事件
@@ -54,7 +54,22 @@ namespace Network
         /// </summary>
         public void DeSerialize(byte[] data)
         {
-            Debug.Log(Encoding.UTF8.GetString(data));
+            RemoteSyncPackage pkg = RemoteSyncPackage.Parser.ParseFrom(data);
+            switch (pkg.EventID)
+            {
+                case RemoteSyncEvent.AckResponse:
+                    Debug.Log("Ack Response");
+                    break;
+                case RemoteSyncEvent.BattleResponse:
+                    Debug.Log("Battle Response");
+                    break;
+                case RemoteSyncEvent.LobbyResponse:
+                    Debug.Log("Lobby Response");
+                    break;
+                default:
+                    Debug.Log("Unknown EventID: " + pkg.EventID);
+                    break;
+            }
         }
     }
 }

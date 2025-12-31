@@ -1,14 +1,14 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.30
+ *  LastUpdate: 2025.12.31
  *
  *  客户端管理
  *  维护所有客户端的连接
  * ------------------------------------------------------------ */
 
-#include "ClientManager.h"
-#include "ClientInfo.h"
+#include "clientmanager.h"
+#include "clientinfo.h"
 #include "../Logger/logger.h"
 
 #include <QDateTime>
