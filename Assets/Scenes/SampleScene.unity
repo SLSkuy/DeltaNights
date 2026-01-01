@@ -699,6 +699,8 @@ MonoBehaviour:
   ip: 127.0.0.1
   tcpPort: 11451
   udpPort: 19198
+  clientID: 0
+  heartBeatStep: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,7 +2798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80bb8bb3e4d131246a8fbeaa0f270d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneUI.StartSceneUIManager
-  uiSettings: {fileID: 11400000, guid: 9406d3a991c3db54ead0dc885d5fd181, type: 2}
+  uiSettings: {fileID: 11400000, guid: c8020a0667254b742b1eefd5b0ed9649, type: 2}
 --- !u!114 &2069496777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2888,7 +2890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1476113310870373613, guid: 97e255cab6163d8419119c50ff1da803, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3320949246056250868, guid: 97e255cab6163d8419119c50ff1da803, type: 3}
       propertyPath: m_SizeDelta.x
