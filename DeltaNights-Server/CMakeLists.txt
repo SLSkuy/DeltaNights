@@ -40,6 +40,9 @@ add_executable(DeltaNights-Server
   GameEvent/SyncPackage.pb.cc GameEvent/SyncPackage.pb.h
   GameEvent/UnityMath.pb.cc GameEvent/UnityMath.pb.h
   consoleprocess.h consoleprocess.cpp
+  ObjectPool/objectpool.h
+  ObjectPool/protopool.h ObjectPool/protopool.cpp
+  ObjectPool/protorestter.h
 )
 
 # 指定protobuf库位置

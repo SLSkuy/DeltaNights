@@ -21,6 +21,7 @@ void ConsoleProcess::run()
         {
             emit commandReceived(QString::fromStdString(line));
 
+            // 结束命令捕获
             if(line == "stop")
             {
                 break;

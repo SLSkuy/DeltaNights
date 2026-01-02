@@ -1,7 +1,14 @@
-using System;
-using System.Collections.Generic;
+/* ------------------------------------------------------------
+ *  Author:  2023051604044 wanrui
+ *  Date:  2025.12.28
+ *  LastUpdate:  2026.1.2
+ *
+ *  Protobuf对象重置处理
+ * ------------------------------------------------------------ */
+
 using BattleSyncPackage;
 using SyncPackage;
+using UnityEngine;
 
 namespace Network.ProtoTools
 {
@@ -11,34 +18,28 @@ namespace Network.ProtoTools
     internal static class ProtoResetter
     {
         /// <summary>
-        /// LocalSyncPackage重置处理事件存储
-        /// </summary>
-        private static readonly Dictionary<LocalSyncPackage.ContentOneofCase, Action<LocalSyncPackage>> LocalResetMap = new()
-        {
-            {
-                LocalSyncPackage.ContentOneofCase.AckSync,
-                p => { p.AckSync = null; }
-            },
-            {
-                // 战局包回收对象池处理
-                LocalSyncPackage.ContentOneofCase.BattleSync,
-                p => { p.BattleSync.Dispose(); p.BattleSync = null; }
-            },
-            {
-                LocalSyncPackage.ContentOneofCase.LobbySync,
-                p => { p.LobbySync = null; }
-            }
-        };
-
-        /// <summary>
         /// LocalSyncPackage重置处理方法
         /// </summary>
         public static void Reset(LocalSyncPackage pkg)
         {
             if (pkg == null) return;
-            
-            if (LocalResetMap.TryGetValue(pkg.ContentCase, out var reset))
-                reset(pkg);
+
+            switch (pkg.ContentCase)
+            {
+                case LocalSyncPackage.ContentOneofCase.AckSync:
+                    pkg.AckSync = null;
+                    break;
+                case LocalSyncPackage.ContentOneofCase.BattleSync:
+                    pkg.Dispose();
+                    pkg.BattleSync = null;
+                    break;
+                case LocalSyncPackage.ContentOneofCase.LobbySync:
+                    pkg.LobbySync = null;
+                    break;
+                default:
+                    Debug.LogError("[ProtoResetter] Unknown content case: " + pkg.ContentCase);
+                    break;
+            }
 
             pkg.ClearContent();
             pkg.EventID = LocalSyncEvent.LocalNone;

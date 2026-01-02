@@ -17,10 +17,12 @@ message BattleSyncRequest {
   bool jump = 4;
   float yaw = 5;
   float pitch = 6;
+  bool activeSkill = 7;
+  bool ultimateSkill = 8;
 
   // 测试使用，服务器暂未做世界模拟，客户端直接传输状态信息用于同步
-  UnityMath.Vector3D position = 7;
-  UnityMath.Vector3D eulaAngle = 8;
+  UnityMath.Vector3D position = 9;
+  UnityMath.Vector3D eulaAngle = 10;
 }
 
 /* ==================================================
@@ -41,8 +43,10 @@ message PlayerState {
   bool jump = 4;
   float yaw = 5;
   float pitch = 6;
+  bool activeSkill = 7;
+  bool ultimateSkill = 8;
 
   // 权威状态同步
-  UnityMath.Vector3D position = 7;
-  UnityMath.Vector3D eulaAngle = 8;
+  UnityMath.Vector3D position = 9;
+  UnityMath.Vector3D eulaAngle = 10;
 }

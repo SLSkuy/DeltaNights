@@ -19,13 +19,14 @@ namespace Network.ProtoTools
     public static class ProtoPool
     {
         // 本地UDP战局高频同步使用对象池，其余没必要使用
-        private static readonly ProtoObjectPool<LocalSyncPackage> LocalPool = new(24);
-        private static readonly ProtoObjectPool<BattleSyncRequest> BattleReqPool = new(8);
+        private static readonly ProtoObjectPool<LocalSyncPackage> LocalPool = new(64);
+        private static readonly ProtoObjectPool<BattleSyncRequest> BattleReqPool = new(32);
 
         #region 创建Protobuf包
 
         public static LocalSyncPackage NewLocal() => LocalPool.Get();
         public static BattleSyncRequest NewBattleReq() => BattleReqPool.Get();
+        
         #endregion
 
         #region 回收Protobuf包

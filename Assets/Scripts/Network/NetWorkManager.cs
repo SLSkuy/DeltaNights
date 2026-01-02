@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.10.28
- *  LastUpdate:  2025.12.31
+ *  LastUpdate:  2026.1.2
  *
  *  功能简述：
  *  NetWorkManager 负责管理客户端的网络连接与消息通信，
@@ -42,6 +42,8 @@ namespace Network
 
         [Header("网络属性配置")] 
         [SerializeField] [Tooltip("网路心跳间隔")] private float heartBeatStep = 1f;
+        // [SerializeField] [Tooltip("重连次数")] private int reconnectTimes = 2;
+        // [SerializeField] [Tooltip("重连间隔")] private float reconnectInterval = 5f;
 
         // 组件引用
         private TcpManager _tcp;
@@ -118,6 +120,24 @@ namespace Network
             SendTcp(_heartBeatPackage);
             _heartBeatTimer = heartBeatStep;
         }
+        
+        private void SendConnectRequest()
+        {
+            // 使用对象池管理Protobuf对象，避免频繁的创建与销毁
+            LocalSyncPackage syncPackage = ProtoPool.NewLocal();
+            syncPackage.EventID = LocalSyncEvent.AckRequest;
+            syncPackage.AckSync = new AckSyncRequest
+            {
+                EventID = LocalAckEvent.ConnectRequest,
+                Connect = new ConnectRequestPackage
+                {
+                    Port = _udp.UdpPort
+                }
+            };
+            // 发送连接服务器请求
+            _tcp.EnqueueSendProtobuf(syncPackage);
+            syncPackage.Dispose();  // 返回对象池
+        }
 
         #endregion
         
@@ -137,25 +157,12 @@ namespace Network
             _udp.OnDataReceived += data => _mainThreadQueue.Enqueue(data);
 
             _udp.Start(ip, udpPort);    // 启动UDP连接
-            _tcp.Connect(ip, tcpPort);   // 开启TCP监听
+            _tcp.Connect(ip, tcpPort);   // 开启TCP监听;
         }
 
         void Start()
         {
-            // 使用对象池管理Protobuf对象，避免频繁的创建与销毁
-            LocalSyncPackage syncPackage = ProtoPool.NewLocal();
-            syncPackage.EventID = LocalSyncEvent.AckRequest;
-            syncPackage.AckSync = new AckSyncRequest
-            {
-                EventID = LocalAckEvent.ConnectRequest,
-                Connect = new ConnectRequestPackage
-                {
-                    Port = _udp.UdpPort
-                }
-            };
-            // 发送连接服务器请求
-            _tcp.EnqueueSendProtobuf(syncPackage);
-            syncPackage.Dispose();  // 返回对象池
+            SendConnectRequest();
         }
 
         void Update()

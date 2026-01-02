@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.28
- *  LastUpdate:  2025.12.31
+ *  LastUpdate:  2026.1.2
  *
  *  MessageProcesser负责序列化与反序列化所有接收到的网络字节流
  *  处理分发所有的网络事件
@@ -14,7 +14,6 @@ using AckSyncPackage;
 using BattleSyncPackage;
 using Google.Protobuf;
 using LobbySyncPackage;
-using Network.ProtoTools;
 using SyncPackage;
 using UnityEngine;
 
@@ -35,7 +34,7 @@ namespace Network
         public void Register<T>(NetEvent eventId, Action<T> handler) where T : IMessage, new()
         {
             _handlers[eventId] = msg => handler((T)msg);
-            Debug.Log($"[MessageProcesser] Registered event {eventId}");
+            Debug.Log($"[MessageProcesser] 注册事件 {eventId}");
         }
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace Network
         public void UnRegister(NetEvent eventId)
         {
             _handlers.Remove(eventId);
-            Debug.Log($"[MessageProcesser] Unregistered event {eventId}");
+            Debug.Log($"[MessageProcesser] 注销事件 {eventId}");
         }
         
         /// <summary>
@@ -61,7 +60,7 @@ namespace Network
             }
             else
             {
-                Debug.LogWarning($"[MessageProcessor] No handler for event {eventId}");
+                Debug.LogWarning($"[MessageProcessor] 事件 {eventId} 没有对应的处理器");
             }
         }
 
@@ -75,6 +74,7 @@ namespace Network
         public void DeSerialize(byte[] data)
         {
             RemoteSyncPackage pkg = RemoteSyncPackage.Parser.ParseFrom(data);
+            // ===== 分类处理网络同步包 =====
             switch (pkg.EventID)
             {
                 case RemoteSyncEvent.AckResponse:
@@ -87,7 +87,7 @@ namespace Network
                     BattleResponseProcess(pkg.BattlePackage);
                     break;
                 default:
-                    Debug.Log("Unknown EventID: " + pkg.EventID);
+                    Debug.Log("[MessageProcesser] 未知事件: " + pkg.EventID);
                     break;
             }
         }
