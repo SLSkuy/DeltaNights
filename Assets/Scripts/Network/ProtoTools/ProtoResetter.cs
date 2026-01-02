@@ -7,8 +7,6 @@
  * ------------------------------------------------------------ */
 
 using BattleSyncPackage;
-using SyncPackage;
-using UnityEngine;
 
 namespace Network.ProtoTools
 {
@@ -32,7 +30,7 @@ namespace Network.ProtoTools
         public static void Reset(BattleSyncResponse pkg)
         {
             if (pkg == null) return;
-            // TODO: 重置BattleSyncRequest包中内容
+            // TODO: 重置BattleSyncResponse包中内容
         }
     }
 }

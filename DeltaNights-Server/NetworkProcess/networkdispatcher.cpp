@@ -129,7 +129,7 @@ void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& d
     switch (pkg.eventid())
     {
         case LocalSyncEvent::ClientRequest:
-            handleTcpAckPackage(socket, pkg.clientsync());
+            handleTcpClientPackage(socket, pkg.clientsync());
             break;
         case LocalSyncEvent::LobbyRequest:
             handleTcpLobbyPackage(socket, pkg.lobbysync());
@@ -140,7 +140,7 @@ void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& d
     }
 }
 
-void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg)
+void NetworkDispatcher::handleTcpClientPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg)
 {
     using namespace ClientSyncPackage;
 
