@@ -10,10 +10,11 @@
 
 using System;
 using System.Collections.Generic;
-using AckSyncPackage;
 using BattleSyncPackage;
+using ClientSyncPackage;
 using Google.Protobuf;
 using LobbySyncPackage;
+using Network.ProtoTools;
 using SyncPackage;
 using UnityEngine;
 
@@ -69,22 +70,19 @@ namespace Network
         #region 序列化处理
 
         /// <summary>
-        /// 接受服务端发送的字符串，测试使用
+        /// 接受服务端发送的TCP事件
         /// </summary>
-        public void DeSerialize(byte[] data)
+        public void DeserializeTcp(byte[] data)
         {
             RemoteSyncPackage pkg = RemoteSyncPackage.Parser.ParseFrom(data);
             // ===== 分类处理网络同步包 =====
             switch (pkg.EventID)
             {
-                case RemoteSyncEvent.AckResponse:
-                    AckResponseProcess(pkg.AckSync);
+                case RemoteSyncEvent.ClientResponse:
+                    AckResponseProcess(pkg.ClientPackage);
                     break;
                 case RemoteSyncEvent.LobbyResponse:
                     LobbyResponseProcess(pkg.LobbyPackage);
-                    break;
-                case RemoteSyncEvent.BattleResponse:
-                    BattleResponseProcess(pkg.BattlePackage);
                     break;
                 default:
                     Debug.Log("[MessageProcesser] 未知事件: " + pkg.EventID);
@@ -92,12 +90,24 @@ namespace Network
             }
         }
 
-        /// 处理ACK回应消息，此处进行分发相应的网络事件
-        private void AckResponseProcess(AckSyncResponse response)
+        /// <summary>
+        /// 接收服务端发送的UDP事件
+        /// </summary>
+        /// <param name="data"></param>
+        public void DeserializeUdp(byte[] data)
+        {
+            BattleSyncResponse pkg = ProtoPool.NewBattleResp();
+            pkg.MergeFrom(data);
+            
+            // TODO: 处理战局同步回应包
+        }
+
+        /// 处理Client类回应消息，此处进行分发相应的网络事件
+        private void AckResponseProcess(ClientSyncResponse response)
         {
             switch (response.EventID)
             {
-                case RemoteAckEvent.ConnectResponse:
+                case RemoteClientEvent.ConnectResponse:
                     Dispatch(NetEvent.ConnectResponse, response.ConnectResponse);
                     break;
                 default:
@@ -105,7 +115,7 @@ namespace Network
             }
         }
 
-        /// 处理Lobby回应消息，此处进行分发相应的网络事件
+        /// 处理Lobby类回应消息，此处进行分发相应的网络事件
         private void LobbyResponseProcess(LobbySyncResponse response)
         {
             switch (response.EventID)
@@ -113,12 +123,6 @@ namespace Network
                 default:
                     break;
             }
-        }
-
-        /// 处理Battle回应消息，此处进行分发相应的网络事件
-        private void BattleResponseProcess(BattleSyncResponse response)
-        {
-            
         }
         
         #endregion

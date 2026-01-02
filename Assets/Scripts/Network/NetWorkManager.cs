@@ -19,12 +19,11 @@
  * ------------------------------------------------------------ */
 
 using System.Collections.Concurrent;
-using AckSyncPackage;
 using SyncPackage;
 using UnityEngine;
 using System;
+using ClientSyncPackage;
 using Google.Protobuf;
-using Network.ProtoTools;
 
 namespace Network
 {
@@ -51,7 +50,8 @@ namespace Network
         private MessageProcessor _processor;
 
         // Unity主线程处理调用队列
-        private readonly ConcurrentQueue<byte[]> _mainThreadQueue = new();
+        private readonly ConcurrentQueue<byte[]> _tcpQueue = new();
+        private readonly ConcurrentQueue<byte[]> _udpQueue = new();
 
         // 心跳包缓存
         private LocalSyncPackage _heartBeatPackage;
@@ -105,10 +105,10 @@ namespace Network
             
             _heartBeatPackage ??= new LocalSyncPackage
             {
-                EventID = LocalSyncEvent.AckRequest,
-                AckSync = new AckSyncRequest
+                EventID = LocalSyncEvent.ClientRequest,
+                ClientSync = new ClientSyncRequest
                 {
-                    EventID = LocalAckEvent.HeartBeat,
+                    EventID = LocalClientEvent.HeartBeat,
                     HeartBeat = new HeartBeatPackage
                     {
                         ClientID = clientID
@@ -121,14 +121,16 @@ namespace Network
             _heartBeatTimer = heartBeatStep;
         }
         
+        /// <summary>
+        /// 发送客户端连接服务器请求，以让服务器获取客户端UDP端口
+        /// </summary>
         private void SendConnectRequest()
         {
-            // 使用对象池管理Protobuf对象，避免频繁的创建与销毁
-            LocalSyncPackage syncPackage = ProtoPool.NewLocal();
-            syncPackage.EventID = LocalSyncEvent.AckRequest;
-            syncPackage.AckSync = new AckSyncRequest
+            LocalSyncPackage syncPackage = new LocalSyncPackage();
+            syncPackage.EventID = LocalSyncEvent.ClientRequest;
+            syncPackage.ClientSync = new ClientSyncRequest 
             {
-                EventID = LocalAckEvent.ConnectRequest,
+                EventID = LocalClientEvent.ConnectRequest,
                 Connect = new ConnectRequestPackage
                 {
                     Port = _udp.UdpPort
@@ -136,7 +138,6 @@ namespace Network
             };
             // 发送连接服务器请求
             _tcp.EnqueueSendProtobuf(syncPackage);
-            syncPackage.Dispose();  // 返回对象池
         }
 
         #endregion
@@ -151,10 +152,10 @@ namespace Network
             _processor = new MessageProcessor();
 
             _tcp = new TcpManager();
-            _tcp.OnMessageReceived += data => _mainThreadQueue.Enqueue(data);
+            _tcp.OnMessageReceived += data => _tcpQueue.Enqueue(data);
 
             _udp = new UdpManager();
-            _udp.OnDataReceived += data => _mainThreadQueue.Enqueue(data);
+            _udp.OnDataReceived += data => _udpQueue.Enqueue(data);
 
             _udp.Start(ip, udpPort);    // 启动UDP连接
             _tcp.Connect(ip, tcpPort);   // 开启TCP监听;
@@ -167,12 +168,21 @@ namespace Network
 
         void Update()
         {
-            // 消息队列处理
-            while (_mainThreadQueue.Count > 0)
+            // 处理操作事件
+            while (_tcpQueue.Count > 0)
             {
-                if (_mainThreadQueue.TryDequeue(out var data))
+                if (_tcpQueue.TryDequeue(out var data))
                 {
-                    _processor.DeSerialize(data);
+                    _processor.DeserializeTcp(data);
+                }
+            }
+            
+            // 处理战局同步事件
+            while (_udpQueue.Count > 0)
+            {
+                if (_udpQueue.TryDequeue(out var data))
+                {
+                    _processor.DeserializeUdp(data);
                 }
             }
 

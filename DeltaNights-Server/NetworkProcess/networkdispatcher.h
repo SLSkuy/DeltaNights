@@ -15,7 +15,7 @@
 #include <QTcpSocket>
 #include <QQueue>
 
-#include "../GameEvent/AckSyncPackage.pb.h"
+#include "../GameEvent/ClientSyncPackage.pb.h"
 #include "../GameEvent/SyncPackage.pb.h"
 #include "../GameEvent/LobbySyncPackage.pb.h"
 #include "../GameEvent/BattleSyncPackage.pb.h"
@@ -50,7 +50,7 @@ public:
 
     // 将发送数据传入网络线程
     void sendTcpMessage(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
-    void sendUdpMessage(const QHostAddress& addr, quint16 port, const SyncPackage::RemoteSyncPackage& pkg);
+    void sendUdpMessage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncResponse& pkg);
 
 signals:
     // 发送信号
@@ -67,19 +67,17 @@ signals:
 
 private:
     void handleTcpPackage(QTcpSocket* socket, const QByteArray& data);
-    void handleTcpAckPackage(QTcpSocket* socket, const AckSyncPackage::AckSyncRequest& pkg);
+    void handleTcpAckPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg);
     void handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyncPackage::LobbySyncRequest& pkg);
     void handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& data);
-    void handleUdpAckPackage(const QHostAddress& addr, quint16 port, const AckSyncPackage::AckSyncRequest& pkg);
-    void handleUdpBattlePackage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncRequest& pkg);
 
 private:
     UdpEndpoint* _udp = nullptr;
     TcpEndpoint* _tcp = nullptr;
 
-    QMutex m_mutex;
     // TODO: 消息队列
     // TODO: 网络线程将消息加入队列，等待主线程取出处理
+    QMutex m_mutex;
     QQueue<NetMessage> m_tcpQueue;
     QQueue<NetMessage> m_udpQueue;
 };

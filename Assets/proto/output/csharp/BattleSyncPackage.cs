@@ -25,24 +25,26 @@ namespace BattleSyncPackage {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdCYXR0bGVTeW5jUGFja2FnZS5wcm90bxIRQmF0dGxlU3luY1BhY2thZ2Ua",
-            "D1VuaXR5TWF0aC5wcm90byLSAQoRQmF0dGxlU3luY1JlcXVlc3QSEAoIcGxh",
+            "D1VuaXR5TWF0aC5wcm90byL+AQoRQmF0dGxlU3luY1JlcXVlc3QSEAoIcGxh",
             "eWVySUQYASABKA0SDAoEdGljaxgCIAEoDRIkCgdtb3ZlRGlyGAMgASgLMhMu",
             "VW5pdHlNYXRoLlZlY3RvcjJEEgwKBGp1bXAYBCABKAgSCwoDeWF3GAUgASgC",
-            "Eg0KBXBpdGNoGAYgASgCEiUKCHBvc2l0aW9uGAcgASgLMhMuVW5pdHlNYXRo",
-            "LlZlY3RvcjNEEiYKCWV1bGFBbmdsZRgIIAEoCzITLlVuaXR5TWF0aC5WZWN0",
-            "b3IzRCJEChJCYXR0bGVTeW5jUmVzcG9uc2USLgoGc3RhdGVzGAEgAygLMh4u",
-            "QmF0dGxlU3luY1BhY2thZ2UuUGxheWVyU3RhdGUizAEKC1BsYXllclN0YXRl",
-            "EhAKCHBsYXllcklEGAEgASgNEgwKBHRpY2sYAiABKA0SJAoHbW92ZURpchgD",
-            "IAEoCzITLlVuaXR5TWF0aC5WZWN0b3IyRBIMCgRqdW1wGAQgASgIEgsKA3lh",
-            "dxgFIAEoAhINCgVwaXRjaBgGIAEoAhIlCghwb3NpdGlvbhgHIAEoCzITLlVu",
-            "aXR5TWF0aC5WZWN0b3IzRBImCglldWxhQW5nbGUYCCABKAsyEy5Vbml0eU1h",
-            "dGguVmVjdG9yM0RiBnByb3RvMw=="));
+            "Eg0KBXBpdGNoGAYgASgCEhMKC2FjdGl2ZVNraWxsGAcgASgIEhUKDXVsdGlt",
+            "YXRlU2tpbGwYCCABKAgSJQoIcG9zaXRpb24YCSABKAsyEy5Vbml0eU1hdGgu",
+            "VmVjdG9yM0QSJgoJZXVsYUFuZ2xlGAogASgLMhMuVW5pdHlNYXRoLlZlY3Rv",
+            "cjNEIkQKEkJhdHRsZVN5bmNSZXNwb25zZRIuCgZzdGF0ZXMYASADKAsyHi5C",
+            "YXR0bGVTeW5jUGFja2FnZS5QbGF5ZXJTdGF0ZSL4AQoLUGxheWVyU3RhdGUS",
+            "EAoIcGxheWVySUQYASABKA0SDAoEdGljaxgCIAEoDRIkCgdtb3ZlRGlyGAMg",
+            "ASgLMhMuVW5pdHlNYXRoLlZlY3RvcjJEEgwKBGp1bXAYBCABKAgSCwoDeWF3",
+            "GAUgASgCEg0KBXBpdGNoGAYgASgCEhMKC2FjdGl2ZVNraWxsGAcgASgIEhUK",
+            "DXVsdGltYXRlU2tpbGwYCCABKAgSJQoIcG9zaXRpb24YCSABKAsyEy5Vbml0",
+            "eU1hdGguVmVjdG9yM0QSJgoJZXVsYUFuZ2xlGAogASgLMhMuVW5pdHlNYXRo",
+            "LlZlY3RvcjNEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::UnityMath.UnityMathReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.BattleSyncRequest), global::BattleSyncPackage.BattleSyncRequest.Parser, new[]{ "PlayerID", "Tick", "MoveDir", "Jump", "Yaw", "Pitch", "Position", "EulaAngle" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.BattleSyncRequest), global::BattleSyncPackage.BattleSyncRequest.Parser, new[]{ "PlayerID", "Tick", "MoveDir", "Jump", "Yaw", "Pitch", "ActiveSkill", "UltimateSkill", "Position", "EulaAngle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.BattleSyncResponse), global::BattleSyncPackage.BattleSyncResponse.Parser, new[]{ "States" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.PlayerState), global::BattleSyncPackage.PlayerState.Parser, new[]{ "PlayerID", "Tick", "MoveDir", "Jump", "Yaw", "Pitch", "Position", "EulaAngle" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::BattleSyncPackage.PlayerState), global::BattleSyncPackage.PlayerState.Parser, new[]{ "PlayerID", "Tick", "MoveDir", "Jump", "Yaw", "Pitch", "ActiveSkill", "UltimateSkill", "Position", "EulaAngle" }, null, null, null, null)
           }));
     }
     #endregion
@@ -92,6 +94,8 @@ namespace BattleSyncPackage {
       jump_ = other.jump_;
       yaw_ = other.yaw_;
       pitch_ = other.pitch_;
+      activeSkill_ = other.activeSkill_;
+      ultimateSkill_ = other.ultimateSkill_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
       eulaAngle_ = other.eulaAngle_ != null ? other.eulaAngle_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -178,8 +182,32 @@ namespace BattleSyncPackage {
       }
     }
 
+    /// <summary>Field number for the "activeSkill" field.</summary>
+    public const int ActiveSkillFieldNumber = 7;
+    private bool activeSkill_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool ActiveSkill {
+      get { return activeSkill_; }
+      set {
+        activeSkill_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ultimateSkill" field.</summary>
+    public const int UltimateSkillFieldNumber = 8;
+    private bool ultimateSkill_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool UltimateSkill {
+      get { return ultimateSkill_; }
+      set {
+        ultimateSkill_ = value;
+      }
+    }
+
     /// <summary>Field number for the "position" field.</summary>
-    public const int PositionFieldNumber = 7;
+    public const int PositionFieldNumber = 9;
     private global::UnityMath.Vector3D position_;
     /// <summary>
     /// 测试使用，服务器暂未做世界模拟，客户端直接传输状态信息用于同步
@@ -194,7 +222,7 @@ namespace BattleSyncPackage {
     }
 
     /// <summary>Field number for the "eulaAngle" field.</summary>
-    public const int EulaAngleFieldNumber = 8;
+    public const int EulaAngleFieldNumber = 10;
     private global::UnityMath.Vector3D eulaAngle_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -226,6 +254,8 @@ namespace BattleSyncPackage {
       if (Jump != other.Jump) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Yaw, other.Yaw)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Pitch, other.Pitch)) return false;
+      if (ActiveSkill != other.ActiveSkill) return false;
+      if (UltimateSkill != other.UltimateSkill) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!object.Equals(EulaAngle, other.EulaAngle)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -241,6 +271,8 @@ namespace BattleSyncPackage {
       if (Jump != false) hash ^= Jump.GetHashCode();
       if (Yaw != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Yaw);
       if (Pitch != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Pitch);
+      if (ActiveSkill != false) hash ^= ActiveSkill.GetHashCode();
+      if (UltimateSkill != false) hash ^= UltimateSkill.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (eulaAngle_ != null) hash ^= EulaAngle.GetHashCode();
       if (_unknownFields != null) {
@@ -285,12 +317,20 @@ namespace BattleSyncPackage {
         output.WriteRawTag(53);
         output.WriteFloat(Pitch);
       }
+      if (ActiveSkill != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(ActiveSkill);
+      }
+      if (UltimateSkill != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(UltimateSkill);
+      }
       if (position_ != null) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(74);
         output.WriteMessage(Position);
       }
       if (eulaAngle_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(82);
         output.WriteMessage(EulaAngle);
       }
       if (_unknownFields != null) {
@@ -327,12 +367,20 @@ namespace BattleSyncPackage {
         output.WriteRawTag(53);
         output.WriteFloat(Pitch);
       }
+      if (ActiveSkill != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(ActiveSkill);
+      }
+      if (UltimateSkill != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(UltimateSkill);
+      }
       if (position_ != null) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(74);
         output.WriteMessage(Position);
       }
       if (eulaAngle_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(82);
         output.WriteMessage(EulaAngle);
       }
       if (_unknownFields != null) {
@@ -362,6 +410,12 @@ namespace BattleSyncPackage {
       }
       if (Pitch != 0F) {
         size += 1 + 4;
+      }
+      if (ActiveSkill != false) {
+        size += 1 + 1;
+      }
+      if (UltimateSkill != false) {
+        size += 1 + 1;
       }
       if (position_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
@@ -401,6 +455,12 @@ namespace BattleSyncPackage {
       }
       if (other.Pitch != 0F) {
         Pitch = other.Pitch;
+      }
+      if (other.ActiveSkill != false) {
+        ActiveSkill = other.ActiveSkill;
+      }
+      if (other.UltimateSkill != false) {
+        UltimateSkill = other.UltimateSkill;
       }
       if (other.position_ != null) {
         if (position_ == null) {
@@ -456,14 +516,22 @@ namespace BattleSyncPackage {
             Pitch = input.ReadFloat();
             break;
           }
-          case 58: {
+          case 56: {
+            ActiveSkill = input.ReadBool();
+            break;
+          }
+          case 64: {
+            UltimateSkill = input.ReadBool();
+            break;
+          }
+          case 74: {
             if (position_ == null) {
               Position = new global::UnityMath.Vector3D();
             }
             input.ReadMessage(Position);
             break;
           }
-          case 66: {
+          case 82: {
             if (eulaAngle_ == null) {
               EulaAngle = new global::UnityMath.Vector3D();
             }
@@ -512,14 +580,22 @@ namespace BattleSyncPackage {
             Pitch = input.ReadFloat();
             break;
           }
-          case 58: {
+          case 56: {
+            ActiveSkill = input.ReadBool();
+            break;
+          }
+          case 64: {
+            UltimateSkill = input.ReadBool();
+            break;
+          }
+          case 74: {
             if (position_ == null) {
               Position = new global::UnityMath.Vector3D();
             }
             input.ReadMessage(Position);
             break;
           }
-          case 66: {
+          case 82: {
             if (eulaAngle_ == null) {
               EulaAngle = new global::UnityMath.Vector3D();
             }
@@ -757,6 +833,8 @@ namespace BattleSyncPackage {
       jump_ = other.jump_;
       yaw_ = other.yaw_;
       pitch_ = other.pitch_;
+      activeSkill_ = other.activeSkill_;
+      ultimateSkill_ = other.ultimateSkill_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
       eulaAngle_ = other.eulaAngle_ != null ? other.eulaAngle_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -843,8 +921,32 @@ namespace BattleSyncPackage {
       }
     }
 
+    /// <summary>Field number for the "activeSkill" field.</summary>
+    public const int ActiveSkillFieldNumber = 7;
+    private bool activeSkill_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool ActiveSkill {
+      get { return activeSkill_; }
+      set {
+        activeSkill_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ultimateSkill" field.</summary>
+    public const int UltimateSkillFieldNumber = 8;
+    private bool ultimateSkill_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool UltimateSkill {
+      get { return ultimateSkill_; }
+      set {
+        ultimateSkill_ = value;
+      }
+    }
+
     /// <summary>Field number for the "position" field.</summary>
-    public const int PositionFieldNumber = 7;
+    public const int PositionFieldNumber = 9;
     private global::UnityMath.Vector3D position_;
     /// <summary>
     /// 权威状态同步
@@ -859,7 +961,7 @@ namespace BattleSyncPackage {
     }
 
     /// <summary>Field number for the "eulaAngle" field.</summary>
-    public const int EulaAngleFieldNumber = 8;
+    public const int EulaAngleFieldNumber = 10;
     private global::UnityMath.Vector3D eulaAngle_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -891,6 +993,8 @@ namespace BattleSyncPackage {
       if (Jump != other.Jump) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Yaw, other.Yaw)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Pitch, other.Pitch)) return false;
+      if (ActiveSkill != other.ActiveSkill) return false;
+      if (UltimateSkill != other.UltimateSkill) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!object.Equals(EulaAngle, other.EulaAngle)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -906,6 +1010,8 @@ namespace BattleSyncPackage {
       if (Jump != false) hash ^= Jump.GetHashCode();
       if (Yaw != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Yaw);
       if (Pitch != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Pitch);
+      if (ActiveSkill != false) hash ^= ActiveSkill.GetHashCode();
+      if (UltimateSkill != false) hash ^= UltimateSkill.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (eulaAngle_ != null) hash ^= EulaAngle.GetHashCode();
       if (_unknownFields != null) {
@@ -950,12 +1056,20 @@ namespace BattleSyncPackage {
         output.WriteRawTag(53);
         output.WriteFloat(Pitch);
       }
+      if (ActiveSkill != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(ActiveSkill);
+      }
+      if (UltimateSkill != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(UltimateSkill);
+      }
       if (position_ != null) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(74);
         output.WriteMessage(Position);
       }
       if (eulaAngle_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(82);
         output.WriteMessage(EulaAngle);
       }
       if (_unknownFields != null) {
@@ -992,12 +1106,20 @@ namespace BattleSyncPackage {
         output.WriteRawTag(53);
         output.WriteFloat(Pitch);
       }
+      if (ActiveSkill != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(ActiveSkill);
+      }
+      if (UltimateSkill != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(UltimateSkill);
+      }
       if (position_ != null) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(74);
         output.WriteMessage(Position);
       }
       if (eulaAngle_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(82);
         output.WriteMessage(EulaAngle);
       }
       if (_unknownFields != null) {
@@ -1027,6 +1149,12 @@ namespace BattleSyncPackage {
       }
       if (Pitch != 0F) {
         size += 1 + 4;
+      }
+      if (ActiveSkill != false) {
+        size += 1 + 1;
+      }
+      if (UltimateSkill != false) {
+        size += 1 + 1;
       }
       if (position_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
@@ -1066,6 +1194,12 @@ namespace BattleSyncPackage {
       }
       if (other.Pitch != 0F) {
         Pitch = other.Pitch;
+      }
+      if (other.ActiveSkill != false) {
+        ActiveSkill = other.ActiveSkill;
+      }
+      if (other.UltimateSkill != false) {
+        UltimateSkill = other.UltimateSkill;
       }
       if (other.position_ != null) {
         if (position_ == null) {
@@ -1121,14 +1255,22 @@ namespace BattleSyncPackage {
             Pitch = input.ReadFloat();
             break;
           }
-          case 58: {
+          case 56: {
+            ActiveSkill = input.ReadBool();
+            break;
+          }
+          case 64: {
+            UltimateSkill = input.ReadBool();
+            break;
+          }
+          case 74: {
             if (position_ == null) {
               Position = new global::UnityMath.Vector3D();
             }
             input.ReadMessage(Position);
             break;
           }
-          case 66: {
+          case 82: {
             if (eulaAngle_ == null) {
               EulaAngle = new global::UnityMath.Vector3D();
             }
@@ -1177,14 +1319,22 @@ namespace BattleSyncPackage {
             Pitch = input.ReadFloat();
             break;
           }
-          case 58: {
+          case 56: {
+            ActiveSkill = input.ReadBool();
+            break;
+          }
+          case 64: {
+            UltimateSkill = input.ReadBool();
+            break;
+          }
+          case 74: {
             if (position_ == null) {
               Position = new global::UnityMath.Vector3D();
             }
             input.ReadMessage(Position);
             break;
           }
-          case 66: {
+          case 82: {
             if (eulaAngle_ == null) {
               EulaAngle = new global::UnityMath.Vector3D();
             }

@@ -28,9 +28,11 @@ PROTOBUF_CONSTEXPR BattleSyncRequest::BattleSyncRequest(
   , /*decltype(_impl_.eulaangle_)*/nullptr
   , /*decltype(_impl_.playerid_)*/0u
   , /*decltype(_impl_.tick_)*/0u
-  , /*decltype(_impl_.jump_)*/false
   , /*decltype(_impl_.yaw_)*/0
   , /*decltype(_impl_.pitch_)*/0
+  , /*decltype(_impl_.jump_)*/false
+  , /*decltype(_impl_.activeskill_)*/false
+  , /*decltype(_impl_.ultimateskill_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct BattleSyncRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR BattleSyncRequestDefaultTypeInternal()
@@ -61,9 +63,11 @@ PROTOBUF_CONSTEXPR PlayerState::PlayerState(
   , /*decltype(_impl_.eulaangle_)*/nullptr
   , /*decltype(_impl_.playerid_)*/0u
   , /*decltype(_impl_.tick_)*/0u
-  , /*decltype(_impl_.jump_)*/false
   , /*decltype(_impl_.yaw_)*/0
   , /*decltype(_impl_.pitch_)*/0
+  , /*decltype(_impl_.jump_)*/false
+  , /*decltype(_impl_.activeskill_)*/false
+  , /*decltype(_impl_.ultimateskill_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PlayerStateDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PlayerStateDefaultTypeInternal()
@@ -92,6 +96,8 @@ const uint32_t TableStruct_BattleSyncPackage_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.jump_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.yaw_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.pitch_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.activeskill_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.ultimateskill_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.position_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::BattleSyncRequest, _impl_.eulaangle_),
   ~0u,  // no _has_bits_
@@ -113,13 +119,15 @@ const uint32_t TableStruct_BattleSyncPackage_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.jump_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.yaw_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.pitch_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.activeskill_),
+  PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.ultimateskill_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.position_),
   PROTOBUF_FIELD_OFFSET(::BattleSyncPackage::PlayerState, _impl_.eulaangle_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::BattleSyncPackage::BattleSyncRequest)},
-  { 14, -1, -1, sizeof(::BattleSyncPackage::BattleSyncResponse)},
-  { 21, -1, -1, sizeof(::BattleSyncPackage::PlayerState)},
+  { 16, -1, -1, sizeof(::BattleSyncPackage::BattleSyncResponse)},
+  { 23, -1, -1, sizeof(::BattleSyncPackage::PlayerState)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -130,26 +138,29 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_BattleSyncPackage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\027BattleSyncPackage.proto\022\021BattleSyncPac"
-  "kage\032\017UnityMath.proto\"\322\001\n\021BattleSyncRequ"
+  "kage\032\017UnityMath.proto\"\376\001\n\021BattleSyncRequ"
   "est\022\020\n\010playerID\030\001 \001(\r\022\014\n\004tick\030\002 \001(\r\022$\n\007m"
   "oveDir\030\003 \001(\0132\023.UnityMath.Vector2D\022\014\n\004jum"
-  "p\030\004 \001(\010\022\013\n\003yaw\030\005 \001(\002\022\r\n\005pitch\030\006 \001(\002\022%\n\010p"
-  "osition\030\007 \001(\0132\023.UnityMath.Vector3D\022&\n\teu"
-  "laAngle\030\010 \001(\0132\023.UnityMath.Vector3D\"D\n\022Ba"
-  "ttleSyncResponse\022.\n\006states\030\001 \003(\0132\036.Battl"
-  "eSyncPackage.PlayerState\"\314\001\n\013PlayerState"
-  "\022\020\n\010playerID\030\001 \001(\r\022\014\n\004tick\030\002 \001(\r\022$\n\007move"
-  "Dir\030\003 \001(\0132\023.UnityMath.Vector2D\022\014\n\004jump\030\004"
-  " \001(\010\022\013\n\003yaw\030\005 \001(\002\022\r\n\005pitch\030\006 \001(\002\022%\n\010posi"
-  "tion\030\007 \001(\0132\023.UnityMath.Vector3D\022&\n\teulaA"
-  "ngle\030\010 \001(\0132\023.UnityMath.Vector3Db\006proto3"
+  "p\030\004 \001(\010\022\013\n\003yaw\030\005 \001(\002\022\r\n\005pitch\030\006 \001(\002\022\023\n\013a"
+  "ctiveSkill\030\007 \001(\010\022\025\n\rultimateSkill\030\010 \001(\010\022"
+  "%\n\010position\030\t \001(\0132\023.UnityMath.Vector3D\022&"
+  "\n\teulaAngle\030\n \001(\0132\023.UnityMath.Vector3D\"D"
+  "\n\022BattleSyncResponse\022.\n\006states\030\001 \003(\0132\036.B"
+  "attleSyncPackage.PlayerState\"\370\001\n\013PlayerS"
+  "tate\022\020\n\010playerID\030\001 \001(\r\022\014\n\004tick\030\002 \001(\r\022$\n\007"
+  "moveDir\030\003 \001(\0132\023.UnityMath.Vector2D\022\014\n\004ju"
+  "mp\030\004 \001(\010\022\013\n\003yaw\030\005 \001(\002\022\r\n\005pitch\030\006 \001(\002\022\023\n\013"
+  "activeSkill\030\007 \001(\010\022\025\n\rultimateSkill\030\010 \001(\010"
+  "\022%\n\010position\030\t \001(\0132\023.UnityMath.Vector3D\022"
+  "&\n\teulaAngle\030\n \001(\0132\023.UnityMath.Vector3Db"
+  "\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_BattleSyncPackage_2eproto_deps[1] = {
   &::descriptor_table_UnityMath_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_BattleSyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_BattleSyncPackage_2eproto = {
-    false, false, 559, descriptor_table_protodef_BattleSyncPackage_2eproto,
+    false, false, 647, descriptor_table_protodef_BattleSyncPackage_2eproto,
     "BattleSyncPackage.proto",
     &descriptor_table_BattleSyncPackage_2eproto_once, descriptor_table_BattleSyncPackage_2eproto_deps, 1, 3,
     schemas, file_default_instances, TableStruct_BattleSyncPackage_2eproto::offsets,
@@ -218,9 +229,11 @@ BattleSyncRequest::BattleSyncRequest(const BattleSyncRequest& from)
     , decltype(_impl_.eulaangle_){nullptr}
     , decltype(_impl_.playerid_){}
     , decltype(_impl_.tick_){}
-    , decltype(_impl_.jump_){}
     , decltype(_impl_.yaw_){}
     , decltype(_impl_.pitch_){}
+    , decltype(_impl_.jump_){}
+    , decltype(_impl_.activeskill_){}
+    , decltype(_impl_.ultimateskill_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -234,8 +247,8 @@ BattleSyncRequest::BattleSyncRequest(const BattleSyncRequest& from)
     _this->_impl_.eulaangle_ = new ::UnityMath::Vector3D(*from._impl_.eulaangle_);
   }
   ::memcpy(&_impl_.playerid_, &from._impl_.playerid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.pitch_) -
-    reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.pitch_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.ultimateskill_) -
+    reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.ultimateskill_));
   // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.BattleSyncRequest)
 }
 
@@ -249,9 +262,11 @@ inline void BattleSyncRequest::SharedCtor(
     , decltype(_impl_.eulaangle_){nullptr}
     , decltype(_impl_.playerid_){0u}
     , decltype(_impl_.tick_){0u}
-    , decltype(_impl_.jump_){false}
     , decltype(_impl_.yaw_){0}
     , decltype(_impl_.pitch_){0}
+    , decltype(_impl_.jump_){false}
+    , decltype(_impl_.activeskill_){false}
+    , decltype(_impl_.ultimateskill_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -295,8 +310,8 @@ void BattleSyncRequest::Clear() {
   }
   _impl_.eulaangle_ = nullptr;
   ::memset(&_impl_.playerid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.pitch_) -
-      reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.pitch_));
+      reinterpret_cast<char*>(&_impl_.ultimateskill_) -
+      reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.ultimateskill_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -354,17 +369,33 @@ const char* BattleSyncRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // .UnityMath.Vector3D position = 7;
+      // bool activeSkill = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _impl_.activeskill_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool ultimateSkill = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          _impl_.ultimateskill_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .UnityMath.Vector3D position = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .UnityMath.Vector3D eulaAngle = 8;
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+      // .UnityMath.Vector3D eulaAngle = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_eulaangle(), ptr);
           CHK_(ptr);
         } else
@@ -444,17 +475,29 @@ uint8_t* BattleSyncRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_pitch(), target);
   }
 
-  // .UnityMath.Vector3D position = 7;
+  // bool activeSkill = 7;
+  if (this->_internal_activeskill() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_activeskill(), target);
+  }
+
+  // bool ultimateSkill = 8;
+  if (this->_internal_ultimateskill() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_ultimateskill(), target);
+  }
+
+  // .UnityMath.Vector3D position = 9;
   if (this->_internal_has_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(7, _Internal::position(this),
+      InternalWriteMessage(9, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .UnityMath.Vector3D eulaAngle = 8;
+  // .UnityMath.Vector3D eulaAngle = 10;
   if (this->_internal_has_eulaangle()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(8, _Internal::eulaangle(this),
+      InternalWriteMessage(10, _Internal::eulaangle(this),
         _Internal::eulaangle(this).GetCachedSize(), target, stream);
   }
 
@@ -481,14 +524,14 @@ size_t BattleSyncRequest::ByteSizeLong() const {
         *_impl_.movedir_);
   }
 
-  // .UnityMath.Vector3D position = 7;
+  // .UnityMath.Vector3D position = 9;
   if (this->_internal_has_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.position_);
   }
 
-  // .UnityMath.Vector3D eulaAngle = 8;
+  // .UnityMath.Vector3D eulaAngle = 10;
   if (this->_internal_has_eulaangle()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -503,11 +546,6 @@ size_t BattleSyncRequest::ByteSizeLong() const {
   // uint32 tick = 2;
   if (this->_internal_tick() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tick());
-  }
-
-  // bool jump = 4;
-  if (this->_internal_jump() != 0) {
-    total_size += 1 + 1;
   }
 
   // float yaw = 5;
@@ -526,6 +564,21 @@ size_t BattleSyncRequest::ByteSizeLong() const {
   memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
   if (raw_pitch != 0) {
     total_size += 1 + 4;
+  }
+
+  // bool jump = 4;
+  if (this->_internal_jump() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool activeSkill = 7;
+  if (this->_internal_activeskill() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool ultimateSkill = 8;
+  if (this->_internal_ultimateskill() != 0) {
+    total_size += 1 + 1;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -564,9 +617,6 @@ void BattleSyncRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   if (from._internal_tick() != 0) {
     _this->_internal_set_tick(from._internal_tick());
   }
-  if (from._internal_jump() != 0) {
-    _this->_internal_set_jump(from._internal_jump());
-  }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_yaw = from._internal_yaw();
   uint32_t raw_yaw;
@@ -580,6 +630,15 @@ void BattleSyncRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
   if (raw_pitch != 0) {
     _this->_internal_set_pitch(from._internal_pitch());
+  }
+  if (from._internal_jump() != 0) {
+    _this->_internal_set_jump(from._internal_jump());
+  }
+  if (from._internal_activeskill() != 0) {
+    _this->_internal_set_activeskill(from._internal_activeskill());
+  }
+  if (from._internal_ultimateskill() != 0) {
+    _this->_internal_set_ultimateskill(from._internal_ultimateskill());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -599,8 +658,8 @@ void BattleSyncRequest::InternalSwap(BattleSyncRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(BattleSyncRequest, _impl_.pitch_)
-      + sizeof(BattleSyncRequest::_impl_.pitch_)
+      PROTOBUF_FIELD_OFFSET(BattleSyncRequest, _impl_.ultimateskill_)
+      + sizeof(BattleSyncRequest::_impl_.ultimateskill_)
       - PROTOBUF_FIELD_OFFSET(BattleSyncRequest, _impl_.movedir_)>(
           reinterpret_cast<char*>(&_impl_.movedir_),
           reinterpret_cast<char*>(&other->_impl_.movedir_));
@@ -851,9 +910,11 @@ PlayerState::PlayerState(const PlayerState& from)
     , decltype(_impl_.eulaangle_){nullptr}
     , decltype(_impl_.playerid_){}
     , decltype(_impl_.tick_){}
-    , decltype(_impl_.jump_){}
     , decltype(_impl_.yaw_){}
     , decltype(_impl_.pitch_){}
+    , decltype(_impl_.jump_){}
+    , decltype(_impl_.activeskill_){}
+    , decltype(_impl_.ultimateskill_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -867,8 +928,8 @@ PlayerState::PlayerState(const PlayerState& from)
     _this->_impl_.eulaangle_ = new ::UnityMath::Vector3D(*from._impl_.eulaangle_);
   }
   ::memcpy(&_impl_.playerid_, &from._impl_.playerid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.pitch_) -
-    reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.pitch_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.ultimateskill_) -
+    reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.ultimateskill_));
   // @@protoc_insertion_point(copy_constructor:BattleSyncPackage.PlayerState)
 }
 
@@ -882,9 +943,11 @@ inline void PlayerState::SharedCtor(
     , decltype(_impl_.eulaangle_){nullptr}
     , decltype(_impl_.playerid_){0u}
     , decltype(_impl_.tick_){0u}
-    , decltype(_impl_.jump_){false}
     , decltype(_impl_.yaw_){0}
     , decltype(_impl_.pitch_){0}
+    , decltype(_impl_.jump_){false}
+    , decltype(_impl_.activeskill_){false}
+    , decltype(_impl_.ultimateskill_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -928,8 +991,8 @@ void PlayerState::Clear() {
   }
   _impl_.eulaangle_ = nullptr;
   ::memset(&_impl_.playerid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.pitch_) -
-      reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.pitch_));
+      reinterpret_cast<char*>(&_impl_.ultimateskill_) -
+      reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.ultimateskill_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -987,17 +1050,33 @@ const char* PlayerState::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // .UnityMath.Vector3D position = 7;
+      // bool activeSkill = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _impl_.activeskill_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool ultimateSkill = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          _impl_.ultimateskill_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .UnityMath.Vector3D position = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .UnityMath.Vector3D eulaAngle = 8;
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+      // .UnityMath.Vector3D eulaAngle = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_eulaangle(), ptr);
           CHK_(ptr);
         } else
@@ -1077,17 +1156,29 @@ uint8_t* PlayerState::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_pitch(), target);
   }
 
-  // .UnityMath.Vector3D position = 7;
+  // bool activeSkill = 7;
+  if (this->_internal_activeskill() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_activeskill(), target);
+  }
+
+  // bool ultimateSkill = 8;
+  if (this->_internal_ultimateskill() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_ultimateskill(), target);
+  }
+
+  // .UnityMath.Vector3D position = 9;
   if (this->_internal_has_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(7, _Internal::position(this),
+      InternalWriteMessage(9, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .UnityMath.Vector3D eulaAngle = 8;
+  // .UnityMath.Vector3D eulaAngle = 10;
   if (this->_internal_has_eulaangle()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(8, _Internal::eulaangle(this),
+      InternalWriteMessage(10, _Internal::eulaangle(this),
         _Internal::eulaangle(this).GetCachedSize(), target, stream);
   }
 
@@ -1114,14 +1205,14 @@ size_t PlayerState::ByteSizeLong() const {
         *_impl_.movedir_);
   }
 
-  // .UnityMath.Vector3D position = 7;
+  // .UnityMath.Vector3D position = 9;
   if (this->_internal_has_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.position_);
   }
 
-  // .UnityMath.Vector3D eulaAngle = 8;
+  // .UnityMath.Vector3D eulaAngle = 10;
   if (this->_internal_has_eulaangle()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1136,11 +1227,6 @@ size_t PlayerState::ByteSizeLong() const {
   // uint32 tick = 2;
   if (this->_internal_tick() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_tick());
-  }
-
-  // bool jump = 4;
-  if (this->_internal_jump() != 0) {
-    total_size += 1 + 1;
   }
 
   // float yaw = 5;
@@ -1159,6 +1245,21 @@ size_t PlayerState::ByteSizeLong() const {
   memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
   if (raw_pitch != 0) {
     total_size += 1 + 4;
+  }
+
+  // bool jump = 4;
+  if (this->_internal_jump() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool activeSkill = 7;
+  if (this->_internal_activeskill() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool ultimateSkill = 8;
+  if (this->_internal_ultimateskill() != 0) {
+    total_size += 1 + 1;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1197,9 +1298,6 @@ void PlayerState::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   if (from._internal_tick() != 0) {
     _this->_internal_set_tick(from._internal_tick());
   }
-  if (from._internal_jump() != 0) {
-    _this->_internal_set_jump(from._internal_jump());
-  }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_yaw = from._internal_yaw();
   uint32_t raw_yaw;
@@ -1213,6 +1311,15 @@ void PlayerState::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   memcpy(&raw_pitch, &tmp_pitch, sizeof(tmp_pitch));
   if (raw_pitch != 0) {
     _this->_internal_set_pitch(from._internal_pitch());
+  }
+  if (from._internal_jump() != 0) {
+    _this->_internal_set_jump(from._internal_jump());
+  }
+  if (from._internal_activeskill() != 0) {
+    _this->_internal_set_activeskill(from._internal_activeskill());
+  }
+  if (from._internal_ultimateskill() != 0) {
+    _this->_internal_set_ultimateskill(from._internal_ultimateskill());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1232,8 +1339,8 @@ void PlayerState::InternalSwap(PlayerState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PlayerState, _impl_.pitch_)
-      + sizeof(PlayerState::_impl_.pitch_)
+      PROTOBUF_FIELD_OFFSET(PlayerState, _impl_.ultimateskill_)
+      + sizeof(PlayerState::_impl_.ultimateskill_)
       - PROTOBUF_FIELD_OFFSET(PlayerState, _impl_.movedir_)>(
           reinterpret_cast<char*>(&_impl_.movedir_),
           reinterpret_cast<char*>(&other->_impl_.movedir_));

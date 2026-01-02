@@ -18,37 +18,18 @@ namespace Network.ProtoTools
     internal static class ProtoResetter
     {
         /// <summary>
-        /// LocalSyncPackage重置处理方法
-        /// </summary>
-        public static void Reset(LocalSyncPackage pkg)
-        {
-            if (pkg == null) return;
-
-            switch (pkg.ContentCase)
-            {
-                case LocalSyncPackage.ContentOneofCase.AckSync:
-                    pkg.AckSync = null;
-                    break;
-                case LocalSyncPackage.ContentOneofCase.BattleSync:
-                    pkg.Dispose();
-                    pkg.BattleSync = null;
-                    break;
-                case LocalSyncPackage.ContentOneofCase.LobbySync:
-                    pkg.LobbySync = null;
-                    break;
-                default:
-                    Debug.LogError("[ProtoResetter] Unknown content case: " + pkg.ContentCase);
-                    break;
-            }
-
-            pkg.ClearContent();
-            pkg.EventID = LocalSyncEvent.LocalNone;
-        }
-
-        /// <summary>
         /// BattleSyncRequest重置处理方法
         /// </summary>
         public static void Reset(BattleSyncRequest pkg)
+        {
+            if (pkg == null) return;
+            // TODO: 重置BattleSyncRequest包中内容
+        }
+        
+        /// <summary>
+        /// BattleSyncResponse重置处理方法
+        /// </summary>
+        public static void Reset(BattleSyncResponse pkg)
         {
             if (pkg == null) return;
             // TODO: 重置BattleSyncRequest包中内容

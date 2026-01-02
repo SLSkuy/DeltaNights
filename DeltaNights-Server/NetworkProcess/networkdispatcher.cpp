@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.31
+ *  LastUpdate: 2026.1.2
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -99,7 +99,7 @@ void NetworkDispatcher::sendTcpMessage(QTcpSocket* socket,const SyncPackage::Rem
     emit sendTcp(socket, packet);
 }
 
-void NetworkDispatcher::sendUdpMessage(const QHostAddress& addr, quint16 port, const SyncPackage::RemoteSyncPackage& pkg)
+void NetworkDispatcher::sendUdpMessage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncResponse& pkg)
 {
     QByteArray datagram;
     datagram.resize(pkg.ByteSizeLong());
@@ -128,8 +128,8 @@ void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& d
     // ===== 按类型分发 =====
     switch (pkg.eventid())
     {
-        case LocalSyncEvent::AckRequest:
-            handleTcpAckPackage(socket, pkg.acksync());
+        case LocalSyncEvent::ClientRequest:
+            handleTcpAckPackage(socket, pkg.clientsync());
             break;
         case LocalSyncEvent::LobbyRequest:
             handleTcpLobbyPackage(socket, pkg.lobbysync());
@@ -140,18 +140,18 @@ void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& d
     }
 }
 
-void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const AckSyncPackage::AckSyncRequest& pkg)
+void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg)
 {
-    using namespace AckSyncPackage;
+    using namespace ClientSyncPackage;
 
     // ===== 按子类型分发 =====
     switch (pkg.eventid())
     {
-        case LocalAckEvent::HeartBeat:
+        case LocalClientEvent::HeartBeat:
             // TODO: 心跳消息处理
             emit clientHeartBeat(socket);
             break;
-        case LocalAckEvent::ConnectRequest:
+        case LocalClientEvent::ConnectRequest:
             // TODO: 客户端连接请求
             emit clientBindUdpPort(socket, pkg.connect().port());
             break;
@@ -179,46 +179,5 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
 ============================================================ */
 void NetworkDispatcher::handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& data)
 {
-    using namespace SyncPackage;
-
-    LocalSyncPackage pkg;
-    if (!pkg.ParseFromArray(data.constData(), data.size()))
-    {
-        Logger::Warning() << "[NetworkDispatcher] UDP protobuf parse failed" << "size = " << data.size();
-        return;
-    }
-
-    // ===== 按类型分发 =====
-    switch (pkg.eventid())
-    {
-        case LocalSyncEvent::AckRequest:
-            handleUdpAckPackage(addr, port, pkg.acksync());
-            break;
-        case LocalSyncEvent::BattleRequest:
-            handleUdpBattlePackage(addr, port, pkg.battlesync());
-            break;
-        default:
-            Logger::Warning() << "[NetworkDispatcher] Unknown UDP package type:" << pkg.eventid();
-            break;
-    }
-}
-
-void NetworkDispatcher::handleUdpAckPackage(const QHostAddress& addr, quint16 port, const AckSyncPackage::AckSyncRequest& pkg)
-{
-    using namespace AckSyncPackage;
-
-    // ===== 按子类型分发 =====
-    switch (pkg.eventid())
-    {
-        default:
-            Logger::Warning() << "[NetworkDispatcher] Unknown UDP_ACK package type:" << pkg.eventid();
-            break;
-    }
-}
-
-void NetworkDispatcher::handleUdpBattlePackage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncRequest& pkg)
-{
-    using namespace BattleSyncPackage;
-
-    // TODO: 处理战局同步包
+    // TODO: UDP只处理战局同步事件和ACK包
 }
