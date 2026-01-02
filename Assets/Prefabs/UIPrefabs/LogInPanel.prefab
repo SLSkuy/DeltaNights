@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
   m_RegexValue: 
-  m_GlobalPointSize: 14
+  m_GlobalPointSize: 40
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -427,8 +427,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -727,7 +727,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3004065574416645089}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6023675659972584566}
+        m_TargetAssemblyTypeName: SceneUI.StartSceneUI.LogInPanel, Assembly-CSharp
+        m_MethodName: UI_OnLogInButtonPressDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5781399399762115491
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +751,7 @@ GameObject:
   - component: {fileID: 8772035601524609482}
   - component: {fileID: 5513095045273878443}
   - component: {fileID: 8619290056001366939}
+  - component: {fileID: 6023675659972584566}
   m_Layer: 5
   m_Name: LogInPanel
   m_TagString: Untagged
@@ -805,6 +818,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6023675659972584566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781399399762115491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3975a1886e514349af5800c68225ad1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneUI.StartSceneUI.LogInPanel
+  animIn: {fileID: 0}
+  animOut: {fileID: 0}
+  uiControllerID: LogInPanel
+  isVisible: 0
+  properties:
+    priority: 0
+  inputField: {fileID: 5531838514539167886}
 --- !u!1 &5940959848940823951
 GameObject:
   m_ObjectHideFlags: 0

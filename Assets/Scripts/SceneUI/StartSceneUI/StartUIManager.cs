@@ -4,13 +4,14 @@
  *  LastUpdate:  2025.12.23
  * 
  *  功能简述：
- *  游戏开始界面的UI管理器
+ *  游戏界面的UI管理器
  * 
  * ------------------------------------------------------------ */
 
 using EventProcess;
 using UIFramework;
 using UIFramework.Panel;
+using UIFramework.Window;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,12 +23,16 @@ namespace SceneUI.StartSceneUI
         {
             Signals.Get<StartPressDownSignal>().AddListener(OnStartButtonPressDown);
             Signals.Get<BackToMainPressDownSignal>().AddListener(OnBackToMainButtonPressDown);
+            Signals.Get<LogInPressDownSignal>().AddListener(OnLogInButtonPressDown);
+            Signals.Get<LogInPressDownErrorSignal>().AddListener(OnPromptWindow);
         }
 
         protected override void RemoveSignal()
         {
             Signals.Get<StartPressDownSignal>().RemoveListener(OnStartButtonPressDown);
             Signals.Get<BackToMainPressDownSignal>().RemoveListener(OnBackToMainButtonPressDown);
+            Signals.Get<LogInPressDownSignal>().RemoveListener(OnLogInButtonPressDown);
+            Signals.Get<LogInPressDownErrorSignal>().RemoveListener(OnPromptWindow);
         }
         
         void OnStartButtonPressDown()
@@ -40,6 +45,17 @@ namespace SceneUI.StartSceneUI
         {
             UIFrame.ShowUI("StartMainPanel");
             UIFrame.HideUI("HallPanel");
+        }
+
+        void OnLogInButtonPressDown(string ctx)
+        {
+            UIFrame.HideUI("LogInPanel");
+            UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties(PanelPriority.None, "用户名:"+ctx));
+        }
+
+        void OnPromptWindow(string ctx)
+        {
+            UIFrame.ShowUI("PromptWindow",new PromptWindowProperties(ctx));
         }
 
         public void TestButton()
