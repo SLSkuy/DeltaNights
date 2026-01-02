@@ -67,7 +67,7 @@ signals:
 
 private:
     void handleTcpPackage(QTcpSocket* socket, const QByteArray& data);
-    void handleTcpAckPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg);
+    void handleTcpClientPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg);
     void handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyncPackage::LobbySyncRequest& pkg);
     void handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& data);
 
