@@ -13,12 +13,9 @@ namespace SceneUI
         public void On_click()
         {
             
-            ProtoBuilder.ACK.BuildConnectRequest(32);
-            ProtoBuilder.ACK.BuildConnectResponse("123");
-            ProtoBuilder.ACK.BuildHeartBeat(32);
-
-            ProtoBuilder.Battle.BuildRequest(LocalBattleEvent.LocalBattleNone);
-            ProtoBuilder.Battle.BuildResponse(RemoteBattleEvent.RemoteBattleNone);
+            ProtoBuilder.ClientSync.BuildConnectRequest(32);
+            ProtoBuilder.ClientSync.BuildConnectResponse("123");
+            ProtoBuilder.ClientSync.BuildHeartBeat(32);
 
             ProtoBuilder.Lobby.BuildRequest(LocalLobbyEvent.LocalLobbyNone);
             ProtoBuilder.Lobby.BuildResponse(RemoteLobbyEvent.RemoteLobbyNone);
