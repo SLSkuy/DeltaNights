@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.28
- *  LastUpdate:  2025.12.30
+ *  LastUpdate:  2026.1.2
  *
  *  封装UDP
  *  负责处理所有的UDP网络传输事件
@@ -14,9 +14,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using BattleSyncPackage;
 using Google.Protobuf;
-using SyncPackage;
-using UnityEngine;
 
 namespace Network
 {
@@ -95,7 +94,7 @@ namespace Network
         /// 异步发送Protobuf消息给服务器
         /// 自动序列化处理为字节流
         /// </summary>
-        public void EnqueueSendProtobuf(LocalSyncPackage package)
+        public void EnqueueSendProtobuf(BattleSyncRequest package)
         {
             if (package == null) return;
             

@@ -15,6 +15,7 @@
 #include "udpendpoint.h"
 #include "../Logger/logger.h"
 #include "../GameEvent/SyncPackage.pb.h"
+#include "../ObjectPool/protopool.h"
 
 NetworkDispatcher::NetworkDispatcher(UdpEndpoint* udp, TcpEndpoint* tcp, QObject* parent)
     : _udp(udp), _tcp(tcp)
@@ -180,4 +181,16 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
 void NetworkDispatcher::handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& data)
 {
     // TODO: UDP只处理战局同步事件和ACK包
+    using namespace BattleSyncPackage;
+
+    BattleSyncRequest* pkg = ProtoPool::AcquireBattleReq();
+    if(!pkg->ParseFromArray(data.constData(), data.size()))
+    {
+        Logger::Warning() << "[NetworkDispatcher] UDP protobuf parse failed"
+                          << "size = " << data.size();
+        return;
+    }
+
+    emit battleSyncRequest(pkg);
+    ProtoPool::Release(pkg);
 }

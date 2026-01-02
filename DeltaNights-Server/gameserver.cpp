@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.31
+ *  LastUpdate: 2026.1.2
  *
  *  功能：
  *  - 封装服务器所有核心模块
@@ -78,6 +78,9 @@ void GameServer::setupConnections()
     // 服务器逻辑更新
     connect(_logicTimer,&QTimer::timeout,_dispatcher,&NetworkDispatcher::processQueueMessage);
     connect(_logicTimer,&QTimer::timeout,_clientMgr,&ClientManager::removeTimeoutClients);
+
+    // 战局逻辑连接
+    connect(_dispatcher,&NetworkDispatcher::battleSyncRequest,_roomMgr,&GameRoomManager::playerSyncRequest);
 }
 
 bool GameServer::start(quint16 tcpPort, quint16 udpPort)

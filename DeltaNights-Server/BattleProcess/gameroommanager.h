@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2026.1.2
  *
  *  游戏战局房间管理
  *  处理房间的创建、销毁、玩家与房间之间的交互逻辑
@@ -12,6 +12,8 @@
 
 #include <QObject>
 #include <unordered_map>
+
+#include "../GameEvent/BattleSyncPackage.pb.h"
 
 class GameRoom;
 class PlayerInfo;
@@ -30,12 +32,13 @@ public:
     // ========== 玩家交互操作 ==========
     bool joinGameRoom(quint32 roomID, PlayerInfo* player);
     bool leaveGameRoom(quint32 roomID, PlayerInfo* player);
+    void playerSyncRequest(BattleSyncPackage::BattleSyncRequest* input);
 
 signals:
     void frameGenerated();  // 转发各个战局的信号
 
 private:
-    quint32 m_nextRoomID = 1;
+    quint32 m_nextRoomID = 0;
 
     std::unordered_map<quint32, GameRoom*> m_rooms; // roomID -> GameRoom
 };

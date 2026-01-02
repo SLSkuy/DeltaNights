@@ -163,7 +163,7 @@ void PrintConnectResponse(ConnectResponsePackage package)
 ## TCP事件的拓展
 要拓展TCP事件，首先要在```.proto```文件中，添加对应的类型，指定所在的小类，创建相应的请求类型与回应类型，并生成对应的 C# 与 C++ 代码，
 ```protobuf
-syntax = "proto3"
+syntax = "proto3";
 
 enum LocalClientEvent {
   // 添加新类型请求枚举

@@ -25,6 +25,7 @@ struct ProtoResetter<BattleSyncPackage::BattleSyncResponse>
 {
     static void Reset(BattleSyncPackage::BattleSyncResponse* msg)
     {
+        msg->clear_states();
         msg->Clear();
     }
 };

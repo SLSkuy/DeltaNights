@@ -662,6 +662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 124860655}
   - component: {fileID: 124860656}
+  - component: {fileID: 124860657}
   m_Layer: 0
   m_Name: NetworkModule
   m_TagString: Untagged
@@ -701,6 +702,22 @@ MonoBehaviour:
   udpPort: 19198
   clientID: 0
   heartBeatStep: 1
+--- !u!114 &124860657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124860654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f0b79f8333486ebc9c7a3104193082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleSync.BattleManager
+  roomID: 0
+  localPlayer: {fileID: 1379613505}
+  remotePlayers: []
+  sendRate: 16
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,6 +1982,17 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!114 &1379613505 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7472218554620669263, guid: 843ee950305abff499e0a971d1a3aaa5, type: 3}
+  m_PrefabInstance: {fileID: 2365422665463316946}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ae6e9cdb1ebf3459132f189efefefe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerNetController
 --- !u!1 &1419592804
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2026.1.2
  *
  *  游戏战局房间管理
  *  处理房间的创建、销毁、玩家与房间之间的交互逻辑
@@ -18,6 +18,10 @@
 GameRoomManager::GameRoomManager(QObject *parent)
     : QObject(parent)
 {
+    GameRoom* room = createGameRoom();
+    joinGameRoom(0, new PlayerInfo(0)); // 添加示例玩家
+    joinGameRoom(0, new PlayerInfo(1));
+    room->start();
 }
 
 /* ------------------------------------------------------------
@@ -91,4 +95,11 @@ bool GameRoomManager::leaveGameRoom(quint32 roomID, PlayerInfo* player)
     }
 
     return gameRoom->removePlayer(player->uuid());
+}
+
+void GameRoomManager::playerSyncRequest(BattleSyncPackage::BattleSyncRequest* input)
+{
+    if(input == nullptr) return;
+
+    findGameRoomByID(input->roomid())->onPlayerInput(input);
 }

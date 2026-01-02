@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2026.1.2
  *
  *  玩家信息类
  *  记录玩家如账号、密码、昵称、货币等各种信息
@@ -17,7 +17,7 @@ class PlayerInfo : public QObject
 {
     Q_OBJECT
 public:
-    explicit PlayerInfo(QObject* parent = nullptr);
+    explicit PlayerInfo(quint32 uuid, QObject* parent = nullptr);
 
     void registerAccount();
     void loginAccount();

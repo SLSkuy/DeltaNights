@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.30
+ *  LastUpdate: 2026.1.2
  *
  *  战局内玩家抽象实体
  *  记录客户端输入
@@ -14,6 +14,7 @@
 
 #include "../GameEvent/UnityMath.pb.h"
 #include "../GameData/characterprops.h"
+#include "../GameEvent/BattleSyncPackage.pb.h"
 
 struct PlayerInput
 {
@@ -23,6 +24,9 @@ struct PlayerInput
 
     float yaw = 0.0f;
     float pitch = 0.0f;
+
+    bool activeSkill = false;
+    bool ultimateSkill = false;
 };
 
 class ClientInfo;
@@ -33,7 +37,8 @@ class PlayerEntity
 public:
     explicit PlayerEntity(PlayerInfo* info);
 
-    void tick();        // 逻辑更新，生成期望位移等交给碰撞系统处理
+    void tick();    // 逻辑更新，生成期望位移等交给碰撞系统处理
+    void updateInput(BattleSyncPackage::BattleSyncRequest* input);
 
     void bindClient(ClientInfo* client);
 

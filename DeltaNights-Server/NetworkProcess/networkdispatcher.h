@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.31
+ *  LastUpdate: 2026.1.2
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -61,6 +61,10 @@ signals:
     void clientConnect(QTcpSocket* socket);
     void clientBindUdpPort(QTcpSocket* socket, quint16 port);
     void clientHeartBeat(QTcpSocket* socket);
+
+    // 战局同步事件
+    void battleSyncRequest(BattleSyncPackage::BattleSyncRequest* pkg);
+    void battleSyncResponse(BattleSyncPackage::BattleSyncResponse* pkg);
 
     // 发送各种事件信号
     void loginRequest();

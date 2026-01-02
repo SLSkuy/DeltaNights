@@ -186,18 +186,19 @@ class BattleSyncRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kMoveDirFieldNumber = 3,
-    kPositionFieldNumber = 9,
-    kEulaAngleFieldNumber = 10,
+    kMoveDirFieldNumber = 4,
+    kPositionFieldNumber = 10,
+    kEulaAngleFieldNumber = 11,
     kPlayerIDFieldNumber = 1,
-    kTickFieldNumber = 2,
-    kYawFieldNumber = 5,
-    kPitchFieldNumber = 6,
-    kJumpFieldNumber = 4,
-    kActiveSkillFieldNumber = 7,
-    kUltimateSkillFieldNumber = 8,
+    kRoomIDFieldNumber = 2,
+    kTickFieldNumber = 3,
+    kYawFieldNumber = 6,
+    kPitchFieldNumber = 7,
+    kJumpFieldNumber = 5,
+    kActiveSkillFieldNumber = 8,
+    kUltimateSkillFieldNumber = 9,
   };
-  // .UnityMath.Vector2D moveDir = 3;
+  // .UnityMath.Vector2D moveDir = 4;
   bool has_movedir() const;
   private:
   bool _internal_has_movedir() const;
@@ -215,7 +216,7 @@ class BattleSyncRequest final :
       ::UnityMath::Vector2D* movedir);
   ::UnityMath::Vector2D* unsafe_arena_release_movedir();
 
-  // .UnityMath.Vector3D position = 9;
+  // .UnityMath.Vector3D position = 10;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
@@ -233,7 +234,7 @@ class BattleSyncRequest final :
       ::UnityMath::Vector3D* position);
   ::UnityMath::Vector3D* unsafe_arena_release_position();
 
-  // .UnityMath.Vector3D eulaAngle = 10;
+  // .UnityMath.Vector3D eulaAngle = 11;
   bool has_eulaangle() const;
   private:
   bool _internal_has_eulaangle() const;
@@ -260,7 +261,16 @@ class BattleSyncRequest final :
   void _internal_set_playerid(uint32_t value);
   public:
 
-  // uint32 tick = 2;
+  // uint32 roomID = 2;
+  void clear_roomid();
+  uint32_t roomid() const;
+  void set_roomid(uint32_t value);
+  private:
+  uint32_t _internal_roomid() const;
+  void _internal_set_roomid(uint32_t value);
+  public:
+
+  // uint32 tick = 3;
   void clear_tick();
   uint32_t tick() const;
   void set_tick(uint32_t value);
@@ -269,7 +279,7 @@ class BattleSyncRequest final :
   void _internal_set_tick(uint32_t value);
   public:
 
-  // float yaw = 5;
+  // float yaw = 6;
   void clear_yaw();
   float yaw() const;
   void set_yaw(float value);
@@ -278,7 +288,7 @@ class BattleSyncRequest final :
   void _internal_set_yaw(float value);
   public:
 
-  // float pitch = 6;
+  // float pitch = 7;
   void clear_pitch();
   float pitch() const;
   void set_pitch(float value);
@@ -287,7 +297,7 @@ class BattleSyncRequest final :
   void _internal_set_pitch(float value);
   public:
 
-  // bool jump = 4;
+  // bool jump = 5;
   void clear_jump();
   bool jump() const;
   void set_jump(bool value);
@@ -296,7 +306,7 @@ class BattleSyncRequest final :
   void _internal_set_jump(bool value);
   public:
 
-  // bool activeSkill = 7;
+  // bool activeSkill = 8;
   void clear_activeskill();
   bool activeskill() const;
   void set_activeskill(bool value);
@@ -305,7 +315,7 @@ class BattleSyncRequest final :
   void _internal_set_activeskill(bool value);
   public:
 
-  // bool ultimateSkill = 8;
+  // bool ultimateSkill = 9;
   void clear_ultimateskill();
   bool ultimateskill() const;
   void set_ultimateskill(bool value);
@@ -326,6 +336,7 @@ class BattleSyncRequest final :
     ::UnityMath::Vector3D* position_;
     ::UnityMath::Vector3D* eulaangle_;
     uint32_t playerid_;
+    uint32_t roomid_;
     uint32_t tick_;
     float yaw_;
     float pitch_;
@@ -617,18 +628,19 @@ class PlayerState final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kMoveDirFieldNumber = 3,
-    kPositionFieldNumber = 9,
-    kEulaAngleFieldNumber = 10,
+    kMoveDirFieldNumber = 4,
+    kPositionFieldNumber = 10,
+    kEulaAngleFieldNumber = 11,
     kPlayerIDFieldNumber = 1,
-    kTickFieldNumber = 2,
-    kYawFieldNumber = 5,
-    kPitchFieldNumber = 6,
-    kJumpFieldNumber = 4,
-    kActiveSkillFieldNumber = 7,
-    kUltimateSkillFieldNumber = 8,
+    kRoomIDFieldNumber = 2,
+    kTickFieldNumber = 3,
+    kYawFieldNumber = 6,
+    kPitchFieldNumber = 7,
+    kJumpFieldNumber = 5,
+    kActiveSkillFieldNumber = 8,
+    kUltimateSkillFieldNumber = 9,
   };
-  // .UnityMath.Vector2D moveDir = 3;
+  // .UnityMath.Vector2D moveDir = 4;
   bool has_movedir() const;
   private:
   bool _internal_has_movedir() const;
@@ -646,7 +658,7 @@ class PlayerState final :
       ::UnityMath::Vector2D* movedir);
   ::UnityMath::Vector2D* unsafe_arena_release_movedir();
 
-  // .UnityMath.Vector3D position = 9;
+  // .UnityMath.Vector3D position = 10;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
@@ -664,7 +676,7 @@ class PlayerState final :
       ::UnityMath::Vector3D* position);
   ::UnityMath::Vector3D* unsafe_arena_release_position();
 
-  // .UnityMath.Vector3D eulaAngle = 10;
+  // .UnityMath.Vector3D eulaAngle = 11;
   bool has_eulaangle() const;
   private:
   bool _internal_has_eulaangle() const;
@@ -691,7 +703,16 @@ class PlayerState final :
   void _internal_set_playerid(uint32_t value);
   public:
 
-  // uint32 tick = 2;
+  // uint32 roomID = 2;
+  void clear_roomid();
+  uint32_t roomid() const;
+  void set_roomid(uint32_t value);
+  private:
+  uint32_t _internal_roomid() const;
+  void _internal_set_roomid(uint32_t value);
+  public:
+
+  // uint32 tick = 3;
   void clear_tick();
   uint32_t tick() const;
   void set_tick(uint32_t value);
@@ -700,7 +721,7 @@ class PlayerState final :
   void _internal_set_tick(uint32_t value);
   public:
 
-  // float yaw = 5;
+  // float yaw = 6;
   void clear_yaw();
   float yaw() const;
   void set_yaw(float value);
@@ -709,7 +730,7 @@ class PlayerState final :
   void _internal_set_yaw(float value);
   public:
 
-  // float pitch = 6;
+  // float pitch = 7;
   void clear_pitch();
   float pitch() const;
   void set_pitch(float value);
@@ -718,7 +739,7 @@ class PlayerState final :
   void _internal_set_pitch(float value);
   public:
 
-  // bool jump = 4;
+  // bool jump = 5;
   void clear_jump();
   bool jump() const;
   void set_jump(bool value);
@@ -727,7 +748,7 @@ class PlayerState final :
   void _internal_set_jump(bool value);
   public:
 
-  // bool activeSkill = 7;
+  // bool activeSkill = 8;
   void clear_activeskill();
   bool activeskill() const;
   void set_activeskill(bool value);
@@ -736,7 +757,7 @@ class PlayerState final :
   void _internal_set_activeskill(bool value);
   public:
 
-  // bool ultimateSkill = 8;
+  // bool ultimateSkill = 9;
   void clear_ultimateskill();
   bool ultimateskill() const;
   void set_ultimateskill(bool value);
@@ -757,6 +778,7 @@ class PlayerState final :
     ::UnityMath::Vector3D* position_;
     ::UnityMath::Vector3D* eulaangle_;
     uint32_t playerid_;
+    uint32_t roomid_;
     uint32_t tick_;
     float yaw_;
     float pitch_;
@@ -799,7 +821,27 @@ inline void BattleSyncRequest::set_playerid(uint32_t value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncRequest.playerID)
 }
 
-// uint32 tick = 2;
+// uint32 roomID = 2;
+inline void BattleSyncRequest::clear_roomid() {
+  _impl_.roomid_ = 0u;
+}
+inline uint32_t BattleSyncRequest::_internal_roomid() const {
+  return _impl_.roomid_;
+}
+inline uint32_t BattleSyncRequest::roomid() const {
+  // @@protoc_insertion_point(field_get:BattleSyncPackage.BattleSyncRequest.roomID)
+  return _internal_roomid();
+}
+inline void BattleSyncRequest::_internal_set_roomid(uint32_t value) {
+  
+  _impl_.roomid_ = value;
+}
+inline void BattleSyncRequest::set_roomid(uint32_t value) {
+  _internal_set_roomid(value);
+  // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncRequest.roomID)
+}
+
+// uint32 tick = 3;
 inline void BattleSyncRequest::clear_tick() {
   _impl_.tick_ = 0u;
 }
@@ -819,7 +861,7 @@ inline void BattleSyncRequest::set_tick(uint32_t value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncRequest.tick)
 }
 
-// .UnityMath.Vector2D moveDir = 3;
+// .UnityMath.Vector2D moveDir = 4;
 inline bool BattleSyncRequest::_internal_has_movedir() const {
   return this != internal_default_instance() && _impl_.movedir_ != nullptr;
 }
@@ -904,7 +946,7 @@ inline void BattleSyncRequest::set_allocated_movedir(::UnityMath::Vector2D* move
   // @@protoc_insertion_point(field_set_allocated:BattleSyncPackage.BattleSyncRequest.moveDir)
 }
 
-// bool jump = 4;
+// bool jump = 5;
 inline void BattleSyncRequest::clear_jump() {
   _impl_.jump_ = false;
 }
@@ -924,7 +966,7 @@ inline void BattleSyncRequest::set_jump(bool value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncRequest.jump)
 }
 
-// float yaw = 5;
+// float yaw = 6;
 inline void BattleSyncRequest::clear_yaw() {
   _impl_.yaw_ = 0;
 }
@@ -944,7 +986,7 @@ inline void BattleSyncRequest::set_yaw(float value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncRequest.yaw)
 }
 
-// float pitch = 6;
+// float pitch = 7;
 inline void BattleSyncRequest::clear_pitch() {
   _impl_.pitch_ = 0;
 }
@@ -964,7 +1006,7 @@ inline void BattleSyncRequest::set_pitch(float value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncRequest.pitch)
 }
 
-// bool activeSkill = 7;
+// bool activeSkill = 8;
 inline void BattleSyncRequest::clear_activeskill() {
   _impl_.activeskill_ = false;
 }
@@ -984,7 +1026,7 @@ inline void BattleSyncRequest::set_activeskill(bool value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncRequest.activeSkill)
 }
 
-// bool ultimateSkill = 8;
+// bool ultimateSkill = 9;
 inline void BattleSyncRequest::clear_ultimateskill() {
   _impl_.ultimateskill_ = false;
 }
@@ -1004,7 +1046,7 @@ inline void BattleSyncRequest::set_ultimateskill(bool value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.BattleSyncRequest.ultimateSkill)
 }
 
-// .UnityMath.Vector3D position = 9;
+// .UnityMath.Vector3D position = 10;
 inline bool BattleSyncRequest::_internal_has_position() const {
   return this != internal_default_instance() && _impl_.position_ != nullptr;
 }
@@ -1089,7 +1131,7 @@ inline void BattleSyncRequest::set_allocated_position(::UnityMath::Vector3D* pos
   // @@protoc_insertion_point(field_set_allocated:BattleSyncPackage.BattleSyncRequest.position)
 }
 
-// .UnityMath.Vector3D eulaAngle = 10;
+// .UnityMath.Vector3D eulaAngle = 11;
 inline bool BattleSyncRequest::_internal_has_eulaangle() const {
   return this != internal_default_instance() && _impl_.eulaangle_ != nullptr;
 }
@@ -1242,7 +1284,27 @@ inline void PlayerState::set_playerid(uint32_t value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerState.playerID)
 }
 
-// uint32 tick = 2;
+// uint32 roomID = 2;
+inline void PlayerState::clear_roomid() {
+  _impl_.roomid_ = 0u;
+}
+inline uint32_t PlayerState::_internal_roomid() const {
+  return _impl_.roomid_;
+}
+inline uint32_t PlayerState::roomid() const {
+  // @@protoc_insertion_point(field_get:BattleSyncPackage.PlayerState.roomID)
+  return _internal_roomid();
+}
+inline void PlayerState::_internal_set_roomid(uint32_t value) {
+  
+  _impl_.roomid_ = value;
+}
+inline void PlayerState::set_roomid(uint32_t value) {
+  _internal_set_roomid(value);
+  // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerState.roomID)
+}
+
+// uint32 tick = 3;
 inline void PlayerState::clear_tick() {
   _impl_.tick_ = 0u;
 }
@@ -1262,7 +1324,7 @@ inline void PlayerState::set_tick(uint32_t value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerState.tick)
 }
 
-// .UnityMath.Vector2D moveDir = 3;
+// .UnityMath.Vector2D moveDir = 4;
 inline bool PlayerState::_internal_has_movedir() const {
   return this != internal_default_instance() && _impl_.movedir_ != nullptr;
 }
@@ -1347,7 +1409,7 @@ inline void PlayerState::set_allocated_movedir(::UnityMath::Vector2D* movedir) {
   // @@protoc_insertion_point(field_set_allocated:BattleSyncPackage.PlayerState.moveDir)
 }
 
-// bool jump = 4;
+// bool jump = 5;
 inline void PlayerState::clear_jump() {
   _impl_.jump_ = false;
 }
@@ -1367,7 +1429,7 @@ inline void PlayerState::set_jump(bool value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerState.jump)
 }
 
-// float yaw = 5;
+// float yaw = 6;
 inline void PlayerState::clear_yaw() {
   _impl_.yaw_ = 0;
 }
@@ -1387,7 +1449,7 @@ inline void PlayerState::set_yaw(float value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerState.yaw)
 }
 
-// float pitch = 6;
+// float pitch = 7;
 inline void PlayerState::clear_pitch() {
   _impl_.pitch_ = 0;
 }
@@ -1407,7 +1469,7 @@ inline void PlayerState::set_pitch(float value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerState.pitch)
 }
 
-// bool activeSkill = 7;
+// bool activeSkill = 8;
 inline void PlayerState::clear_activeskill() {
   _impl_.activeskill_ = false;
 }
@@ -1427,7 +1489,7 @@ inline void PlayerState::set_activeskill(bool value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerState.activeSkill)
 }
 
-// bool ultimateSkill = 8;
+// bool ultimateSkill = 9;
 inline void PlayerState::clear_ultimateskill() {
   _impl_.ultimateskill_ = false;
 }
@@ -1447,7 +1509,7 @@ inline void PlayerState::set_ultimateskill(bool value) {
   // @@protoc_insertion_point(field_set:BattleSyncPackage.PlayerState.ultimateSkill)
 }
 
-// .UnityMath.Vector3D position = 9;
+// .UnityMath.Vector3D position = 10;
 inline bool PlayerState::_internal_has_position() const {
   return this != internal_default_instance() && _impl_.position_ != nullptr;
 }
@@ -1532,7 +1594,7 @@ inline void PlayerState::set_allocated_position(::UnityMath::Vector3D* position)
   // @@protoc_insertion_point(field_set_allocated:BattleSyncPackage.PlayerState.position)
 }
 
-// .UnityMath.Vector3D eulaAngle = 10;
+// .UnityMath.Vector3D eulaAngle = 11;
 inline bool PlayerState::_internal_has_eulaangle() const {
   return this != internal_default_instance() && _impl_.eulaangle_ != nullptr;
 }
