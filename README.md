@@ -23,7 +23,7 @@ DeltaNights 是一款采用 Unity 开发、风格偏向 二次元动作 + 搜打
 ## 📖 使用文档
 
 - 服务器事件处理：[查看文档](Assets/Scripts/Network/README.md)
-- UI框架使用: [查看文档](Assets/Scripts/UIFramework/README.md)
+- UI框架使用： [查看文档](Assets/Scripts/UIFramework/README.md)
 ## 📁 项目结构（Project Structure）
 
 ### Assets
