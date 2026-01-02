@@ -6,7 +6,7 @@
  *  网络双端通信示例
  * ------------------------------------------------------------ */
 
-using AckSyncPackage;
+using ClientSyncPackage;
 using UnityEngine;
 
 namespace Network.NetEventProcess

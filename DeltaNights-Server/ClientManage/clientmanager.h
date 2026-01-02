@@ -34,6 +34,9 @@ public:
     void updateClientLastActive(QTcpSocket* socket);
     void removeTimeoutClients();
 
+    // ===== 控制台命令 =====
+    void printClientsInfo();
+
 signals:
     void clientConnectResponse(QTcpSocket* socket, const SyncPackage::RemoteSyncPackage& pkg);
 

@@ -34,11 +34,15 @@ add_executable(DeltaNights-Server
   ClientManage/clientmanager.cpp ClientManage/clientmanager.h
   ClientManage/playerinfo.cpp ClientManage/playerinfo.h
   ClientManage/playerinfomanager.cpp ClientManage/playerinfomanager.h
-  GameEvent/AckSyncPackage.pb.cc GameEvent/AckSyncPackage.pb.h
+  GameEvent/ClientSyncPackage.pb.cc GameEvent/ClientSyncPackage.pb.h
   GameEvent/BattleSyncPackage.pb.cc GameEvent/BattleSyncPackage.pb.h
   GameEvent/LobbySyncPackage.pb.cc GameEvent/LobbySyncPackage.pb.h
   GameEvent/SyncPackage.pb.cc GameEvent/SyncPackage.pb.h
   GameEvent/UnityMath.pb.cc GameEvent/UnityMath.pb.h
+  consoleprocess.h consoleprocess.cpp
+  ObjectPool/objectpool.h
+  ObjectPool/protopool.h ObjectPool/protopool.cpp
+  ObjectPool/protorestter.h
 )
 
 # 指定protobuf库位置

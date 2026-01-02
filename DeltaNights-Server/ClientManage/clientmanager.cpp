@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.31
+ *  LastUpdate: 2026.1.2
  *
  *  客户端管理
  *  维护所有客户端的连接
@@ -46,9 +46,9 @@ void ClientManager::createNewClient(QTcpSocket* socket)
     // 创建回复Protobuf包
     using namespace SyncPackage;
     RemoteSyncPackage response;
-    response.set_eventid(RemoteSyncEvent::AckResponse);
-    auto* type = response.mutable_acksync();
-    type->set_eventid(AckSyncPackage::RemoteAckEvent::ConnectResponse);
+    response.set_eventid(RemoteSyncEvent::ClientResponse);
+    auto* type = response.mutable_clientpackage();
+    type->set_eventid(ClientSyncPackage::RemoteClientEvent::ConnectResponse);
     auto* connectResponsePkg = type->mutable_connectresponse();
     connectResponsePkg->set_content(QString("服务器连接成功").toStdString());
 
@@ -153,5 +153,16 @@ void ClientManager::removeTimeoutClients()
         {
             ++it;
         }
+    }
+}
+
+/* ============================================================
+ * 控制台命令
+ * ============================================================ */
+void ClientManager::printClientsInfo()
+{
+    for(const auto& it : m_clientsByID)
+    {
+        qDebug().noquote() << "[ClientInfo: ID:[" << it.first << "] IP:[" << it.second->ip().toString() << "]]";
     }
 }

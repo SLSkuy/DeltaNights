@@ -16,7 +16,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using SyncPackage;
-using UnityEngine;
 
 namespace Network
 {
@@ -141,6 +140,7 @@ namespace Network
                 catch (SocketException)
                 {
                     // 网络异常
+                    OnDisconnected?.Invoke();
                     break;
                 }
             }
@@ -171,7 +171,8 @@ namespace Network
                 catch (SocketException)
                 {
                     // 网络异常
-                    break;
+                    OnDisconnected?.Invoke();
+                    return;
                 }
             }
 
