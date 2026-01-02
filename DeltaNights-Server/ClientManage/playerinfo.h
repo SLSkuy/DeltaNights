@@ -13,6 +13,8 @@
 
 #include <QObject>
 
+#include "../ClientManage/clientinfo.h"
+
 class PlayerInfo : public QObject
 {
     Q_OBJECT

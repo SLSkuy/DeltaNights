@@ -100,12 +100,12 @@ void NetworkDispatcher::sendTcpMessage(QTcpSocket* socket,const SyncPackage::Rem
     emit sendTcp(socket, packet);
 }
 
-void NetworkDispatcher::sendUdpMessage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncResponse& pkg)
+void NetworkDispatcher::sendUdpMessage(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg)
 {
     QByteArray datagram;
-    datagram.resize(pkg.ByteSizeLong());
+    datagram.resize(pkg->ByteSizeLong());
 
-    if (!pkg.SerializeToArray(datagram.data(), datagram.size()))
+    if (!pkg->SerializeToArray(datagram.data(), datagram.size()))
         return;
 
     emit sendUdp(addr, port, datagram);

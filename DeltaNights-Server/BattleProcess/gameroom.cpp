@@ -13,6 +13,7 @@
 #include "../CollisionSystem/collisionsystem.h"
 #include "../Logger/logger.h"
 #include "../ObjectPool/protopool.h"
+#include "../ClientManage/clientinfo.h"
 
 GameRoom::GameRoom(quint32 roomID, QObject* parent)
     : QObject(parent)
@@ -34,7 +35,7 @@ GameRoom::~GameRoom()
  * -------------------------------------------------- */
 bool GameRoom::addPlayer(std::unique_ptr<PlayerEntity> player)
 {
-    auto id = player->uuid();
+    auto id = player->client()->clientID();
     if (m_players.count(id))
         return false;
 
@@ -44,15 +45,15 @@ bool GameRoom::addPlayer(std::unique_ptr<PlayerEntity> player)
 }
 
 
-bool GameRoom::removePlayer(quint32 uuid)
+bool GameRoom::removePlayer(quint32 clientID)
 {
-    if(!m_players.count(uuid))
+    if(!m_players.count(clientID))
     {
-        Logger::Error() << "[GameRoom ID: " << m_roomID << "]: " << "No player with UUID: " << uuid;
+        Logger::Error() << "[GameRoom ID: " << m_roomID << "]: " << "No player with clientID: " << clientID;
         return false;
     }
 
-    return m_players.erase(uuid);
+    return m_players.erase(clientID);
 }
 
 void GameRoom::onPlayerInput(BattleSyncPackage::BattleSyncRequest* input)
@@ -62,6 +63,16 @@ void GameRoom::onPlayerInput(BattleSyncPackage::BattleSyncRequest* input)
     m_players[input->playerid()]->updateInput(input);
 }
 
+void GameRoom::playerTimeout(quint32 clientID)
+{
+    if(!m_players.count(clientID))
+    {
+        Logger::Error() << "[GameRoom ID: " << m_roomID << "]: " << "No player with clientID: " << clientID;
+        return;
+    }
+
+    m_players[clientID]->unBind();
+}
 /* --------------------------------------------------
  * 战局控制
  * -------------------------------------------------- */
@@ -128,6 +139,8 @@ void GameRoom::generateSyncPackage()
     using namespace BattleSyncPackage;
 
     BattleSyncResponse* response = ProtoPool::AcquireBattleResp();
+    response->set_roomid(m_roomID);
+    response->set_tick(m_tick);
     for (auto& it : m_inputBuffer)
     {
         const PlayerInput& input = it.second;
@@ -135,7 +148,6 @@ void GameRoom::generateSyncPackage()
         PlayerState* state = response->add_states();
 
         state->set_playerid(it.first);
-        state->set_tick(m_tick);
 
         // ===== 输入同步 =====
         auto* moveDir = state->mutable_movedir();

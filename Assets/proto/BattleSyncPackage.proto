@@ -31,24 +31,24 @@ message BattleSyncRequest {
 ================================================== */
 // ===== 远程战局同步回应包 ======
 message BattleSyncResponse {
-  repeated PlayerState states = 1;
+  uint32 roomID = 1;
+  uint32 tick = 2;
+  repeated PlayerState states = 3;
 }
 
 // ===== 服务器返回玩家状态 =====
 message PlayerState {
   uint32 playerID = 1;
-  uint32 roomID = 2;
-  uint32 tick = 3;
 
   // 玩家输入
-  UnityMath.Vector2D moveDir = 4;
-  bool jump = 5;
-  float yaw = 6;
-  float pitch = 7;
-  bool activeSkill = 8;
-  bool ultimateSkill = 9;
+  UnityMath.Vector2D moveDir = 3;
+  bool jump = 4;
+  float yaw = 5;
+  float pitch = 6;
+  bool activeSkill = 7;
+  bool ultimateSkill = 8;
 
   // 权威状态同步
-  UnityMath.Vector3D position = 10;
-  UnityMath.Vector3D eulaAngle = 11;
+  UnityMath.Vector3D position = 9;
+  UnityMath.Vector3D eulaAngle = 10;
 }

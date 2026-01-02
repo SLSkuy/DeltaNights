@@ -100,6 +100,8 @@ namespace Network
             pkg.MergeFrom(data);
             
             // TODO: 处理战局同步回应包
+            Debug.Log("接收到同步包");
+            pkg.Dispose();
         }
 
         /// 处理Client类回应消息，此处进行分发相应的网络事件

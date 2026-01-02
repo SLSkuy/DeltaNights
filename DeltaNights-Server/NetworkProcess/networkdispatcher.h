@@ -50,7 +50,7 @@ public:
 
     // 将发送数据传入网络线程
     void sendTcpMessage(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
-    void sendUdpMessage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncResponse& pkg);
+    void sendUdpMessage(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg);
 
 signals:
     // 发送信号

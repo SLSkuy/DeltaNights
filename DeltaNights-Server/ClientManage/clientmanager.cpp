@@ -144,6 +144,9 @@ void ClientManager::removeTimeoutClients()
             Logger::Info() << "[ClientManager]: Client "
                            << makeKey(client->ip(), client->port()) << " timeout";
 
+            // 触发超时信号，让战局内实体与客户端断开联系
+            emit clientTimeout(client->clientID());
+
             m_clientsByTcp.erase(client->tcpSocket()); // 删除TCP索引
             m_clientsByUdp.erase(makeKey(client->ip(), client->port()));    // 删除UDP索引
             it = m_clientsByID.erase(it);   // 删除ID索引

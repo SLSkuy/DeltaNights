@@ -47,8 +47,9 @@ public:
 
     // 玩家相关操作
     bool addPlayer(std::unique_ptr<PlayerEntity> player);
-    bool removePlayer(quint32 uuid);
+    bool removePlayer(quint32 clientID);
     void onPlayerInput(BattleSyncPackage::BattleSyncRequest* input);
+    void playerTimeout(quint32 clientID);
 
     // 战局控制
     void start();
@@ -84,6 +85,6 @@ private:
     CollisionSystem* _collisionSystem = nullptr;  // 碰撞系统
 
     // ========== 玩家数据处理 ==========
-    std::unordered_map<quint32, std::unique_ptr<PlayerEntity>> m_players; // uuid -> PlayerEntity
+    std::unordered_map<quint32, std::unique_ptr<PlayerEntity>> m_players; // clientID -> PlayerEntity
     std::unordered_map<quint32, PlayerInput> m_inputBuffer; // 每次同步如果有输入则覆盖PlayerEntity，没有则保持PlayerEntity中的输入
 };

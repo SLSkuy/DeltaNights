@@ -39,6 +39,7 @@ public:
 
 signals:
     void clientConnectResponse(QTcpSocket* socket, const SyncPackage::RemoteSyncPackage& pkg);
+    void clientTimeout(quint32 clientID);
 
 private:
     bool removeClientById(quint32 clientId);

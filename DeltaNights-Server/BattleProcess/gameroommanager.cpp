@@ -14,14 +14,13 @@
 #include "playerentity.h"
 #include "gameroommanager.h"
 #include "gameroom.h"
+#include "../ClientManage/clientinfo.h"
+#include "../ClientManage/clientmanager.h"
 
-GameRoomManager::GameRoomManager(QObject *parent)
-    : QObject(parent)
+GameRoomManager::GameRoomManager(ClientManager* clientMgr, QObject *parent)
+    : _clientManager(clientMgr), QObject(parent)
 {
-    GameRoom* room = createGameRoom();
-    joinGameRoom(0, new PlayerInfo(0)); // 添加示例玩家
-    joinGameRoom(0, new PlayerInfo(1));
-    room->start();
+
 }
 
 /* ------------------------------------------------------------
@@ -37,8 +36,10 @@ GameRoom* GameRoomManager::createGameRoom()
     GameRoom* newRoom = new GameRoom(m_nextRoomID, this);   // 由Qt父子系统管理生命周期
     m_rooms[m_nextRoomID] = newRoom;
 
-    Logger::Info() << "[GameRoomManager]: " << "Create new game room with ID: " << m_nextRoomID++;
+    connect(newRoom, &GameRoom::battleSync, this, &GameRoomManager::battleSyncResponse);
+    connect(_clientManager,&ClientManager::clientTimeout,newRoom,&GameRoom::playerTimeout);
 
+    Logger::Info() << "[GameRoomManager]: " << "Create new game room with ID: " << m_nextRoomID++;
     return newRoom;
 }
 
@@ -50,7 +51,6 @@ GameRoom* GameRoomManager::findGameRoomByID(quint32 roomID)
     }
 
     Logger::Error() << "[GameRoomManager]: " << "No game room with ID: " << roomID;
-
     return nullptr;
 }
 
@@ -63,6 +63,9 @@ void GameRoomManager::disposeGameRoom(quint32 roomID)
         Logger::Error() << "[GameRoomManager]: " << "No game room with ID: " << roomID;
         return;
     }
+
+    disconnect(roomToDispose, &GameRoom::battleSync, this, &GameRoomManager::battleSyncResponse);
+    disconnect(_clientManager,&ClientManager::clientTimeout,roomToDispose,&GameRoom::playerTimeout);
 
     m_rooms.erase(roomID);
     roomToDispose->deleteLater();
@@ -82,6 +85,8 @@ bool GameRoomManager::joinGameRoom(quint32 roomID, PlayerInfo* player)
     }
 
     auto entity = std::make_unique<PlayerEntity>(player);
+    entity->bindClient(_clientManager->findClientByID(player->uuid())); // 绑定客户端
+
     return gameRoom->addPlayer(std::move(entity));
 }
 
@@ -102,4 +107,20 @@ void GameRoomManager::playerSyncRequest(BattleSyncPackage::BattleSyncRequest* in
     if(input == nullptr) return;
 
     findGameRoomByID(input->roomid())->onPlayerInput(input);
+}
+
+void GameRoomManager::battleSyncResponse(quint32 roomID, BattleSyncPackage::BattleSyncResponse* pkg)
+{
+    GameRoom* room = findGameRoomByID(roomID);
+    if(room)
+    {
+        for(auto& it:room->players())
+        {
+            ClientInfo* info = it.second->client();
+            if(!info) continue;
+
+            // 给每一个客户端发送战局同步包
+            emit battleSyncGenerated(info->ip(), info->port(), pkg);
+        }
+    }
 }

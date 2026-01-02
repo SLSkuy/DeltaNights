@@ -41,6 +41,7 @@ public:
     void updateInput(BattleSyncPackage::BattleSyncRequest* input);
 
     void bindClient(ClientInfo* client);
+    void unBind() {m_client = nullptr;}
 
 public:
     quint32 uuid() const {return m_uuid;}
