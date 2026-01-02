@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package AckSyncPackage;
+package ClientSyncPackage;
 
 /* ==================================================
-  确认同步请求包事件
+  客户端同步请求包事件
 ================================================== */
-enum LocalAckEvent {
+enum LocalClientEvent {
   Local_ACK_None = 0;
   HeartBeat = 1;
   ConnectRequest = 2;
@@ -13,8 +13,8 @@ enum LocalAckEvent {
 }
 
 // ===== ACK请求包 =====
-message AckSyncRequest {
-  LocalAckEvent eventID = 1;
+message ClientSyncRequest {
+  LocalClientEvent eventID = 1;
   oneof content {
     HeartBeatPackage heartBeat = 2;
     ConnectRequestPackage connect = 3;
@@ -32,16 +32,16 @@ message ConnectRequestPackage {
 }
 
 /* ==================================================
-  确认同步回应包事件
+  客户端同步回应包事件
 ================================================== */
-enum RemoteAckEvent {
+enum RemoteClientEvent {
   Remote_ACK_None = 0;
   ConnectResponse = 1;
 }
 
 // ===== ACK回应包 =====
-message AckSyncResponse {
-  RemoteAckEvent eventID = 1;
+message ClientSyncResponse {
+  RemoteClientEvent eventID = 1;
   oneof content {
     ConnectResponsePackage connectResponse = 2;
   }

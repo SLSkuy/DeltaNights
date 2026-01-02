@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.28
- *  LastUpdate:  2025.12.31
+ *  LastUpdate:  2026.1.2
  *
  *  MessageProcesser负责序列化与反序列化所有接收到的网络字节流
  *  处理分发所有的网络事件
@@ -10,10 +10,11 @@
 
 using System;
 using System.Collections.Generic;
-using AckSyncPackage;
 using BattleSyncPackage;
+using ClientSyncPackage;
 using Google.Protobuf;
 using LobbySyncPackage;
+using Network.ProtoTools;
 using SyncPackage;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ namespace Network
         public void Register<T>(NetEvent eventId, Action<T> handler) where T : IMessage, new()
         {
             _handlers[eventId] = msg => handler((T)msg);
-            Debug.Log($"[MessageProcesser] Registered event {eventId}");
+            Debug.Log($"[MessageProcesser] 注册事件 {eventId}");
         }
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace Network
         public void UnRegister(NetEvent eventId)
         {
             _handlers.Remove(eventId);
-            Debug.Log($"[MessageProcesser] Unregistered event {eventId}");
+            Debug.Log($"[MessageProcesser] 注销事件 {eventId}");
         }
         
         /// <summary>
@@ -60,7 +61,7 @@ namespace Network
             }
             else
             {
-                Debug.LogWarning($"[MessageProcessor] No handler for event {eventId}");
+                Debug.LogWarning($"[MessageProcessor] 事件 {eventId} 没有对应的处理器");
             }
         }
 
@@ -69,34 +70,44 @@ namespace Network
         #region 序列化处理
 
         /// <summary>
-        /// 接受服务端发送的字符串，测试使用
+        /// 接受服务端发送的TCP事件
         /// </summary>
-        public void DeSerialize(byte[] data)
+        public void DeserializeTcp(byte[] data)
         {
             RemoteSyncPackage pkg = RemoteSyncPackage.Parser.ParseFrom(data);
+            // ===== 分类处理网络同步包 =====
             switch (pkg.EventID)
             {
-                case RemoteSyncEvent.AckResponse:
-                    AckResponseProcess(pkg.AckSync);
+                case RemoteSyncEvent.ClientResponse:
+                    AckResponseProcess(pkg.ClientPackage);
                     break;
                 case RemoteSyncEvent.LobbyResponse:
                     LobbyResponseProcess(pkg.LobbyPackage);
                     break;
-                case RemoteSyncEvent.BattleResponse:
-                    BattleResponseProcess(pkg.BattlePackage);
-                    break;
                 default:
-                    Debug.Log("Unknown EventID: " + pkg.EventID);
+                    Debug.Log("[MessageProcesser] 未知事件: " + pkg.EventID);
                     break;
             }
         }
 
-        private void AckResponseProcess(AckSyncResponse response)
+        /// <summary>
+        /// 接收服务端发送的UDP事件
+        /// </summary>
+        /// <param name="data"></param>
+        public void DeserializeUdp(byte[] data)
         {
-            // TODO: 处理ACK回应消息，此处进行分发相应的网络事件
+            BattleSyncResponse pkg = ProtoPool.NewBattleResp();
+            pkg.MergeFrom(data);
+            
+            // TODO: 处理战局同步回应包
+        }
+
+        /// 处理Client类回应消息，此处进行分发相应的网络事件
+        private void AckResponseProcess(ClientSyncResponse response)
+        {
             switch (response.EventID)
             {
-                case RemoteAckEvent.ConnectResponse:
+                case RemoteClientEvent.ConnectResponse:
                     Dispatch(NetEvent.ConnectResponse, response.ConnectResponse);
                     break;
                 default:
@@ -104,26 +115,16 @@ namespace Network
             }
         }
 
+        /// 处理Lobby类回应消息，此处进行分发相应的网络事件
         private void LobbyResponseProcess(LobbySyncResponse response)
         {
-            // TODO: 处理Lobby回应消息，此处进行分发相应的网络事件
             switch (response.EventID)
             {
                 default:
                     break;
             }
         }
-
-        private void BattleResponseProcess(BattleSyncResponse response)
-        {
-            // TODO: 处理Battle回应消息，此处进行分发相应的网络事件
-            switch (response.EventID)
-            {
-                default:
-                    break;
-            }
-        }
-
+        
         #endregion
     }
 }
