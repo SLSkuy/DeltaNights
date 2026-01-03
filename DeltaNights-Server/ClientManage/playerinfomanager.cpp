@@ -10,6 +10,8 @@
 #include "playerinfomanager.h"
 #include "playerinfo.h"
 
+#include <QDebug>
+
 PlayerInfoManager::PlayerInfoManager(QObject* parent)
     : QObject(parent)
 {

@@ -33,6 +33,8 @@ public:
     bool start(quint16 tcpPort, quint16 udpPort);
     void stop();
 
+    void handleConsoleCommand(const QString& command);
+
 private:
     void setupNetwork();
     void setupLogic();

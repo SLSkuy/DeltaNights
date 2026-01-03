@@ -24,24 +24,26 @@ namespace SyncPackage {
     static SyncPackageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFTeW5jUGFja2FnZS5wcm90bxILU3luY1BhY2thZ2UaF0JhdHRsZVN5bmNQ",
-            "YWNrYWdlLnByb3RvGhZMb2JieVN5bmNQYWNrYWdlLnByb3RvGhBBY2tQYWNr",
-            "YWdlLnByb3RvIvIBChBMb2NhbFN5bmNQYWNrYWdlEiwKB2V2ZW50SUQYASAB",
-            "KA4yGy5TeW5jUGFja2FnZS5Mb2NhbFN5bmNFdmVudBI9Cg1iYXR0bGVQYWNr",
-            "YWdlGAIgASgLMiQuQmF0dGxlU3luY1BhY2thZ2UuQmF0dGxlU3luY1JlcXVl",
-            "c3RIABI3Cglsb2JieVN5bmMYAyABKAsyIi5Mb2JieVN5bmNQYWNrYWdlLkxv",
-            "YmJ5U3luY1JlcXVlc3RIABItCgdhY2tTeW5jGAQgASgLMhouQWNrUGFja2Fn",
-            "ZS5BY2tTeW5jUmVxdWVzdEgAQgkKB2NvbnRlbnQiQgoRUmVtb3RlU3luY1Bh",
-            "Y2thZ2USLQoHZXZlbnRJRBgBIAEoDjIcLlN5bmNQYWNrYWdlLlJlbW90ZVN5",
-            "bmNFdmVudCo+Cg5Mb2NhbFN5bmNFdmVudBIRCg1CYXR0bGVSZXF1ZXN0EAAS",
-            "EAoMTG9iYnlSZXF1ZXN0EAESBwoDQWNrEAIqOAoPUmVtb3RlU3luY0V2ZW50",
-            "EhIKDkJhdHRsZVJlc3BvbnNlEAASEQoNTG9iYnlSZXNwb25zZRABYgZwcm90",
-            "bzM="));
+            "ChFTeW5jUGFja2FnZS5wcm90bxILU3luY1BhY2thZ2UaFkxvYmJ5U3luY1Bh",
+            "Y2thZ2UucHJvdG8aF0NsaWVudFN5bmNQYWNrYWdlLnByb3RvIsABChBMb2Nh",
+            "bFN5bmNQYWNrYWdlEiwKB2V2ZW50SUQYASABKA4yGy5TeW5jUGFja2FnZS5M",
+            "b2NhbFN5bmNFdmVudBI3Cglsb2JieVN5bmMYAiABKAsyIi5Mb2JieVN5bmNQ",
+            "YWNrYWdlLkxvYmJ5U3luY1JlcXVlc3RIABI6CgpjbGllbnRTeW5jGAMgASgL",
+            "MiQuQ2xpZW50U3luY1BhY2thZ2UuQ2xpZW50U3luY1JlcXVlc3RIAEIJCgdj",
+            "b250ZW50IsoBChFSZW1vdGVTeW5jUGFja2FnZRItCgdldmVudElEGAEgASgO",
+            "MhwuU3luY1BhY2thZ2UuUmVtb3RlU3luY0V2ZW50EjsKDGxvYmJ5UGFja2Fn",
+            "ZRgCIAEoCzIjLkxvYmJ5U3luY1BhY2thZ2UuTG9iYnlTeW5jUmVzcG9uc2VI",
+            "ABI+Cg1jbGllbnRQYWNrYWdlGAMgASgLMiUuQ2xpZW50U3luY1BhY2thZ2Uu",
+            "Q2xpZW50U3luY1Jlc3BvbnNlSABCCQoHY29udGVudCpFCg5Mb2NhbFN5bmNF",
+            "dmVudBIOCgpMb2NhbF9Ob25lEAASEAoMTG9iYnlSZXF1ZXN0EAESEQoNQ2xp",
+            "ZW50UmVxdWVzdBACKkkKD1JlbW90ZVN5bmNFdmVudBIPCgtSZW1vdGVfTm9u",
+            "ZRAAEhEKDUxvYmJ5UmVzcG9uc2UQARISCg5DbGllbnRSZXNwb25zZRACYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::BattleSyncPackage.BattleSyncPackageReflection.Descriptor, global::LobbySyncPackage.LobbySyncPackageReflection.Descriptor, global::AckPackage.AckPackageReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::LobbySyncPackage.LobbySyncPackageReflection.Descriptor, global::ClientSyncPackage.ClientSyncPackageReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::SyncPackage.LocalSyncEvent), typeof(global::SyncPackage.RemoteSyncEvent), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::SyncPackage.LocalSyncPackage), global::SyncPackage.LocalSyncPackage.Parser, new[]{ "EventID", "BattlePackage", "LobbySync", "AckSync" }, new[]{ "Content" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SyncPackage.RemoteSyncPackage), global::SyncPackage.RemoteSyncPackage.Parser, new[]{ "EventID" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SyncPackage.LocalSyncPackage), global::SyncPackage.LocalSyncPackage.Parser, new[]{ "EventID", "LobbySync", "ClientSync" }, new[]{ "Content" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SyncPackage.RemoteSyncPackage), global::SyncPackage.RemoteSyncPackage.Parser, new[]{ "EventID", "LobbyPackage", "ClientPackage" }, new[]{ "Content" }, null, null, null)
           }));
     }
     #endregion
@@ -49,24 +51,25 @@ namespace SyncPackage {
   }
   #region Enums
   /// <summary>
-  /// --------------------------------------------------
-  ///客户端同步包汇总
-  ///-------------------------------------------------- 
+  /// ==================================================
+  ///客户端->服务端同步包汇总
+  ///================================================== 
   /// </summary>
   public enum LocalSyncEvent {
-    [pbr::OriginalName("BattleRequest")] BattleRequest = 0,
+    [pbr::OriginalName("Local_None")] LocalNone = 0,
     [pbr::OriginalName("LobbyRequest")] LobbyRequest = 1,
-    [pbr::OriginalName("Ack")] Ack = 2,
+    [pbr::OriginalName("ClientRequest")] ClientRequest = 2,
   }
 
   /// <summary>
-  /// --------------------------------------------------
-  ///服务端同步包汇总
-  ///-------------------------------------------------- 
+  /// ==================================================
+  ///服务端->客户端同步包汇总
+  ///================================================== 
   /// </summary>
   public enum RemoteSyncEvent {
-    [pbr::OriginalName("BattleResponse")] BattleResponse = 0,
+    [pbr::OriginalName("Remote_None")] RemoteNone = 0,
     [pbr::OriginalName("LobbyResponse")] LobbyResponse = 1,
+    [pbr::OriginalName("ClientResponse")] ClientResponse = 2,
   }
 
   #endregion
@@ -111,14 +114,11 @@ namespace SyncPackage {
     public LocalSyncPackage(LocalSyncPackage other) : this() {
       eventID_ = other.eventID_;
       switch (other.ContentCase) {
-        case ContentOneofCase.BattlePackage:
-          BattlePackage = other.BattlePackage.Clone();
-          break;
         case ContentOneofCase.LobbySync:
           LobbySync = other.LobbySync.Clone();
           break;
-        case ContentOneofCase.AckSync:
-          AckSync = other.AckSync.Clone();
+        case ContentOneofCase.ClientSync:
+          ClientSync = other.ClientSync.Clone();
           break;
       }
 
@@ -133,7 +133,7 @@ namespace SyncPackage {
 
     /// <summary>Field number for the "eventID" field.</summary>
     public const int EventIDFieldNumber = 1;
-    private global::SyncPackage.LocalSyncEvent eventID_ = global::SyncPackage.LocalSyncEvent.BattleRequest;
+    private global::SyncPackage.LocalSyncEvent eventID_ = global::SyncPackage.LocalSyncEvent.LocalNone;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SyncPackage.LocalSyncEvent EventID {
@@ -143,20 +143,8 @@ namespace SyncPackage {
       }
     }
 
-    /// <summary>Field number for the "battlePackage" field.</summary>
-    public const int BattlePackageFieldNumber = 2;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::BattleSyncPackage.BattleSyncRequest BattlePackage {
-      get { return contentCase_ == ContentOneofCase.BattlePackage ? (global::BattleSyncPackage.BattleSyncRequest) content_ : null; }
-      set {
-        content_ = value;
-        contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.BattlePackage;
-      }
-    }
-
     /// <summary>Field number for the "lobbySync" field.</summary>
-    public const int LobbySyncFieldNumber = 3;
+    public const int LobbySyncFieldNumber = 2;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::LobbySyncPackage.LobbySyncRequest LobbySync {
@@ -167,15 +155,15 @@ namespace SyncPackage {
       }
     }
 
-    /// <summary>Field number for the "ackSync" field.</summary>
-    public const int AckSyncFieldNumber = 4;
+    /// <summary>Field number for the "clientSync" field.</summary>
+    public const int ClientSyncFieldNumber = 3;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::AckPackage.AckSyncRequest AckSync {
-      get { return contentCase_ == ContentOneofCase.AckSync ? (global::AckPackage.AckSyncRequest) content_ : null; }
+    public global::ClientSyncPackage.ClientSyncRequest ClientSync {
+      get { return contentCase_ == ContentOneofCase.ClientSync ? (global::ClientSyncPackage.ClientSyncRequest) content_ : null; }
       set {
         content_ = value;
-        contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.AckSync;
+        contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.ClientSync;
       }
     }
 
@@ -183,9 +171,8 @@ namespace SyncPackage {
     /// <summary>Enum of possible cases for the "content" oneof.</summary>
     public enum ContentOneofCase {
       None = 0,
-      BattlePackage = 2,
-      LobbySync = 3,
-      AckSync = 4,
+      LobbySync = 2,
+      ClientSync = 3,
     }
     private ContentOneofCase contentCase_ = ContentOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -217,9 +204,8 @@ namespace SyncPackage {
         return true;
       }
       if (EventID != other.EventID) return false;
-      if (!object.Equals(BattlePackage, other.BattlePackage)) return false;
       if (!object.Equals(LobbySync, other.LobbySync)) return false;
-      if (!object.Equals(AckSync, other.AckSync)) return false;
+      if (!object.Equals(ClientSync, other.ClientSync)) return false;
       if (ContentCase != other.ContentCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -228,10 +214,9 @@ namespace SyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EventID != global::SyncPackage.LocalSyncEvent.BattleRequest) hash ^= EventID.GetHashCode();
-      if (contentCase_ == ContentOneofCase.BattlePackage) hash ^= BattlePackage.GetHashCode();
+      if (EventID != global::SyncPackage.LocalSyncEvent.LocalNone) hash ^= EventID.GetHashCode();
       if (contentCase_ == ContentOneofCase.LobbySync) hash ^= LobbySync.GetHashCode();
-      if (contentCase_ == ContentOneofCase.AckSync) hash ^= AckSync.GetHashCode();
+      if (contentCase_ == ContentOneofCase.ClientSync) hash ^= ClientSync.GetHashCode();
       hash ^= (int) contentCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -251,21 +236,17 @@ namespace SyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EventID != global::SyncPackage.LocalSyncEvent.BattleRequest) {
+      if (EventID != global::SyncPackage.LocalSyncEvent.LocalNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
-      if (contentCase_ == ContentOneofCase.BattlePackage) {
-        output.WriteRawTag(18);
-        output.WriteMessage(BattlePackage);
-      }
       if (contentCase_ == ContentOneofCase.LobbySync) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(18);
         output.WriteMessage(LobbySync);
       }
-      if (contentCase_ == ContentOneofCase.AckSync) {
-        output.WriteRawTag(34);
-        output.WriteMessage(AckSync);
+      if (contentCase_ == ContentOneofCase.ClientSync) {
+        output.WriteRawTag(26);
+        output.WriteMessage(ClientSync);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -277,21 +258,17 @@ namespace SyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EventID != global::SyncPackage.LocalSyncEvent.BattleRequest) {
+      if (EventID != global::SyncPackage.LocalSyncEvent.LocalNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
       }
-      if (contentCase_ == ContentOneofCase.BattlePackage) {
-        output.WriteRawTag(18);
-        output.WriteMessage(BattlePackage);
-      }
       if (contentCase_ == ContentOneofCase.LobbySync) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(18);
         output.WriteMessage(LobbySync);
       }
-      if (contentCase_ == ContentOneofCase.AckSync) {
-        output.WriteRawTag(34);
-        output.WriteMessage(AckSync);
+      if (contentCase_ == ContentOneofCase.ClientSync) {
+        output.WriteRawTag(26);
+        output.WriteMessage(ClientSync);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -303,17 +280,14 @@ namespace SyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EventID != global::SyncPackage.LocalSyncEvent.BattleRequest) {
+      if (EventID != global::SyncPackage.LocalSyncEvent.LocalNone) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
-      }
-      if (contentCase_ == ContentOneofCase.BattlePackage) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(BattlePackage);
       }
       if (contentCase_ == ContentOneofCase.LobbySync) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(LobbySync);
       }
-      if (contentCase_ == ContentOneofCase.AckSync) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(AckSync);
+      if (contentCase_ == ContentOneofCase.ClientSync) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ClientSync);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -327,27 +301,21 @@ namespace SyncPackage {
       if (other == null) {
         return;
       }
-      if (other.EventID != global::SyncPackage.LocalSyncEvent.BattleRequest) {
+      if (other.EventID != global::SyncPackage.LocalSyncEvent.LocalNone) {
         EventID = other.EventID;
       }
       switch (other.ContentCase) {
-        case ContentOneofCase.BattlePackage:
-          if (BattlePackage == null) {
-            BattlePackage = new global::BattleSyncPackage.BattleSyncRequest();
-          }
-          BattlePackage.MergeFrom(other.BattlePackage);
-          break;
         case ContentOneofCase.LobbySync:
           if (LobbySync == null) {
             LobbySync = new global::LobbySyncPackage.LobbySyncRequest();
           }
           LobbySync.MergeFrom(other.LobbySync);
           break;
-        case ContentOneofCase.AckSync:
-          if (AckSync == null) {
-            AckSync = new global::AckPackage.AckSyncRequest();
+        case ContentOneofCase.ClientSync:
+          if (ClientSync == null) {
+            ClientSync = new global::ClientSyncPackage.ClientSyncRequest();
           }
-          AckSync.MergeFrom(other.AckSync);
+          ClientSync.MergeFrom(other.ClientSync);
           break;
       }
 
@@ -371,15 +339,6 @@ namespace SyncPackage {
             break;
           }
           case 18: {
-            global::BattleSyncPackage.BattleSyncRequest subBuilder = new global::BattleSyncPackage.BattleSyncRequest();
-            if (contentCase_ == ContentOneofCase.BattlePackage) {
-              subBuilder.MergeFrom(BattlePackage);
-            }
-            input.ReadMessage(subBuilder);
-            BattlePackage = subBuilder;
-            break;
-          }
-          case 26: {
             global::LobbySyncPackage.LobbySyncRequest subBuilder = new global::LobbySyncPackage.LobbySyncRequest();
             if (contentCase_ == ContentOneofCase.LobbySync) {
               subBuilder.MergeFrom(LobbySync);
@@ -388,13 +347,13 @@ namespace SyncPackage {
             LobbySync = subBuilder;
             break;
           }
-          case 34: {
-            global::AckPackage.AckSyncRequest subBuilder = new global::AckPackage.AckSyncRequest();
-            if (contentCase_ == ContentOneofCase.AckSync) {
-              subBuilder.MergeFrom(AckSync);
+          case 26: {
+            global::ClientSyncPackage.ClientSyncRequest subBuilder = new global::ClientSyncPackage.ClientSyncRequest();
+            if (contentCase_ == ContentOneofCase.ClientSync) {
+              subBuilder.MergeFrom(ClientSync);
             }
             input.ReadMessage(subBuilder);
-            AckSync = subBuilder;
+            ClientSync = subBuilder;
             break;
           }
         }
@@ -417,15 +376,6 @@ namespace SyncPackage {
             break;
           }
           case 18: {
-            global::BattleSyncPackage.BattleSyncRequest subBuilder = new global::BattleSyncPackage.BattleSyncRequest();
-            if (contentCase_ == ContentOneofCase.BattlePackage) {
-              subBuilder.MergeFrom(BattlePackage);
-            }
-            input.ReadMessage(subBuilder);
-            BattlePackage = subBuilder;
-            break;
-          }
-          case 26: {
             global::LobbySyncPackage.LobbySyncRequest subBuilder = new global::LobbySyncPackage.LobbySyncRequest();
             if (contentCase_ == ContentOneofCase.LobbySync) {
               subBuilder.MergeFrom(LobbySync);
@@ -434,13 +384,13 @@ namespace SyncPackage {
             LobbySync = subBuilder;
             break;
           }
-          case 34: {
-            global::AckPackage.AckSyncRequest subBuilder = new global::AckPackage.AckSyncRequest();
-            if (contentCase_ == ContentOneofCase.AckSync) {
-              subBuilder.MergeFrom(AckSync);
+          case 26: {
+            global::ClientSyncPackage.ClientSyncRequest subBuilder = new global::ClientSyncPackage.ClientSyncRequest();
+            if (contentCase_ == ContentOneofCase.ClientSync) {
+              subBuilder.MergeFrom(ClientSync);
             }
             input.ReadMessage(subBuilder);
-            AckSync = subBuilder;
+            ClientSync = subBuilder;
             break;
           }
         }
@@ -488,6 +438,15 @@ namespace SyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public RemoteSyncPackage(RemoteSyncPackage other) : this() {
       eventID_ = other.eventID_;
+      switch (other.ContentCase) {
+        case ContentOneofCase.LobbyPackage:
+          LobbyPackage = other.LobbyPackage.Clone();
+          break;
+        case ContentOneofCase.ClientPackage:
+          ClientPackage = other.ClientPackage.Clone();
+          break;
+      }
+
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -499,7 +458,7 @@ namespace SyncPackage {
 
     /// <summary>Field number for the "eventID" field.</summary>
     public const int EventIDFieldNumber = 1;
-    private global::SyncPackage.RemoteSyncEvent eventID_ = global::SyncPackage.RemoteSyncEvent.BattleResponse;
+    private global::SyncPackage.RemoteSyncEvent eventID_ = global::SyncPackage.RemoteSyncEvent.RemoteNone;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::SyncPackage.RemoteSyncEvent EventID {
@@ -507,6 +466,51 @@ namespace SyncPackage {
       set {
         eventID_ = value;
       }
+    }
+
+    /// <summary>Field number for the "lobbyPackage" field.</summary>
+    public const int LobbyPackageFieldNumber = 2;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::LobbySyncPackage.LobbySyncResponse LobbyPackage {
+      get { return contentCase_ == ContentOneofCase.LobbyPackage ? (global::LobbySyncPackage.LobbySyncResponse) content_ : null; }
+      set {
+        content_ = value;
+        contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.LobbyPackage;
+      }
+    }
+
+    /// <summary>Field number for the "clientPackage" field.</summary>
+    public const int ClientPackageFieldNumber = 3;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::ClientSyncPackage.ClientSyncResponse ClientPackage {
+      get { return contentCase_ == ContentOneofCase.ClientPackage ? (global::ClientSyncPackage.ClientSyncResponse) content_ : null; }
+      set {
+        content_ = value;
+        contentCase_ = value == null ? ContentOneofCase.None : ContentOneofCase.ClientPackage;
+      }
+    }
+
+    private object content_;
+    /// <summary>Enum of possible cases for the "content" oneof.</summary>
+    public enum ContentOneofCase {
+      None = 0,
+      LobbyPackage = 2,
+      ClientPackage = 3,
+    }
+    private ContentOneofCase contentCase_ = ContentOneofCase.None;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ContentOneofCase ContentCase {
+      get { return contentCase_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearContent() {
+      contentCase_ = ContentOneofCase.None;
+      content_ = null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -525,6 +529,9 @@ namespace SyncPackage {
         return true;
       }
       if (EventID != other.EventID) return false;
+      if (!object.Equals(LobbyPackage, other.LobbyPackage)) return false;
+      if (!object.Equals(ClientPackage, other.ClientPackage)) return false;
+      if (ContentCase != other.ContentCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -532,7 +539,10 @@ namespace SyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (EventID != global::SyncPackage.RemoteSyncEvent.BattleResponse) hash ^= EventID.GetHashCode();
+      if (EventID != global::SyncPackage.RemoteSyncEvent.RemoteNone) hash ^= EventID.GetHashCode();
+      if (contentCase_ == ContentOneofCase.LobbyPackage) hash ^= LobbyPackage.GetHashCode();
+      if (contentCase_ == ContentOneofCase.ClientPackage) hash ^= ClientPackage.GetHashCode();
+      hash ^= (int) contentCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -551,9 +561,17 @@ namespace SyncPackage {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (EventID != global::SyncPackage.RemoteSyncEvent.BattleResponse) {
+      if (EventID != global::SyncPackage.RemoteSyncEvent.RemoteNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
+      }
+      if (contentCase_ == ContentOneofCase.LobbyPackage) {
+        output.WriteRawTag(18);
+        output.WriteMessage(LobbyPackage);
+      }
+      if (contentCase_ == ContentOneofCase.ClientPackage) {
+        output.WriteRawTag(26);
+        output.WriteMessage(ClientPackage);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -565,9 +583,17 @@ namespace SyncPackage {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (EventID != global::SyncPackage.RemoteSyncEvent.BattleResponse) {
+      if (EventID != global::SyncPackage.RemoteSyncEvent.RemoteNone) {
         output.WriteRawTag(8);
         output.WriteEnum((int) EventID);
+      }
+      if (contentCase_ == ContentOneofCase.LobbyPackage) {
+        output.WriteRawTag(18);
+        output.WriteMessage(LobbyPackage);
+      }
+      if (contentCase_ == ContentOneofCase.ClientPackage) {
+        output.WriteRawTag(26);
+        output.WriteMessage(ClientPackage);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -579,8 +605,14 @@ namespace SyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (EventID != global::SyncPackage.RemoteSyncEvent.BattleResponse) {
+      if (EventID != global::SyncPackage.RemoteSyncEvent.RemoteNone) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventID);
+      }
+      if (contentCase_ == ContentOneofCase.LobbyPackage) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LobbyPackage);
+      }
+      if (contentCase_ == ContentOneofCase.ClientPackage) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ClientPackage);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -594,9 +626,24 @@ namespace SyncPackage {
       if (other == null) {
         return;
       }
-      if (other.EventID != global::SyncPackage.RemoteSyncEvent.BattleResponse) {
+      if (other.EventID != global::SyncPackage.RemoteSyncEvent.RemoteNone) {
         EventID = other.EventID;
       }
+      switch (other.ContentCase) {
+        case ContentOneofCase.LobbyPackage:
+          if (LobbyPackage == null) {
+            LobbyPackage = new global::LobbySyncPackage.LobbySyncResponse();
+          }
+          LobbyPackage.MergeFrom(other.LobbyPackage);
+          break;
+        case ContentOneofCase.ClientPackage:
+          if (ClientPackage == null) {
+            ClientPackage = new global::ClientSyncPackage.ClientSyncResponse();
+          }
+          ClientPackage.MergeFrom(other.ClientPackage);
+          break;
+      }
+
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -616,6 +663,24 @@ namespace SyncPackage {
             EventID = (global::SyncPackage.RemoteSyncEvent) input.ReadEnum();
             break;
           }
+          case 18: {
+            global::LobbySyncPackage.LobbySyncResponse subBuilder = new global::LobbySyncPackage.LobbySyncResponse();
+            if (contentCase_ == ContentOneofCase.LobbyPackage) {
+              subBuilder.MergeFrom(LobbyPackage);
+            }
+            input.ReadMessage(subBuilder);
+            LobbyPackage = subBuilder;
+            break;
+          }
+          case 26: {
+            global::ClientSyncPackage.ClientSyncResponse subBuilder = new global::ClientSyncPackage.ClientSyncResponse();
+            if (contentCase_ == ContentOneofCase.ClientPackage) {
+              subBuilder.MergeFrom(ClientPackage);
+            }
+            input.ReadMessage(subBuilder);
+            ClientPackage = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -633,6 +698,24 @@ namespace SyncPackage {
             break;
           case 8: {
             EventID = (global::SyncPackage.RemoteSyncEvent) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            global::LobbySyncPackage.LobbySyncResponse subBuilder = new global::LobbySyncPackage.LobbySyncResponse();
+            if (contentCase_ == ContentOneofCase.LobbyPackage) {
+              subBuilder.MergeFrom(LobbyPackage);
+            }
+            input.ReadMessage(subBuilder);
+            LobbyPackage = subBuilder;
+            break;
+          }
+          case 26: {
+            global::ClientSyncPackage.ClientSyncResponse subBuilder = new global::ClientSyncPackage.ClientSyncResponse();
+            if (contentCase_ == ContentOneofCase.ClientPackage) {
+              subBuilder.MergeFrom(ClientPackage);
+            }
+            input.ReadMessage(subBuilder);
+            ClientPackage = subBuilder;
             break;
           }
         }

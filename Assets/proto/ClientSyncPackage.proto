@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package ClientSyncPackage;
+
+/* ==================================================
+  客户端同步请求包事件
+================================================== */
+enum LocalClientEvent {
+  Local_ACK_None = 0;
+  HeartBeat = 1;
+  ConnectRequest = 2;
+  DisconnectRequest = 3;
+}
+
+// ===== ACK请求包 =====
+message ClientSyncRequest {
+  LocalClientEvent eventID = 1;
+  oneof content {
+    HeartBeatPackage heartBeat = 2;
+    ConnectRequestPackage connect = 3;
+  }
+}
+
+// ===== 事件包 =====
+message HeartBeatPackage {
+  uint32 clientID = 1;
+}
+
+// ===== 连接请求包 =====
+message ConnectRequestPackage {
+  int32 port = 1;
+}
+
+/* ==================================================
+  客户端同步回应包事件
+================================================== */
+enum RemoteClientEvent {
+  Remote_ACK_None = 0;
+  ConnectResponse = 1;
+}
+
+// ===== ACK回应包 =====
+message ClientSyncResponse {
+  RemoteClientEvent eventID = 1;
+  oneof content {
+    ConnectResponsePackage connectResponse = 2;
+  }
+}
+
+// ===== 连接回应包 =====
+message ConnectResponsePackage {
+  string content = 1;
+}
+
+
+
+

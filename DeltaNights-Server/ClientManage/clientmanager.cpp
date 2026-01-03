@@ -1,14 +1,14 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.30
+ *  LastUpdate: 2026.1.2
  *
  *  客户端管理
  *  维护所有客户端的连接
  * ------------------------------------------------------------ */
 
-#include "ClientManager.h"
-#include "ClientInfo.h"
+#include "clientmanager.h"
+#include "clientinfo.h"
 #include "../Logger/logger.h"
 
 #include <QDateTime>
@@ -42,6 +42,18 @@ void ClientManager::createNewClient(QTcpSocket* socket)
     Logger::Info() << "[ClientManager]: New client connect from "
                    << socket->peerAddress().toString()
                    << ":" << socket->peerPort();
+
+    // 创建回复Protobuf包
+    using namespace SyncPackage;
+    RemoteSyncPackage response;
+    response.set_eventid(RemoteSyncEvent::ClientResponse);
+    auto* type = response.mutable_clientpackage();
+    type->set_eventid(ClientSyncPackage::RemoteClientEvent::ConnectResponse);
+    auto* connectResponsePkg = type->mutable_connectresponse();
+    connectResponsePkg->set_content(QString("服务器连接成功").toStdString());
+
+    // 触发连接回复信号
+    emit clientConnectResponse(socket, response);
 }
 
 void ClientManager::clientBindUdpPort(QTcpSocket* socket, quint16 port)
@@ -132,6 +144,9 @@ void ClientManager::removeTimeoutClients()
             Logger::Info() << "[ClientManager]: Client "
                            << makeKey(client->ip(), client->port()) << " timeout";
 
+            // 触发超时信号，让战局内实体与客户端断开联系
+            emit clientTimeout(client->clientID());
+
             m_clientsByTcp.erase(client->tcpSocket()); // 删除TCP索引
             m_clientsByUdp.erase(makeKey(client->ip(), client->port()));    // 删除UDP索引
             it = m_clientsByID.erase(it);   // 删除ID索引
@@ -141,5 +156,16 @@ void ClientManager::removeTimeoutClients()
         {
             ++it;
         }
+    }
+}
+
+/* ============================================================
+ * 控制台命令
+ * ============================================================ */
+void ClientManager::printClientsInfo()
+{
+    for(const auto& it : m_clientsByID)
+    {
+        qDebug().noquote() << "[ClientInfo: ID:[" << it.first << "] IP:[" << it.second->ip().toString() << "]]";
     }
 }

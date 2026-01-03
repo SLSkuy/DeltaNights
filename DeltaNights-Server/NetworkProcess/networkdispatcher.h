@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.30
+ *  LastUpdate: 2026.1.2
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -15,7 +15,10 @@
 #include <QTcpSocket>
 #include <QQueue>
 
-#include "../GameEvent/AckPackage.pb.h"
+#include "../GameEvent/ClientSyncPackage.pb.h"
+#include "../GameEvent/SyncPackage.pb.h"
+#include "../GameEvent/LobbySyncPackage.pb.h"
+#include "../GameEvent/BattleSyncPackage.pb.h"
 
 class UdpEndpoint;
 class TcpEndpoint;
@@ -45,29 +48,40 @@ public:
     void onUdpMessage(const QHostAddress& addr, quint16 port, const QByteArray& data);
     void processQueueMessage();  // 处理队列中的字节流
 
-    void broadcastRoomFrame(GameRoom* room);    // 广播战局事件
+    // 将发送数据传入网络线程
+    void sendTcpMessage(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
+    void sendUdpMessage(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg);
 
 signals:
+    // 发送信号
+    void sendTcp(QTcpSocket* socket, const QByteArray& data);
+    void sendUdp(const QHostAddress& addr, quint16 port, const QByteArray& data);
+
     // 客户端相关事件
     void clientConnect(QTcpSocket* socket);
     void clientBindUdpPort(QTcpSocket* socket, quint16 port);
     void clientHeartBeat(QTcpSocket* socket);
+
+    // 战局同步事件
+    void battleSyncRequest(BattleSyncPackage::BattleSyncRequest* pkg);
+    void battleSyncResponse(BattleSyncPackage::BattleSyncResponse* pkg);
 
     // 发送各种事件信号
     void loginRequest();
 
 private:
     void handleTcpPackage(QTcpSocket* socket, const QByteArray& data);
-    void handleTcpAckPackage(QTcpSocket* socket, const AckPackage::AckSyncRequest& pkg);
+    void handleTcpClientPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg);
+    void handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyncPackage::LobbySyncRequest& pkg);
     void handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& data);
 
 private:
     UdpEndpoint* _udp = nullptr;
     TcpEndpoint* _tcp = nullptr;
 
-    QMutex _mutex;
     // TODO: 消息队列
     // TODO: 网络线程将消息加入队列，等待主线程取出处理
-    QQueue<NetMessage> _tcpQueue;
-    QQueue<NetMessage> _udpQueue;
+    QMutex m_mutex;
+    QQueue<NetMessage> m_tcpQueue;
+    QQueue<NetMessage> m_udpQueue;
 };

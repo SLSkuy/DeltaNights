@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.10.28
- *  LastUpdate:  2025.12.30
+ *  LastUpdate:  2026.1.2
  *
  *  功能简述：
  *  NetWorkManager 负责管理客户端的网络连接与消息通信，
@@ -19,16 +19,18 @@
  * ------------------------------------------------------------ */
 
 using System.Collections.Concurrent;
-using System.Text;
-using AckPackage;
 using SyncPackage;
 using UnityEngine;
+using System;
+using BattleSyncPackage;
+using ClientSyncPackage;
+using Google.Protobuf;
 
 namespace Network
 {
     public class NetWorkManager : MonoBehaviour
     {
-        public static NetWorkManager Instance;
+        public static NetWorkManager instance;
         
         [Header("服务器配置")]
         [SerializeField]private string ip = "127.0.0.1";
@@ -36,10 +38,12 @@ namespace Network
         [SerializeField]private short udpPort = 19198;
 
         [Header("玩家信息")] 
-        public uint clientID = 0;
+        public uint clientID;
 
         [Header("网络属性配置")] 
         [SerializeField] [Tooltip("网路心跳间隔")] private float heartBeatStep = 1f;
+        // [SerializeField] [Tooltip("重连次数")] private int reconnectTimes = 2;
+        // [SerializeField] [Tooltip("重连间隔")] private float reconnectInterval = 5f;
 
         // 组件引用
         private TcpManager _tcp;
@@ -47,7 +51,8 @@ namespace Network
         private MessageProcessor _processor;
 
         // Unity主线程处理调用队列
-        private readonly ConcurrentQueue<byte[]> _mainThreadQueue = new();
+        private readonly ConcurrentQueue<byte[]> _tcpQueue = new();
+        private readonly ConcurrentQueue<byte[]> _udpQueue = new();
 
         // 心跳包缓存
         private LocalSyncPackage _heartBeatPackage;
@@ -55,14 +60,40 @@ namespace Network
         
         #region 成员方法
 
-        public void SendUdp(LocalSyncPackage syncPackage)
+        /// <summary>
+        /// UDP发送Protobuf事件
+        /// </summary>
+        public void SendUdp(BattleSyncRequest syncPackage)
         {
             _udp.EnqueueSendProtobuf(syncPackage);
         }
 
+        /// <summary>
+        /// TCP发送Protobuf事件
+        /// </summary>
         public void SendTcp(LocalSyncPackage syncPackage)
         {
             _tcp.EnqueueSendProtobuf(syncPackage);
+        }
+
+        /// <summary>
+        /// 注册相应类的网络事件处理函数
+        /// </summary>
+        /// <param name="type">网络事件类型</param>
+        /// <param name="handler">处理函数</param>
+        /// <typeparam name="T">Protobuf事件类型</typeparam>
+        public void RegisterEventHandler<T>(NetEvent type, Action<T> handler) where T : IMessage, new()
+        {
+            _processor.Register<T>(type, handler);
+        }
+
+        /// <summary>
+        /// 注销网络事件处理函数
+        /// </summary>
+        /// <param name="type">网络事件类型</param>
+        public void UnRegisterEventHandler(NetEvent type)
+        {
+            _processor.UnRegister(type);
         }
 
         /// <summary>
@@ -75,10 +106,10 @@ namespace Network
             
             _heartBeatPackage ??= new LocalSyncPackage
             {
-                EventID = LocalSyncEvent.Ack,
-                AckSync = new AckSyncRequest
+                EventID = LocalSyncEvent.ClientRequest,
+                ClientSync = new ClientSyncRequest
                 {
-                    EventID = AckSyncEvent.HeartBeat,
+                    EventID = LocalClientEvent.HeartBeat,
                     HeartBeat = new HeartBeatPackage
                     {
                         ClientID = clientID
@@ -90,6 +121,25 @@ namespace Network
             SendTcp(_heartBeatPackage);
             _heartBeatTimer = heartBeatStep;
         }
+        
+        /// <summary>
+        /// 发送客户端连接服务器请求，以让服务器获取客户端UDP端口
+        /// </summary>
+        private void SendConnectRequest()
+        {
+            LocalSyncPackage syncPackage = new LocalSyncPackage();
+            syncPackage.EventID = LocalSyncEvent.ClientRequest;
+            syncPackage.ClientSync = new ClientSyncRequest 
+            {
+                EventID = LocalClientEvent.ConnectRequest,
+                Connect = new ConnectRequestPackage
+                {
+                    Port = _udp.UdpPort
+                }
+            };
+            // 发送连接服务器请求
+            _tcp.EnqueueSendProtobuf(syncPackage);
+        }
 
         #endregion
         
@@ -97,49 +147,43 @@ namespace Network
         
         void Awake()
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
 
             _processor = new MessageProcessor();
 
             _tcp = new TcpManager();
-            _tcp.OnMessageReceived += data => _mainThreadQueue.Enqueue(data);
+            _tcp.OnMessageReceived += data => _tcpQueue.Enqueue(data);
 
             _udp = new UdpManager();
-            _udp.OnDataReceived += data => _mainThreadQueue.Enqueue(data);
+            _udp.OnDataReceived += data => _udpQueue.Enqueue(data);
 
             _udp.Start(ip, udpPort);    // 启动UDP连接
-            _tcp.Connect(ip, tcpPort);   // 开启TCP监听
+            _tcp.Connect(ip, tcpPort);   // 开启TCP监听;
         }
 
         void Start()
         {
-            // 测试使用
-            _udp.EnqueueSend(Encoding.UTF8.GetBytes("UDP连接测试"));
-
-            LocalSyncPackage syncPackage = new LocalSyncPackage
-            {
-                EventID = LocalSyncEvent.Ack,
-                AckSync = new AckSyncRequest
-                {
-                    EventID = AckSyncEvent.Connect,
-                    Connect = new ConnectPackage
-                    {
-                        Port = _udp.UdpPort
-                    }
-                }
-            };
-            _tcp.EnqueueSendProtobuf(syncPackage);
+            SendConnectRequest();
         }
 
         void Update()
         {
-            // 消息队列处理
-            while (_mainThreadQueue.Count > 0)
+            // 处理操作事件
+            while (_tcpQueue.Count > 0)
             {
-                if (_mainThreadQueue.TryDequeue(out var data))
+                if (_tcpQueue.TryDequeue(out var data))
                 {
-                    _processor.DeSerialize(data);
+                    _processor.DeserializeTcp(data);
+                }
+            }
+            
+            // 处理战局同步事件
+            while (_udpQueue.Count > 0)
+            {
+                if (_udpQueue.TryDequeue(out var data))
+                {
+                    _processor.DeserializeUdp(data);
                 }
             }
 

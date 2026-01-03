@@ -1,14 +1,14 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.30
+ *  LastUpdate: 2025.12.31
  *
  *  客户端连接抽象
  *  每一个客户端对应一个ClientInfo
  *  记录客户端的各种信息
  * ------------------------------------------------------------ */
 
-#include "ClientInfo.h"
+#include "clientinfo.h"
 #include <QDateTime>
 
 ClientInfo::ClientInfo(QTcpSocket* socket, quint32 clientID, QObject* parent)

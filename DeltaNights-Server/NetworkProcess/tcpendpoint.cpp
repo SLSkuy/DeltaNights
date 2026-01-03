@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.30
+ *  LastUpdate: 2025.12.31
  *
  *  TCP封装头文件
  *
@@ -45,6 +45,14 @@ bool TcpEndpoint::listen(quint16 port, QHostAddress address)
         connect(_server, &QTcpServer::newConnection,this, &TcpEndpoint::onNewConnection);
     }
 
+    if(!_sendTimer)
+    {
+        _sendTimer = new QTimer(this);
+        connect(_sendTimer, &QTimer::timeout, this, &TcpEndpoint::processSendQueue);
+        _sendTimer->start(1000 / m_tcpRate);
+        Logger::Info() << "[TcpEndPoint]: TCP send Rate " << m_tcpRate << " Hz";
+    }
+
     Logger::Info() << "[TcpEndpoint]: TCP Listen on " << address.toString() << ":" << port;
     return _server->listen(address, port);
 }
@@ -77,7 +85,8 @@ void TcpEndpoint::onSocketReadyRead()
         if (buffer.size() < 4)
             return;
 
-        qint32 bodyLen = qFromBigEndian<qint32>(reinterpret_cast<const uchar*>(buffer.constData()));
+        // 去除头部字节并转换为大端编码
+        qint32 bodyLen = qFromBigEndian<qint32>(reinterpret_cast<const char*>(buffer.constData()));
 
         if (bodyLen <= 0 || bodyLen > 10 * 1024 * 1024)
         {
@@ -109,18 +118,30 @@ void TcpEndpoint::onSocketDisconnected()
     socket->deleteLater();
 }
 
-bool TcpEndpoint::send(QTcpSocket* socket, const QByteArray& data)
+void TcpEndpoint::send(QTcpSocket* socket, const QByteArray& data)
 {
     if (!socket || socket->state() != QAbstractSocket::ConnectedState)
-        return false;
+        return;
 
-    QByteArray packet;
-    qint32 len = data.size();
-    qint32 beLen = qToBigEndian(len);   // 统一使用大端序列
+    // 封装加入发送队列处理
+    QMutexLocker lock(&m_sendMutex);
+    m_sendQueue.enqueue({socket, std::move(data)});
+}
 
-    packet.append(reinterpret_cast<const char*>(&beLen), sizeof(qint32));
-    packet.append(data);
+void TcpEndpoint::processSendQueue()
+{
+    QQueue<TcpMessage> tcpMsgs;
 
-    socket->write(packet);
-    return socket->flush();
+    QMutexLocker lock(&m_sendMutex);
+    tcpMsgs.swap(m_sendQueue);
+    while (!tcpMsgs.isEmpty())
+    {
+        auto it = tcpMsgs.dequeue();
+
+        // 确保客户端连接
+        if (!it.socket || it.socket->state() != QAbstractSocket::ConnectedState)
+            continue;
+
+        it.socket->write(it.data);
+    }
 }

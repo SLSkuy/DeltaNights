@@ -49,35 +49,63 @@ namespace LobbySyncPackage {
 class LobbySyncRequest;
 struct LobbySyncRequestDefaultTypeInternal;
 extern LobbySyncRequestDefaultTypeInternal _LobbySyncRequest_default_instance_;
+class LobbySyncResponse;
+struct LobbySyncResponseDefaultTypeInternal;
+extern LobbySyncResponseDefaultTypeInternal _LobbySyncResponse_default_instance_;
 }  // namespace LobbySyncPackage
 PROTOBUF_NAMESPACE_OPEN
 template<> ::LobbySyncPackage::LobbySyncRequest* Arena::CreateMaybeMessage<::LobbySyncPackage::LobbySyncRequest>(Arena*);
+template<> ::LobbySyncPackage::LobbySyncResponse* Arena::CreateMaybeMessage<::LobbySyncPackage::LobbySyncResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace LobbySyncPackage {
 
-enum LobbyEvent : int {
-  Login = 0,
-  LobbyEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
-  LobbyEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+enum LocalLobbyEvent : int {
+  Local_Lobby_None = 0,
+  LocalLobbyEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  LocalLobbyEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
-bool LobbyEvent_IsValid(int value);
-constexpr LobbyEvent LobbyEvent_MIN = Login;
-constexpr LobbyEvent LobbyEvent_MAX = Login;
-constexpr int LobbyEvent_ARRAYSIZE = LobbyEvent_MAX + 1;
+bool LocalLobbyEvent_IsValid(int value);
+constexpr LocalLobbyEvent LocalLobbyEvent_MIN = Local_Lobby_None;
+constexpr LocalLobbyEvent LocalLobbyEvent_MAX = Local_Lobby_None;
+constexpr int LocalLobbyEvent_ARRAYSIZE = LocalLobbyEvent_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LobbyEvent_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LocalLobbyEvent_descriptor();
 template<typename T>
-inline const std::string& LobbyEvent_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, LobbyEvent>::value ||
+inline const std::string& LocalLobbyEvent_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, LocalLobbyEvent>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function LobbyEvent_Name.");
+    "Incorrect type passed to function LocalLobbyEvent_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    LobbyEvent_descriptor(), enum_t_value);
+    LocalLobbyEvent_descriptor(), enum_t_value);
 }
-inline bool LobbyEvent_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, LobbyEvent* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<LobbyEvent>(
-    LobbyEvent_descriptor(), name, value);
+inline bool LocalLobbyEvent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, LocalLobbyEvent* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<LocalLobbyEvent>(
+    LocalLobbyEvent_descriptor(), name, value);
+}
+enum RemoteLobbyEvent : int {
+  Remote_Lobby_None = 0,
+  RemoteLobbyEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  RemoteLobbyEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool RemoteLobbyEvent_IsValid(int value);
+constexpr RemoteLobbyEvent RemoteLobbyEvent_MIN = Remote_Lobby_None;
+constexpr RemoteLobbyEvent RemoteLobbyEvent_MAX = Remote_Lobby_None;
+constexpr int RemoteLobbyEvent_ARRAYSIZE = RemoteLobbyEvent_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RemoteLobbyEvent_descriptor();
+template<typename T>
+inline const std::string& RemoteLobbyEvent_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, RemoteLobbyEvent>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function RemoteLobbyEvent_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    RemoteLobbyEvent_descriptor(), enum_t_value);
+}
+inline bool RemoteLobbyEvent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RemoteLobbyEvent* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<RemoteLobbyEvent>(
+    RemoteLobbyEvent_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -204,16 +232,164 @@ class LobbySyncRequest final :
   enum : int {
     kEventIDFieldNumber = 1,
   };
-  // .LobbySyncPackage.LobbyEvent eventID = 1;
+  // .LobbySyncPackage.LocalLobbyEvent eventID = 1;
   void clear_eventid();
-  ::LobbySyncPackage::LobbyEvent eventid() const;
-  void set_eventid(::LobbySyncPackage::LobbyEvent value);
+  ::LobbySyncPackage::LocalLobbyEvent eventid() const;
+  void set_eventid(::LobbySyncPackage::LocalLobbyEvent value);
   private:
-  ::LobbySyncPackage::LobbyEvent _internal_eventid() const;
-  void _internal_set_eventid(::LobbySyncPackage::LobbyEvent value);
+  ::LobbySyncPackage::LocalLobbyEvent _internal_eventid() const;
+  void _internal_set_eventid(::LobbySyncPackage::LocalLobbyEvent value);
   public:
 
   // @@protoc_insertion_point(class_scope:LobbySyncPackage.LobbySyncRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int eventid_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_LobbySyncPackage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LobbySyncResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:LobbySyncPackage.LobbySyncResponse) */ {
+ public:
+  inline LobbySyncResponse() : LobbySyncResponse(nullptr) {}
+  ~LobbySyncResponse() override;
+  explicit PROTOBUF_CONSTEXPR LobbySyncResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  LobbySyncResponse(const LobbySyncResponse& from);
+  LobbySyncResponse(LobbySyncResponse&& from) noexcept
+    : LobbySyncResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline LobbySyncResponse& operator=(const LobbySyncResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LobbySyncResponse& operator=(LobbySyncResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const LobbySyncResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LobbySyncResponse* internal_default_instance() {
+    return reinterpret_cast<const LobbySyncResponse*>(
+               &_LobbySyncResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(LobbySyncResponse& a, LobbySyncResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(LobbySyncResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LobbySyncResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LobbySyncResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<LobbySyncResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const LobbySyncResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const LobbySyncResponse& from) {
+    LobbySyncResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LobbySyncResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "LobbySyncPackage.LobbySyncResponse";
+  }
+  protected:
+  explicit LobbySyncResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEventIDFieldNumber = 1,
+  };
+  // .LobbySyncPackage.RemoteLobbyEvent eventID = 1;
+  void clear_eventid();
+  ::LobbySyncPackage::RemoteLobbyEvent eventid() const;
+  void set_eventid(::LobbySyncPackage::RemoteLobbyEvent value);
+  private:
+  ::LobbySyncPackage::RemoteLobbyEvent _internal_eventid() const;
+  void _internal_set_eventid(::LobbySyncPackage::RemoteLobbyEvent value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:LobbySyncPackage.LobbySyncResponse)
  private:
   class _Internal;
 
@@ -238,29 +414,55 @@ class LobbySyncRequest final :
 #endif  // __GNUC__
 // LobbySyncRequest
 
-// .LobbySyncPackage.LobbyEvent eventID = 1;
+// .LobbySyncPackage.LocalLobbyEvent eventID = 1;
 inline void LobbySyncRequest::clear_eventid() {
   _impl_.eventid_ = 0;
 }
-inline ::LobbySyncPackage::LobbyEvent LobbySyncRequest::_internal_eventid() const {
-  return static_cast< ::LobbySyncPackage::LobbyEvent >(_impl_.eventid_);
+inline ::LobbySyncPackage::LocalLobbyEvent LobbySyncRequest::_internal_eventid() const {
+  return static_cast< ::LobbySyncPackage::LocalLobbyEvent >(_impl_.eventid_);
 }
-inline ::LobbySyncPackage::LobbyEvent LobbySyncRequest::eventid() const {
+inline ::LobbySyncPackage::LocalLobbyEvent LobbySyncRequest::eventid() const {
   // @@protoc_insertion_point(field_get:LobbySyncPackage.LobbySyncRequest.eventID)
   return _internal_eventid();
 }
-inline void LobbySyncRequest::_internal_set_eventid(::LobbySyncPackage::LobbyEvent value) {
+inline void LobbySyncRequest::_internal_set_eventid(::LobbySyncPackage::LocalLobbyEvent value) {
   
   _impl_.eventid_ = value;
 }
-inline void LobbySyncRequest::set_eventid(::LobbySyncPackage::LobbyEvent value) {
+inline void LobbySyncRequest::set_eventid(::LobbySyncPackage::LocalLobbyEvent value) {
   _internal_set_eventid(value);
   // @@protoc_insertion_point(field_set:LobbySyncPackage.LobbySyncRequest.eventID)
+}
+
+// -------------------------------------------------------------------
+
+// LobbySyncResponse
+
+// .LobbySyncPackage.RemoteLobbyEvent eventID = 1;
+inline void LobbySyncResponse::clear_eventid() {
+  _impl_.eventid_ = 0;
+}
+inline ::LobbySyncPackage::RemoteLobbyEvent LobbySyncResponse::_internal_eventid() const {
+  return static_cast< ::LobbySyncPackage::RemoteLobbyEvent >(_impl_.eventid_);
+}
+inline ::LobbySyncPackage::RemoteLobbyEvent LobbySyncResponse::eventid() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.LobbySyncResponse.eventID)
+  return _internal_eventid();
+}
+inline void LobbySyncResponse::_internal_set_eventid(::LobbySyncPackage::RemoteLobbyEvent value) {
+  
+  _impl_.eventid_ = value;
+}
+inline void LobbySyncResponse::set_eventid(::LobbySyncPackage::RemoteLobbyEvent value) {
+  _internal_set_eventid(value);
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.LobbySyncResponse.eventID)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -268,10 +470,15 @@ inline void LobbySyncRequest::set_eventid(::LobbySyncPackage::LobbyEvent value) 
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::LobbySyncPackage::LobbyEvent> : ::std::true_type {};
+template <> struct is_proto_enum< ::LobbySyncPackage::LocalLobbyEvent> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::LobbySyncPackage::LobbyEvent>() {
-  return ::LobbySyncPackage::LobbyEvent_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::LobbySyncPackage::LocalLobbyEvent>() {
+  return ::LobbySyncPackage::LocalLobbyEvent_descriptor();
+}
+template <> struct is_proto_enum< ::LobbySyncPackage::RemoteLobbyEvent> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::LobbySyncPackage::RemoteLobbyEvent>() {
+  return ::LobbySyncPackage::RemoteLobbyEvent_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE
