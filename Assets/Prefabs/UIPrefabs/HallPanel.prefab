@@ -95,6 +95,7 @@ MonoBehaviour:
   isVisible: 0
   properties:
     priority: 0
+  font: {fileID: 11400000, guid: eb55ed453a615014486d7f509a900eae, type: 2}
 --- !u!1 &5464022195549055774
 GameObject:
   m_ObjectHideFlags: 0

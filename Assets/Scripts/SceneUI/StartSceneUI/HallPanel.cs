@@ -20,6 +20,22 @@ namespace SceneUI.StartSceneUI
     public class BackToMainPressDownSignal : ASignal{}
     public class HallPanel: PanelController
     {
+        //字体自动更换
+        [SerializeField] private TMP_FontAsset font;
+        void OnEnable()
+        {
+            if (font!= null)
+            {
+                // 遍历所有子物体（包括自己）的TMP_Text组件
+                TMP_Text[] allTexts = GetComponentsInChildren<TMP_Text>(true);
+                foreach (TMP_Text text in allTexts)
+                {
+                    text.font = font;
+                }
+            }
+        }
+        
+        
         public void UI_OnBackButtonPressDown()
         {
             Signals.Get<BackToMainPressDownSignal>().Dispatch();
