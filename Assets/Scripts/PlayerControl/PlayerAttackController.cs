@@ -54,6 +54,7 @@ namespace PlayerControl
         // 子控制器
         private PlayerWeaponController _weaponController;
         private PlayerSkillController _skillController;
+        private PlayerController _playerController; 
 
         // 输入缓存
         private float _lastAttackValue;
@@ -62,7 +63,7 @@ namespace PlayerControl
         
         #region 事件
 
-        public event Action<WeaponData> OnSwitchWeapon; // 切换武器    
+        public event Action<WeaponData,PlayerController> OnSwitchWeapon; // 切换武器    
         public event Action OnAttackPressed;    // 攻击按键按下
         public event Action OnAttackReleased;   // 攻击按键释放
         
@@ -75,9 +76,10 @@ namespace PlayerControl
 
         private void Awake()
         {
+            _playerController = GetComponent<PlayerController>();
             // 武器控制器初始化
             _weaponController = new PlayerWeaponController(this);
-            _weaponController.SwitchWeapon(mainWeapon);
+            _weaponController.SwitchWeapon(mainWeapon,_playerController);
             
             // 技能控制器初始化
             _skillController = new PlayerSkillController(this);

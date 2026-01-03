@@ -18,12 +18,34 @@
  *  - 新武器需继承 WeaponData 并实现 Attack 方法
  * ------------------------------------------------------------ */
 
+using PlayerControl;
 using UnityEngine;
 
 namespace WeaponSystem
 {
     public abstract class WeaponData : ScriptableObject, IWeapon
     {
+        //public GameObject _player;
+        //子弹与特效
+        public GameObject _bullet;
+        public GameObject _fireEffect;
+        public GameObject _hitEffect;
+        public GameObject _fireAudio;//开枪音效
+
+        //特效位置
+        protected GameObject _rifle;//枪械位置
+        protected Transform _muzzle;//枪口位置
+
+        // 瞄准属性
+        protected bool _isShoulderAim = false;
+        protected bool _isAim = false;
+
+        protected RaycastHit _hitInfo;//射线检测获取物体信息
+        protected PlayerController _playerController;
+
+        // 添加初始化状态标记
+        protected bool _isInitialized = false;
+
         [Header("武器类型")]
         [SerializeField] protected WeaponType weaponType;
         [SerializeField] protected string weaponName;
@@ -37,6 +59,80 @@ namespace WeaponSystem
         [SerializeField] protected float headDamage;
         [SerializeField] protected float bodyDamage;
         [SerializeField] protected float legDamage;
+        public void unload(PlayerController playerController)
+        {
+            if (_playerController != null)
+            {
+                _playerController.OnAim -= setAim;
+                _playerController.OnShoulderAim -= setShoulderAim;
+            }
+
+            _playerController = null;
+            _muzzle = null;
+            _rifle = null;
+            _isInitialized = false;
+            _isAim = false;
+            _isShoulderAim = false;
+        }
+
+        public void init(PlayerController playerController)
+        {
+            if (playerController == null)
+            {
+                return;
+            }
+
+            if (_isInitialized && _playerController == null)
+            {
+                _isInitialized = false;
+            }
+
+            if (_isInitialized && _playerController == playerController)
+            {
+                return;
+            }
+
+            if (_playerController != null)
+            {
+                _playerController.OnAim -= setAim;
+                _playerController.OnShoulderAim -= setShoulderAim;
+            }
+
+            _playerController = playerController;
+
+            _playerController.OnAim += setAim;
+            _playerController.OnShoulderAim += setShoulderAim;
+
+            FindMuzzle();
+
+            _isInitialized = true;
+        }
+        protected void setShoulderAim(bool isShoulderAim)
+        {
+            _isShoulderAim = isShoulderAim;
+        }
+
+        protected void setAim(bool isAim)
+        {
+            _isAim = isAim;
+        }
+
+        protected void FindMuzzle()
+        {
+            GameObject rifleObj = GameObject.FindGameObjectWithTag("Rifle");
+            if (rifleObj != null)
+            {
+                _muzzle = rifleObj.transform.Find("MuzzlePosition");
+                if (_muzzle == null)
+                {
+                    Debug.LogError("Rifle对象上没有MuzzlePosition子物体");
+                }
+            }
+            else
+            {
+                Debug.LogError("未找到Rifle对象");
+            }
+        }
 
         public WeaponType WeaponType => weaponType;
         public string WeaponName => weaponName;

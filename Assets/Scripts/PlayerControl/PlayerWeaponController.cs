@@ -26,6 +26,9 @@
  *  - 技能释放期间可通过 SetAttackLock 禁止攻击
  * ------------------------------------------------------------ */
 
+using System;
+using UnityEngine;
+using System.Diagnostics;
 using WeaponSystem;
 
 namespace PlayerControl
@@ -63,11 +66,23 @@ namespace PlayerControl
         /// 切换武器
         /// </summary>
         /// <param name="newWeapon"></param>
-        public void SwitchWeapon(WeaponData newWeapon)
+        public void SwitchWeapon(WeaponData newWeapon,PlayerController playerController)
         {
-            _currentWeapon = newWeapon;
+            if (newWeapon == null){return;}
+            if (playerController == null){return;}
+            if (_currentWeapon != null)
+            {
+                _currentWeapon.unload(playerController);
+            }
+            else {}
 
-            _attackCooldown = 10f / _currentWeapon.AttackSpeed;
+            _currentWeapon = newWeapon;
+            _currentWeapon.init(playerController);
+
+            if (_currentWeapon.AttackSpeed > 0f)
+            {
+                _attackCooldown = 10f / _currentWeapon.AttackSpeed;
+            }
         }
 
         /// <summary>

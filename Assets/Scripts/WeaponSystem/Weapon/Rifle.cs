@@ -17,6 +17,9 @@
  *  - 由武器控制或攻击系统调用 Attack 方法触发攻击
  * ------------------------------------------------------------ */
 
+using PlayerControl;
+using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace WeaponSystem.Weapon
@@ -27,10 +30,44 @@ namespace WeaponSystem.Weapon
     [CreateAssetMenu(fileName = "Rifle", menuName = "Weapon/Rifle")]
     public class Rifle : WeaponData
     {
+
         public override void Attack()
         {
             Debug.Log("Rifle Fired!");
-            // 具体武器逻辑
+            Debug.Log("playerController：" + _playerController);
+            Debug.Log("isAim：" + _isAim);
+            Debug.Log("isShoulderAim：" + _isShoulderAim);
+            Debug.Log("rifle:" + _rifle);
+            Debug.Log("Muzzle:" + _muzzle);
+            //// 具体武器逻辑
+            ////射线射向屏幕中心
+            Ray centerRay = Camera.main.ViewportPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
+            Ray shoulderRay = new Ray(_muzzle.transform.position, centerRay.direction);//肩射射线
+            Ray aimRay = new Ray(Camera.main.transform.position - Vector3.up * 0.3f, centerRay.direction);//开镜射线
+            GameObject obj = Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation);
+            //if (_isShoulderAim && !_isAim)
+            //{
+            //    if (Physics.Raycast(shoulderRay, out _hitInfo, 500f))
+            //    {
+            //        //音效，暂时不管
+            //        //GameObject fireAduio = Instantiate(_fireAudio,_muzzle.transform.position,_muzzle.transform.rotation);
+            //        //AudioSource audioSource = fireAduio.GetComponent<AudioSource>();
+            //        //audioSource.Play();
+            //        GameObject hitObject = _hitInfo.collider.gameObject;
+            //        Debug.Log("shoulder aim attack");
+            //    }
+            //}
+            //else if (_isAim && !_isShoulderAim)
+            //{
+            //    if (Physics.Raycast(aimRay, out _hitInfo, 500f))
+            //    {
+            //        //GameObject audioObj = Instantiate(_fireAudio, _muzzlePosition.transform.position, _muzzlePosition.transform.rotation);
+            //        //AudioSource audioSource = audioObj.GetComponent<AudioSource>();
+            //        //audioSource.Play();
+            //        GameObject hitObject = _hitInfo.collider.gameObject;
+            //        Debug.Log("aim attack");
+            //    }
+            //}
         }
     }
 }
