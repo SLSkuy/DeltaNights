@@ -119,36 +119,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &859027584 stripped
+--- !u!1 &847907553 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1476113310870373613, guid: 97e255cab6163d8419119c50ff1da803, type: 3}
-  m_PrefabInstance: {fileID: 1653764824}
+  m_PrefabInstance: {fileID: 1777549036}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &859027586
+--- !u!114 &847907554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859027584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 908681e3a2f8491ba604fb5c521d68e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIFramework.UIFramework
---- !u!114 &859027591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859027584}
+  m_GameObject: {fileID: 847907553}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfb55855c6844354991240dc403894d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneUI.GameSceneUI.GameSceneUIManager
   uiSettings: {fileID: 11400000, guid: c8020a0667254b742b1eefd5b0ed9649, type: 2}
+--- !u!114 &847907555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847907553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908681e3a2f8491ba604fb5c521d68e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIFramework.UIFramework
 --- !u!1 &1637026631
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +276,51 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1001 &1653764824
+--- !u!1 &1740214775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1740214777}
+  - component: {fileID: 1740214776}
+  m_Layer: 0
+  m_Name: UITester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1740214776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740214775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abdeaa83ea2e7144a8c442d48ead370a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITestController
+--- !u!4 &1740214777
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740214775}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -325.39398, y: 0, z: -86.24944}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1777549036
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -286,11 +330,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1476113310870373613, guid: 97e255cab6163d8419119c50ff1da803, type: 3}
       propertyPath: m_Name
-      value: GameSceneUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 1476113310870373613, guid: 97e255cab6163d8419119c50ff1da803, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: UIFramework
       objectReference: {fileID: 0}
     - target: {fileID: 4505680124690002523, guid: 97e255cab6163d8419119c50ff1da803, type: 3}
       propertyPath: m_Pivot.x
@@ -378,10 +418,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1476113310870373613, guid: 97e255cab6163d8419119c50ff1da803, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 859027586}
+      addedObject: {fileID: 847907555}
     - targetCorrespondingSourceObject: {fileID: 1476113310870373613, guid: 97e255cab6163d8419119c50ff1da803, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 859027591}
+      addedObject: {fileID: 847907554}
   m_SourcePrefab: {fileID: 100100000, guid: 97e255cab6163d8419119c50ff1da803, type: 3}
 --- !u!1 &2082075919
 GameObject:
@@ -526,4 +566,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 2082075922}
   - {fileID: 1637026633}
-  - {fileID: 1653764824}
+  - {fileID: 1777549036}
+  - {fileID: 1740214777}

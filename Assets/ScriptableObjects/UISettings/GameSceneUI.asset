@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIFramework.UIFrameworkSettings
   uiToRegister:
   - isEnableOnRegister: 1
-    uiPrefab: {fileID: 626993222205678190, guid: f3e2082b66b1a78449a4200d4235ba9b, type: 3}
+    uiPrefab: {fileID: 8215943255553535174, guid: 863c8c94f4b37e8448740333fb197ec6, type: 3}

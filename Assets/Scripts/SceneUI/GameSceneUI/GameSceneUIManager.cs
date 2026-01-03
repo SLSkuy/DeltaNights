@@ -13,66 +13,137 @@ using EventProcess;
 using UIFramework;
 using UIFramework.Panel;
 using UnityEngine;
-using UnityEngine.UI;
-
-/// <summary>
-/// 射击游戏局内UI管理器
-/// </summary>
 
 namespace SceneUI.GameSceneUI
 {
+    /// <summary>
+    /// 游戏场景UI管理器
+    /// </summary>
     public class GameSceneUIManager : ASceneUIManager
-    {   
+    {
+        // 信号定义
+        /// <summary>
+        /// 玩家血量变化信号
+        /// </summary>
+        public class PlayerHealthChangedSignal : ASignal<float, float> { }
+        
+        /// <summary>
+        /// 玩家子弹数量变化信号
+        /// </summary>
+        public class PlayerAmmoChangedSignal : ASignal<int, int> { }
+        
+        // 当前UI状态
+        private float currentHealth = 100f;
+        private float maxHealth = 100f;
+        private int currentAmmo = 30;
+        private int maxAmmo = 30;
+        
+        private void Start()
+        {
+            // 初始化UI，显示玩家状态面板
+            ShowPlayerStatusPanel();
+        }
+        
+        /// <summary>
+        /// 显示玩家状态面板
+        /// </summary>
+        private void ShowPlayerStatusPanel()
+        {
+            var props = new PlayerStatusPanel.PlayerStatusPanelProperties(
+                PanelPriority.Priority,  // 使用Priority
+                currentHealth,
+                maxHealth,
+                currentAmmo,
+                maxAmmo
+            );
+            
+            UIFrame.ShowUI("PlayerStatusPanel", props);
+        }
+        
         protected override void AddSignal()
         {
-            // 监听玩家数据变化
-            Signals.Get<PlayerHealthChangedSignal>().AddListener(OnHealthChanged);// 玩家生命值变化
-            Signals.Get<AmmoChangedSignal>().AddListener(OnAmmoChanged);// 弹药变化
-            Signals.Get<ReloadSignal>().AddListener(OnReload);// 重新装填
+            // 监听玩家血量变化
+            Signals.Get<PlayerHealthChangedSignal>().AddListener(OnPlayerHealthChanged);
             
-            // 战斗相关事件
-            Signals.Get<DamageReceivedSignal>().AddListener(OnDamageReceived);// 受到伤害
-            Signals.Get<KillSignal>().AddListener(OnKill);// 击杀敌人
+            // 监听玩家弹药变化
+            Signals.Get<PlayerAmmoChangedSignal>().AddListener(OnPlayerAmmoChanged);
         }
         
         protected override void RemoveSignal()
         {
-            //移除所有监听
-            Signals.Get<PlayerHealthChangedSignal>().RemoveListener(OnHealthChanged);
-            Signals.Get<AmmoChangedSignal>().RemoveListener(OnAmmoChanged);
-            Signals.Get<ReloadSignal>().RemoveListener(OnReload);
-
-            Signals.Get<DamageReceivedSignal>().RemoveListener(OnDamageReceived);
-            Signals.Get<KillSignal>().RemoveListener(OnKill);
+            Signals.Get<PlayerHealthChangedSignal>().RemoveListener(OnPlayerHealthChanged);
+            Signals.Get<PlayerAmmoChangedSignal>().RemoveListener(OnPlayerAmmoChanged);
         }
-        private void OnHealthChanged()
+        
+        #region 事件回调
+        
+        /// <summary>
+        /// 玩家血量变化回调
+        /// </summary>
+        private void OnPlayerHealthChanged(float health, float max)
         {
-            // 更新生命值UI
-            Debug.Log("Player Health Changed");
+            currentHealth = health;
+            maxHealth = max;
+            
+            // 更新UI
+            UpdatePlayerStatusUI();
         }
-
-        private void OnAmmoChanged()
+        
+        /// <summary>
+        /// 玩家弹药变化回调
+        /// </summary>
+        private void OnPlayerAmmoChanged(int ammo, int max)
         {
-            // 更新弹药UI
-           Debug.Log("Ammo Changed");
+            currentAmmo = ammo;
+            maxAmmo = max;
+            
+            // 更新UI
+            UpdatePlayerStatusUI();
         }
-
-        private void OnReload()
+        
+        #endregion
+        
+        /// <summary>
+        /// 更新玩家状态UI
+        /// </summary>
+        private void UpdatePlayerStatusUI()
         {
-            // 显示重新装填UI
-            Debug.Log("Reload Started");
+            var props = new PlayerStatusPanel.PlayerStatusPanelProperties(
+                PanelPriority.Priority,  // 使用Priority
+                currentHealth,
+                maxHealth,
+                currentAmmo,
+                maxAmmo
+            );
+            
+            UIFrame.ShowUI("PlayerStatusPanel", props);
         }
-
-        private void OnDamageReceived()
+        
+        /// <summary>
+        /// 外部测试用方法：模拟玩家受伤
+        /// </summary>
+        public void TestPlayerTakeDamage(float damage)
         {
-            // 显示受到伤害的UI效果
-            Debug.Log("Damage Received");
+            currentHealth = Mathf.Max(0, currentHealth - damage);
+            Signals.Get<PlayerHealthChangedSignal>().Dispatch(currentHealth, maxHealth);
         }
-
-        private void OnKill()
+        
+        /// <summary>
+        /// 外部测试用方法：模拟玩家射击
+        /// </summary>
+        public void TestPlayerFire()
         {
-            // 更新击杀数UI
-            Debug.Log("Kill Count Updated");
+            currentAmmo = Mathf.Max(0, currentAmmo - 1);
+            Signals.Get<PlayerAmmoChangedSignal>().Dispatch(currentAmmo, maxAmmo);
+        }
+        
+        /// <summary>
+        /// 外部测试用方法：模拟玩家换弹
+        /// </summary>
+        public void TestPlayerReload()
+        {
+            currentAmmo = maxAmmo;
+            Signals.Get<PlayerAmmoChangedSignal>().Dispatch(currentAmmo, maxAmmo);
         }
     }
 }
