@@ -1,7 +1,7 @@
 ﻿/* ------------------------------------------------------------
  *  Author:  2023051604032 WangXinKai
  *  Date:  2025.12.23
- *  LastUpdate:  2025.12.23
+ *  LastUpdate:  2025.1.3
  * 
  *  功能简述：
  *  游戏界面的UI管理器
@@ -50,7 +50,8 @@ namespace SceneUI.StartSceneUI
         void OnLogInButtonPressDown(string ctx)
         {
             UIFrame.HideUI("LogInPanel");
-            UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties(PanelPriority.None, "用户名:"+ctx));
+            UIFrame.HideUI("PromptWindow");
+            UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties(PanelPriority.None, "欢迎，"+ctx));
         }
 
         void OnPromptWindow(string ctx)

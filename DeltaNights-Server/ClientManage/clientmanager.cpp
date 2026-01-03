@@ -10,6 +10,7 @@
 #include "clientmanager.h"
 #include "clientinfo.h"
 #include "../Logger/logger.h"
+#include "playerinfo.h"
 
 #include <QDateTime>
 
@@ -73,6 +74,24 @@ void ClientManager::clientBindUdpPort(QTcpSocket* socket, quint16 port)
                    << socket->peerAddress().toString()
                    << ":" << socket->peerPort()
                    << " bind udp port on " << port;
+}
+
+void ClientManager::clientBindPlayerInfo(QTcpSocket *socket, PlayerInfo *playerInfo)
+{
+    ClientInfo* client = findClientByTcp(socket);
+
+    if(!client)
+    {
+        Logger::Error() << "[ClientManager]: Failed to bind client PlayerInfo, can not find client";
+        return;
+    }
+
+    client->bindPlayer(playerInfo);
+
+    Logger::Info() << "[ClientManager]: Client "
+                   << socket->peerAddress().toString()
+                   << ":" << socket->peerPort()
+                   << " bind playerinfo on " << playerInfo->uuid();
 }
 
 ClientInfo* ClientManager::findClientByID(quint32 clientID)

@@ -156,6 +156,11 @@ void NetworkDispatcher::handleTcpClientPackage(QTcpSocket* socket, const ClientS
             // TODO: 客户端连接请求
             emit clientBindUdpPort(socket, pkg.connect().port());
             break;
+        case LocalClientEvent::LoginRequest:
+            // TODO: 客户端登录请求
+            Logger::Info()<<"[NetworkDispatcher]"<<QString::fromStdString(pkg.loginrequest().account())<<"-"<<QString::fromStdString(pkg.loginrequest().password());
+            emit clientLogin(socket,QString::fromStdString(pkg.loginrequest().account()),QString::fromStdString(pkg.loginrequest().password()));
+            break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown TCP_ACK package type:" << pkg.eventid();
             break;

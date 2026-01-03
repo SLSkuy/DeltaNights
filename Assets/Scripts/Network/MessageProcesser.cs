@@ -112,6 +112,9 @@ namespace Network
                 case RemoteClientEvent.ConnectResponse:
                     Dispatch(NetEvent.ConnectResponse, response.ConnectResponse);
                     break;
+                case RemoteClientEvent.LoginResponse:
+                    Dispatch(NetEvent.LoginResponse, response.LoginResponse);
+                    break;
                 default:
                     break;
             }

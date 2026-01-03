@@ -11,6 +11,8 @@
 
 #include <QObject>
 #include <unordered_map>
+#include <QTcpSocket>
+#include "../GameEvent/SyncPackage.pb.h"
 
 class PlayerInfo;
 
@@ -21,6 +23,13 @@ public:
     explicit PlayerInfoManager(QObject *parent = nullptr);
     ~PlayerInfoManager();
 
+    void logIn(QTcpSocket* socket,QString account,QString password);
+    PlayerInfo* findPlayInfo(QString account);
+signals:
+    void clientBindPlayerInfo(QTcpSocket* socket,PlayerInfo *playerInfo);
+    void clientLoginResponse(QTcpSocket* socket, const SyncPackage::RemoteSyncPackage& pkg);
+
 private:
-    std::unordered_map<QString, PlayerInfo*> m_playerInfos;
+    std::unordered_map<quint32, PlayerInfo*> m_playerInfosByID;//主索引 uuid
+    std::unordered_map<QString, PlayerInfo*> m_playerInfosByAccount;//用户名索引
 };

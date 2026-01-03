@@ -73,10 +73,19 @@ void GameServer::setupConnections()
 {
     // TODO: 信号连接
     // 客户端连接处理
+    //收
     connect(_dispatcher,&NetworkDispatcher::clientConnect,_clientMgr,&ClientManager::createNewClient);
     connect(_dispatcher,&NetworkDispatcher::clientBindUdpPort,_clientMgr,&ClientManager::clientBindUdpPort);
     connect(_dispatcher,&NetworkDispatcher::clientHeartBeat,_clientMgr,&ClientManager::updateClientLastActive);
+    connect(_dispatcher,&NetworkDispatcher::clientLogin,_playerInfoMgr,&PlayerInfoManager::logIn);
+    //发
     connect(_clientMgr,&ClientManager::clientConnectResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+    connect(_playerInfoMgr,&PlayerInfoManager::clientLoginResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+
+    //
+    connect(_playerInfoMgr,&PlayerInfoManager::clientBindPlayerInfo,_clientMgr,&ClientManager::clientBindPlayerInfo);
+
+
 
     // 测试使用
     connect(_clientMgr,&ClientManager::clientConnectResponse,this,[=](){

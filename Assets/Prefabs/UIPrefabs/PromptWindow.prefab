@@ -60,6 +60,7 @@ MonoBehaviour:
     hideOnForegroundLost: 0
     isPopup: 0
   text: {fileID: 3322276006383803134}
+  font: {fileID: 11400000, guid: eb55ed453a615014486d7f509a900eae, type: 2}
 --- !u!1 &232501708741977454
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,3 +25,4 @@ enum RemoteLobbyEvent {
 message LobbySyncResponse {
   RemoteLobbyEvent eventID = 1;
 }
+

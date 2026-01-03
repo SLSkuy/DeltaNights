@@ -4,12 +4,16 @@
  *  LastUpdate:  2026.1.2
  * 
  *  功能简述：
- *  登录界面 目前仅有用户名/昵称
- * 
+ *  登录界面 目前仅有用户名 + 密码
+ *  
  * ------------------------------------------------------------ */
 
 using System;
+using ClientSyncPackage;
 using EventProcess;
+using LobbySyncPackage;
+using Network;
+using SyncPackage;
 using TMPro;
 using UIFramework.Panel;
 using UnityEngine;
@@ -23,19 +27,49 @@ namespace SceneUI.StartSceneUI
     
     public class LogInPanel:PanelController
     {
-        public TMP_InputField inputField;
+        public TMP_InputField inputAccount;
+        public  TMP_InputField inputPassword; 
         public void UI_OnLogInButtonPressDown()
         {
-            if (inputField.text.Length > 0)
+            if (inputAccount.text.Length > 0)
             {
-                Signals.Get<LogInPressDownSignal>().Dispatch(inputField.text);
+                if (inputPassword.text.Length > 0)
+                {
+                    LocalSyncPackage syncPackage = new LocalSyncPackage
+                    {
+                        EventID = LocalSyncEvent.ClientRequest,
+                        ClientSync = new ClientSyncRequest
+                        {
+                            EventID = LocalClientEvent.LoginRequest,
+                            LoginRequest = new LoginRequestPackage
+                            {
+                                Account = inputAccount.text,
+                                Password = inputPassword.text
+                            }
+                        }
+                    };
+                    NetWorkManager.instance.SendTcp(syncPackage);
+                    Signals.Get<LogInPressDownErrorSignal>().Dispatch("登录中");
+                }
+                else Signals.Get<LogInPressDownErrorSignal>().Dispatch("密码不能为空");
             }
             else
             {
                 Signals.Get<LogInPressDownErrorSignal>().Dispatch("用户名不能为空");
             }
         }
-        
+
+        void Login(LoginResponsePackage response)
+        {
+            Debug.Log(response.Uuid + "-" + response.NickName);
+            Signals.Get<LogInPressDownSignal>().Dispatch(response.NickName);
+        }
+
+        void Start()
+        {
+            NetWorkManager.instance.RegisterEventHandler<LoginResponsePackage>(NetEvent.LoginResponse,Login);    
+        }
+
         //字体自动更换
         [SerializeField] private TMP_FontAsset font;
         void OnEnable()

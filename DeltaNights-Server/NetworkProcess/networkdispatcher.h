@@ -61,6 +61,7 @@ signals:
     void clientConnect(QTcpSocket* socket);
     void clientBindUdpPort(QTcpSocket* socket, quint16 port);
     void clientHeartBeat(QTcpSocket* socket);
+    void clientLogin(QTcpSocket* socket,QString account,QString password);
 
     // 战局同步事件
     void battleSyncRequest(BattleSyncPackage::BattleSyncRequest* pkg);

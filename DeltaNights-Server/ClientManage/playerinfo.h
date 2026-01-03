@@ -20,9 +20,11 @@ class PlayerInfo : public QObject
     Q_OBJECT
 public:
     explicit PlayerInfo(quint32 uuid, QObject* parent = nullptr);
-
+    explicit PlayerInfo(quint32 uuid,QString account, QObject* parent = nullptr);
     void registerAccount();
-    void loginAccount();
+    bool loginAccount(QString password);
+    void setNickname(QString nickname);
+    void setPassword(QString password);
 
 public:
     quint32 uuid() const {return m_uuid;}
