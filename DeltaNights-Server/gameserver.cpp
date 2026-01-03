@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.31
+ *  LastUpdate: 2026.1.2
  *
  *  功能：
  *  - 封装服务器所有核心模块
@@ -62,10 +62,13 @@ void GameServer::setupLogic()
     // 通过Qt父子对象系统实现自动销毁
     _clientMgr = new ClientManager(this);
     _playerInfoMgr = new PlayerInfoManager(this);
-    _roomMgr = new GameRoomManager(this);
+    _roomMgr = new GameRoomManager(_clientMgr, this);
     _logicTimer = new QTimer(this);
 }
 
+// 测试使用
+#include "ClientManage/playerinfo.h"
+#include "BattleProcess/gameroom.h"
 void GameServer::setupConnections()
 {
     // TODO: 信号连接
@@ -75,9 +78,21 @@ void GameServer::setupConnections()
     connect(_dispatcher,&NetworkDispatcher::clientHeartBeat,_clientMgr,&ClientManager::updateClientLastActive);
     connect(_clientMgr,&ClientManager::clientConnectResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
 
+    // 测试使用
+    connect(_clientMgr,&ClientManager::clientConnectResponse,this,[=](){
+        GameRoom* room = _roomMgr->createGameRoom();
+        PlayerInfo* player = new PlayerInfo(0);
+        _roomMgr->joinGameRoom(0, player);
+        room->start();
+    });
+
     // 服务器逻辑更新
     connect(_logicTimer,&QTimer::timeout,_dispatcher,&NetworkDispatcher::processQueueMessage);
     connect(_logicTimer,&QTimer::timeout,_clientMgr,&ClientManager::removeTimeoutClients);
+
+    // 战局逻辑连接
+    connect(_dispatcher,&NetworkDispatcher::battleSyncRequest,_roomMgr,&GameRoomManager::playerSyncRequest);
+    connect(_roomMgr,&GameRoomManager::battleSyncGenerated,_dispatcher,&NetworkDispatcher::sendUdpMessage);
 }
 
 bool GameServer::start(quint16 tcpPort, quint16 udpPort)

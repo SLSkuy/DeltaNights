@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2026.1.2
  *
  *  游戏战局房间管理
  *  处理房间的创建、销毁、玩家与房间之间的交互逻辑
@@ -12,15 +12,19 @@
 
 #include <QObject>
 #include <unordered_map>
+#include <QHostAddress>
+
+#include "../GameEvent/BattleSyncPackage.pb.h"
 
 class GameRoom;
 class PlayerInfo;
+class ClientManager;
 
 class GameRoomManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit GameRoomManager(QObject *parent = nullptr);
+    explicit GameRoomManager(ClientManager* clientMgr, QObject *parent = nullptr);
 
     // ========== 房间管理操作 ==========
     GameRoom* createGameRoom();
@@ -30,12 +34,16 @@ public:
     // ========== 玩家交互操作 ==========
     bool joinGameRoom(quint32 roomID, PlayerInfo* player);
     bool leaveGameRoom(quint32 roomID, PlayerInfo* player);
+    void playerSyncRequest(BattleSyncPackage::BattleSyncRequest* input);
+    void battleSyncResponse(quint32 roomID, BattleSyncPackage::BattleSyncResponse* pkg);
 
 signals:
-    void frameGenerated();  // 转发各个战局的信号
+    void battleSyncGenerated(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg);  // 转发各个战局的信号
 
 private:
-    quint32 m_nextRoomID = 1;
+    quint32 m_nextRoomID = 0;
 
     std::unordered_map<quint32, GameRoom*> m_rooms; // roomID -> GameRoom
+
+    ClientManager* _clientManager;
 };

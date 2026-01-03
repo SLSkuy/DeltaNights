@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.31
+ *  LastUpdate: 2026.1.2
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -50,7 +50,7 @@ public:
 
     // 将发送数据传入网络线程
     void sendTcpMessage(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
-    void sendUdpMessage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncResponse& pkg);
+    void sendUdpMessage(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg);
 
 signals:
     // 发送信号
@@ -62,12 +62,16 @@ signals:
     void clientBindUdpPort(QTcpSocket* socket, quint16 port);
     void clientHeartBeat(QTcpSocket* socket);
 
+    // 战局同步事件
+    void battleSyncRequest(BattleSyncPackage::BattleSyncRequest* pkg);
+    void battleSyncResponse(BattleSyncPackage::BattleSyncResponse* pkg);
+
     // 发送各种事件信号
     void loginRequest();
 
 private:
     void handleTcpPackage(QTcpSocket* socket, const QByteArray& data);
-    void handleTcpAckPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg);
+    void handleTcpClientPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg);
     void handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyncPackage::LobbySyncRequest& pkg);
     void handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& data);
 

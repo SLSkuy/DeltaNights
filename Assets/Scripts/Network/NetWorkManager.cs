@@ -22,6 +22,7 @@ using System.Collections.Concurrent;
 using SyncPackage;
 using UnityEngine;
 using System;
+using BattleSyncPackage;
 using ClientSyncPackage;
 using Google.Protobuf;
 
@@ -62,7 +63,7 @@ namespace Network
         /// <summary>
         /// UDP发送Protobuf事件
         /// </summary>
-        public void SendUdp(LocalSyncPackage syncPackage)
+        public void SendUdp(BattleSyncRequest syncPackage)
         {
             _udp.EnqueueSendProtobuf(syncPackage);
         }

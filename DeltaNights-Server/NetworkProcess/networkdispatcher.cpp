@@ -15,6 +15,7 @@
 #include "udpendpoint.h"
 #include "../Logger/logger.h"
 #include "../GameEvent/SyncPackage.pb.h"
+#include "../ObjectPool/protopool.h"
 
 NetworkDispatcher::NetworkDispatcher(UdpEndpoint* udp, TcpEndpoint* tcp, QObject* parent)
     : _udp(udp), _tcp(tcp)
@@ -99,12 +100,12 @@ void NetworkDispatcher::sendTcpMessage(QTcpSocket* socket,const SyncPackage::Rem
     emit sendTcp(socket, packet);
 }
 
-void NetworkDispatcher::sendUdpMessage(const QHostAddress& addr, quint16 port, const BattleSyncPackage::BattleSyncResponse& pkg)
+void NetworkDispatcher::sendUdpMessage(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg)
 {
     QByteArray datagram;
-    datagram.resize(pkg.ByteSizeLong());
+    datagram.resize(pkg->ByteSizeLong());
 
-    if (!pkg.SerializeToArray(datagram.data(), datagram.size()))
+    if (!pkg->SerializeToArray(datagram.data(), datagram.size()))
         return;
 
     emit sendUdp(addr, port, datagram);
@@ -129,7 +130,7 @@ void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& d
     switch (pkg.eventid())
     {
         case LocalSyncEvent::ClientRequest:
-            handleTcpAckPackage(socket, pkg.clientsync());
+            handleTcpClientPackage(socket, pkg.clientsync());
             break;
         case LocalSyncEvent::LobbyRequest:
             handleTcpLobbyPackage(socket, pkg.lobbysync());
@@ -140,7 +141,7 @@ void NetworkDispatcher::handleTcpPackage(QTcpSocket* socket, const QByteArray& d
     }
 }
 
-void NetworkDispatcher::handleTcpAckPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg)
+void NetworkDispatcher::handleTcpClientPackage(QTcpSocket* socket, const ClientSyncPackage::ClientSyncRequest& pkg)
 {
     using namespace ClientSyncPackage;
 
@@ -180,4 +181,16 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
 void NetworkDispatcher::handleUdpPackage(const QHostAddress& addr, quint16 port, const QByteArray& data)
 {
     // TODO: UDP只处理战局同步事件和ACK包
+    using namespace BattleSyncPackage;
+
+    BattleSyncRequest* pkg = ProtoPool::AcquireBattleReq();
+    if(!pkg->ParseFromArray(data.constData(), data.size()))
+    {
+        Logger::Warning() << "[NetworkDispatcher] UDP protobuf parse failed"
+                          << "size = " << data.size();
+        return;
+    }
+
+    emit battleSyncRequest(pkg);
+    ProtoPool::Release(pkg);
 }

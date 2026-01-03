@@ -9,7 +9,6 @@
  * ------------------------------------------------------------ */
 
 using BattleSyncPackage;
-using SyncPackage;
 
 namespace Network.ProtoTools
 {

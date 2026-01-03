@@ -1,6 +1,6 @@
 #include "playerinfo.h"
 
-PlayerInfo::PlayerInfo(QObject* parent)
-    : QObject(parent)
+PlayerInfo::PlayerInfo(quint32 uuid, QObject* parent)
+    : m_uuid(uuid), QObject(parent)
 {
 }

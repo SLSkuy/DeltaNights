@@ -27,7 +27,7 @@ namespace Network.NetEventProcess
         // 事件处理函数
         void PrintConnectResponse(ConnectResponsePackage package)
         {
-            Debug.Log($"[MessageProcessor] Connect request package {package.Content}");
+            Debug.Log($"[MessageProcessor] Connect response package {package.Content}");
         }
     }
 }
