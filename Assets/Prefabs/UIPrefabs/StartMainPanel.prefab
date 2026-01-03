@@ -200,7 +200,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u8C03\u8BD5\u4FE1\u606F:"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eb55ed453a615014486d7f509a900eae, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 7387203921103118318, guid: eb55ed453a615014486d7f509a900eae, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
