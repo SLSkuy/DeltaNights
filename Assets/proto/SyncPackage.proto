@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package SyncPackage;
+
+import "LobbySyncPackage.proto";
+import "ClientSyncPackage.proto";
+
+/* ==================================================
+  客户端->服务端同步包汇总
+================================================== */
+enum LocalSyncEvent {
+  Local_None = 0;
+  LobbyRequest = 1;
+  ClientRequest = 2;
+}
+
+// 客户端发送给服务器的同步包
+message LocalSyncPackage {
+  LocalSyncEvent eventID = 1;
+  oneof content {
+    LobbySyncPackage.LobbySyncRequest lobbySync = 2;
+    ClientSyncPackage.ClientSyncRequest clientSync = 3;
+  }
+}
+
+/* ==================================================
+  服务端->客户端同步包汇总
+================================================== */
+enum RemoteSyncEvent {
+  Remote_None = 0;
+  LobbyResponse = 1;
+  ClientResponse = 2;
+}
+
+// 服务器发送给客户端的同步包
+message RemoteSyncPackage {
+  RemoteSyncEvent eventID = 1;
+  oneof content {
+    LobbySyncPackage.LobbySyncResponse lobbyPackage = 2;
+    ClientSyncPackage.ClientSyncResponse clientPackage = 3;
+  }
+}
+    

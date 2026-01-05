@@ -85,12 +85,6 @@ namespace PlayerControl
             _skillController.InitSkills(gameObject, new []{activeSkill, ultimateSkill});
         }
 
-        private void Start()
-        {
-            // 输入注入
-            _attackInputSource = GameInput.Instance;
-        }
-
         private void Update()
         {
             if (_attackInputSource == null)
@@ -106,6 +100,14 @@ namespace PlayerControl
         #endregion
         
         #region 输入处理
+
+        /// <summary>
+        /// 初始化输入来源
+        /// </summary>
+        public void Init(IAttackSkillInputSource attackInputSource)
+        {
+            _attackInputSource = attackInputSource;
+        }
         
         /// <summary>
         /// 处理攻击输入

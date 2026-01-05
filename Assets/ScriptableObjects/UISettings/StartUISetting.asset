@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb8919d682a42db9c954065b9da78b9, type: 3}
+  m_Name: StartUISetting
+  m_EditorClassIdentifier: Assembly-CSharp::UIFramework.UIFrameworkSettings
+  uiToRegister:
+  - isEnableOnRegister: 0
+    uiPrefab: {fileID: 9189573987061109214, guid: 406e1a83499f4ee4d852aec4084c32d3, type: 3}
+  - isEnableOnRegister: 0
+    uiPrefab: {fileID: 3363216272328969232, guid: bb45f1c2c054fef4db5fbcbd724cd0d9, type: 3}
+  - isEnableOnRegister: 1
+    uiPrefab: {fileID: 5781399399762115491, guid: 80169b44cfc40224ea2be70b6bd9749c, type: 3}
+  - isEnableOnRegister: 0
+    uiPrefab: {fileID: 60306959889130147, guid: 23171a6ee4ac34443b61142817cac047, type: 3}

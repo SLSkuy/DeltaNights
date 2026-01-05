@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CameraManage
@@ -43,6 +44,10 @@ namespace CameraManage
             public int priority;
         }
 
+        [Header("摄像机设置")] 
+        [SerializeField] [Tooltip("视角跟踪点，只选择本地玩家的orientation节点")] 
+        private Transform orientation;
+        
         [SerializeField] private List<CameraEntry> cameras;
         private GameCameraState _currentState;
         private Dictionary<GameCameraState, CameraEntry> _cameraMap;
@@ -53,7 +58,10 @@ namespace CameraManage
             
             _cameraMap = new Dictionary<GameCameraState, CameraEntry>();
             foreach (var cam in cameras)
+            {
                 _cameraMap[cam.state] = cam;
+                if(orientation != null) cam.camera.Follow = orientation;    // 设置追踪本地玩家
+            }
         }
 
         public void Start()

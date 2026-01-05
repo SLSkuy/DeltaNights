@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
  *  Date:  2025.11.19
- *  LastUpdate:  2025.12.22
+ *  LastUpdate:  2025.12.30
  * 
  *  功能简述：
  *  PlayerAimController 负责玩家视角与角色朝向的联动控制，
@@ -45,6 +45,7 @@ namespace PlayerControl
         [Header("视角旋转属性")]
         [Tooltip("角色模型旋转阻尼，值越大旋转越慢")]
         [SerializeField]private float rotationDamping = 0.2f;
+        [Tooltip("供其余组件获取摄像机跟随目标")]public Transform aimTarget;
         
         // 网络同步数据
         public float AimPitch { get; private set; }
@@ -63,6 +64,30 @@ namespace PlayerControl
         #endregion
 
         #region 成员方法
+
+        /// <summary>
+        /// 初始化输入来源
+        /// </summary>
+        public void Init(ILookInputSource lookInputSource, PlayerController playerController, bool isLocalPlayer)
+        {
+            // 输入控制注入
+            _lookInputSource = lookInputSource;
+            _controller = playerController;
+            
+            // 非本地玩家，无法控制摄像机属性
+            if (isLocalPlayer)
+            {
+                _inputAxisController = GameInput.Instance.GetComponent<CinemachineInputAxisController>();
+                
+                // 逻辑注册
+                _controller.PostUpdate += UpdatePlayerRotation;
+                _controller.OnShoulderAim += UpdateShoulderAimState;
+                _controller.OnAim += UpdateAimState;
+            
+                // 更新摄像机设置
+                UpdateCameraMode(GameCameraState.Normal);
+            }
+        }
         
         /// <summary>
         /// 更新摄像机属性设置
@@ -97,6 +122,8 @@ namespace PlayerControl
         
         private void UpdatePlayerRotation()
         {
+            if(_lookInputSource == null) return;
+            
             // 旋转摄像机
             float h = _lookInputSource.HorizontalLook.Value;
             float v = _lookInputSource.VerticalLook.Value;
@@ -174,31 +201,13 @@ namespace PlayerControl
 
         private void Awake()
         {
-            // 组件引用
-            _controller = GetComponentInParent<PlayerController>();
-            
             // 初始化赋值
             _curRotationDamping = rotationDamping;
         }
 
-        private void Start()
-        {
-            // 输入控制注入
-            _lookInputSource = GameInput.Instance;
-            _inputAxisController = GameInput.Instance.GetComponent<CinemachineInputAxisController>();
-            
-            // 逻辑注册
-            _controller.PostUpdate += UpdatePlayerRotation;
-            _controller.OnShoulderAim += UpdateShoulderAimState;
-            _controller.OnAim += UpdateAimState;
-            
-            // 更新摄像机设置
-            UpdateCameraMode(GameCameraState.Normal);
-        }
-
         private void OnEnable()
         {
-            // Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnDisable()
