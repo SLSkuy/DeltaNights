@@ -59,10 +59,16 @@ namespace SceneUI.StartSceneUI
             }
         }
 
+        //处理服务器的包
         void Login(LoginResponsePackage response)
         {
             Debug.Log(response.Uuid + "-" + response.NickName);
             Signals.Get<LogInPressDownSignal>().Dispatch(response.NickName);
+        }
+
+        public void UI_OnTestEnter()
+        {
+            Signals.Get<LogInPressDownSignal>().Dispatch("测试模式");
         }
 
         void Start()
