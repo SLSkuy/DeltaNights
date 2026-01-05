@@ -17,6 +17,7 @@
  *  - 由武器控制或攻击系统调用 Attack 方法触发攻击
  * ------------------------------------------------------------ */
 
+
 using UnityEngine;
 
 namespace WeaponSystem.Weapon
@@ -26,7 +27,7 @@ namespace WeaponSystem.Weapon
     /// </summary>
     [CreateAssetMenu(fileName = "Rifle", menuName = "Weapon/Rifle")]
     public class Rifle : WeaponData
-    {
+    {      
         public override void Attack()
         {
             Debug.Log("Rifle Fired!");

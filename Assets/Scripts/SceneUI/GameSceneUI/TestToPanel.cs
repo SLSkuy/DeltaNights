@@ -1,9 +1,20 @@
+/* ------------------------------------------------------------
+ *  Author:  2023051604020 QuZhiYao
+ *  Date:  2025.12.27
+ *  LastUpdate:  2025.1.4
+ * 
+ *  功能简述：
+ *  UI功能测试脚本
+ * 
+ * ------------------------------------------------------------ */
+
+
 using EventProcess;
 using UIFramework;
 using UIFramework.Panel;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem; // 添加这个命名空间
+using UnityEngine.InputSystem;
 
 namespace SceneUI.GameSceneUI
 {
@@ -34,7 +45,7 @@ namespace SceneUI.GameSceneUI
             {
                 if (uiManager != null)
                 {
-                    uiManager.TestPlayerTakeDamage(10f);
+                    uiManager.PlayerTakeDamage(10f);
                 }
             }
             
@@ -43,7 +54,7 @@ namespace SceneUI.GameSceneUI
             {
                 if (uiManager != null)
                 {
-                    uiManager.TestPlayerFire();
+                    uiManager.PlayerFire();
                 }
             }
             
@@ -52,7 +63,7 @@ namespace SceneUI.GameSceneUI
             {
                 if (uiManager != null)
                 {
-                    uiManager.TestPlayerReload();
+                    uiManager.PlayerReload();
                 }
             }
             
@@ -67,7 +78,7 @@ namespace SceneUI.GameSceneUI
             if (keyboard.digit2Key.wasPressedThisFrame)
             {
                 // 模拟弹药变化事件
-                Signals.Get<GameSceneUIManager.PlayerAmmoChangedSignal>().Dispatch(10, 30);
+                Signals.Get<GameSceneUIManager.PlayerAmmoChangedSignal>().Dispatch(30, 60);
             }
         }
     }
