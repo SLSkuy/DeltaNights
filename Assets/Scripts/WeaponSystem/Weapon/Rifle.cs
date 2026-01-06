@@ -33,41 +33,64 @@ namespace WeaponSystem.Weapon
 
         public override void Attack()
         {
-            Debug.Log("Rifle Fired!");
-            Debug.Log("playerController：" + _playerController);
-            Debug.Log("isAim：" + _isAim);
-            Debug.Log("isShoulderAim：" + _isShoulderAim);
-            Debug.Log("rifle:" + _rifle);
-            Debug.Log("Muzzle:" + _muzzle);
+            //Debug.Log("Rifle Fired!");
+            //Debug.Log("playerController：" + _playerController);
+            //Debug.Log("isAim：" + _isAim);
+            //Debug.Log("isShoulderAim：" + _isShoulderAim);
+            //Debug.Log("rifle:" + _rifle);
+            //Debug.Log("Muzzle:" + _muzzle.position);
             //// 具体武器逻辑
             ////射线射向屏幕中心
-            Ray centerRay = Camera.main.ViewportPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
-            Ray shoulderRay = new Ray(_muzzle.transform.position, centerRay.direction);//肩射射线
-            Ray aimRay = new Ray(Camera.main.transform.position - Vector3.up * 0.3f, centerRay.direction);//开镜射线
+            _centerRay = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            _targetPoint = _centerRay.GetPoint(500f);
+
+            //方向向量
+            Vector3 shoulderDirection = (_targetPoint - _muzzle.transform.position).normalized;
+            Vector3 aimDirection = (_targetPoint - (Camera.main.transform.position - Vector3.up * 0.3f)).normalized;
+
+            //创建射线
+            _shoulderRay = new Ray(_muzzle.transform.position, shoulderDirection);
+            _aimRay = new Ray(Camera.main.transform.position - Vector3.up * 0.3f, aimDirection);
+            Debug.DrawRay(_shoulderRay.origin, _shoulderRay.direction * 500f, Color.yellow, 20f); // 肩射射线-黄色-测试
+            Debug.DrawRay(_aimRay.origin, _aimRay.direction * 500f, Color.cyan, 20f); // 开镜射线-青色-测试
+
             GameObject obj = Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation);
-            //if (_isShoulderAim && !_isAim)
-            //{
-            //    if (Physics.Raycast(shoulderRay, out _hitInfo, 500f))
-            //    {
-            //        //音效，暂时不管
-            //        //GameObject fireAduio = Instantiate(_fireAudio,_muzzle.transform.position,_muzzle.transform.rotation);
-            //        //AudioSource audioSource = fireAduio.GetComponent<AudioSource>();
-            //        //audioSource.Play();
-            //        GameObject hitObject = _hitInfo.collider.gameObject;
-            //        Debug.Log("shoulder aim attack");
-            //    }
-            //}
-            //else if (_isAim && !_isShoulderAim)
-            //{
-            //    if (Physics.Raycast(aimRay, out _hitInfo, 500f))
-            //    {
-            //        //GameObject audioObj = Instantiate(_fireAudio, _muzzlePosition.transform.position, _muzzlePosition.transform.rotation);
-            //        //AudioSource audioSource = audioObj.GetComponent<AudioSource>();
-            //        //audioSource.Play();
-            //        GameObject hitObject = _hitInfo.collider.gameObject;
-            //        Debug.Log("aim attack");
-            //    }
-            //}
+            Bullet bullet = obj.GetComponent<Bullet>();
+            bullet.setRifle(this);
+            GameObject fireAduio = Instantiate(_fireAudio, _muzzle.transform.position, _muzzle.transform.rotation);
+            AudioSource audioSource = fireAduio.GetComponent<AudioSource>();
+            audioSource.time = 0.34f;
+            audioSource.Play();
+            Destroy(fireAduio, 3);
+            if (_isShoulderAim && !_isAim)
+            {
+                if (Physics.Raycast(_shoulderRay, out _hitInfo, 500f))
+                {
+                    //音效，暂时不管
+                    //GameObject fireAduio = Instantiate(_fireAudio, _muzzle.transform.position, _muzzle.transform.rotation);
+                    //AudioSource audioSource = fireAduio.GetComponent<AudioSource>();
+                    //audioSource.Play();
+                    GameObject hitObject = _hitInfo.collider.gameObject;
+                    PlayerController playerController = hitObject.GetComponent<PlayerController>();
+                    playerController.Wound(bullet._rifle);
+                    //Debug.Log(bullet._rifle+"   hitinfo:  "+playerController);
+                    Debug.Log(hitObject.name + "护甲: " + playerController._armor);
+                    Debug.Log(hitObject.name + "Hp: " + playerController._hp);
+                }
+            }
+            else if (_isAim && !_isShoulderAim)
+            {
+                Debug.Log("xxxisshoulderaim  isaim");
+                if (Physics.Raycast(_aimRay, out _hitInfo, 500f))
+                {
+                    //GameObject audioObj = Instantiate(_fireAudio, _muzzlePosition.transform.position, _muzzlePosition.transform.rotation);
+                    //AudioSource audioSource = audioObj.GetComponent<AudioSource>();
+                    //audioSource.Play();
+                    GameObject hitObject = _hitInfo.collider.gameObject;
+                    PlayerController playerController = hitObject.GetComponent<PlayerController>();
+                    playerController.Wound(bullet._rifle);
+                }
+            }
         }
     }
 }

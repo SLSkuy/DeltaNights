@@ -34,7 +34,11 @@
 using System;
 using InputProcess;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
+using WeaponSystem;
+using WeaponSystem.Weapon;
 
 namespace PlayerControl
 {
@@ -44,6 +48,10 @@ namespace PlayerControl
     public class PlayerController : MonoBehaviour
     {
         #region 内部成员
+
+        [Header("玩家数值属性")]
+        public float _hp = 100f;
+        public float _armor = 80f;
 
         [Header("玩家移动属性")] 
         public float speed = 4f;
@@ -104,11 +112,13 @@ namespace PlayerControl
         public event Action<Vector2> OnMove;    // 玩家移动输入事件
         public event Action<int> OnJump;    // 玩家跳跃事件
         public event Action OnLand; // 触地事件
-        
+        public event Action OnWound; //受击事件
+        public event Action OnDead; //死亡事件
+
         #endregion
-        
+
         #region 周期函数
-        
+
         private void Awake()
         {
             // 组件引用
@@ -352,6 +362,34 @@ namespace PlayerControl
             }
         }
 
+        /// <summary>
+        /// 实现玩家受伤
+        /// </summary>
+        public void Wound(WeaponData weaponData)
+        {
+            if(this._armor != 0 && this._hp !=0)
+            {
+                this._armor -= weaponData.BodyDamage;
+                OnWound?.Invoke();
+            }
+            else if(this._armor == 0 && this._hp != 0) 
+            {
+                this._hp -= weaponData.BodyDamage;
+                OnWound?.Invoke();
+            }
+            else if(this._hp <= 0)
+            {
+                this._hp = 0;
+                Dead();
+            }
+        }
+
+        public void Dead()
+        {
+            OnDead?.Invoke();
+            this.PauseControl();
+            Destroy(this.gameObject);
+        }
         #endregion
     }
 }
