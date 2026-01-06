@@ -10,10 +10,11 @@
 
 using EventProcess;
 using TMPro;
-using UIFramework;
 using UIFramework.Panel;
 using UnityEngine;
-
+using LobbySyncPackage;
+using Network;
+using SyncPackage;
 
 namespace SceneUI.StartSceneUI
 {
@@ -35,19 +36,50 @@ namespace SceneUI.StartSceneUI
                 }
             }
             
-            //TODO:发送列表请求
+            UI_RefreshList();
         }
 
         //用于处理事件-大厅列表包
-        void RefreshList()
+        void RefreshList(RefreshListResponsePackage response)
         {
-            
+            roomListManager.RefreshList(response);
+        }
+
+        public void UI_RefreshList()
+        {
+            roomListManager.DeleteList();
+            //TODO:发送列表请求
+            LocalSyncPackage syncPackage = new LocalSyncPackage
+            {
+                EventID = LocalSyncEvent.LobbyRequest,
+                LobbySync = new LobbySyncRequest
+                {
+                    EventID = LocalLobbyEvent.LocalLobbyRefresh 
+                }
+            };
+            NetWorkManager.instance.SendTcp(syncPackage);
+            Debug.Log("请求刷新");
+        }
+
+        public void UI_JoinRoom()
+        {
+            //TODO:加入房间
+        }
+
+        public void UI_CreateRoom()
+        {
+            //TODO:创建房间
         }
         
         
         public void UI_OnBackButtonPressDown()
         {
             Signals.Get<BackToMainPressDownSignal>().Dispatch();
+        }
+
+        void Start()
+        {
+            NetWorkManager.instance.RegisterEventHandler<RefreshListResponsePackage>(NetEvent.LobbyRefresh,RefreshList);
         }
     }
 }
