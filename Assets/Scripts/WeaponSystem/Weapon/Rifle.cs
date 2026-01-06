@@ -33,12 +33,6 @@ namespace WeaponSystem.Weapon
 
         public override void Attack()
         {
-            //Debug.Log("Rifle Fired!");
-            //Debug.Log("playerController：" + _playerController);
-            //Debug.Log("isAim：" + _isAim);
-            //Debug.Log("isShoulderAim：" + _isShoulderAim);
-            //Debug.Log("rifle:" + _rifle);
-            //Debug.Log("Muzzle:" + _muzzle.position);
             if (_currentBulletNum != 0)
             {
                 //子弹数处理
@@ -55,12 +49,6 @@ namespace WeaponSystem.Weapon
                 Vector3 shoulderDirection = (_targetPoint - _muzzle.transform.position).normalized;
                 Vector3 aimDirection = (_targetPoint - (Camera.main.transform.position - Vector3.up * 0.3f)).normalized;
 
-                //创建射线
-                _shoulderRay = new Ray(_muzzle.transform.position, shoulderDirection);
-                _aimRay = new Ray(Camera.main.transform.position - Vector3.up * 0.3f, aimDirection);
-                Debug.DrawRay(_shoulderRay.origin, _shoulderRay.direction * 500f, Color.yellow, 20f); // 肩射射线-黄色-测试
-                Debug.DrawRay(_aimRay.origin, _aimRay.direction * 500f, Color.cyan, 20f); // 开镜射线-青色-测试
-
                 //实例化弹道
                 GameObject obj = Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation);
                 Bullet bullet = obj.GetComponent<Bullet>();
@@ -75,6 +63,7 @@ namespace WeaponSystem.Weapon
 
                 if (_isShoulderAim && !_isAim)
                 {
+                    _shoulderRay = new Ray(_muzzle.transform.position, shoulderDirection);
                     if (Physics.Raycast(_shoulderRay, out _hitInfo, 500f))
                     {
                         GameObject hitObject = _hitInfo.collider.gameObject;
@@ -86,7 +75,7 @@ namespace WeaponSystem.Weapon
                 }
                 else if (_isAim && !_isShoulderAim)
                 {
-                    Debug.Log("xxxisshoulderaim  isaim");
+                    _aimRay = new Ray(Camera.main.transform.position - Vector3.up * 0.3f, aimDirection);
                     if (Physics.Raycast(_aimRay, out _hitInfo, 500f))
                     {
                         GameObject hitObject = _hitInfo.collider.gameObject;

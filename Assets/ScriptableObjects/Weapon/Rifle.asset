@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3ad293670a4b8ea8dbf2c7e78c0ec7, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSystem.Weapon.Rifle
-  _player: {fileID: 0}
   _bullet: {fileID: 1592268929010682284, guid: a3c15b288fd934e4db46b66b81ccf3f4, type: 3}
-  _fireEffect: {fileID: 2331117186032511223, guid: 600fa888b60368a459f1e9b8d5ee7b64, type: 3}
+  _fireEffect: {fileID: 0}
   _hitEffect: {fileID: 0}
-  _fireAudio: {fileID: 2331117186032511223, guid: 600fa888b60368a459f1e9b8d5ee7b64, type: 3}
+  _fireAudio: {fileID: 2778564658906218986, guid: 0d414994d47d6fe479b3ee24eb04dc88, type: 3}
   weaponType: 0
   weaponName: 
   attackSpeed: 120
   fullyAutomatic: 1
   attenuationFactor: 1
   headDamage: 0
-  bodyDamage: 0
+  bodyDamage: 5
   legDamage: 0
+  _bulletCapacity: 30
+  _currentBulletNum: 21
+  _bulletTotal: 29940
+  _reloadTime: 1
