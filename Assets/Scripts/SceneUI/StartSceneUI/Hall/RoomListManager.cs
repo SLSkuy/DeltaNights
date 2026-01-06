@@ -36,7 +36,7 @@ namespace SceneUI.StartSceneUI
             for (int i = 0; i != 4; i++)
             {
                 GameObject o=Instantiate(roomCell,this.transform);
-                o.GetComponent<RoomCellComponent>().index = i;
+                o.GetComponent<RoomCellComponent>().SetIndex(i);
                 Button b=o.GetComponent<Button>();
                 int currentIndex = i;//避免捕获到外界的i 闭包变量捕获问题
                 b.onClick.AddListener(() =>
@@ -57,7 +57,7 @@ namespace SceneUI.StartSceneUI
                 GameObject o=Instantiate(roomCell,this.transform);
                 o.GetComponent<RoomCellComponent>().SetValue(room.RoomId, room.RoomName, room.RoomType, room.Owner,
                     room.Max, room.Num);
-                o.GetComponent<RoomCellComponent>().index = i;
+                o.GetComponent<RoomCellComponent>().SetIndex(i);
                 Button b=o.GetComponent<Button>();
                 int currentIndex = i;//避免捕获到外界的i 闭包变量捕获问题
                 b.onClick.AddListener(() =>

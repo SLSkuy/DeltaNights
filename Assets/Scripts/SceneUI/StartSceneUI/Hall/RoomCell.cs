@@ -15,7 +15,7 @@ namespace SceneUI.StartSceneUI
 {
     public class RoomCellComponent:MonoBehaviour
     {
-        public int index;//外界所用的索引
+        private int _index;//外界所用的索引
         private uint _roomId;
         private string _roomName;
         private string _roomType;
@@ -36,6 +36,11 @@ namespace SceneUI.StartSceneUI
             _owner = owner;
             _max = max;
             _num = num;
+        }
+
+        public void SetIndex(int index)
+        {
+            _index = index;
         }
     }
 }

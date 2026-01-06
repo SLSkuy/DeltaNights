@@ -572,6 +572,7 @@ GameObject:
   - component: {fileID: 6026572698476956064}
   - component: {fileID: 8566604773350521541}
   - component: {fileID: 215883959160460295}
+  - component: {fileID: 4743941678852943816}
   m_Layer: 5
   m_Name: RoomListElement
   m_TagString: Untagged
@@ -684,6 +685,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4743941678852943816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5247388870635423584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5e0d7c4fae4cebb563548b92800310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneUI.StartSceneUI.RoomCellComponent
 --- !u!1 &6012743953755946833
 GameObject:
   m_ObjectHideFlags: 0
