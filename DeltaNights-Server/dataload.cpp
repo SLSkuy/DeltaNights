@@ -60,12 +60,11 @@ void DataLoad::read()
             m_playerInfosByAccount[account]=p;
         }
         //qDebug()<<"成功读取";
-        // 处理非空行
-        //qDebug() << "第" << lineNumber << "行：" << line;
-        // 你的处理逻辑...
+
     }
 }
-
+//write不写账号注册暂时不做处理
+//todo
 void DataLoad::write()
 {
     QFile file("../../data.txt");
@@ -79,7 +78,7 @@ void DataLoad::write()
     QTextStream out(&file);
 
     // 写入不同类型的数据
-    out << "账号数据\n";
+    /*out << "账号数据\n";
     out << "整数：" << 100 << "\n";
     out << "浮点数：" << 3.14159 << "\n";
     out << "布尔值：" << true << "\n";
@@ -90,10 +89,12 @@ void DataLoad::write()
     // 格式化写入
     out << QString("姓名：%1，年龄：%2\n").arg("张三").arg(25);
 
-    file.close();
+    file.close();*/
     qDebug() << "文件写入完成";
 }
 
+//不写账号注册暂时不处理
+//todo
 void DataLoad::appendToFile()
 {
     QFile file("../../data.txt");
