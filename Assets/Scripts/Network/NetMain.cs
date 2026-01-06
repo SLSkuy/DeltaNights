@@ -18,7 +18,7 @@ public class NetMain : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(NetWorkManager.Instance == null)
+        if(NetWorkManager.instance == null)
         {
             GameObject obj = new GameObject("NetWorkManager");
             obj.AddComponent<NetWorkManager>();

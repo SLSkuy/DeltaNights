@@ -15,13 +15,22 @@
 
 PlayerInfoManager::PlayerInfoManager(QObject* parent)
     : QObject(parent)
+    , DataLoading(new DataLoad)
 {
+    DataLoading->read();
+    loadData();
     //测试用
-    PlayerInfo *p=new PlayerInfo(123,"abc",this);
+    /*PlayerInfo *p=new PlayerInfo(123,"abc",this);
     p->setNickname("Test");
     p->setPassword("123");
     m_playerInfosByID[123]=p;
     m_playerInfosByAccount["abc"]=p;
+
+    PlayerInfo *m=new PlayerInfo(1234,"abcd",this);
+    m->setNickname("sukoi");
+    m->setPassword("1234");
+    m_playerInfosByID[1234]=m;
+    m_playerInfosByAccount["abcd"]=m;*/
 
 }
 
@@ -70,4 +79,10 @@ PlayerInfo* PlayerInfoManager::findPlayInfo(QString account)
     }else{
         return nullptr;
     }
+}
+
+void PlayerInfoManager::loadData()
+{
+    m_playerInfosByID = DataLoading->playerInfosByID();
+    m_playerInfosByAccount = DataLoading->playerInfosByAccount();
 }
