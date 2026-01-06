@@ -62,7 +62,6 @@ namespace PlayerControl
         private int _jumpHash;
 
         #region 周期函数
-
         private void Awake()
         {
             _controller = GetComponent<PlayerController>();
@@ -80,6 +79,7 @@ namespace PlayerControl
             _controller.OnJump += SetAnimJump;
             _controller.OnShoulderAim += SetShoulderAimState;
             _controller.OnLand += SetAnimLand;
+
         }
 
         private void OnDestroy()
@@ -115,6 +115,12 @@ namespace PlayerControl
         {
             _animator.CrossFade("Locomotion", 0.1f);
         }
+
+        private void SetReload()
+        {   
+            _animator.CrossFade("Reloading", 0.1f);
+        }
+       
         private void SetShoulderAimState(bool isAim) => _targetShoulderLayerWeight = isAim ? 1f : 0;
 
         /// <summary>
@@ -148,7 +154,26 @@ namespace PlayerControl
                 _currentShoulderLayerWeight
             );
         }
-        
+
+        /// <summary>
+        /// 简易实现换弹动画
+        /// </summary>
+        // 以下方法由动画事件调用
+        private void SetReloadWeight()
+        {
+            _controller._rig.weight = 0f;
+            _animator.SetLayerWeight(2, 0f);
+            _animator.SetLayerWeight(3, 0f);
+        }
+
+        public void OnReloadAnimationComplete()
+        {
+            _controller._rig.weight = 1f;
+            _animator.SetLayerWeight(2, 1f);
+            _animator.SetLayerWeight(3, 1f);
+            _animator.CrossFade("Locomotion", 0.1f);
+        }
+
         #endregion
     }
 }

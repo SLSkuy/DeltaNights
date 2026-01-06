@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
     public void setRifle(Rifle rifle)
     {

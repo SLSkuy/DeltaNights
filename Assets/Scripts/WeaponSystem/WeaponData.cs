@@ -51,11 +51,6 @@ namespace WeaponSystem
         // 添加初始化状态标记
         protected bool _isInitialized = false;
 
-        //子弹
-        //protected float _bulletCapacity;//弹匣容量
-        //protected float _currentBulletNum;//当前枪膛里子弹数
-        //protected float _bulletTotal;//剩余总量
-
         [Header("武器类型")]
         [SerializeField] protected WeaponType weaponType;
         [SerializeField] protected string weaponName;
@@ -69,6 +64,12 @@ namespace WeaponSystem
         [SerializeField] protected float headDamage;
         [SerializeField] protected float bodyDamage;
         [SerializeField] protected float legDamage;
+
+        [Header("武器子弹属性")]
+        [SerializeField] public int _bulletCapacity;//弹匣容量
+        [SerializeField] public int _currentBulletNum;//当前枪膛里子弹数
+        [SerializeField] public int _bulletTotal;//剩余总量
+        [SerializeField] public float _reloadTime;//换弹时间
         public void unload(PlayerController playerController)
         {
             if (_playerController != null)

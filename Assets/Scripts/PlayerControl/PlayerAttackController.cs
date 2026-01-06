@@ -63,13 +63,14 @@ namespace PlayerControl
         
         #region 事件
 
-        public event Action<WeaponData,PlayerController> OnSwitchWeapon; // 切换武器    
+        public event Action<WeaponData, PlayerController> OnSwitchWeapon; // 切换武器    
         public event Action OnAttackPressed;    // 攻击按键按下
         public event Action OnAttackReleased;   // 攻击按键释放
         
         public event Action<SkillType> OnSkillPressed;   // 技能键按下
         public event Action<SkillType> OnSkillReleased;
 
+        public event Action OnReloadStart;
         #endregion
 
         #region 周期函数
@@ -80,6 +81,7 @@ namespace PlayerControl
             // 武器控制器初始化
             _weaponController = new PlayerWeaponController(this);
             _weaponController.SwitchWeapon(mainWeapon,_playerController);
+            //_weaponController.OnReloadStart += 
             
             // 技能控制器初始化
             _skillController = new PlayerSkillController(this);
@@ -100,7 +102,8 @@ namespace PlayerControl
             
             HandleSkillInput();
             HandleAttackInput();
-            
+            HandleReloadInput();
+
             _weaponController.Tick(Time.deltaTime);
             _skillController.Tick(Time.deltaTime);
         }
@@ -167,7 +170,18 @@ namespace PlayerControl
             _lastActiveSkillValue = active;
             _lastUltimateSkillValue = ultimate;
         }
-        
+
+        /// <summary>
+        /// 处理换弹输入
+        /// </summary>
+        private void HandleReloadInput()
+        {
+            if(mainWeapon._currentBulletNum <= 0)
+            {
+                OnReloadStart?.Invoke();
+            }
+        }
+
         #endregion
     }
 }
