@@ -31,8 +31,8 @@ namespace SceneUI.StartSceneUI
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
-            //TODO:测试用
             
+            //TODO:测试用
             for (int i = 0; i != 4; i++)
             {
                 GameObject o=Instantiate(roomCell,this.transform);
@@ -42,6 +42,7 @@ namespace SceneUI.StartSceneUI
                 b.onClick.AddListener(() =>
                 {
                     OnElementClick(currentIndex);
+                    //TODO:请求玩家列表
                 });
             }
             
@@ -63,6 +64,7 @@ namespace SceneUI.StartSceneUI
                 b.onClick.AddListener(() =>
                 {
                     OnElementClick(currentIndex);
+                    //TODO:请求玩家列表
                 });
             }
         }

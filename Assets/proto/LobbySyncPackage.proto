@@ -38,12 +38,12 @@ message RefreshListResponsePackage{
 
 // ===== 大厅列表回应子包 =====
 message RefreshResponsePackage{
-  uint32 roomId = 1;
-  string roomName = 2;
-  string roomType = 3;
-  string owner = 4;
-  int32 max = 5;
-  int32 num = 6;
+  uint32 roomId = 1;//房间id
+  string roomName = 2;//房间名
+  string roomType = 3;//类型
+  string owner = 4;//房主名
+  int32 max = 5;//人数上限
+  int32 num = 6;//人数
 }
 
 
