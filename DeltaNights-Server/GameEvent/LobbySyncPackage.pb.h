@@ -52,21 +52,30 @@ extern LobbySyncRequestDefaultTypeInternal _LobbySyncRequest_default_instance_;
 class LobbySyncResponse;
 struct LobbySyncResponseDefaultTypeInternal;
 extern LobbySyncResponseDefaultTypeInternal _LobbySyncResponse_default_instance_;
+class RefreshListResponsePackage;
+struct RefreshListResponsePackageDefaultTypeInternal;
+extern RefreshListResponsePackageDefaultTypeInternal _RefreshListResponsePackage_default_instance_;
+class RefreshResponsePackage;
+struct RefreshResponsePackageDefaultTypeInternal;
+extern RefreshResponsePackageDefaultTypeInternal _RefreshResponsePackage_default_instance_;
 }  // namespace LobbySyncPackage
 PROTOBUF_NAMESPACE_OPEN
 template<> ::LobbySyncPackage::LobbySyncRequest* Arena::CreateMaybeMessage<::LobbySyncPackage::LobbySyncRequest>(Arena*);
 template<> ::LobbySyncPackage::LobbySyncResponse* Arena::CreateMaybeMessage<::LobbySyncPackage::LobbySyncResponse>(Arena*);
+template<> ::LobbySyncPackage::RefreshListResponsePackage* Arena::CreateMaybeMessage<::LobbySyncPackage::RefreshListResponsePackage>(Arena*);
+template<> ::LobbySyncPackage::RefreshResponsePackage* Arena::CreateMaybeMessage<::LobbySyncPackage::RefreshResponsePackage>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace LobbySyncPackage {
 
 enum LocalLobbyEvent : int {
   Local_Lobby_None = 0,
+  Local_Lobby_Refresh = 1,
   LocalLobbyEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   LocalLobbyEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool LocalLobbyEvent_IsValid(int value);
 constexpr LocalLobbyEvent LocalLobbyEvent_MIN = Local_Lobby_None;
-constexpr LocalLobbyEvent LocalLobbyEvent_MAX = Local_Lobby_None;
+constexpr LocalLobbyEvent LocalLobbyEvent_MAX = Local_Lobby_Refresh;
 constexpr int LocalLobbyEvent_ARRAYSIZE = LocalLobbyEvent_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LocalLobbyEvent_descriptor();
@@ -85,12 +94,13 @@ inline bool LocalLobbyEvent_Parse(
 }
 enum RemoteLobbyEvent : int {
   Remote_Lobby_None = 0,
+  Remote_Lobby_Refresh = 1,
   RemoteLobbyEvent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RemoteLobbyEvent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RemoteLobbyEvent_IsValid(int value);
 constexpr RemoteLobbyEvent RemoteLobbyEvent_MIN = Remote_Lobby_None;
-constexpr RemoteLobbyEvent RemoteLobbyEvent_MAX = Remote_Lobby_None;
+constexpr RemoteLobbyEvent RemoteLobbyEvent_MAX = Remote_Lobby_Refresh;
 constexpr int RemoteLobbyEvent_ARRAYSIZE = RemoteLobbyEvent_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RemoteLobbyEvent_descriptor();
@@ -300,6 +310,11 @@ class LobbySyncResponse final :
   static const LobbySyncResponse& default_instance() {
     return *internal_default_instance();
   }
+  enum ContentCase {
+    kRefreshListResponse = 2,
+    CONTENT_NOT_SET = 0,
+  };
+
   static inline const LobbySyncResponse* internal_default_instance() {
     return reinterpret_cast<const LobbySyncResponse*>(
                &_LobbySyncResponse_default_instance_);
@@ -379,6 +394,7 @@ class LobbySyncResponse final :
 
   enum : int {
     kEventIDFieldNumber = 1,
+    kRefreshListResponseFieldNumber = 2,
   };
   // .LobbySyncPackage.RemoteLobbyEvent eventID = 1;
   void clear_eventid();
@@ -389,7 +405,195 @@ class LobbySyncResponse final :
   void _internal_set_eventid(::LobbySyncPackage::RemoteLobbyEvent value);
   public:
 
+  // .LobbySyncPackage.RefreshListResponsePackage refreshListResponse = 2;
+  bool has_refreshlistresponse() const;
+  private:
+  bool _internal_has_refreshlistresponse() const;
+  public:
+  void clear_refreshlistresponse();
+  const ::LobbySyncPackage::RefreshListResponsePackage& refreshlistresponse() const;
+  PROTOBUF_NODISCARD ::LobbySyncPackage::RefreshListResponsePackage* release_refreshlistresponse();
+  ::LobbySyncPackage::RefreshListResponsePackage* mutable_refreshlistresponse();
+  void set_allocated_refreshlistresponse(::LobbySyncPackage::RefreshListResponsePackage* refreshlistresponse);
+  private:
+  const ::LobbySyncPackage::RefreshListResponsePackage& _internal_refreshlistresponse() const;
+  ::LobbySyncPackage::RefreshListResponsePackage* _internal_mutable_refreshlistresponse();
+  public:
+  void unsafe_arena_set_allocated_refreshlistresponse(
+      ::LobbySyncPackage::RefreshListResponsePackage* refreshlistresponse);
+  ::LobbySyncPackage::RefreshListResponsePackage* unsafe_arena_release_refreshlistresponse();
+
+  void clear_content();
+  ContentCase content_case() const;
   // @@protoc_insertion_point(class_scope:LobbySyncPackage.LobbySyncResponse)
+ private:
+  class _Internal;
+  void set_has_refreshlistresponse();
+
+  inline bool has_content() const;
+  inline void clear_has_content();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int eventid_;
+    union ContentUnion {
+      constexpr ContentUnion() : _constinit_{} {}
+        ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+      ::LobbySyncPackage::RefreshListResponsePackage* refreshlistresponse_;
+    } content_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    uint32_t _oneof_case_[1];
+
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_LobbySyncPackage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RefreshListResponsePackage final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:LobbySyncPackage.RefreshListResponsePackage) */ {
+ public:
+  inline RefreshListResponsePackage() : RefreshListResponsePackage(nullptr) {}
+  ~RefreshListResponsePackage() override;
+  explicit PROTOBUF_CONSTEXPR RefreshListResponsePackage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RefreshListResponsePackage(const RefreshListResponsePackage& from);
+  RefreshListResponsePackage(RefreshListResponsePackage&& from) noexcept
+    : RefreshListResponsePackage() {
+    *this = ::std::move(from);
+  }
+
+  inline RefreshListResponsePackage& operator=(const RefreshListResponsePackage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RefreshListResponsePackage& operator=(RefreshListResponsePackage&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RefreshListResponsePackage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RefreshListResponsePackage* internal_default_instance() {
+    return reinterpret_cast<const RefreshListResponsePackage*>(
+               &_RefreshListResponsePackage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(RefreshListResponsePackage& a, RefreshListResponsePackage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RefreshListResponsePackage* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RefreshListResponsePackage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RefreshListResponsePackage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RefreshListResponsePackage>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RefreshListResponsePackage& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RefreshListResponsePackage& from) {
+    RefreshListResponsePackage::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RefreshListResponsePackage* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "LobbySyncPackage.RefreshListResponsePackage";
+  }
+  protected:
+  explicit RefreshListResponsePackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRoomsFieldNumber = 1,
+  };
+  // repeated .LobbySyncPackage.RefreshResponsePackage rooms = 1;
+  int rooms_size() const;
+  private:
+  int _internal_rooms_size() const;
+  public:
+  void clear_rooms();
+  ::LobbySyncPackage::RefreshResponsePackage* mutable_rooms(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::LobbySyncPackage::RefreshResponsePackage >*
+      mutable_rooms();
+  private:
+  const ::LobbySyncPackage::RefreshResponsePackage& _internal_rooms(int index) const;
+  ::LobbySyncPackage::RefreshResponsePackage* _internal_add_rooms();
+  public:
+  const ::LobbySyncPackage::RefreshResponsePackage& rooms(int index) const;
+  ::LobbySyncPackage::RefreshResponsePackage* add_rooms();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::LobbySyncPackage::RefreshResponsePackage >&
+      rooms() const;
+
+  // @@protoc_insertion_point(class_scope:LobbySyncPackage.RefreshListResponsePackage)
  private:
   class _Internal;
 
@@ -397,7 +601,225 @@ class LobbySyncResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int eventid_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::LobbySyncPackage::RefreshResponsePackage > rooms_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_LobbySyncPackage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RefreshResponsePackage final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:LobbySyncPackage.RefreshResponsePackage) */ {
+ public:
+  inline RefreshResponsePackage() : RefreshResponsePackage(nullptr) {}
+  ~RefreshResponsePackage() override;
+  explicit PROTOBUF_CONSTEXPR RefreshResponsePackage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RefreshResponsePackage(const RefreshResponsePackage& from);
+  RefreshResponsePackage(RefreshResponsePackage&& from) noexcept
+    : RefreshResponsePackage() {
+    *this = ::std::move(from);
+  }
+
+  inline RefreshResponsePackage& operator=(const RefreshResponsePackage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RefreshResponsePackage& operator=(RefreshResponsePackage&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RefreshResponsePackage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RefreshResponsePackage* internal_default_instance() {
+    return reinterpret_cast<const RefreshResponsePackage*>(
+               &_RefreshResponsePackage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(RefreshResponsePackage& a, RefreshResponsePackage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RefreshResponsePackage* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RefreshResponsePackage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RefreshResponsePackage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RefreshResponsePackage>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RefreshResponsePackage& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RefreshResponsePackage& from) {
+    RefreshResponsePackage::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RefreshResponsePackage* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "LobbySyncPackage.RefreshResponsePackage";
+  }
+  protected:
+  explicit RefreshResponsePackage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRoomNameFieldNumber = 2,
+    kRoomTypeFieldNumber = 3,
+    kOwnerFieldNumber = 4,
+    kRoomIdFieldNumber = 1,
+    kMaxFieldNumber = 5,
+    kNumFieldNumber = 6,
+  };
+  // string roomName = 2;
+  void clear_roomname();
+  const std::string& roomname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_roomname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_roomname();
+  PROTOBUF_NODISCARD std::string* release_roomname();
+  void set_allocated_roomname(std::string* roomname);
+  private:
+  const std::string& _internal_roomname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_roomname(const std::string& value);
+  std::string* _internal_mutable_roomname();
+  public:
+
+  // string roomType = 3;
+  void clear_roomtype();
+  const std::string& roomtype() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_roomtype(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_roomtype();
+  PROTOBUF_NODISCARD std::string* release_roomtype();
+  void set_allocated_roomtype(std::string* roomtype);
+  private:
+  const std::string& _internal_roomtype() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_roomtype(const std::string& value);
+  std::string* _internal_mutable_roomtype();
+  public:
+
+  // string owner = 4;
+  void clear_owner();
+  const std::string& owner() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner();
+  PROTOBUF_NODISCARD std::string* release_owner();
+  void set_allocated_owner(std::string* owner);
+  private:
+  const std::string& _internal_owner() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner(const std::string& value);
+  std::string* _internal_mutable_owner();
+  public:
+
+  // uint32 roomId = 1;
+  void clear_roomid();
+  uint32_t roomid() const;
+  void set_roomid(uint32_t value);
+  private:
+  uint32_t _internal_roomid() const;
+  void _internal_set_roomid(uint32_t value);
+  public:
+
+  // int32 max = 5;
+  void clear_max();
+  int32_t max() const;
+  void set_max(int32_t value);
+  private:
+  int32_t _internal_max() const;
+  void _internal_set_max(int32_t value);
+  public:
+
+  // int32 num = 6;
+  void clear_num();
+  int32_t num() const;
+  void set_num(int32_t value);
+  private:
+  int32_t _internal_num() const;
+  void _internal_set_num(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:LobbySyncPackage.RefreshResponsePackage)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomname_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomtype_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_;
+    uint32_t roomid_;
+    int32_t max_;
+    int32_t num_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -458,9 +880,354 @@ inline void LobbySyncResponse::set_eventid(::LobbySyncPackage::RemoteLobbyEvent 
   // @@protoc_insertion_point(field_set:LobbySyncPackage.LobbySyncResponse.eventID)
 }
 
+// .LobbySyncPackage.RefreshListResponsePackage refreshListResponse = 2;
+inline bool LobbySyncResponse::_internal_has_refreshlistresponse() const {
+  return content_case() == kRefreshListResponse;
+}
+inline bool LobbySyncResponse::has_refreshlistresponse() const {
+  return _internal_has_refreshlistresponse();
+}
+inline void LobbySyncResponse::set_has_refreshlistresponse() {
+  _impl_._oneof_case_[0] = kRefreshListResponse;
+}
+inline void LobbySyncResponse::clear_refreshlistresponse() {
+  if (_internal_has_refreshlistresponse()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.content_.refreshlistresponse_;
+    }
+    clear_has_content();
+  }
+}
+inline ::LobbySyncPackage::RefreshListResponsePackage* LobbySyncResponse::release_refreshlistresponse() {
+  // @@protoc_insertion_point(field_release:LobbySyncPackage.LobbySyncResponse.refreshListResponse)
+  if (_internal_has_refreshlistresponse()) {
+    clear_has_content();
+    ::LobbySyncPackage::RefreshListResponsePackage* temp = _impl_.content_.refreshlistresponse_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.content_.refreshlistresponse_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::LobbySyncPackage::RefreshListResponsePackage& LobbySyncResponse::_internal_refreshlistresponse() const {
+  return _internal_has_refreshlistresponse()
+      ? *_impl_.content_.refreshlistresponse_
+      : reinterpret_cast< ::LobbySyncPackage::RefreshListResponsePackage&>(::LobbySyncPackage::_RefreshListResponsePackage_default_instance_);
+}
+inline const ::LobbySyncPackage::RefreshListResponsePackage& LobbySyncResponse::refreshlistresponse() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.LobbySyncResponse.refreshListResponse)
+  return _internal_refreshlistresponse();
+}
+inline ::LobbySyncPackage::RefreshListResponsePackage* LobbySyncResponse::unsafe_arena_release_refreshlistresponse() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:LobbySyncPackage.LobbySyncResponse.refreshListResponse)
+  if (_internal_has_refreshlistresponse()) {
+    clear_has_content();
+    ::LobbySyncPackage::RefreshListResponsePackage* temp = _impl_.content_.refreshlistresponse_;
+    _impl_.content_.refreshlistresponse_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void LobbySyncResponse::unsafe_arena_set_allocated_refreshlistresponse(::LobbySyncPackage::RefreshListResponsePackage* refreshlistresponse) {
+  clear_content();
+  if (refreshlistresponse) {
+    set_has_refreshlistresponse();
+    _impl_.content_.refreshlistresponse_ = refreshlistresponse;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:LobbySyncPackage.LobbySyncResponse.refreshListResponse)
+}
+inline ::LobbySyncPackage::RefreshListResponsePackage* LobbySyncResponse::_internal_mutable_refreshlistresponse() {
+  if (!_internal_has_refreshlistresponse()) {
+    clear_content();
+    set_has_refreshlistresponse();
+    _impl_.content_.refreshlistresponse_ = CreateMaybeMessage< ::LobbySyncPackage::RefreshListResponsePackage >(GetArenaForAllocation());
+  }
+  return _impl_.content_.refreshlistresponse_;
+}
+inline ::LobbySyncPackage::RefreshListResponsePackage* LobbySyncResponse::mutable_refreshlistresponse() {
+  ::LobbySyncPackage::RefreshListResponsePackage* _msg = _internal_mutable_refreshlistresponse();
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.LobbySyncResponse.refreshListResponse)
+  return _msg;
+}
+
+inline bool LobbySyncResponse::has_content() const {
+  return content_case() != CONTENT_NOT_SET;
+}
+inline void LobbySyncResponse::clear_has_content() {
+  _impl_._oneof_case_[0] = CONTENT_NOT_SET;
+}
+inline LobbySyncResponse::ContentCase LobbySyncResponse::content_case() const {
+  return LobbySyncResponse::ContentCase(_impl_._oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// RefreshListResponsePackage
+
+// repeated .LobbySyncPackage.RefreshResponsePackage rooms = 1;
+inline int RefreshListResponsePackage::_internal_rooms_size() const {
+  return _impl_.rooms_.size();
+}
+inline int RefreshListResponsePackage::rooms_size() const {
+  return _internal_rooms_size();
+}
+inline void RefreshListResponsePackage::clear_rooms() {
+  _impl_.rooms_.Clear();
+}
+inline ::LobbySyncPackage::RefreshResponsePackage* RefreshListResponsePackage::mutable_rooms(int index) {
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RefreshListResponsePackage.rooms)
+  return _impl_.rooms_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::LobbySyncPackage::RefreshResponsePackage >*
+RefreshListResponsePackage::mutable_rooms() {
+  // @@protoc_insertion_point(field_mutable_list:LobbySyncPackage.RefreshListResponsePackage.rooms)
+  return &_impl_.rooms_;
+}
+inline const ::LobbySyncPackage::RefreshResponsePackage& RefreshListResponsePackage::_internal_rooms(int index) const {
+  return _impl_.rooms_.Get(index);
+}
+inline const ::LobbySyncPackage::RefreshResponsePackage& RefreshListResponsePackage::rooms(int index) const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RefreshListResponsePackage.rooms)
+  return _internal_rooms(index);
+}
+inline ::LobbySyncPackage::RefreshResponsePackage* RefreshListResponsePackage::_internal_add_rooms() {
+  return _impl_.rooms_.Add();
+}
+inline ::LobbySyncPackage::RefreshResponsePackage* RefreshListResponsePackage::add_rooms() {
+  ::LobbySyncPackage::RefreshResponsePackage* _add = _internal_add_rooms();
+  // @@protoc_insertion_point(field_add:LobbySyncPackage.RefreshListResponsePackage.rooms)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::LobbySyncPackage::RefreshResponsePackage >&
+RefreshListResponsePackage::rooms() const {
+  // @@protoc_insertion_point(field_list:LobbySyncPackage.RefreshListResponsePackage.rooms)
+  return _impl_.rooms_;
+}
+
+// -------------------------------------------------------------------
+
+// RefreshResponsePackage
+
+// uint32 roomId = 1;
+inline void RefreshResponsePackage::clear_roomid() {
+  _impl_.roomid_ = 0u;
+}
+inline uint32_t RefreshResponsePackage::_internal_roomid() const {
+  return _impl_.roomid_;
+}
+inline uint32_t RefreshResponsePackage::roomid() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RefreshResponsePackage.roomId)
+  return _internal_roomid();
+}
+inline void RefreshResponsePackage::_internal_set_roomid(uint32_t value) {
+  
+  _impl_.roomid_ = value;
+}
+inline void RefreshResponsePackage::set_roomid(uint32_t value) {
+  _internal_set_roomid(value);
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RefreshResponsePackage.roomId)
+}
+
+// string roomName = 2;
+inline void RefreshResponsePackage::clear_roomname() {
+  _impl_.roomname_.ClearToEmpty();
+}
+inline const std::string& RefreshResponsePackage::roomname() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RefreshResponsePackage.roomName)
+  return _internal_roomname();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RefreshResponsePackage::set_roomname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.roomname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RefreshResponsePackage.roomName)
+}
+inline std::string* RefreshResponsePackage::mutable_roomname() {
+  std::string* _s = _internal_mutable_roomname();
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RefreshResponsePackage.roomName)
+  return _s;
+}
+inline const std::string& RefreshResponsePackage::_internal_roomname() const {
+  return _impl_.roomname_.Get();
+}
+inline void RefreshResponsePackage::_internal_set_roomname(const std::string& value) {
+  
+  _impl_.roomname_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RefreshResponsePackage::_internal_mutable_roomname() {
+  
+  return _impl_.roomname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RefreshResponsePackage::release_roomname() {
+  // @@protoc_insertion_point(field_release:LobbySyncPackage.RefreshResponsePackage.roomName)
+  return _impl_.roomname_.Release();
+}
+inline void RefreshResponsePackage::set_allocated_roomname(std::string* roomname) {
+  if (roomname != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.roomname_.SetAllocated(roomname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.roomname_.IsDefault()) {
+    _impl_.roomname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:LobbySyncPackage.RefreshResponsePackage.roomName)
+}
+
+// string roomType = 3;
+inline void RefreshResponsePackage::clear_roomtype() {
+  _impl_.roomtype_.ClearToEmpty();
+}
+inline const std::string& RefreshResponsePackage::roomtype() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RefreshResponsePackage.roomType)
+  return _internal_roomtype();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RefreshResponsePackage::set_roomtype(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.roomtype_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RefreshResponsePackage.roomType)
+}
+inline std::string* RefreshResponsePackage::mutable_roomtype() {
+  std::string* _s = _internal_mutable_roomtype();
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RefreshResponsePackage.roomType)
+  return _s;
+}
+inline const std::string& RefreshResponsePackage::_internal_roomtype() const {
+  return _impl_.roomtype_.Get();
+}
+inline void RefreshResponsePackage::_internal_set_roomtype(const std::string& value) {
+  
+  _impl_.roomtype_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RefreshResponsePackage::_internal_mutable_roomtype() {
+  
+  return _impl_.roomtype_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RefreshResponsePackage::release_roomtype() {
+  // @@protoc_insertion_point(field_release:LobbySyncPackage.RefreshResponsePackage.roomType)
+  return _impl_.roomtype_.Release();
+}
+inline void RefreshResponsePackage::set_allocated_roomtype(std::string* roomtype) {
+  if (roomtype != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.roomtype_.SetAllocated(roomtype, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.roomtype_.IsDefault()) {
+    _impl_.roomtype_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:LobbySyncPackage.RefreshResponsePackage.roomType)
+}
+
+// string owner = 4;
+inline void RefreshResponsePackage::clear_owner() {
+  _impl_.owner_.ClearToEmpty();
+}
+inline const std::string& RefreshResponsePackage::owner() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RefreshResponsePackage.owner)
+  return _internal_owner();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RefreshResponsePackage::set_owner(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.owner_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RefreshResponsePackage.owner)
+}
+inline std::string* RefreshResponsePackage::mutable_owner() {
+  std::string* _s = _internal_mutable_owner();
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RefreshResponsePackage.owner)
+  return _s;
+}
+inline const std::string& RefreshResponsePackage::_internal_owner() const {
+  return _impl_.owner_.Get();
+}
+inline void RefreshResponsePackage::_internal_set_owner(const std::string& value) {
+  
+  _impl_.owner_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RefreshResponsePackage::_internal_mutable_owner() {
+  
+  return _impl_.owner_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RefreshResponsePackage::release_owner() {
+  // @@protoc_insertion_point(field_release:LobbySyncPackage.RefreshResponsePackage.owner)
+  return _impl_.owner_.Release();
+}
+inline void RefreshResponsePackage::set_allocated_owner(std::string* owner) {
+  if (owner != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.owner_.SetAllocated(owner, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.owner_.IsDefault()) {
+    _impl_.owner_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:LobbySyncPackage.RefreshResponsePackage.owner)
+}
+
+// int32 max = 5;
+inline void RefreshResponsePackage::clear_max() {
+  _impl_.max_ = 0;
+}
+inline int32_t RefreshResponsePackage::_internal_max() const {
+  return _impl_.max_;
+}
+inline int32_t RefreshResponsePackage::max() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RefreshResponsePackage.max)
+  return _internal_max();
+}
+inline void RefreshResponsePackage::_internal_set_max(int32_t value) {
+  
+  _impl_.max_ = value;
+}
+inline void RefreshResponsePackage::set_max(int32_t value) {
+  _internal_set_max(value);
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RefreshResponsePackage.max)
+}
+
+// int32 num = 6;
+inline void RefreshResponsePackage::clear_num() {
+  _impl_.num_ = 0;
+}
+inline int32_t RefreshResponsePackage::_internal_num() const {
+  return _impl_.num_;
+}
+inline int32_t RefreshResponsePackage::num() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RefreshResponsePackage.num)
+  return _internal_num();
+}
+inline void RefreshResponsePackage::_internal_set_num(int32_t value) {
+  
+  _impl_.num_ = value;
+}
+inline void RefreshResponsePackage::set_num(int32_t value) {
+  _internal_set_num(value);
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RefreshResponsePackage.num)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

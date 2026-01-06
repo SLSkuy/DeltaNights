@@ -125,6 +125,9 @@ namespace Network
         {
             switch (response.EventID)
             {
+                case RemoteLobbyEvent.RemoteLobbyRefresh:
+                    Dispatch(NetEvent.LobbyRefresh,response.RefreshListResponse);
+                    break;
                 default:
                     break;
             }

@@ -7,6 +7,7 @@ package LobbySyncPackage;
 ================================================== */
 enum LocalLobbyEvent {
   Local_Lobby_None = 0;
+  Local_Lobby_Refresh = 1;
 }
 
 // ===== 大厅操作请求包 =====
@@ -19,10 +20,30 @@ message LobbySyncRequest {
 ================================================== */
 enum RemoteLobbyEvent {
   Remote_Lobby_None = 0;
+  Remote_Lobby_Refresh = 1;
 }
 
 // ===== 大厅操作回应包 =====
 message LobbySyncResponse {
   RemoteLobbyEvent eventID = 1;
+  oneof content{
+    RefreshListResponsePackage refreshListResponse = 2;
+  }
 }
+
+// ===== 大厅列表回应包 =====
+message RefreshListResponsePackage{
+  repeated RefreshResponsePackage rooms= 1;
+}
+
+// ===== 大厅列表回应子包 =====
+message RefreshResponsePackage{
+  uint32 roomId = 1;//房间id
+  string roomName = 2;//房间名
+  string roomType = 3;//类型
+  string owner = 4;//房主名
+  int32 max = 5;//人数上限
+  int32 num = 6;//人数
+}
+
 
