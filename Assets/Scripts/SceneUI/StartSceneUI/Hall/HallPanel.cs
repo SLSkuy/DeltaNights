@@ -20,6 +20,7 @@ namespace SceneUI.StartSceneUI
     public class BackToMainPressDownSignal : ASignal{}
     public class HallPanel: PanelController
     {
+        [SerializeField] RoomListManager roomListManager;
         //字体自动更换
         [SerializeField] private TMP_FontAsset font;
         void OnEnable()
@@ -33,6 +34,14 @@ namespace SceneUI.StartSceneUI
                     text.font = font;
                 }
             }
+            
+            //TODO:发送列表请求
+        }
+
+        //用于处理事件-大厅列表包
+        void RefreshList()
+        {
+            
         }
         
         

@@ -25,6 +25,7 @@ namespace SceneUI.StartSceneUI
             Signals.Get<BackToMainPressDownSignal>().AddListener(OnBackToMainButtonPressDown);
             Signals.Get<LogInPressDownSignal>().AddListener(OnLogInButtonPressDown);
             Signals.Get<LogInPressDownErrorSignal>().AddListener(OnPromptWindow);
+            
         }
 
         protected override void RemoveSignal()
