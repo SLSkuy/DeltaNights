@@ -1,4 +1,13 @@
-﻿using UIFramework.Panel;
+﻿/* ------------------------------------------------------------
+ *  Author:  2023051604032 WangXinKai
+ *  Date:  2026.1.7
+ *  LastUpdate:  2026.1.7
+ * 
+ *  功能简述：
+ *  房间界面
+ * 
+ * ------------------------------------------------------------ */
+using UIFramework.Panel;
 
 namespace SceneUI.StartSceneUI
 {

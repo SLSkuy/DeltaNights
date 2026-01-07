@@ -13,20 +13,14 @@ using UnityEngine;
 
 namespace SceneUI.StartSceneUI
 {
-    public class RoomCellComponent:MonoBehaviour
+    public class RoomCellComponent:ListElement
     {
-        private int _index;//外界所用的索引
         private uint _roomId=0;
         private string _roomName;
         private string _roomType;
         private string _owner;
         private int _max;
         private int _num;
-
-        private void Start()
-        {
-            
-        }
 
         public void SetValue(uint roomId,string roomName,string roomType,string owner,int max,int num)
         {
@@ -36,11 +30,6 @@ namespace SceneUI.StartSceneUI
             _owner = owner;
             _max = max;
             _num = num;
-        }
-
-        public void SetIndex(int index)
-        {
-            _index = index;
         }
     }
 }
