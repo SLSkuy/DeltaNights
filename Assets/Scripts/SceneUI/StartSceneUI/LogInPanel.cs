@@ -20,12 +20,11 @@ using UnityEngine;
 namespace SceneUI.StartSceneUI
 {
     public class LogInPressDownSignal:ASignal<string>{}
-    public class LogInPressDownErrorSignal:ASignal<string>{}
     
     public class LogInPanel:PanelController
     {
-        public TMP_InputField inputAccount;
-        public  TMP_InputField inputPassword; 
+        [SerializeField] private TMP_InputField inputAccount;
+        [SerializeField] private  TMP_InputField inputPassword; 
         public void UI_OnLogInButtonPressDown()
         {
             if (inputAccount.text.Length > 0)
@@ -46,13 +45,13 @@ namespace SceneUI.StartSceneUI
                         }
                     };
                     NetWorkManager.instance.SendTcp(syncPackage);
-                    Signals.Get<LogInPressDownErrorSignal>().Dispatch("登录中");
+                    Signals.Get<StatusPromptWindowSignal>().Dispatch(true,"登录中");
                 }
-                else Signals.Get<LogInPressDownErrorSignal>().Dispatch("密码不能为空");
+                else Signals.Get<ErrorPromptWindowSignal>().Dispatch("密码不能为空");
             }
             else
             {
-                Signals.Get<LogInPressDownErrorSignal>().Dispatch("用户名不能为空");
+                Signals.Get<ErrorPromptWindowSignal>().Dispatch("用户名不能为空");
             }
         }
 

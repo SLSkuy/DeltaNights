@@ -17,23 +17,27 @@ using UnityEngine.UI;
 
 namespace SceneUI.StartSceneUI
 {
+    //常用信号
+    public class ErrorPromptWindowSignal:ASignal<string>{}//带关闭
+    public class StatusPromptWindowSignal:ASignal<bool,string>{}//不带关闭
+    
     public class StartUIManager: ASceneUIManager
     {
         protected override void AddSignal()
         {
             Signals.Get<StartPressDownSignal>().AddListener(OnStartButtonPressDown);
-            Signals.Get<BackToMainPressDownSignal>().AddListener(OnBackToMainButtonPressDown);
+            Signals.Get<HallPressDownSignal>().AddListener(OnHallButtonPressDown);
             Signals.Get<LogInPressDownSignal>().AddListener(OnLogInButtonPressDown);
-            Signals.Get<LogInPressDownErrorSignal>().AddListener(OnPromptWindow);
-            
+            Signals.Get<ErrorPromptWindowSignal>().AddListener(OnErrorPromptWindow);
+            Signals.Get<StatusPromptWindowSignal>().AddListener(OnStatusPromptWindow);
         }
 
         protected override void RemoveSignal()
         {
             Signals.Get<StartPressDownSignal>().RemoveListener(OnStartButtonPressDown);
-            Signals.Get<BackToMainPressDownSignal>().RemoveListener(OnBackToMainButtonPressDown);
+            Signals.Get<HallPressDownSignal>().RemoveListener(OnHallButtonPressDown);
             Signals.Get<LogInPressDownSignal>().RemoveListener(OnLogInButtonPressDown);
-            Signals.Get<LogInPressDownErrorSignal>().RemoveListener(OnPromptWindow);
+            Signals.Get<ErrorPromptWindowSignal>().RemoveListener(OnErrorPromptWindow);
         }
         
         void OnStartButtonPressDown()
@@ -42,22 +46,46 @@ namespace SceneUI.StartSceneUI
             UIFrame.ShowUI("HallPanel");
         }
 
-        void OnBackToMainButtonPressDown()
+        void OnHallButtonPressDown(HallOption option)
         {
-            UIFrame.ShowUI("StartMainPanel");
-            UIFrame.HideUI("HallPanel");
+            switch (option)
+            {
+                case HallOption.BackToMain:
+                    UIFrame.ShowUI("StartMainPanel");
+                    UIFrame.HideUI("HallPanel");
+                    break;
+                case HallOption.CreateRoom:
+                    UIFrame.ShowUI("CreateRoomWindow");
+                    break;
+                default:
+                    Debug.Log("StartUI-HallButton:忘记改Switch了");
+                    break;
+            }
+            
         }
 
         void OnLogInButtonPressDown(string ctx)
         {
             UIFrame.HideUI("LogInPanel");
-            UIFrame.HideUI("PromptWindow");
+            UIFrame.HideUI("StatusPromptWindow");
             UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties(PanelPriority.None, "欢迎，"+ctx));
         }
 
-        void OnPromptWindow(string ctx)
+        void OnErrorPromptWindow(string ctx)
         {
-            UIFrame.ShowUI("PromptWindow",new PromptWindowProperties(ctx));
+            UIFrame.ShowUI("ErrorPromptWindow",new PromptWindowProperties(ctx));
+        }
+
+        void OnStatusPromptWindow(bool visible ,string ctx=null)
+        {
+            if (visible)
+            {
+                UIFrame.ShowUI("StatusPromptWindow",new PromptWindowProperties(ctx));
+            }
+            else
+            {
+                UIFrame.ShowUI("StatusPromptWindow");
+            }
         }
 
         public void TestButton()
