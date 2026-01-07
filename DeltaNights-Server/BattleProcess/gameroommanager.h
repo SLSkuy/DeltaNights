@@ -11,10 +11,12 @@
 #pragma once
 
 #include <QObject>
+#include <qtcpsocket.h>
 #include <unordered_map>
 #include <QHostAddress>
 
 #include "../GameEvent/BattleSyncPackage.pb.h"
+#include "../GameEvent/SyncPackage.pb.h"
 
 class GameRoom;
 class PlayerInfo;
@@ -36,9 +38,11 @@ public:
     bool leaveGameRoom(quint32 roomID, PlayerInfo* player);
     void playerSyncRequest(BattleSyncPackage::BattleSyncRequest* input);
     void battleSyncResponse(quint32 roomID, BattleSyncPackage::BattleSyncResponse* pkg);
+    void roomOwner(QTcpSocket*socket,QString roomname,QString roomtype,QString roomintroduction);
 
 signals:
     void battleSyncGenerated(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg);  // 转发各个战局的信号
+    void roomCreateResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
 
 private:
     quint32 m_nextRoomID = 0;

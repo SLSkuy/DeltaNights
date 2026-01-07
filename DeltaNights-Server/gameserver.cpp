@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------
 *  Author:  2023051604044 wanrui
+*           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.7
  *
  *  功能：
  *  - 封装服务器所有核心模块
@@ -78,9 +79,11 @@ void GameServer::setupConnections()
     connect(_dispatcher,&NetworkDispatcher::clientBindUdpPort,_clientMgr,&ClientManager::clientBindUdpPort);
     connect(_dispatcher,&NetworkDispatcher::clientHeartBeat,_clientMgr,&ClientManager::updateClientLastActive);
     connect(_dispatcher,&NetworkDispatcher::clientLogin,_playerInfoMgr,&PlayerInfoManager::logIn);
+    connect(_dispatcher,&NetworkDispatcher::clientCreateRoom,_roomMgr,&GameRoomManager::roomOwner);
     //发
     connect(_clientMgr,&ClientManager::clientConnectResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
     connect(_playerInfoMgr,&PlayerInfoManager::clientLoginResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+    connect(_roomMgr,&GameRoomManager::roomCreateResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
 
     //
     connect(_playerInfoMgr,&PlayerInfoManager::clientBindPlayerInfo,_clientMgr,&ClientManager::clientBindPlayerInfo);
@@ -88,12 +91,12 @@ void GameServer::setupConnections()
 
 
     // 测试使用
-    connect(_clientMgr,&ClientManager::clientConnectResponse,this,[=](){
+    /*connect(_clientMgr,&ClientManager::clientConnectResponse,this,[=](){
         GameRoom* room = _roomMgr->createGameRoom();
         PlayerInfo* player = new PlayerInfo(0);
         _roomMgr->joinGameRoom(0, player);
         room->start();
-    });
+    });*/
 
     // 服务器逻辑更新
     connect(_logicTimer,&QTimer::timeout,_dispatcher,&NetworkDispatcher::processQueueMessage);
