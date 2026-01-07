@@ -38,6 +38,7 @@ namespace SceneUI.StartSceneUI
             Signals.Get<HallPressDownSignal>().RemoveListener(OnHallButtonPressDown);
             Signals.Get<LogInPressDownSignal>().RemoveListener(OnLogInButtonPressDown);
             Signals.Get<ErrorPromptWindowSignal>().RemoveListener(OnErrorPromptWindow);
+            Signals.Get<StatusPromptWindowSignal>().RemoveListener(OnStatusPromptWindow);
         }
         
         void OnStartButtonPressDown()
@@ -84,7 +85,7 @@ namespace SceneUI.StartSceneUI
             }
             else
             {
-                UIFrame.ShowUI("StatusPromptWindow");
+                UIFrame.HideUI("StatusPromptWindow");
             }
         }
 

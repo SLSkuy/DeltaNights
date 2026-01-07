@@ -20,6 +20,8 @@ MonoBehaviour:
   - isEnableOnRegister: 1
     uiPrefab: {fileID: 5781399399762115491, guid: 80169b44cfc40224ea2be70b6bd9749c, type: 3}
   - isEnableOnRegister: 0
+    uiPrefab: {fileID: 2305497711243131786, guid: af6f7f938401c2b46b1fb08b027c7ebb, type: 3}
+  - isEnableOnRegister: 0
     uiPrefab: {fileID: 60306959889130147, guid: 23171a6ee4ac34443b61142817cac047, type: 3}
   - isEnableOnRegister: 0
-    uiPrefab: {fileID: 2305497711243131786, guid: af6f7f938401c2b46b1fb08b027c7ebb, type: 3}
+    uiPrefab: {fileID: 60306959889130147, guid: af3f23c9f5f9ae84fb5921c24b46453a, type: 3}
