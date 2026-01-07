@@ -45,7 +45,7 @@ namespace SceneUI.StartSceneUI
                         }
                     };
                     NetWorkManager.instance.SendTcp(syncPackage);
-                    Signals.Get<ErrorPromptWindowSignal>().Dispatch("登录中");
+                    Signals.Get<StatusPromptWindowSignal>().Dispatch(true,"登录中");
                 }
                 else Signals.Get<ErrorPromptWindowSignal>().Dispatch("密码不能为空");
             }

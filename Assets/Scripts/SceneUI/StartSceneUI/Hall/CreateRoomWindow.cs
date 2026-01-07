@@ -48,10 +48,9 @@ namespace SceneUI.StartSceneUI
                     }
                 }
             };
-            Signals.Get<ErrorPromptWindowSignal>().Dispatch("创建房间中");
+            Signals.Get<StatusPromptWindowSignal>().Dispatch(true,"创建房间中");
             NetWorkManager.instance.SendTcp(syncPackage);
+            UI_Close();
         }
-        
-        
     }
 }

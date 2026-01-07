@@ -18,8 +18,8 @@ using UnityEngine.UI;
 namespace SceneUI.StartSceneUI
 {
     //常用信号
-    public class ErrorPromptWindowSignal:ASignal<string>{}
-    public class StatePromptWindowSignal:ASignal<string>{}
+    public class ErrorPromptWindowSignal:ASignal<string>{}//带关闭
+    public class StatusPromptWindowSignal:ASignal<bool,string>{}//不带关闭
     
     public class StartUIManager: ASceneUIManager
     {
@@ -29,7 +29,7 @@ namespace SceneUI.StartSceneUI
             Signals.Get<HallPressDownSignal>().AddListener(OnHallButtonPressDown);
             Signals.Get<LogInPressDownSignal>().AddListener(OnLogInButtonPressDown);
             Signals.Get<ErrorPromptWindowSignal>().AddListener(OnErrorPromptWindow);
-            
+            Signals.Get<StatusPromptWindowSignal>().AddListener(OnStatusPromptWindow);
         }
 
         protected override void RemoveSignal()
@@ -67,13 +67,25 @@ namespace SceneUI.StartSceneUI
         void OnLogInButtonPressDown(string ctx)
         {
             UIFrame.HideUI("LogInPanel");
-            UIFrame.HideUI("ErrorPromptWindow");
+            UIFrame.HideUI("StatusPromptWindow");
             UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties(PanelPriority.None, "欢迎，"+ctx));
         }
 
         void OnErrorPromptWindow(string ctx)
         {
             UIFrame.ShowUI("ErrorPromptWindow",new PromptWindowProperties(ctx));
+        }
+
+        void OnStatusPromptWindow(bool visible ,string ctx=null)
+        {
+            if (visible)
+            {
+                UIFrame.ShowUI("StatusPromptWindow",new PromptWindowProperties(ctx));
+            }
+            else
+            {
+                UIFrame.ShowUI("StatusPromptWindow");
+            }
         }
 
         public void TestButton()
