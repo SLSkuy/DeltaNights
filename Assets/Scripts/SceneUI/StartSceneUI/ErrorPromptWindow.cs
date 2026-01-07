@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace SceneUI.StartSceneUI
 {
-    public class PromptWindow:WindowController
+    public class ErrorPromptWindow:WindowController
     {
         [SerializeField]private TMP_Text text;
         

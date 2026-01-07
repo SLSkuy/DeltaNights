@@ -16,7 +16,7 @@ namespace SceneUI.StartSceneUI
     public class RoomCellComponent:MonoBehaviour
     {
         private int _index;//外界所用的索引
-        private uint _roomId;
+        private uint _roomId=0;
         private string _roomName;
         private string _roomType;
         private string _owner;

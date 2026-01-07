@@ -19,7 +19,7 @@ namespace SceneUI.StartSceneUI
     public class RoomListManager:MonoBehaviour
     {
         [SerializeField] private GameObject roomCell;
-        public int _currentRoomIndex{get;private set;}
+        public int _currentRoomIndex{get;private set;}//外界只读 当前的房间焦点
 
         private void Awake()
         {
@@ -35,17 +35,8 @@ namespace SceneUI.StartSceneUI
             //TODO:测试用
             for (int i = 0; i != 4; i++)
             {
-                GameObject o=Instantiate(roomCell,this.transform);
-                o.GetComponent<RoomCellComponent>().SetIndex(i);
-                Button b=o.GetComponent<Button>();
-                int currentIndex = i;//避免捕获到外界的i 闭包变量捕获问题
-                b.onClick.AddListener(() =>
-                {
-                    OnElementClick(currentIndex);
-                    //TODO:请求玩家列表
-                });
+                GameObject o = AddRoomElement(i);
             }
-            
         }
 
         public void RefreshList(RefreshListResponsePackage response)
@@ -55,18 +46,24 @@ namespace SceneUI.StartSceneUI
             {
                 var room = response.Rooms[i];//创建游戏对象并在对应脚本添加数据
                 
-                GameObject o=Instantiate(roomCell,this.transform);
+                GameObject o=AddRoomElement(i);
                 o.GetComponent<RoomCellComponent>().SetValue(room.RoomId, room.RoomName, room.RoomType, room.Owner,
                     room.Max, room.Num);
-                o.GetComponent<RoomCellComponent>().SetIndex(i);
-                Button b=o.GetComponent<Button>();
-                int currentIndex = i;//避免捕获到外界的i 闭包变量捕获问题
-                b.onClick.AddListener(() =>
-                {
-                    OnElementClick(currentIndex);
-                    //TODO:请求玩家列表
-                });
             }
+        }
+    
+        //添加对应的房间元素
+        private GameObject AddRoomElement(int index)
+        {
+            GameObject o=Instantiate(roomCell,this.transform);
+            o.GetComponent<RoomCellComponent>().SetIndex(index);
+            Button b=o.GetComponent<Button>();
+            b.onClick.AddListener(() =>
+            {
+                OnElementClick(index);
+                //TODO:请求玩家列表
+            });
+            return o;
         }
 
         void OnElementClick(int index)

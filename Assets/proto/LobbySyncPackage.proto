@@ -8,12 +8,38 @@ package LobbySyncPackage;
 enum LocalLobbyEvent {
   Local_Lobby_None = 0;
   Local_Lobby_Refresh = 1;
+  Local_Lobby_RoomInfo = 2;
+  Local_Lobby_RoomCreate = 3;
+  Local_Lobby_RoomJoin = 4;
 }
 
 // ===== 大厅操作请求包 =====
 message LobbySyncRequest {
   LocalLobbyEvent eventID = 1;
+  oneof content {
+    RoomCreateRequest roomCreate = 2;
+    RoomInfoRequest roomInfo = 3;
+    RoomJoinRequest roomJoin = 4;
+  }
 }
+
+// ===== 创建房间请求包 =====
+message RoomCreateRequest {
+  string roomName = 1;//房间名
+  string roomType = 2;//房间类型
+  string roomIntroduction = 3;//房间简介
+}
+
+// ===== 房间信息请求包 =====
+message RoomInfoRequest {
+  uint32 roomId = 1;
+}
+
+// ===== 加入房间请求包 =====
+message RoomJoinRequest {
+  uint32 roomId = 1;
+}
+
 
 /* ==================================================
   顶层封装-大厅操作回应事件
@@ -21,6 +47,9 @@ message LobbySyncRequest {
 enum RemoteLobbyEvent {
   Remote_Lobby_None = 0;
   Remote_Lobby_Refresh = 1;
+  Remote_Lobby_RoomInfo = 2;
+  Remote_Lobby_RoomCreate = 3;
+  Remote_Lobby_RoomJoin = 4;
 }
 
 // ===== 大厅操作回应包 =====
@@ -28,6 +57,9 @@ message LobbySyncResponse {
   RemoteLobbyEvent eventID = 1;
   oneof content{
     RefreshListResponsePackage refreshListResponse = 2;
+    RoomCreateResponsePackage roomCreateResponse = 3;
+    RoomInfoResponsePackage roomInfoResponse = 4;
+    RoomJoinResponsePackage roomJoinResponse = 5;
   }
 }
 
@@ -46,4 +78,22 @@ message RefreshResponsePackage{
   int32 num = 6;//人数
 }
 
+// ===== 创建房间回应包 =====
+message RoomCreateResponsePackage {
+  uint32 roomId = 1;
+  uint32 max = 2;
+  uint32 num = 3;
+}
 
+// ===== 房间信息回应包 =====
+message RoomInfoResponsePackage {
+  uint32 roomId = 1;
+  repeated string teamAPlayers = 2;
+  repeated string teamBPlayers = 3;
+}
+
+// ===== 加入房间回应包 =====
+message RoomJoinResponsePackage {
+  uint32 roomId = 1;
+  uint32 roomTeam = 2;//队伍 方便多队伍 1=A队 2=B队
+}

@@ -18,7 +18,12 @@ using SyncPackage;
 
 namespace SceneUI.StartSceneUI
 {
-    public class BackToMainPressDownSignal : ASignal{}
+    public class HallPressDownSignal : ASignal<HallOption>{}
+
+    public enum HallOption
+    {
+        BackToMain,JoinRoom,CreateRoom
+    }
     public class HallPanel: PanelController
     {
         [SerializeField] RoomListManager roomListManager;
@@ -42,6 +47,7 @@ namespace SceneUI.StartSceneUI
         //用于处理事件-大厅列表包
         void RefreshList(RefreshListResponsePackage response)
         {
+            //TODO:对接 接收大厅列表
             roomListManager.RefreshList(response);
         }
 
@@ -57,6 +63,7 @@ namespace SceneUI.StartSceneUI
                     EventID = LocalLobbyEvent.LocalLobbyRefresh 
                 }
             };
+            //TODO:对接 发送刷新请求
             NetWorkManager.instance.SendTcp(syncPackage);
             Debug.Log("请求刷新");
         }
@@ -64,17 +71,19 @@ namespace SceneUI.StartSceneUI
         public void UI_JoinRoom()
         {
             //TODO:加入房间
+            Debug.Log("加入房间"+roomListManager._currentRoomIndex);
         }
 
         public void UI_CreateRoom()
         {
             //TODO:创建房间
+            Signals.Get<HallPressDownSignal>().Dispatch(HallOption.CreateRoom);
         }
         
         
         public void UI_OnBackButtonPressDown()
         {
-            Signals.Get<BackToMainPressDownSignal>().Dispatch();
+            Signals.Get<HallPressDownSignal>().Dispatch(HallOption.BackToMain);
         }
 
         void Start()

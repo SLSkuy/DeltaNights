@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 924574838764468340}
   - component: {fileID: 7112188843832696093}
   m_Layer: 5
-  m_Name: PromptWindow
+  m_Name: ErrorPromptWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneUI.StartSceneUI.PromptWindow
   animIn: {fileID: 0}
   animOut: {fileID: 0}
-  uiControllerID: PromptWindow
+  uiControllerID: ErrorPromptWindow
   isVisible: 0
   properties:
     priority: 0
