@@ -30,6 +30,7 @@
 using System;
 using InputProcess;
 using SkillSystem;
+using Unity.Cinemachine;
 using UnityEngine;
 using WeaponSystem;
 
@@ -176,7 +177,10 @@ namespace PlayerControl
         /// </summary>
         private void HandleReloadInput()
         {
-            if(mainWeapon._currentBulletNum <= 0)
+            float reload = _attackInputSource.Reload;
+
+            if((mainWeapon._currentBulletNum <= 0 && mainWeapon._bulletTotal >0) || 
+               (mainWeapon._currentBulletNum < mainWeapon._bulletCapacity && reload > 0))
             {
                 OnReloadStart?.Invoke();
             }
