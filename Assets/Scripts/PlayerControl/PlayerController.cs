@@ -31,10 +31,16 @@
  *  - 不要在本类中直接编写攻击、技能或动画逻辑
  * ------------------------------------------------------------ */
 
-using System;
 using InputProcess;
+using System;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
+using UnityEngine.InputSystem.Processors;
+using WeaponSystem;
+using WeaponSystem.Weapon;
+
 
 namespace PlayerControl
 {
@@ -44,7 +50,11 @@ namespace PlayerControl
     public class PlayerController : MonoBehaviour
     {
         #region 内部成员
-        
+
+        [Header("玩家数值属性")]
+        public float _hp = 100f;
+        public float _armor = 80f;
+
         [Header("玩家移动属性")] 
         public float speed = 4f;
         public float shoulderAimSpeed = 2.5f;
@@ -95,8 +105,12 @@ namespace PlayerControl
         // 技能限制
         private bool _locomotionLockedBySkill;
 
-        #endregion
+        //动画rig
+        public Rig _rig;
+
         
+        #endregion
+
         #region 事件
 
         public event Action PreUpdate;  // 每帧更新前调用
@@ -107,15 +121,25 @@ namespace PlayerControl
         public event Action<Vector2> OnMove;    // 玩家移动输入事件
         public event Action<int> OnJump;    // 玩家跳跃事件
         public event Action OnLand; // 触地事件
-        
+        public event Action OnWound; //受击事件
+        public event Action OnDead; //死亡事件
+
         #endregion
-        
+
         #region 周期函数
-        
+
         private void Awake()
         {
             // 组件引用
             _characterController = GetComponent<CharacterController>();
+            _camera = Camera.main;
+            _rig = GetComponentInChildren<Rig>();
+        }
+
+        private void Start()
+        {
+            // 输入注入
+            _locomotionInputSource = GameInput.Instance;
         }
         
         private void OnEnable()
@@ -368,6 +392,34 @@ namespace PlayerControl
             }
         }
 
+        /// <summary>
+        /// 实现玩家受伤
+        /// </summary>
+        public void Wound(WeaponData weaponData)
+        {
+            if(this._armor != 0 && this._hp !=0)
+            {
+                this._armor -= weaponData.BodyDamage;
+                OnWound?.Invoke();
+            }
+            else if(this._armor == 0 && this._hp != 0) 
+            {
+                this._hp -= weaponData.BodyDamage;
+                OnWound?.Invoke();
+            }
+            else if(this._hp <= 0)
+            {
+                this._hp = 0;
+                Dead();
+            }
+        }
+
+        public void Dead()
+        {
+            OnDead?.Invoke();
+            this.PauseControl();
+            Destroy(this.gameObject);
+        }
         #endregion
     }
 }
