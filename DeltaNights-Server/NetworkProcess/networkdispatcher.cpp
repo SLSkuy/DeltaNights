@@ -188,7 +188,7 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
         case LocalLobbyEvent::Local_Lobby_RoomJoin:
         qDebug() << "room join";
             //客户端加入房间请求
-            //emit
+        emit clientJoinRoom(socket,pkg.roomjoin().roomid());
             break;
         case LocalLobbyEvent::Local_Lobby_None:
         qDebug() << "none";

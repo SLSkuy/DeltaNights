@@ -2,7 +2,7 @@
 *  Author:  2023051604044 wanrui
 *           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.7
+ *  LastUpdate: 2026.1.8
  *
  *  功能：
  *  - 封装服务器所有核心模块
@@ -81,11 +81,13 @@ void GameServer::setupConnections()
     connect(_dispatcher,&NetworkDispatcher::clientLogin,_playerInfoMgr,&PlayerInfoManager::logIn);
     connect(_dispatcher,&NetworkDispatcher::clientCreateRoom,_roomMgr,&GameRoomManager::roomOwner);
     connect(_dispatcher,&NetworkDispatcher::clientRefresh, _roomMgr,&GameRoomManager::refreshGameRoom);
+    connect(_dispatcher,&NetworkDispatcher::clientJoinRoom,_roomMgr,&GameRoomManager::assignRooms);
     //发
     connect(_clientMgr,&ClientManager::clientConnectResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
     connect(_playerInfoMgr,&PlayerInfoManager::clientLoginResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
     connect(_roomMgr,&GameRoomManager::roomCreateResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
     connect(_roomMgr,&GameRoomManager::refeshGameRoomResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+    connect(_roomMgr,&GameRoomManager::joinRoomResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
 
     //
     connect(_playerInfoMgr,&PlayerInfoManager::clientBindPlayerInfo,_clientMgr,&ClientManager::clientBindPlayerInfo);

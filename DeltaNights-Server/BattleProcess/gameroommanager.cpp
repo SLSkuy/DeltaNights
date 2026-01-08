@@ -133,7 +133,7 @@ void GameRoomManager::roomOwner(QTcpSocket*socket,QString roomname,QString roomt
     room->roomName(roomname);
     room->roomType(roomtype);
     room->roomIntroduction(roomintroduction);
-    room->addNum();//实时增加房间人数
+    //room->addNum();//实时增加房间人数
     auto ownername= _clientManager->findClientByTcp(socket)->getPlayer()->nickname();
     room->roomOwnerName(ownername);
     //测试代码
@@ -153,7 +153,7 @@ void GameRoomManager::roomOwner(QTcpSocket*socket,QString roomname,QString roomt
     auto *createRoomResponse=type->mutable_roomcreateresponse();
     createRoomResponse->set_roomid(m_nextRoomID-1);
     createRoomResponse->set_max(m_rooms[m_nextRoomID-1]->getMax());
-    createRoomResponse->set_num(m_rooms[m_nextRoomID-1]->getNum());
+    createRoomResponse->set_num(m_rooms[m_nextRoomID-1]->getPlayerCount());
 
     Logger::Info() <<"[GameRoomManager]"<<"roomid"<<"-"<<m_nextRoomID-1;
     emit roomCreateResponse(socket,response);
@@ -181,10 +181,36 @@ void GameRoomManager::refreshGameRoom(QTcpSocket *socket)
         room->set_roomtype(m_rooms[i]->getRoomType().toStdString());
         room->set_owner(m_rooms[i]->getRoomOwnerName().toStdString());
         room->set_max(m_rooms[i]->getMax());
-        room->set_num(m_rooms[i]->getNum());
+        room->set_num(m_rooms[i]->getPlayerCount());
     }
 
 
     Logger::Info() <<"[GameRoomManager]"<<"refresh";
     emit refeshGameRoomResponse(socket, response);
+}
+
+void GameRoomManager::assignRooms(QTcpSocket *socket, quint32 roomid)
+{
+    PlayerInfo *player = _clientManager->findClientByTcp(socket)->getPlayer();
+    joinGameRoom(roomid,player);
+    GameRoom *room = findGameRoomByID(roomid);
+
+    if(room->isRoomFull()) {
+        qDebug()<<"加入失败，房间已满";
+        return;
+    }
+
+    quint32 team = room->addInFewPlayersTeam(player);
+
+    using namespace SyncPackage;
+    RemoteSyncPackage response;
+    response.set_eventid(RemoteSyncEvent::LobbyResponse);
+    auto* type = response.mutable_lobbypackage();
+    type->set_eventid(LobbySyncPackage::RemoteLobbyEvent::Remote_Lobby_RoomJoin);
+    auto *roomJoinResponse = type->mutable_roomjoinresponse();
+    roomJoinResponse->set_roomid(roomid);
+    roomJoinResponse->set_roomteam(team);
+
+
+    emit joinRoomResponse(socket,response);
 }

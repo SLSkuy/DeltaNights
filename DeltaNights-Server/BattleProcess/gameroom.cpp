@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.8
  *
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
@@ -73,6 +74,33 @@ void GameRoom::playerTimeout(quint32 clientID)
 
     m_players[clientID]->unBind();
 }
+
+bool GameRoom::isRoomFull()
+{
+    return m_playerCount>=m_max;
+}
+
+quint32 GameRoom::addInFewPlayersTeam(PlayerInfo* player)
+{
+    //int i = 0;
+    if(_teamB.size()>_teamA.size())
+    {
+        _teamB[m_teamBcount++] = player;
+        return 2;
+    }
+    else
+    {
+        _teamA[m_teamAcount++] = player;
+        return 1;
+    }
+}
+
+
+/*std::unordered_map<quint32, PlayerInfo *> GameRoom::teamWithFewPlayers()
+{
+    return _teamB.size()>_teamA.size()?_teamB:_teamA;
+}*/
+
 /* --------------------------------------------------
  * 战局控制
  * -------------------------------------------------- */
@@ -88,6 +116,7 @@ void GameRoom::stop()
     _timer->stop();
     m_state = GameState::Finished;
 }
+
 
 void GameRoom::onTick()
 {
