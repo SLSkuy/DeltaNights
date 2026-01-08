@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604020 QuZhiYao
  *  Date:  2025.12.27
- *  LastUpdate:  2025.12.27
+ *  LastUpdate:  2025.1.4
  * 
  *  功能简述：
  *  游戏局内UI管理器
@@ -35,8 +35,8 @@ namespace SceneUI.GameSceneUI
         // 当前UI状态
         private float currentHealth = 100f;
         private float maxHealth = 100f;
-        private int currentAmmo = 30;
-        private int maxAmmo = 30;
+        private int currentAmmo = 60;
+        private int maxAmmo = 60;
         
         private void Start()
         {
@@ -122,26 +122,29 @@ namespace SceneUI.GameSceneUI
         /// <summary>
         /// 外部测试用方法：模拟玩家受伤
         /// </summary>
-        public void TestPlayerTakeDamage(float damage)
+        public void PlayerTakeDamage(float damage)
         {
-            currentHealth = Mathf.Max(0, currentHealth - damage);
+            Debug.Log("PlayerTakeDamage called");
+            currentHealth = Mathf.Max(0, currentHealth - damage);//确保血量不为负
             Signals.Get<PlayerHealthChangedSignal>().Dispatch(currentHealth, maxHealth);
         }
         
         /// <summary>
         /// 外部测试用方法：模拟玩家射击
         /// </summary>
-        public void TestPlayerFire()
+        public void PlayerFire()
         {
-            currentAmmo = Mathf.Max(0, currentAmmo - 1);
+            Debug.Log("PlayerFire called");
+            currentAmmo = Mathf.Max(0, currentAmmo - 1);//确保子弹数不为负
             Signals.Get<PlayerAmmoChangedSignal>().Dispatch(currentAmmo, maxAmmo);
         }
         
         /// <summary>
         /// 外部测试用方法：模拟玩家换弹
         /// </summary>
-        public void TestPlayerReload()
+        public void PlayerReload()
         {
+            Debug.Log("PlayerReload called");
             currentAmmo = maxAmmo;
             Signals.Get<PlayerAmmoChangedSignal>().Dispatch(currentAmmo, maxAmmo);
         }
