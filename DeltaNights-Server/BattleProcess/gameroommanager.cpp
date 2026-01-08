@@ -2,7 +2,7 @@
  *  Author:  2023051604044 wanrui
  *           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.7
+ *  LastUpdate: 2026.1.8
  *
  *  游戏战局房间管理
  *  处理房间的创建、销毁、玩家与房间之间的交互逻辑
@@ -213,4 +213,35 @@ void GameRoomManager::assignRooms(QTcpSocket *socket, quint32 roomid)
 
 
     emit joinRoomResponse(socket,response);
+}
+
+void GameRoomManager::roomInfo(QTcpSocket *socket, quint32 roomid)
+{
+    quint32 i = 0;
+
+    using namespace SyncPackage;
+    RemoteSyncPackage response;
+    response.set_eventid(RemoteSyncEvent::LobbyResponse);
+    auto* type = response.mutable_lobbypackage();
+    type->set_eventid(LobbySyncPackage::RemoteLobbyEvent::Remote_Lobby_RoomInfo);
+    auto *roomInfo = type->mutable_roominforesponse();
+    roomInfo->set_roomid(roomid);
+
+    GameRoom *room = findGameRoomByID(roomid);
+    for(i=0;i<=room->getTeamACount();i++)
+    {
+        auto player = room->getTeamAPlayer(i);
+        QString playername = player->nickname();
+        roomInfo->add_teamaplayers(playername.toStdString());
+
+    }
+
+    for(i=0;i<=room->getTeamBCount();i++)
+    {
+        auto player = room->getTeamBPlayer(i);
+        QString playername = player->nickname();
+        roomInfo->add_teambplayers(playername.toStdString());
+    }
+
+    emit roomInfoResponse(socket,response);
 }

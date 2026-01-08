@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.8
  *
  *  游戏战局房间管理
  *  处理房间的创建、销毁、玩家与房间之间的交互逻辑
@@ -41,12 +42,14 @@ public:
     void roomOwner(QTcpSocket*socket,QString roomname,QString roomtype,QString roomintroduction);
     void refreshGameRoom(QTcpSocket *socket);
     void assignRooms(QTcpSocket *socket,quint32 roomid);
+    void roomInfo(QTcpSocket *socket, quint32 roomid);
 
 signals:
     void battleSyncGenerated(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg);  // 转发各个战局的信号
     void roomCreateResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
     void refeshGameRoomResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
     void joinRoomResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
+    void roomInfoResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
 
 private:
     quint32 m_nextRoomID = 0;

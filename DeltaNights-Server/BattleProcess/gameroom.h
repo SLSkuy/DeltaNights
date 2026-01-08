@@ -75,6 +75,10 @@ public:
     //void addNum(){m_num++;}
     int getMax(){return m_max;}
     int getPlayerCount(){return m_playerCount;}
+    quint32 getTeamACount(){return m_teamAcount;}
+    quint32 getTeamBCount(){return m_teamBcount;}
+    PlayerInfo* getTeamAPlayer(quint32 i);
+    PlayerInfo* getTeamBPlayer(quint32 i);
 
 signals:
     void battleSync(quint32 roomID, BattleSyncPackage::BattleSyncResponse* response);  // 发送新Tick信号，由接收者处理每一Tick产生的Protobuf事件

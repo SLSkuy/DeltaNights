@@ -95,6 +95,16 @@ quint32 GameRoom::addInFewPlayersTeam(PlayerInfo* player)
     }
 }
 
+PlayerInfo *GameRoom::getTeamAPlayer(quint32 i)
+{
+    return _teamA[i];
+}
+
+PlayerInfo *GameRoom::getTeamBPlayer(quint32 i)
+{
+    return _teamB[i];
+}
+
 
 /*std::unordered_map<quint32, PlayerInfo *> GameRoom::teamWithFewPlayers()
 {
