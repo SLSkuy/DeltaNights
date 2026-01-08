@@ -57,6 +57,10 @@ namespace InputProcess
         [Tooltip("终极技能输入")]
         public InputAxis ultimateSkill = InputAxis.DefaultMomentary;
         
+        [Header("其余输入配置")]
+        [Tooltip("换弹输入")]
+        public InputAxis reload = InputAxis.DefaultMomentary;
+
         /// <summary>
         /// 暴露属性，使用接口实现便于网络传输使用
         /// </summary>
@@ -70,9 +74,10 @@ namespace InputProcess
         public float Attack => attack.Value;
         public float ActiveSkill => activeSkill.Value;
         public float UltimateSkill => ultimateSkill.Value;
+        public float Reload => reload.Value;
 
         #region cinemachine输入控制
-        
+
         /// <summary>
         /// 实现IInputAxisOwner接口
         /// 用于Cinemachine Input Axis Controller读取相应信息以获取Input System中的输入信息
@@ -90,6 +95,7 @@ namespace InputProcess
             axes.Add(new () { DrivenAxis = () => ref attack, Name = "Attack"});
             axes.Add(new () { DrivenAxis = () => ref activeSkill, Name = "ActiveSkill"});
             axes.Add(new () { DrivenAxis = () => ref ultimateSkill, Name = "UltimateSkill"});
+            axes.Add(new() { DrivenAxis = () => ref reload, Name = "Reload" });
         }
         
         /// <summary>
@@ -111,6 +117,8 @@ namespace InputProcess
             attack.Validate();
             activeSkill.Validate();
             ultimateSkill.Validate();
+
+            reload.Validate();
         }
         
         #endregion

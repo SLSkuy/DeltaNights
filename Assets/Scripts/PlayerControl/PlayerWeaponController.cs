@@ -26,6 +26,9 @@
  *  - 技能释放期间可通过 SetAttackLock 禁止攻击
  * ------------------------------------------------------------ */
 
+using System;
+using UnityEngine;
+using System.Diagnostics;
 using WeaponSystem;
 
 namespace PlayerControl
@@ -42,7 +45,12 @@ namespace PlayerControl
         private float _attackCooldown;
         private bool _attackHeld;
         private bool _attackLockBySkill;
-        
+        private bool _attackLockByReloading;
+        private bool _isReloading;//换弹中
+        private float _reloadTimer;//换弹时间
+
+        public event Action OnReloadComplete;
+
         public PlayerWeaponController(PlayerAttackController attackController)
         {
             _attackController = attackController;
@@ -50,6 +58,8 @@ namespace PlayerControl
             attackController.OnAttackPressed += HandleAttackPressed;
             attackController.OnAttackReleased += HandleAttackReleased;
             attackController.OnSwitchWeapon += SwitchWeapon;
+            attackController.OnReloadStart += TryReload;
+            //attackController.OnReloadComplete += CompleteReload;
         }
 
         ~PlayerWeaponController()
@@ -57,17 +67,31 @@ namespace PlayerControl
             _attackController.OnAttackPressed -= HandleAttackPressed;
             _attackController.OnAttackReleased -= HandleAttackReleased;
             _attackController.OnSwitchWeapon -= SwitchWeapon;
+            _attackController.OnReloadStart -= TryReload;
+            //_attackController.OnReloadComplete -= CompleteReload;
         }
 
         /// <summary>
         /// 切换武器
         /// </summary>
         /// <param name="newWeapon"></param>
-        public void SwitchWeapon(WeaponData newWeapon)
+        public void SwitchWeapon(WeaponData newWeapon,PlayerController playerController)
         {
-            _currentWeapon = newWeapon;
+            if (newWeapon == null){return;}
+            if (playerController == null){return;}
+            if (_currentWeapon != null)
+            {
+                _currentWeapon.unload(playerController);
+            }
+            else {}
 
-            _attackCooldown = 10f / _currentWeapon.AttackSpeed;
+            _currentWeapon = newWeapon;
+            _currentWeapon.init(playerController);
+
+            if (_currentWeapon.AttackSpeed > 0f)
+            {
+                _attackCooldown = 10f / _currentWeapon.AttackSpeed;
+            }
         }
 
         /// <summary>
@@ -78,6 +102,15 @@ namespace PlayerControl
             if (_attackCooldown > 0f)
             {
                 _attackCooldown -= deltaTime;
+            }
+            // 只在换弹状态下更新计时器
+            if (_isReloading && _reloadTimer > 0f)
+            {
+                _reloadTimer -= deltaTime;
+                if (_reloadTimer <= 0f)
+                {
+                    CompleteReload();
+                }
             }
 
             // 全自动武器：持续攻击
@@ -113,11 +146,13 @@ namespace PlayerControl
             _attackHeld = false;
         }
 
+
         private void TryAttack()
         {
             if (!_currentWeapon) return;
             if (_attackLockBySkill) return; // 技能瞄准状态，禁止开火
             if (_attackCooldown > 0f) return;
+            if (_attackLockByReloading) return;
 
             _currentWeapon.Attack();
 
@@ -127,6 +162,51 @@ namespace PlayerControl
             }
         }
 
+        #endregion
+
+        #region 换弹逻辑
+        private void TryReload()
+        {
+            if (_currentWeapon == null) return;
+            if (_isReloading) return; // 已经在换弹中
+            if (_currentWeapon._bulletTotal == 0) return;
+
+            // 检查是否需要换弹
+            if (_currentWeapon._currentBulletNum < _currentWeapon._bulletCapacity &&
+                _currentWeapon._bulletTotal > 0)
+            {
+                StartReload();
+            }
+        }
+
+        private void StartReload()
+        {
+            _isReloading = true;
+            _reloadTimer = _currentWeapon._reloadTime;
+
+            // 换弹期间锁定攻击
+            _attackLockByReloading = true;
+        }
+
+        private void CompleteReload()
+        {
+            if (!_isReloading) return; 
+
+            _isReloading = false;
+
+            if (_currentWeapon != null)
+            {
+                // 计算装填子弹数
+                int neededBullets = _currentWeapon._bulletCapacity - _currentWeapon._currentBulletNum;
+                int availableBullets = Mathf.Min(neededBullets, _currentWeapon._bulletTotal);
+
+                _currentWeapon._currentBulletNum += availableBullets;
+                _currentWeapon._bulletTotal -= availableBullets;
+            }
+
+            _attackLockByReloading = false;
+            OnReloadComplete?.Invoke();
+        }
         #endregion
     }
 }

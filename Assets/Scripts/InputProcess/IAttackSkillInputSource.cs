@@ -22,5 +22,6 @@ namespace InputProcess
         float Attack { get; }
         float ActiveSkill { get; }
         float UltimateSkill { get; }
+        float Reload { get; }
     }
 }

@@ -93,3 +93,5 @@ ignore.conf
 
 # ---- protobuf 库 ----
 protobuf/
+/Assets/Meshes/S201靛蓝逐罪
+/.vsconfig

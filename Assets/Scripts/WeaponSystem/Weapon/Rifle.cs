@@ -17,6 +17,9 @@
  *  - 由武器控制或攻击系统调用 Attack 方法触发攻击
  * ------------------------------------------------------------ */
 
+using PlayerControl;
+using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace WeaponSystem.Weapon
@@ -27,10 +30,63 @@ namespace WeaponSystem.Weapon
     [CreateAssetMenu(fileName = "Rifle", menuName = "Weapon/Rifle")]
     public class Rifle : WeaponData
     {
+
         public override void Attack()
         {
-            Debug.Log("Rifle Fired!");
-            // 具体武器逻辑
+            if (_currentBulletNum != 0)
+            {
+                //子弹数处理
+                _currentBulletNum--;
+                Debug.Log("当前子弹数： "+_currentBulletNum);
+                Debug.Log("当前子弹剩余数： " + _bulletTotal);
+
+                // 具体武器逻辑
+                //射线射向屏幕中心
+                _centerRay = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+                _targetPoint = _centerRay.GetPoint(500f);
+
+                //方向向量
+                Vector3 shoulderDirection = (_targetPoint - _muzzle.transform.position).normalized;
+                Vector3 aimDirection = (_targetPoint - (Camera.main.transform.position - Vector3.up * 0.3f)).normalized;
+
+                //实例化弹道
+                GameObject obj = Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation);
+                Bullet bullet = obj.GetComponent<Bullet>();
+                bullet.setRifle(this);
+
+                //音效
+                GameObject fireAduio = Instantiate(_fireAudio, _muzzle.transform.position, _muzzle.transform.rotation);
+                AudioSource audioSource = fireAduio.GetComponent<AudioSource>();
+                audioSource.time = 0.34f;
+                audioSource.Play();
+                Destroy(fireAduio, 3);
+
+                if (_isShoulderAim && !_isAim)
+                {
+                    _shoulderRay = new Ray(_muzzle.transform.position, shoulderDirection);
+                    if (Physics.Raycast(_shoulderRay, out _hitInfo, 500f))
+                    {
+                        GameObject hitObject = _hitInfo.collider.gameObject;
+                        PlayerController playerController = hitObject.GetComponent<PlayerController>();
+                        playerController.Wound(bullet._rifle);
+                        Debug.Log(hitObject.name + "护甲: " + playerController._armor);
+                        Debug.Log(hitObject.name + "Hp: " + playerController._hp);
+                    }
+                }
+                else if (_isAim && !_isShoulderAim)
+                {
+                    _aimRay = new Ray(Camera.main.transform.position - Vector3.up * 0.3f, aimDirection);
+                    if (Physics.Raycast(_aimRay, out _hitInfo, 500f))
+                    {
+                        GameObject hitObject = _hitInfo.collider.gameObject;
+                        PlayerController playerController = hitObject.GetComponent<PlayerController>();
+                        playerController.Wound(bullet._rifle);
+                    }
+                }
+            }else if(_currentBulletNum == 0)
+            {
+                return;
+            }
         }
     }
 }
