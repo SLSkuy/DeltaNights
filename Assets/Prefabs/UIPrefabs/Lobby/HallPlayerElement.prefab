@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 8517229694999357741}
   - component: {fileID: 7460236476472168827}
   - component: {fileID: 4457252492534357062}
+  - component: {fileID: -7554923186549986285}
   m_Layer: 5
-  m_Name: Player1
+  m_Name: HallPlayerElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-7554923186549986285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4970654856803537627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9887f3cb0212452392a3a3bf7ecdd304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneUI.StartSceneUI.PlayerElementComponent
+  _text: {fileID: 4096839800457123386}
 --- !u!1 &5260064292676425063
 GameObject:
   m_ObjectHideFlags: 0

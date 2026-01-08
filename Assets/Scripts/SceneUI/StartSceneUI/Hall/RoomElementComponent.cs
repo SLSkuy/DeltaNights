@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace SceneUI.StartSceneUI
 {
-    public class RoomCellComponent:ListElement
+    public class RoomElementComponent:ListElement
     {
         private uint _roomId=0;
         private string _roomName;
@@ -30,6 +30,11 @@ namespace SceneUI.StartSceneUI
             _owner = owner;
             _max = max;
             _num = num;
+        }
+
+        public uint GetRoomId()
+        {
+            return _roomId;
         }
     }
 }

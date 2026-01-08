@@ -40,8 +40,20 @@ namespace SceneUI.StartSceneUI
                 var room = response.Rooms[i];//创建游戏对象并在对应脚本添加数据
                 
                 GameObject o=AddElement(i);
-                o.GetComponent<RoomCellComponent>().SetValue(room.RoomId, room.RoomName, room.RoomType, room.Owner,
+                o.GetComponent<RoomElementComponent>().SetValue(room.RoomId, room.RoomName, room.RoomType, room.Owner,
                     room.Max, room.Num);
+            }
+        }
+        
+        public uint GetIdByIndex(int index)
+        {
+            if (_elementByIndex.ContainsKey(index))
+            {
+                return _elementByIndex[index].GetComponent<RoomElementComponent>().GetRoomId();
+            }
+            else
+            {
+                return 0;
             }
         }
     }

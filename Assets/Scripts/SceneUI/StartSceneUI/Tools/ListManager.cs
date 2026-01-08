@@ -57,11 +57,11 @@ namespace SceneUI.StartSceneUI
             GameObject o=Instantiate(_preObject,this.transform);
             o.GetComponent<ListElement>().SetIndex(index);
             Button b=o.GetComponent<Button>();
+            
             b.onClick.AddListener(() =>
             {
                 OnElementClick(index);
             });
-            Debug.Log("RoomListManager:AddElement");
             
             _elementByIndex.Add(index, o);
             
