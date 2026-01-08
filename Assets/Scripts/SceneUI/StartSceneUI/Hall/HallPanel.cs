@@ -26,7 +26,9 @@ namespace SceneUI.StartSceneUI
     }
     public class HallPanel: PanelController
     {
-        [SerializeField] RoomListManager roomListManager;
+        [SerializeField] RoomListManager _roomListManager;
+        [SerializeField] PlayerListManager _playerListManagerA;
+        [SerializeField] PlayerListManager _playerListManagerB;
         //字体自动更换
         [SerializeField] private TMP_FontAsset font;
         void OnEnable()
@@ -48,12 +50,20 @@ namespace SceneUI.StartSceneUI
         void RefreshList(RefreshListResponsePackage response)
         {
             //TODO:对接 接收大厅列表
-            roomListManager.RefreshList(response);
+            _roomListManager.RefreshList(response);
+        }
+
+        void RefreshRoomInfo(RoomInfoResponsePackage response)
+        {
+            //TODO:对接 大厅房间信息
+            _playerListManagerA.RefreshList(response,0);
+            _playerListManagerB.RefreshList(response,1);
+            
         }
 
         public void UI_RefreshList()
         {
-            roomListManager.DeleteList();
+            _roomListManager.DeleteList();
             //TODO:发送列表请求
             LocalSyncPackage syncPackage = new LocalSyncPackage
             {
@@ -71,7 +81,7 @@ namespace SceneUI.StartSceneUI
         public void UI_JoinRoom()
         {
             //TODO:加入房间
-            Debug.Log("加入房间"+roomListManager._currentRoomIndex);
+            Debug.Log("加入房间"+_roomListManager._currentRoomIndex);
         }
 
         public void UI_CreateRoom()
@@ -89,6 +99,7 @@ namespace SceneUI.StartSceneUI
         void Start()
         {
             NetWorkManager.instance.RegisterEventHandler<RefreshListResponsePackage>(NetEvent.LobbyRefresh,RefreshList);
+            NetWorkManager.instance.RegisterEventHandler<RoomInfoResponsePackage>(NetEvent.LobbyRoomInfo,RefreshRoomInfo);
         }
     }
 }

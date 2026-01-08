@@ -128,6 +128,9 @@ namespace Network
                 case RemoteLobbyEvent.RemoteLobbyRefresh:
                     Dispatch(NetEvent.LobbyRefresh,response.RefreshListResponse);
                     break;
+                case RemoteLobbyEvent.RemoteLobbyRoomInfo:
+                    Dispatch(NetEvent.LobbyRoomInfo, response.RefreshListResponse);
+                    break;
                 default:
                     break;
             }
