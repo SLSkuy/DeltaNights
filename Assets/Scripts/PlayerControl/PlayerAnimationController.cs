@@ -28,6 +28,7 @@
  * ------------------------------------------------------------ */
 
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 namespace PlayerControl
 {
@@ -61,12 +62,18 @@ namespace PlayerControl
         // 跳跃哈希
         private int _jumpHash;
 
+        //动画rig
+        public Rig _rig;
+
+        private bool _isReloading = false;
+
         #region 周期函数
         private void Awake()
         {
             _controller = GetComponent<PlayerController>();
             _attackController = GetComponent<PlayerAttackController>();
             _animator = GetComponent<Animator>();
+            _rig = GetComponentInChildren<Rig>();
             
             _moveZHash = Animator.StringToHash("MoveZ");
             _moveXHash = Animator.StringToHash("MoveX");
@@ -80,7 +87,12 @@ namespace PlayerControl
             _controller.OnShoulderAim += SetShoulderAimState;
             _controller.OnLand += SetAnimLand;
 
+            _attackController.OnIdle += SetIdle;
+            _attackController.OnAim += SetAim;
+            _attackController.OnReloadStart += SetReload;
+
         }
+
 
         private void OnDestroy()
         {
@@ -88,6 +100,10 @@ namespace PlayerControl
             _controller.OnJump -= SetAnimJump;
             _controller.OnShoulderAim -= SetShoulderAimState;
             _controller.OnLand -= SetAnimLand;
+
+            _attackController.OnIdle -= SetIdle;
+            _attackController.OnAim -= SetAim;
+            _attackController.OnReloadStart -= SetReload;
         }
 
         private void Update()
@@ -117,8 +133,21 @@ namespace PlayerControl
         }
 
         private void SetReload()
-        {   
-            _animator.CrossFade("Reloading", 0.1f);
+        {
+            if (_isReloading) return; 
+
+            _isReloading = true;
+            _animator.SetBool("IsReload", true);
+
+        }
+        private void SetIdle()
+        {
+            _animator.SetBool("IsAim", false);
+        }
+
+        private void SetAim()
+        {
+            _animator.SetBool("IsAim", true);
         }
        
         private void SetShoulderAimState(bool isAim) => _targetShoulderLayerWeight = isAim ? 1f : 0;
@@ -159,19 +188,17 @@ namespace PlayerControl
         /// 简易实现换弹动画
         /// </summary>
         // 以下方法由动画事件调用
-        private void SetReloadWeight()
+        private void SetReloadAnimationWeight()
         {
-            _controller._rig.weight = 0f;
-            _animator.SetLayerWeight(2, 0f);
-            _animator.SetLayerWeight(3, 0f);
+            if (!_isReloading) return;
         }
 
-        public void OnReloadAnimationComplete()
+        private void SetReloadAnimationComplete()
         {
-            _controller._rig.weight = 1f;
-            _animator.SetLayerWeight(2, 1f);
-            _animator.SetLayerWeight(3, 1f);
-            _animator.CrossFade("Locomotion", 0.1f);
+            if (!_isReloading) return; 
+
+            _isReloading = false;
+            _animator.SetBool("IsReload", false);
         }
 
         #endregion

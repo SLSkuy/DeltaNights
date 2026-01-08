@@ -13,6 +13,7 @@
  *  - 处理武器攻击冷却与攻击频率限制
  *  - 支持全自动与半自动武器逻辑
  *  - 响应技能系统对攻击行为的锁定控制
+ *  - 处理换弹行为与切枪行为
  *
  *  设计说明：
  *  - 本类不直接读取输入，由 PlayerAttackController 驱动
@@ -48,8 +49,11 @@ namespace PlayerControl
         private bool _attackLockByReloading;
         private bool _isReloading;//换弹中
         private float _reloadTimer;//换弹时间
+        private float _idleTime = 10f;//不进行操作回到idle时间
+        private float _nowTime;
 
         public event Action OnReloadComplete;
+        public event Action OnIdle;
 
         public PlayerWeaponController(PlayerAttackController attackController)
         {
@@ -59,7 +63,8 @@ namespace PlayerControl
             attackController.OnAttackReleased += HandleAttackReleased;
             attackController.OnSwitchWeapon += SwitchWeapon;
             attackController.OnReloadStart += TryReload;
-            //attackController.OnReloadComplete += CompleteReload;
+            _nowTime = _idleTime;
+
         }
 
         ~PlayerWeaponController()
@@ -68,7 +73,6 @@ namespace PlayerControl
             _attackController.OnAttackReleased -= HandleAttackReleased;
             _attackController.OnSwitchWeapon -= SwitchWeapon;
             _attackController.OnReloadStart -= TryReload;
-            //_attackController.OnReloadComplete -= CompleteReload;
         }
 
         /// <summary>
@@ -87,6 +91,7 @@ namespace PlayerControl
 
             _currentWeapon = newWeapon;
             _currentWeapon.init(playerController);
+            _nowTime = _idleTime;
 
             if (_currentWeapon.AttackSpeed > 0f)
             {
@@ -117,6 +122,17 @@ namespace PlayerControl
             if (_attackHeld && _currentWeapon is { FullyAutomatic: true })
             {
                 TryAttack();
+            }
+
+            //不攻击idle计时器
+            if (_nowTime > 0f)  
+            {
+                _nowTime -= deltaTime;
+                if (_nowTime <= 0f)
+                {
+                    _nowTime = 0f;  
+                    OnIdle?.Invoke();
+                }
             }
         }
 
@@ -155,6 +171,7 @@ namespace PlayerControl
             if (_attackLockByReloading) return;
 
             _currentWeapon.Attack();
+            _nowTime = _idleTime;
 
             if (_currentWeapon.AttackSpeed > 0f)
             {

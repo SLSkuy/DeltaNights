@@ -25,6 +25,6 @@ MonoBehaviour:
   bodyDamage: 5
   legDamage: 0
   _bulletCapacity: 30
-  _currentBulletNum: 21
-  _bulletTotal: 29940
-  _reloadTime: 1
+  _currentBulletNum: 30
+  _bulletTotal: 28403
+  _reloadTime: 3.4

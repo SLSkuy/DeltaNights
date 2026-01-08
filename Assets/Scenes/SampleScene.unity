@@ -958,6 +958,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerAttackController
   mainWeapon: {fileID: 0}
+  secondaryWeapon: {fileID: 0}
+  meleeWeapon: {fileID: 0}
   activeSkill: {fileID: 0}
   ultimateSkill: {fileID: 0}
 --- !u!114 &374096700
@@ -975,6 +977,7 @@ MonoBehaviour:
   moveAnimSmooth: 10
   shoulderAimLayerIndex: 1
   shoulderAimLayerSmooth: 20
+  _rig: {fileID: 0}
 --- !u!114 &374096701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1001,7 +1004,6 @@ MonoBehaviour:
     m_Bits: 64
   groundThreshold: 0.05
   gravity: 12
-  _rig: {fileID: 0}
 --- !u!143 &374096702
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2748,7 +2750,40 @@ MonoBehaviour:
       Owner: {fileID: 1419592808}
       Enabled: 1
       Input:
-        InputAction: {fileID: 0}
+        InputAction: {fileID: -1483154708761431715, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+        Gain: 1
+        CancelDeltaTime: 0
+      InputValue: 0
+      Driver:
+        AccelTime: 0
+        DecelTime: 0
+    - Name: Switch1
+      Owner: {fileID: 1419592808}
+      Enabled: 1
+      Input:
+        InputAction: {fileID: -4772555595061108109, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+        Gain: 1
+        CancelDeltaTime: 0
+      InputValue: 0
+      Driver:
+        AccelTime: 0
+        DecelTime: 0
+    - Name: Switch2
+      Owner: {fileID: 1419592808}
+      Enabled: 1
+      Input:
+        InputAction: {fileID: 8230253788993527574, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+        Gain: 1
+        CancelDeltaTime: 0
+      InputValue: 0
+      Driver:
+        AccelTime: 0
+        DecelTime: 0
+    - Name: Switch3
+      Owner: {fileID: 1419592808}
+      Enabled: 1
+      Input:
+        InputAction: {fileID: 8614683165534070171, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
         CancelDeltaTime: 0
       InputValue: 0
@@ -2870,6 +2905,36 @@ MonoBehaviour:
       Time: 0
     Restrictions: 6
   reload:
+    Value: 0
+    Center: 0
+    Range: {x: -1, y: 1}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 0
+      Time: 0
+    Restrictions: 6
+  switch1:
+    Value: 0
+    Center: 0
+    Range: {x: -1, y: 1}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 0
+      Time: 0
+    Restrictions: 6
+  switch2:
+    Value: 0
+    Center: 0
+    Range: {x: -1, y: 1}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 0
+      Time: 0
+    Restrictions: 6
+  switch3:
     Value: 0
     Center: 0
     Range: {x: -1, y: 1}
@@ -3566,6 +3631,10 @@ PrefabInstance:
     - target: {fileID: 4798461038347316271, guid: 308015134899d984ba4417e9ec4b699e, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296511774626135484, guid: 308015134899d984ba4417e9ec4b699e, type: 3}
+      propertyPath: m_Weight
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8301612219486320640, guid: 308015134899d984ba4417e9ec4b699e, type: 3}
       propertyPath: m_LocalPosition.x

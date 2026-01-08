@@ -102,8 +102,6 @@ namespace PlayerControl
         // 技能限制
         private bool _locomotionLockedBySkill;
 
-        //动画rig
-        public Rig _rig;
 
         
         #endregion
@@ -130,7 +128,6 @@ namespace PlayerControl
             // 组件引用
             _characterController = GetComponent<CharacterController>();
             _camera = Camera.main;
-            _rig = GetComponentInChildren<Rig>();
         }
 
         private void Start()
