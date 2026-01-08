@@ -32,6 +32,7 @@ namespace SceneUI.StartSceneUI
             Signals.Get<LogInPressDownSignal>().AddListener(OnLogInButtonPressDown);
             Signals.Get<ErrorPromptWindowSignal>().AddListener(OnErrorPromptWindow);
             Signals.Get<StatusPromptWindowSignal>().AddListener(OnStatusPromptWindow);
+            
         }
 
         protected override void RemoveSignal()
@@ -47,6 +48,8 @@ namespace SceneUI.StartSceneUI
         {
             UIFrame.HideUI("StartMainPanel");
             UIFrame.ShowUI("HallPanel");
+            
+            
         }
 
         void OnHallButtonPressDown(HallOption option)
@@ -91,7 +94,29 @@ namespace SceneUI.StartSceneUI
             }
         }
 
-        //事件处理函数
+        void OnRoomButtonPressDown(RoomOption option)
+        {
+            switch (option)
+            {
+                case RoomOption.Exit:
+                    UIFrame.HideUI("RoomPanel");
+                    UIFrame.ShowUI("HallPanel");
+                    
+                    //TODO:退出发包
+                    
+                    break;
+                case RoomOption.Start:
+                    //TODO:开始发包
+                    
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        
+
+        //回应包事件处理函数
         void HallToRoom(RoomJoinResponsePackage response)
         {
             UIFrame.HideUI("StatusPromptWindow");

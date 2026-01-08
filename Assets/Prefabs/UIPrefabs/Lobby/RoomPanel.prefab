@@ -1481,6 +1481,12 @@ MonoBehaviour:
   isVisible: 0
   properties:
     priority: 0
+  _roomName: {fileID: 686912272175040167}
+  _roomId: {fileID: 5213480918200398106}
+  _roomType: {fileID: 9055031603084975686}
+  _roomDescription: {fileID: 2525733294996019303}
+  _playerListManagerA: {fileID: 4554221229569888586}
+  _playerListManagerB: {fileID: 4269262531017124034}
 --- !u!1 &3549227610861306757
 GameObject:
   m_ObjectHideFlags: 0
@@ -2934,6 +2940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5691878294810610191}
   - component: {fileID: 7927583925742602808}
+  - component: {fileID: 4554221229569888586}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -2958,7 +2965,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000020362324}
+  m_AnchoredPosition: {x: 0, y: -0.0000015790108}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7927583925742602808
@@ -2987,6 +2994,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4554221229569888586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5644360224163558788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe326af98614b259b1fb3b242977ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneUI.StartSceneUI.PlayerListManager
+  _preObject: {fileID: 4970654856803537627, guid: ff3e570c16b07764a80cccc6e63de29c, type: 3}
 --- !u!1 &6198423307135507827
 GameObject:
   m_ObjectHideFlags: 0
@@ -3441,6 +3461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 707428818362575344}
   - component: {fileID: 7715791858819318406}
+  - component: {fileID: 4269262531017124034}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -3465,7 +3486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000020362324}
+  m_AnchoredPosition: {x: 0, y: -0.0000015790108}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7715791858819318406
@@ -3494,6 +3515,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4269262531017124034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290940595139461787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe326af98614b259b1fb3b242977ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneUI.StartSceneUI.PlayerListManager
+  _preObject: {fileID: 4970654856803537627, guid: ff3e570c16b07764a80cccc6e63de29c, type: 3}
 --- !u!1 &8654240080536041490
 GameObject:
   m_ObjectHideFlags: 0

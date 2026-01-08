@@ -58,5 +58,27 @@ namespace SceneUI.StartSceneUI
             }
             
         }
+        
+        public void RefreshList(RoomJoinResponsePackage response,int index)
+        {
+            if (index == 0)
+            {
+                for (int i = 0; i < response.TeamAPlayers.Count; i++)
+                {
+                    //创建游戏对象并在对应脚本添加数据
+                    GameObject o=AddElement(i);
+                    o.GetComponent<PlayerElementComponent>().SetValue(response.TeamAPlayers[i]);
+                }
+            }else if (index == 1)
+            {
+                for (int i = 0; i < response.TeamBPlayers.Count; i++)
+                {
+                    //创建游戏对象并在对应脚本添加数据
+                    GameObject o=AddElement(i);
+                    o.GetComponent<PlayerElementComponent>().SetValue(response.TeamBPlayers[i]);
+                }
+            }
+            
+        }
     }
 }
