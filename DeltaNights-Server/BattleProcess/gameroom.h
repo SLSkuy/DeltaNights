@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.8
  *
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
@@ -71,6 +72,13 @@ private:
     int m_playerCount = 0;
     GameState m_state = GameState::Waiting;
     GameRoomConfig m_config;
+
+    QString m_roomName;
+    QString m_roomType;
+    QString m_roomIntroduction;
+    QString m_ownerName;
+    int max=6;//房间最大人数默认为6
+    int min=0;//房间实时人数
 
     // ========== Tick处理 ==========
     quint32 m_tick;

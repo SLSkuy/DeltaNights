@@ -39,10 +39,12 @@ public:
     void playerSyncRequest(BattleSyncPackage::BattleSyncRequest* input);
     void battleSyncResponse(quint32 roomID, BattleSyncPackage::BattleSyncResponse* pkg);
     void roomOwner(QTcpSocket*socket,QString roomname,QString roomtype,QString roomintroduction);
+    void refreshGameRoom(QTcpSocket *socket);
 
 signals:
     void battleSyncGenerated(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg);  // 转发各个战局的信号
     void roomCreateResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
+    void refeshGameRoomResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
 
 private:
     quint32 m_nextRoomID = 0;

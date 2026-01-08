@@ -65,6 +65,7 @@ signals:
     void clientLogin(QTcpSocket* socket,QString account,QString password);
     //void clientCreateRoom(LobbySyncPackage::RoomCreateRequest* pkg);
     void clientCreateRoom(QTcpSocket* socket,QString roomname,QString roomtype,QString roomintroduction);
+    void clientRefresh(QTcpSocket* socket);
 
     // 战局同步事件
     void battleSyncRequest(BattleSyncPackage::BattleSyncRequest* pkg);

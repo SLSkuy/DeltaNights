@@ -80,10 +80,12 @@ void GameServer::setupConnections()
     connect(_dispatcher,&NetworkDispatcher::clientHeartBeat,_clientMgr,&ClientManager::updateClientLastActive);
     connect(_dispatcher,&NetworkDispatcher::clientLogin,_playerInfoMgr,&PlayerInfoManager::logIn);
     connect(_dispatcher,&NetworkDispatcher::clientCreateRoom,_roomMgr,&GameRoomManager::roomOwner);
+    connect(_dispatcher,&NetworkDispatcher::clientRefresh, _roomMgr,&GameRoomManager::refreshGameRoom);
     //发
     connect(_clientMgr,&ClientManager::clientConnectResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
     connect(_playerInfoMgr,&PlayerInfoManager::clientLoginResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
     connect(_roomMgr,&GameRoomManager::roomCreateResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+    connect(_roomMgr,&GameRoomManager::refeshGameRoomResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
 
     //
     connect(_playerInfoMgr,&PlayerInfoManager::clientBindPlayerInfo,_clientMgr,&ClientManager::clientBindPlayerInfo);
