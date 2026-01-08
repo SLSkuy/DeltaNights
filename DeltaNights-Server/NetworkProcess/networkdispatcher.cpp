@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.6
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -174,6 +175,25 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
     // ===== 按子类型分发 =====
     switch (pkg.eventid())
     {
+        case LocalLobbyEvent::Local_Lobby_RoomCreate:
+        qDebug() << "room create";
+            //创建房间
+        emit clientCreateRoom(socket,QString::fromStdString(pkg.roomcreate().roomname()),QString::fromStdString(pkg.roomcreate().roomtype()),QString::fromStdString(pkg.roomcreate().roomintroduction()));
+            break;
+        case LocalLobbyEvent::Local_Lobby_RoomInfo:
+        qDebug() << "room info";
+            //emit
+            break;
+        case LocalLobbyEvent::Local_Lobby_RoomJoin:
+        qDebug() << "room join";
+            //emit
+            break;
+        case LocalLobbyEvent::Local_Lobby_None:
+        qDebug() << "none";
+            break;
+        case LocalLobbyEvent::Local_Lobby_Refresh:
+        qDebug() << "refresh";
+            break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown TCP_Lobby package type:" << pkg.eventid();
             break;

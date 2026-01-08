@@ -43,6 +43,7 @@ add_executable(DeltaNights-Server
   ObjectPool/objectpool.h
   ObjectPool/protopool.h ObjectPool/protopool.cpp
   ObjectPool/protorestter.h
+  dataload.h dataload.cpp
 )
 
 # 指定protobuf库位置

@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.7
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -62,6 +63,8 @@ signals:
     void clientBindUdpPort(QTcpSocket* socket, quint16 port);
     void clientHeartBeat(QTcpSocket* socket);
     void clientLogin(QTcpSocket* socket,QString account,QString password);
+    //void clientCreateRoom(LobbySyncPackage::RoomCreateRequest* pkg);
+    void clientCreateRoom(QTcpSocket* socket,QString roomname,QString roomtype,QString roomintroduction);
 
     // 战局同步事件
     void battleSyncRequest(BattleSyncPackage::BattleSyncRequest* pkg);

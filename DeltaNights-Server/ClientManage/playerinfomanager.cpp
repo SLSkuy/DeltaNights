@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051640406 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2025.12.28
+ *  LastUpdate: 2026.1.6
  *
  *  玩家信息管理类
  *  连接数据库，管理所有玩家信息
@@ -15,13 +16,22 @@
 
 PlayerInfoManager::PlayerInfoManager(QObject* parent)
     : QObject(parent)
+    , DataLoading(new DataLoad)
 {
+    DataLoading->read();
+    loadData();
     //测试用
-    PlayerInfo *p=new PlayerInfo(123,"abc",this);
+    /*PlayerInfo *p=new PlayerInfo(123,"abc",this);
     p->setNickname("Test");
     p->setPassword("123");
     m_playerInfosByID[123]=p;
     m_playerInfosByAccount["abc"]=p;
+
+    PlayerInfo *m=new PlayerInfo(1234,"abcd",this);
+    m->setNickname("sukoi");
+    m->setPassword("1234");
+    m_playerInfosByID[1234]=m;
+    m_playerInfosByAccount["abcd"]=m;*/
 
 }
 
@@ -70,4 +80,10 @@ PlayerInfo* PlayerInfoManager::findPlayInfo(QString account)
     }else{
         return nullptr;
     }
+}
+
+void PlayerInfoManager::loadData()
+{
+    m_playerInfosByID = DataLoading->playerInfosByID();
+    m_playerInfosByAccount = DataLoading->playerInfosByAccount();
 }
