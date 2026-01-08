@@ -17,6 +17,7 @@ namespace Network
         ConnectResponse,    // ClientSyncPackage - RemoteClientEvent - ConnectResponse事件
         LoginResponse,
         LobbyRefresh,
-        LobbyRoomInfo
+        LobbyRoomInfo,
+        LobbyRoomJoin
     }
 }

@@ -57,7 +57,7 @@ namespace SceneUI.StartSceneUI
     {
         public string Content;
         
-        public StartMainPanelProperties(PanelPriority priority,string content ) : base(priority)
+        public StartMainPanelProperties(string content ) : base(PanelPriority.None)
         {
             this.Content = content;
         }

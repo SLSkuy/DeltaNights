@@ -48,17 +48,20 @@ namespace LobbySyncPackage {
             "cm9vbUlkGAEgASgNEhAKCHJvb21OYW1lGAIgASgJEhAKCHJvb21UeXBlGAMg",
             "ASgJEg0KBW93bmVyGAQgASgJEgsKA21heBgFIAEoBRILCgNudW0YBiABKAUi",
             "RQoZUm9vbUNyZWF0ZVJlc3BvbnNlUGFja2FnZRIOCgZyb29tSWQYASABKA0S",
-            "CwoDbWF4GAIgASgNEgsKA251bRgDIAEoDSJVChdSb29tSW5mb1Jlc3BvbnNl",
-            "UGFja2FnZRIOCgZyb29tSWQYASABKA0SFAoMdGVhbUFQbGF5ZXJzGAIgAygJ",
-            "EhQKDHRlYW1CUGxheWVycxgDIAMoCSI7ChdSb29tSm9pblJlc3BvbnNlUGFj",
-            "a2FnZRIOCgZyb29tSWQYASABKA0SEAoIcm9vbVRlYW0YAiABKA0qkAEKD0xv",
-            "Y2FsTG9iYnlFdmVudBIUChBMb2NhbF9Mb2JieV9Ob25lEAASFwoTTG9jYWxf",
-            "TG9iYnlfUmVmcmVzaBABEhgKFExvY2FsX0xvYmJ5X1Jvb21JbmZvEAISGgoW",
-            "TG9jYWxfTG9iYnlfUm9vbUNyZWF0ZRADEhgKFExvY2FsX0xvYmJ5X1Jvb21K",
-            "b2luEAQqlgEKEFJlbW90ZUxvYmJ5RXZlbnQSFQoRUmVtb3RlX0xvYmJ5X05v",
-            "bmUQABIYChRSZW1vdGVfTG9iYnlfUmVmcmVzaBABEhkKFVJlbW90ZV9Mb2Ji",
-            "eV9Sb29tSW5mbxACEhsKF1JlbW90ZV9Mb2JieV9Sb29tQ3JlYXRlEAMSGQoV",
-            "UmVtb3RlX0xvYmJ5X1Jvb21Kb2luEARiBnByb3RvMw=="));
+            "CwoDbWF4GAIgASgNEgsKA251bRgDIAEoDSJvChdSb29tSW5mb1Jlc3BvbnNl",
+            "UGFja2FnZRIOCgZyb29tSWQYASABKA0SGAoQcm9vbUludHJvZHVjdGlvbhgC",
+            "IAEoCRIUCgx0ZWFtQVBsYXllcnMYAyADKAkSFAoMdGVhbUJQbGF5ZXJzGAQg",
+            "AygJIqUBChdSb29tSm9pblJlc3BvbnNlUGFja2FnZRIOCgZyb29tSWQYASAB",
+            "KA0SEAoIcm9vbU5hbWUYAiABKAkSEAoIcm9vbVR5cGUYAyABKAkSGAoQcm9v",
+            "bUludHJvZHVjdGlvbhgEIAEoCRIQCghyb29tVGVhbRgFIAEoDRIUCgx0ZWFt",
+            "QVBsYXllcnMYBiADKAkSFAoMdGVhbUJQbGF5ZXJzGAcgAygJKpABCg9Mb2Nh",
+            "bExvYmJ5RXZlbnQSFAoQTG9jYWxfTG9iYnlfTm9uZRAAEhcKE0xvY2FsX0xv",
+            "YmJ5X1JlZnJlc2gQARIYChRMb2NhbF9Mb2JieV9Sb29tSW5mbxACEhoKFkxv",
+            "Y2FsX0xvYmJ5X1Jvb21DcmVhdGUQAxIYChRMb2NhbF9Mb2JieV9Sb29tSm9p",
+            "bhAEKpYBChBSZW1vdGVMb2JieUV2ZW50EhUKEVJlbW90ZV9Mb2JieV9Ob25l",
+            "EAASGAoUUmVtb3RlX0xvYmJ5X1JlZnJlc2gQARIZChVSZW1vdGVfTG9iYnlf",
+            "Um9vbUluZm8QAhIbChdSZW1vdGVfTG9iYnlfUm9vbUNyZWF0ZRADEhkKFVJl",
+            "bW90ZV9Mb2JieV9Sb29tSm9pbhAEYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::LobbySyncPackage.LocalLobbyEvent), typeof(global::LobbySyncPackage.RemoteLobbyEvent), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -70,8 +73,8 @@ namespace LobbySyncPackage {
             new pbr::GeneratedClrTypeInfo(typeof(global::LobbySyncPackage.RefreshListResponsePackage), global::LobbySyncPackage.RefreshListResponsePackage.Parser, new[]{ "Rooms" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::LobbySyncPackage.RefreshResponsePackage), global::LobbySyncPackage.RefreshResponsePackage.Parser, new[]{ "RoomId", "RoomName", "RoomType", "Owner", "Max", "Num" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::LobbySyncPackage.RoomCreateResponsePackage), global::LobbySyncPackage.RoomCreateResponsePackage.Parser, new[]{ "RoomId", "Max", "Num" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::LobbySyncPackage.RoomInfoResponsePackage), global::LobbySyncPackage.RoomInfoResponsePackage.Parser, new[]{ "RoomId", "TeamAPlayers", "TeamBPlayers" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::LobbySyncPackage.RoomJoinResponsePackage), global::LobbySyncPackage.RoomJoinResponsePackage.Parser, new[]{ "RoomId", "RoomTeam" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::LobbySyncPackage.RoomInfoResponsePackage), global::LobbySyncPackage.RoomInfoResponsePackage.Parser, new[]{ "RoomId", "RoomIntroduction", "TeamAPlayers", "TeamBPlayers" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::LobbySyncPackage.RoomJoinResponsePackage), global::LobbySyncPackage.RoomJoinResponsePackage.Parser, new[]{ "RoomId", "RoomName", "RoomType", "RoomIntroduction", "RoomTeam", "TeamAPlayers", "TeamBPlayers" }, null, null, null, null)
           }));
     }
     #endregion
@@ -2152,7 +2155,7 @@ namespace LobbySyncPackage {
   }
 
   /// <summary>
-  /// ===== 创建房间回应包 =====
+  /// ===== 创建房间回应包 =====  这个暂时弃用
   /// </summary>
   public sealed partial class RoomCreateResponsePackage : pb::IMessage<RoomCreateResponsePackage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -2455,6 +2458,7 @@ namespace LobbySyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public RoomInfoResponsePackage(RoomInfoResponsePackage other) : this() {
       roomId_ = other.roomId_;
+      roomIntroduction_ = other.roomIntroduction_;
       teamAPlayers_ = other.teamAPlayers_.Clone();
       teamBPlayers_ = other.teamBPlayers_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -2478,10 +2482,25 @@ namespace LobbySyncPackage {
       }
     }
 
+    /// <summary>Field number for the "roomIntroduction" field.</summary>
+    public const int RoomIntroductionFieldNumber = 2;
+    private string roomIntroduction_ = "";
+    /// <summary>
+    ///房间简介
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RoomIntroduction {
+      get { return roomIntroduction_; }
+      set {
+        roomIntroduction_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "teamAPlayers" field.</summary>
-    public const int TeamAPlayersFieldNumber = 2;
+    public const int TeamAPlayersFieldNumber = 3;
     private static readonly pb::FieldCodec<string> _repeated_teamAPlayers_codec
-        = pb::FieldCodec.ForString(18);
+        = pb::FieldCodec.ForString(26);
     private readonly pbc::RepeatedField<string> teamAPlayers_ = new pbc::RepeatedField<string>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2490,9 +2509,9 @@ namespace LobbySyncPackage {
     }
 
     /// <summary>Field number for the "teamBPlayers" field.</summary>
-    public const int TeamBPlayersFieldNumber = 3;
+    public const int TeamBPlayersFieldNumber = 4;
     private static readonly pb::FieldCodec<string> _repeated_teamBPlayers_codec
-        = pb::FieldCodec.ForString(26);
+        = pb::FieldCodec.ForString(34);
     private readonly pbc::RepeatedField<string> teamBPlayers_ = new pbc::RepeatedField<string>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2516,6 +2535,7 @@ namespace LobbySyncPackage {
         return true;
       }
       if (RoomId != other.RoomId) return false;
+      if (RoomIntroduction != other.RoomIntroduction) return false;
       if(!teamAPlayers_.Equals(other.teamAPlayers_)) return false;
       if(!teamBPlayers_.Equals(other.teamBPlayers_)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -2526,6 +2546,7 @@ namespace LobbySyncPackage {
     public override int GetHashCode() {
       int hash = 1;
       if (RoomId != 0) hash ^= RoomId.GetHashCode();
+      if (RoomIntroduction.Length != 0) hash ^= RoomIntroduction.GetHashCode();
       hash ^= teamAPlayers_.GetHashCode();
       hash ^= teamBPlayers_.GetHashCode();
       if (_unknownFields != null) {
@@ -2550,6 +2571,10 @@ namespace LobbySyncPackage {
         output.WriteRawTag(8);
         output.WriteUInt32(RoomId);
       }
+      if (RoomIntroduction.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RoomIntroduction);
+      }
       teamAPlayers_.WriteTo(output, _repeated_teamAPlayers_codec);
       teamBPlayers_.WriteTo(output, _repeated_teamBPlayers_codec);
       if (_unknownFields != null) {
@@ -2566,6 +2591,10 @@ namespace LobbySyncPackage {
         output.WriteRawTag(8);
         output.WriteUInt32(RoomId);
       }
+      if (RoomIntroduction.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RoomIntroduction);
+      }
       teamAPlayers_.WriteTo(ref output, _repeated_teamAPlayers_codec);
       teamBPlayers_.WriteTo(ref output, _repeated_teamBPlayers_codec);
       if (_unknownFields != null) {
@@ -2580,6 +2609,9 @@ namespace LobbySyncPackage {
       int size = 0;
       if (RoomId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(RoomId);
+      }
+      if (RoomIntroduction.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomIntroduction);
       }
       size += teamAPlayers_.CalculateSize(_repeated_teamAPlayers_codec);
       size += teamBPlayers_.CalculateSize(_repeated_teamBPlayers_codec);
@@ -2597,6 +2629,9 @@ namespace LobbySyncPackage {
       }
       if (other.RoomId != 0) {
         RoomId = other.RoomId;
+      }
+      if (other.RoomIntroduction.Length != 0) {
+        RoomIntroduction = other.RoomIntroduction;
       }
       teamAPlayers_.Add(other.teamAPlayers_);
       teamBPlayers_.Add(other.teamBPlayers_);
@@ -2620,10 +2655,14 @@ namespace LobbySyncPackage {
             break;
           }
           case 18: {
-            teamAPlayers_.AddEntriesFrom(input, _repeated_teamAPlayers_codec);
+            RoomIntroduction = input.ReadString();
             break;
           }
           case 26: {
+            teamAPlayers_.AddEntriesFrom(input, _repeated_teamAPlayers_codec);
+            break;
+          }
+          case 34: {
             teamBPlayers_.AddEntriesFrom(input, _repeated_teamBPlayers_codec);
             break;
           }
@@ -2647,10 +2686,14 @@ namespace LobbySyncPackage {
             break;
           }
           case 18: {
-            teamAPlayers_.AddEntriesFrom(ref input, _repeated_teamAPlayers_codec);
+            RoomIntroduction = input.ReadString();
             break;
           }
           case 26: {
+            teamAPlayers_.AddEntriesFrom(ref input, _repeated_teamAPlayers_codec);
+            break;
+          }
+          case 34: {
             teamBPlayers_.AddEntriesFrom(ref input, _repeated_teamBPlayers_codec);
             break;
           }
@@ -2699,7 +2742,12 @@ namespace LobbySyncPackage {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public RoomJoinResponsePackage(RoomJoinResponsePackage other) : this() {
       roomId_ = other.roomId_;
+      roomName_ = other.roomName_;
+      roomType_ = other.roomType_;
+      roomIntroduction_ = other.roomIntroduction_;
       roomTeam_ = other.roomTeam_;
+      teamAPlayers_ = other.teamAPlayers_.Clone();
+      teamBPlayers_ = other.teamBPlayers_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2721,8 +2769,53 @@ namespace LobbySyncPackage {
       }
     }
 
+    /// <summary>Field number for the "roomName" field.</summary>
+    public const int RoomNameFieldNumber = 2;
+    private string roomName_ = "";
+    /// <summary>
+    ///房间名
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RoomName {
+      get { return roomName_; }
+      set {
+        roomName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "roomType" field.</summary>
+    public const int RoomTypeFieldNumber = 3;
+    private string roomType_ = "";
+    /// <summary>
+    ///房间类型
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RoomType {
+      get { return roomType_; }
+      set {
+        roomType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "roomIntroduction" field.</summary>
+    public const int RoomIntroductionFieldNumber = 4;
+    private string roomIntroduction_ = "";
+    /// <summary>
+    ///房间简介
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RoomIntroduction {
+      get { return roomIntroduction_; }
+      set {
+        roomIntroduction_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "roomTeam" field.</summary>
-    public const int RoomTeamFieldNumber = 2;
+    public const int RoomTeamFieldNumber = 5;
     private uint roomTeam_;
     /// <summary>
     ///队伍 方便多队伍 1=A队 2=B队
@@ -2734,6 +2827,28 @@ namespace LobbySyncPackage {
       set {
         roomTeam_ = value;
       }
+    }
+
+    /// <summary>Field number for the "teamAPlayers" field.</summary>
+    public const int TeamAPlayersFieldNumber = 6;
+    private static readonly pb::FieldCodec<string> _repeated_teamAPlayers_codec
+        = pb::FieldCodec.ForString(50);
+    private readonly pbc::RepeatedField<string> teamAPlayers_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<string> TeamAPlayers {
+      get { return teamAPlayers_; }
+    }
+
+    /// <summary>Field number for the "teamBPlayers" field.</summary>
+    public const int TeamBPlayersFieldNumber = 7;
+    private static readonly pb::FieldCodec<string> _repeated_teamBPlayers_codec
+        = pb::FieldCodec.ForString(58);
+    private readonly pbc::RepeatedField<string> teamBPlayers_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<string> TeamBPlayers {
+      get { return teamBPlayers_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2752,7 +2867,12 @@ namespace LobbySyncPackage {
         return true;
       }
       if (RoomId != other.RoomId) return false;
+      if (RoomName != other.RoomName) return false;
+      if (RoomType != other.RoomType) return false;
+      if (RoomIntroduction != other.RoomIntroduction) return false;
       if (RoomTeam != other.RoomTeam) return false;
+      if(!teamAPlayers_.Equals(other.teamAPlayers_)) return false;
+      if(!teamBPlayers_.Equals(other.teamBPlayers_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2761,7 +2881,12 @@ namespace LobbySyncPackage {
     public override int GetHashCode() {
       int hash = 1;
       if (RoomId != 0) hash ^= RoomId.GetHashCode();
+      if (RoomName.Length != 0) hash ^= RoomName.GetHashCode();
+      if (RoomType.Length != 0) hash ^= RoomType.GetHashCode();
+      if (RoomIntroduction.Length != 0) hash ^= RoomIntroduction.GetHashCode();
       if (RoomTeam != 0) hash ^= RoomTeam.GetHashCode();
+      hash ^= teamAPlayers_.GetHashCode();
+      hash ^= teamBPlayers_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2784,10 +2909,24 @@ namespace LobbySyncPackage {
         output.WriteRawTag(8);
         output.WriteUInt32(RoomId);
       }
+      if (RoomName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RoomName);
+      }
+      if (RoomType.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(RoomType);
+      }
+      if (RoomIntroduction.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(RoomIntroduction);
+      }
       if (RoomTeam != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(40);
         output.WriteUInt32(RoomTeam);
       }
+      teamAPlayers_.WriteTo(output, _repeated_teamAPlayers_codec);
+      teamBPlayers_.WriteTo(output, _repeated_teamBPlayers_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2802,10 +2941,24 @@ namespace LobbySyncPackage {
         output.WriteRawTag(8);
         output.WriteUInt32(RoomId);
       }
+      if (RoomName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RoomName);
+      }
+      if (RoomType.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(RoomType);
+      }
+      if (RoomIntroduction.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(RoomIntroduction);
+      }
       if (RoomTeam != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(40);
         output.WriteUInt32(RoomTeam);
       }
+      teamAPlayers_.WriteTo(ref output, _repeated_teamAPlayers_codec);
+      teamBPlayers_.WriteTo(ref output, _repeated_teamBPlayers_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2819,9 +2972,20 @@ namespace LobbySyncPackage {
       if (RoomId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(RoomId);
       }
+      if (RoomName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomName);
+      }
+      if (RoomType.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomType);
+      }
+      if (RoomIntroduction.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomIntroduction);
+      }
       if (RoomTeam != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(RoomTeam);
       }
+      size += teamAPlayers_.CalculateSize(_repeated_teamAPlayers_codec);
+      size += teamBPlayers_.CalculateSize(_repeated_teamBPlayers_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -2837,9 +3001,20 @@ namespace LobbySyncPackage {
       if (other.RoomId != 0) {
         RoomId = other.RoomId;
       }
+      if (other.RoomName.Length != 0) {
+        RoomName = other.RoomName;
+      }
+      if (other.RoomType.Length != 0) {
+        RoomType = other.RoomType;
+      }
+      if (other.RoomIntroduction.Length != 0) {
+        RoomIntroduction = other.RoomIntroduction;
+      }
       if (other.RoomTeam != 0) {
         RoomTeam = other.RoomTeam;
       }
+      teamAPlayers_.Add(other.teamAPlayers_);
+      teamBPlayers_.Add(other.teamBPlayers_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -2859,8 +3034,28 @@ namespace LobbySyncPackage {
             RoomId = input.ReadUInt32();
             break;
           }
-          case 16: {
+          case 18: {
+            RoomName = input.ReadString();
+            break;
+          }
+          case 26: {
+            RoomType = input.ReadString();
+            break;
+          }
+          case 34: {
+            RoomIntroduction = input.ReadString();
+            break;
+          }
+          case 40: {
             RoomTeam = input.ReadUInt32();
+            break;
+          }
+          case 50: {
+            teamAPlayers_.AddEntriesFrom(input, _repeated_teamAPlayers_codec);
+            break;
+          }
+          case 58: {
+            teamBPlayers_.AddEntriesFrom(input, _repeated_teamBPlayers_codec);
             break;
           }
         }
@@ -2882,8 +3077,28 @@ namespace LobbySyncPackage {
             RoomId = input.ReadUInt32();
             break;
           }
-          case 16: {
+          case 18: {
+            RoomName = input.ReadString();
+            break;
+          }
+          case 26: {
+            RoomType = input.ReadString();
+            break;
+          }
+          case 34: {
+            RoomIntroduction = input.ReadString();
+            break;
+          }
+          case 40: {
             RoomTeam = input.ReadUInt32();
+            break;
+          }
+          case 50: {
+            teamAPlayers_.AddEntriesFrom(ref input, _repeated_teamAPlayers_codec);
+            break;
+          }
+          case 58: {
+            teamBPlayers_.AddEntriesFrom(ref input, _repeated_teamBPlayers_codec);
             break;
           }
         }

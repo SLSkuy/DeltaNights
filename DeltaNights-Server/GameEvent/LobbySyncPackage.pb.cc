@@ -142,6 +142,7 @@ PROTOBUF_CONSTEXPR RoomInfoResponsePackage::RoomInfoResponsePackage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.teamaplayers_)*/{}
   , /*decltype(_impl_.teambplayers_)*/{}
+  , /*decltype(_impl_.roomintroduction_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.roomid_)*/0u
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RoomInfoResponsePackageDefaultTypeInternal {
@@ -155,7 +156,12 @@ struct RoomInfoResponsePackageDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RoomInfoResponsePackageDefaultTypeInternal _RoomInfoResponsePackage_default_instance_;
 PROTOBUF_CONSTEXPR RoomJoinResponsePackage::RoomJoinResponsePackage(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.roomid_)*/0u
+    /*decltype(_impl_.teamaplayers_)*/{}
+  , /*decltype(_impl_.teambplayers_)*/{}
+  , /*decltype(_impl_.roomname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.roomtype_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.roomintroduction_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.roomid_)*/0u
   , /*decltype(_impl_.roomteam_)*/0u
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RoomJoinResponsePackageDefaultTypeInternal {
@@ -254,6 +260,7 @@ const uint32_t TableStruct_LobbySyncPackage_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomInfoResponsePackage, _impl_.roomid_),
+  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomInfoResponsePackage, _impl_.roomintroduction_),
   PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomInfoResponsePackage, _impl_.teamaplayers_),
   PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomInfoResponsePackage, _impl_.teambplayers_),
   ~0u,  // no _has_bits_
@@ -263,7 +270,12 @@ const uint32_t TableStruct_LobbySyncPackage_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomJoinResponsePackage, _impl_.roomid_),
+  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomJoinResponsePackage, _impl_.roomname_),
+  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomJoinResponsePackage, _impl_.roomtype_),
+  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomJoinResponsePackage, _impl_.roomintroduction_),
   PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomJoinResponsePackage, _impl_.roomteam_),
+  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomJoinResponsePackage, _impl_.teamaplayers_),
+  PROTOBUF_FIELD_OFFSET(::LobbySyncPackage::RoomJoinResponsePackage, _impl_.teambplayers_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::LobbySyncPackage::LobbySyncRequest)},
@@ -275,7 +287,7 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 53, -1, -1, sizeof(::LobbySyncPackage::RefreshResponsePackage)},
   { 65, -1, -1, sizeof(::LobbySyncPackage::RoomCreateResponsePackage)},
   { 74, -1, -1, sizeof(::LobbySyncPackage::RoomInfoResponsePackage)},
-  { 83, -1, -1, sizeof(::LobbySyncPackage::RoomJoinResponsePackage)},
+  { 84, -1, -1, sizeof(::LobbySyncPackage::RoomJoinResponsePackage)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -319,23 +331,26 @@ const char descriptor_table_protodef_LobbySyncPackage_2eproto[] PROTOBUF_SECTION
   "\010roomName\030\002 \001(\t\022\020\n\010roomType\030\003 \001(\t\022\r\n\005own"
   "er\030\004 \001(\t\022\013\n\003max\030\005 \001(\005\022\013\n\003num\030\006 \001(\005\"E\n\031Ro"
   "omCreateResponsePackage\022\016\n\006roomId\030\001 \001(\r\022"
-  "\013\n\003max\030\002 \001(\r\022\013\n\003num\030\003 \001(\r\"U\n\027RoomInfoRes"
-  "ponsePackage\022\016\n\006roomId\030\001 \001(\r\022\024\n\014teamAPla"
-  "yers\030\002 \003(\t\022\024\n\014teamBPlayers\030\003 \003(\t\";\n\027Room"
-  "JoinResponsePackage\022\016\n\006roomId\030\001 \001(\r\022\020\n\010r"
-  "oomTeam\030\002 \001(\r*\220\001\n\017LocalLobbyEvent\022\024\n\020Loc"
-  "al_Lobby_None\020\000\022\027\n\023Local_Lobby_Refresh\020\001"
-  "\022\030\n\024Local_Lobby_RoomInfo\020\002\022\032\n\026Local_Lobb"
-  "y_RoomCreate\020\003\022\030\n\024Local_Lobby_RoomJoin\020\004"
-  "*\226\001\n\020RemoteLobbyEvent\022\025\n\021Remote_Lobby_No"
-  "ne\020\000\022\030\n\024Remote_Lobby_Refresh\020\001\022\031\n\025Remote"
-  "_Lobby_RoomInfo\020\002\022\033\n\027Remote_Lobby_RoomCr"
-  "eate\020\003\022\031\n\025Remote_Lobby_RoomJoin\020\004b\006proto"
-  "3"
+  "\013\n\003max\030\002 \001(\r\022\013\n\003num\030\003 \001(\r\"o\n\027RoomInfoRes"
+  "ponsePackage\022\016\n\006roomId\030\001 \001(\r\022\030\n\020roomIntr"
+  "oduction\030\002 \001(\t\022\024\n\014teamAPlayers\030\003 \003(\t\022\024\n\014"
+  "teamBPlayers\030\004 \003(\t\"\245\001\n\027RoomJoinResponseP"
+  "ackage\022\016\n\006roomId\030\001 \001(\r\022\020\n\010roomName\030\002 \001(\t"
+  "\022\020\n\010roomType\030\003 \001(\t\022\030\n\020roomIntroduction\030\004"
+  " \001(\t\022\020\n\010roomTeam\030\005 \001(\r\022\024\n\014teamAPlayers\030\006"
+  " \003(\t\022\024\n\014teamBPlayers\030\007 \003(\t*\220\001\n\017LocalLobb"
+  "yEvent\022\024\n\020Local_Lobby_None\020\000\022\027\n\023Local_Lo"
+  "bby_Refresh\020\001\022\030\n\024Local_Lobby_RoomInfo\020\002\022"
+  "\032\n\026Local_Lobby_RoomCreate\020\003\022\030\n\024Local_Lob"
+  "by_RoomJoin\020\004*\226\001\n\020RemoteLobbyEvent\022\025\n\021Re"
+  "mote_Lobby_None\020\000\022\030\n\024Remote_Lobby_Refres"
+  "h\020\001\022\031\n\025Remote_Lobby_RoomInfo\020\002\022\033\n\027Remote"
+  "_Lobby_RoomCreate\020\003\022\031\n\025Remote_Lobby_Room"
+  "Join\020\004b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_LobbySyncPackage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_LobbySyncPackage_2eproto = {
-    false, false, 1561, descriptor_table_protodef_LobbySyncPackage_2eproto,
+    false, false, 1694, descriptor_table_protodef_LobbySyncPackage_2eproto,
     "LobbySyncPackage.proto",
     &descriptor_table_LobbySyncPackage_2eproto_once, nullptr, 0, 10,
     schemas, file_default_instances, TableStruct_LobbySyncPackage_2eproto::offsets,
@@ -2712,10 +2727,19 @@ RoomInfoResponsePackage::RoomInfoResponsePackage(const RoomInfoResponsePackage& 
   new (&_impl_) Impl_{
       decltype(_impl_.teamaplayers_){from._impl_.teamaplayers_}
     , decltype(_impl_.teambplayers_){from._impl_.teambplayers_}
+    , decltype(_impl_.roomintroduction_){}
     , decltype(_impl_.roomid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.roomintroduction_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.roomintroduction_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_roomintroduction().empty()) {
+    _this->_impl_.roomintroduction_.Set(from._internal_roomintroduction(), 
+      _this->GetArenaForAllocation());
+  }
   _this->_impl_.roomid_ = from._impl_.roomid_;
   // @@protoc_insertion_point(copy_constructor:LobbySyncPackage.RoomInfoResponsePackage)
 }
@@ -2727,9 +2751,14 @@ inline void RoomInfoResponsePackage::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.teamaplayers_){arena}
     , decltype(_impl_.teambplayers_){arena}
+    , decltype(_impl_.roomintroduction_){}
     , decltype(_impl_.roomid_){0u}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.roomintroduction_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.roomintroduction_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RoomInfoResponsePackage::~RoomInfoResponsePackage() {
@@ -2745,6 +2774,7 @@ inline void RoomInfoResponsePackage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.teamaplayers_.~RepeatedPtrField();
   _impl_.teambplayers_.~RepeatedPtrField();
+  _impl_.roomintroduction_.Destroy();
 }
 
 void RoomInfoResponsePackage::SetCachedSize(int size) const {
@@ -2759,6 +2789,7 @@ void RoomInfoResponsePackage::Clear() {
 
   _impl_.teamaplayers_.Clear();
   _impl_.teambplayers_.Clear();
+  _impl_.roomintroduction_.ClearToEmpty();
   _impl_.roomid_ = 0u;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -2777,9 +2808,19 @@ const char* RoomInfoResponsePackage::_InternalParse(const char* ptr, ::_pbi::Par
         } else
           goto handle_unusual;
         continue;
-      // repeated string teamAPlayers = 2;
+      // string roomIntroduction = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_roomintroduction();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "LobbySyncPackage.RoomInfoResponsePackage.roomIntroduction"));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string teamAPlayers = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2788,13 +2829,13 @@ const char* RoomInfoResponsePackage::_InternalParse(const char* ptr, ::_pbi::Par
             CHK_(ptr);
             CHK_(::_pbi::VerifyUTF8(str, "LobbySyncPackage.RoomInfoResponsePackage.teamAPlayers"));
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else
           goto handle_unusual;
         continue;
-      // repeated string teamBPlayers = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // repeated string teamBPlayers = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2803,7 +2844,7 @@ const char* RoomInfoResponsePackage::_InternalParse(const char* ptr, ::_pbi::Par
             CHK_(ptr);
             CHK_(::_pbi::VerifyUTF8(str, "LobbySyncPackage.RoomInfoResponsePackage.teamBPlayers"));
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -2842,24 +2883,34 @@ uint8_t* RoomInfoResponsePackage::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_roomid(), target);
   }
 
-  // repeated string teamAPlayers = 2;
+  // string roomIntroduction = 2;
+  if (!this->_internal_roomintroduction().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_roomintroduction().data(), static_cast<int>(this->_internal_roomintroduction().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "LobbySyncPackage.RoomInfoResponsePackage.roomIntroduction");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_roomintroduction(), target);
+  }
+
+  // repeated string teamAPlayers = 3;
   for (int i = 0, n = this->_internal_teamaplayers_size(); i < n; i++) {
     const auto& s = this->_internal_teamaplayers(i);
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       s.data(), static_cast<int>(s.length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "LobbySyncPackage.RoomInfoResponsePackage.teamAPlayers");
-    target = stream->WriteString(2, s, target);
+    target = stream->WriteString(3, s, target);
   }
 
-  // repeated string teamBPlayers = 3;
+  // repeated string teamBPlayers = 4;
   for (int i = 0, n = this->_internal_teambplayers_size(); i < n; i++) {
     const auto& s = this->_internal_teambplayers(i);
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       s.data(), static_cast<int>(s.length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "LobbySyncPackage.RoomInfoResponsePackage.teamBPlayers");
-    target = stream->WriteString(3, s, target);
+    target = stream->WriteString(4, s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2878,7 +2929,7 @@ size_t RoomInfoResponsePackage::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated string teamAPlayers = 2;
+  // repeated string teamAPlayers = 3;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.teamaplayers_.size());
   for (int i = 0, n = _impl_.teamaplayers_.size(); i < n; i++) {
@@ -2886,12 +2937,19 @@ size_t RoomInfoResponsePackage::ByteSizeLong() const {
       _impl_.teamaplayers_.Get(i));
   }
 
-  // repeated string teamBPlayers = 3;
+  // repeated string teamBPlayers = 4;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.teambplayers_.size());
   for (int i = 0, n = _impl_.teambplayers_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       _impl_.teambplayers_.Get(i));
+  }
+
+  // string roomIntroduction = 2;
+  if (!this->_internal_roomintroduction().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_roomintroduction());
   }
 
   // uint32 roomId = 1;
@@ -2919,6 +2977,9 @@ void RoomInfoResponsePackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
 
   _this->_impl_.teamaplayers_.MergeFrom(from._impl_.teamaplayers_);
   _this->_impl_.teambplayers_.MergeFrom(from._impl_.teambplayers_);
+  if (!from._internal_roomintroduction().empty()) {
+    _this->_internal_set_roomintroduction(from._internal_roomintroduction());
+  }
   if (from._internal_roomid() != 0) {
     _this->_internal_set_roomid(from._internal_roomid());
   }
@@ -2938,9 +2999,15 @@ bool RoomInfoResponsePackage::IsInitialized() const {
 
 void RoomInfoResponsePackage::InternalSwap(RoomInfoResponsePackage* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.teamaplayers_.InternalSwap(&other->_impl_.teamaplayers_);
   _impl_.teambplayers_.InternalSwap(&other->_impl_.teambplayers_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.roomintroduction_, lhs_arena,
+      &other->_impl_.roomintroduction_, rhs_arena
+  );
   swap(_impl_.roomid_, other->_impl_.roomid_);
 }
 
@@ -2966,11 +3033,40 @@ RoomJoinResponsePackage::RoomJoinResponsePackage(const RoomJoinResponsePackage& 
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   RoomJoinResponsePackage* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.roomid_){}
+      decltype(_impl_.teamaplayers_){from._impl_.teamaplayers_}
+    , decltype(_impl_.teambplayers_){from._impl_.teambplayers_}
+    , decltype(_impl_.roomname_){}
+    , decltype(_impl_.roomtype_){}
+    , decltype(_impl_.roomintroduction_){}
+    , decltype(_impl_.roomid_){}
     , decltype(_impl_.roomteam_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.roomname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.roomname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_roomname().empty()) {
+    _this->_impl_.roomname_.Set(from._internal_roomname(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.roomtype_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.roomtype_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_roomtype().empty()) {
+    _this->_impl_.roomtype_.Set(from._internal_roomtype(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.roomintroduction_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.roomintroduction_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_roomintroduction().empty()) {
+    _this->_impl_.roomintroduction_.Set(from._internal_roomintroduction(), 
+      _this->GetArenaForAllocation());
+  }
   ::memcpy(&_impl_.roomid_, &from._impl_.roomid_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.roomteam_) -
     reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.roomteam_));
@@ -2982,10 +3078,27 @@ inline void RoomJoinResponsePackage::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.roomid_){0u}
+      decltype(_impl_.teamaplayers_){arena}
+    , decltype(_impl_.teambplayers_){arena}
+    , decltype(_impl_.roomname_){}
+    , decltype(_impl_.roomtype_){}
+    , decltype(_impl_.roomintroduction_){}
+    , decltype(_impl_.roomid_){0u}
     , decltype(_impl_.roomteam_){0u}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.roomname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.roomname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.roomtype_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.roomtype_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.roomintroduction_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.roomintroduction_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RoomJoinResponsePackage::~RoomJoinResponsePackage() {
@@ -2999,6 +3112,11 @@ RoomJoinResponsePackage::~RoomJoinResponsePackage() {
 
 inline void RoomJoinResponsePackage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.teamaplayers_.~RepeatedPtrField();
+  _impl_.teambplayers_.~RepeatedPtrField();
+  _impl_.roomname_.Destroy();
+  _impl_.roomtype_.Destroy();
+  _impl_.roomintroduction_.Destroy();
 }
 
 void RoomJoinResponsePackage::SetCachedSize(int size) const {
@@ -3011,6 +3129,11 @@ void RoomJoinResponsePackage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.teamaplayers_.Clear();
+  _impl_.teambplayers_.Clear();
+  _impl_.roomname_.ClearToEmpty();
+  _impl_.roomtype_.ClearToEmpty();
+  _impl_.roomintroduction_.ClearToEmpty();
   ::memset(&_impl_.roomid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.roomteam_) -
       reinterpret_cast<char*>(&_impl_.roomid_)) + sizeof(_impl_.roomteam_));
@@ -3031,11 +3154,71 @@ const char* RoomJoinResponsePackage::_InternalParse(const char* ptr, ::_pbi::Par
         } else
           goto handle_unusual;
         continue;
-      // uint32 roomTeam = 2;
+      // string roomName = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_roomname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "LobbySyncPackage.RoomJoinResponsePackage.roomName"));
+        } else
+          goto handle_unusual;
+        continue;
+      // string roomType = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_roomtype();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "LobbySyncPackage.RoomJoinResponsePackage.roomType"));
+        } else
+          goto handle_unusual;
+        continue;
+      // string roomIntroduction = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_roomintroduction();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "LobbySyncPackage.RoomJoinResponsePackage.roomIntroduction"));
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 roomTeam = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _impl_.roomteam_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string teamAPlayers = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_teamaplayers();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers"));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string teamBPlayers = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_teambplayers();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers"));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -3074,10 +3257,60 @@ uint8_t* RoomJoinResponsePackage::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_roomid(), target);
   }
 
-  // uint32 roomTeam = 2;
+  // string roomName = 2;
+  if (!this->_internal_roomname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_roomname().data(), static_cast<int>(this->_internal_roomname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "LobbySyncPackage.RoomJoinResponsePackage.roomName");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_roomname(), target);
+  }
+
+  // string roomType = 3;
+  if (!this->_internal_roomtype().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_roomtype().data(), static_cast<int>(this->_internal_roomtype().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "LobbySyncPackage.RoomJoinResponsePackage.roomType");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_roomtype(), target);
+  }
+
+  // string roomIntroduction = 4;
+  if (!this->_internal_roomintroduction().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_roomintroduction().data(), static_cast<int>(this->_internal_roomintroduction().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "LobbySyncPackage.RoomJoinResponsePackage.roomIntroduction");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_roomintroduction(), target);
+  }
+
+  // uint32 roomTeam = 5;
   if (this->_internal_roomteam() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_roomteam(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_roomteam(), target);
+  }
+
+  // repeated string teamAPlayers = 6;
+  for (int i = 0, n = this->_internal_teamaplayers_size(); i < n; i++) {
+    const auto& s = this->_internal_teamaplayers(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers");
+    target = stream->WriteString(6, s, target);
+  }
+
+  // repeated string teamBPlayers = 7;
+  for (int i = 0, n = this->_internal_teambplayers_size(); i < n; i++) {
+    const auto& s = this->_internal_teambplayers(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers");
+    target = stream->WriteString(7, s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3096,12 +3329,49 @@ size_t RoomJoinResponsePackage::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // repeated string teamAPlayers = 6;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.teamaplayers_.size());
+  for (int i = 0, n = _impl_.teamaplayers_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      _impl_.teamaplayers_.Get(i));
+  }
+
+  // repeated string teamBPlayers = 7;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.teambplayers_.size());
+  for (int i = 0, n = _impl_.teambplayers_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      _impl_.teambplayers_.Get(i));
+  }
+
+  // string roomName = 2;
+  if (!this->_internal_roomname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_roomname());
+  }
+
+  // string roomType = 3;
+  if (!this->_internal_roomtype().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_roomtype());
+  }
+
+  // string roomIntroduction = 4;
+  if (!this->_internal_roomintroduction().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_roomintroduction());
+  }
+
   // uint32 roomId = 1;
   if (this->_internal_roomid() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_roomid());
   }
 
-  // uint32 roomTeam = 2;
+  // uint32 roomTeam = 5;
   if (this->_internal_roomteam() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_roomteam());
   }
@@ -3124,6 +3394,17 @@ void RoomJoinResponsePackage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_impl_.teamaplayers_.MergeFrom(from._impl_.teamaplayers_);
+  _this->_impl_.teambplayers_.MergeFrom(from._impl_.teambplayers_);
+  if (!from._internal_roomname().empty()) {
+    _this->_internal_set_roomname(from._internal_roomname());
+  }
+  if (!from._internal_roomtype().empty()) {
+    _this->_internal_set_roomtype(from._internal_roomtype());
+  }
+  if (!from._internal_roomintroduction().empty()) {
+    _this->_internal_set_roomintroduction(from._internal_roomintroduction());
+  }
   if (from._internal_roomid() != 0) {
     _this->_internal_set_roomid(from._internal_roomid());
   }
@@ -3146,7 +3427,23 @@ bool RoomJoinResponsePackage::IsInitialized() const {
 
 void RoomJoinResponsePackage::InternalSwap(RoomJoinResponsePackage* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.teamaplayers_.InternalSwap(&other->_impl_.teamaplayers_);
+  _impl_.teambplayers_.InternalSwap(&other->_impl_.teambplayers_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.roomname_, lhs_arena,
+      &other->_impl_.roomname_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.roomtype_, lhs_arena,
+      &other->_impl_.roomtype_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.roomintroduction_, lhs_arena,
+      &other->_impl_.roomintroduction_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(RoomJoinResponsePackage, _impl_.roomteam_)
       + sizeof(RoomJoinResponsePackage::_impl_.roomteam_)

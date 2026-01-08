@@ -32,6 +32,11 @@ namespace SceneUI.StartSceneUI
             _num = num;
         }
 
+        public void SetRoomId(uint roomId)
+        {
+            _roomId = roomId;
+        }
+
         public uint GetRoomId()
         {
             return _roomId;

@@ -1776,11 +1776,12 @@ class RoomInfoResponsePackage final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kTeamAPlayersFieldNumber = 2,
-    kTeamBPlayersFieldNumber = 3,
+    kTeamAPlayersFieldNumber = 3,
+    kTeamBPlayersFieldNumber = 4,
+    kRoomIntroductionFieldNumber = 2,
     kRoomIdFieldNumber = 1,
   };
-  // repeated string teamAPlayers = 2;
+  // repeated string teamAPlayers = 3;
   int teamaplayers_size() const;
   private:
   int _internal_teamaplayers_size() const;
@@ -1804,7 +1805,7 @@ class RoomInfoResponsePackage final :
   std::string* _internal_add_teamaplayers();
   public:
 
-  // repeated string teamBPlayers = 3;
+  // repeated string teamBPlayers = 4;
   int teambplayers_size() const;
   private:
   int _internal_teambplayers_size() const;
@@ -1828,6 +1829,20 @@ class RoomInfoResponsePackage final :
   std::string* _internal_add_teambplayers();
   public:
 
+  // string roomIntroduction = 2;
+  void clear_roomintroduction();
+  const std::string& roomintroduction() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_roomintroduction(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_roomintroduction();
+  PROTOBUF_NODISCARD std::string* release_roomintroduction();
+  void set_allocated_roomintroduction(std::string* roomintroduction);
+  private:
+  const std::string& _internal_roomintroduction() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_roomintroduction(const std::string& value);
+  std::string* _internal_mutable_roomintroduction();
+  public:
+
   // uint32 roomId = 1;
   void clear_roomid();
   uint32_t roomid() const;
@@ -1847,6 +1862,7 @@ class RoomInfoResponsePackage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> teamaplayers_;
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> teambplayers_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomintroduction_;
     uint32_t roomid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -1976,9 +1992,104 @@ class RoomJoinResponsePackage final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kTeamAPlayersFieldNumber = 6,
+    kTeamBPlayersFieldNumber = 7,
+    kRoomNameFieldNumber = 2,
+    kRoomTypeFieldNumber = 3,
+    kRoomIntroductionFieldNumber = 4,
     kRoomIdFieldNumber = 1,
-    kRoomTeamFieldNumber = 2,
+    kRoomTeamFieldNumber = 5,
   };
+  // repeated string teamAPlayers = 6;
+  int teamaplayers_size() const;
+  private:
+  int _internal_teamaplayers_size() const;
+  public:
+  void clear_teamaplayers();
+  const std::string& teamaplayers(int index) const;
+  std::string* mutable_teamaplayers(int index);
+  void set_teamaplayers(int index, const std::string& value);
+  void set_teamaplayers(int index, std::string&& value);
+  void set_teamaplayers(int index, const char* value);
+  void set_teamaplayers(int index, const char* value, size_t size);
+  std::string* add_teamaplayers();
+  void add_teamaplayers(const std::string& value);
+  void add_teamaplayers(std::string&& value);
+  void add_teamaplayers(const char* value);
+  void add_teamaplayers(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& teamaplayers() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_teamaplayers();
+  private:
+  const std::string& _internal_teamaplayers(int index) const;
+  std::string* _internal_add_teamaplayers();
+  public:
+
+  // repeated string teamBPlayers = 7;
+  int teambplayers_size() const;
+  private:
+  int _internal_teambplayers_size() const;
+  public:
+  void clear_teambplayers();
+  const std::string& teambplayers(int index) const;
+  std::string* mutable_teambplayers(int index);
+  void set_teambplayers(int index, const std::string& value);
+  void set_teambplayers(int index, std::string&& value);
+  void set_teambplayers(int index, const char* value);
+  void set_teambplayers(int index, const char* value, size_t size);
+  std::string* add_teambplayers();
+  void add_teambplayers(const std::string& value);
+  void add_teambplayers(std::string&& value);
+  void add_teambplayers(const char* value);
+  void add_teambplayers(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& teambplayers() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_teambplayers();
+  private:
+  const std::string& _internal_teambplayers(int index) const;
+  std::string* _internal_add_teambplayers();
+  public:
+
+  // string roomName = 2;
+  void clear_roomname();
+  const std::string& roomname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_roomname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_roomname();
+  PROTOBUF_NODISCARD std::string* release_roomname();
+  void set_allocated_roomname(std::string* roomname);
+  private:
+  const std::string& _internal_roomname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_roomname(const std::string& value);
+  std::string* _internal_mutable_roomname();
+  public:
+
+  // string roomType = 3;
+  void clear_roomtype();
+  const std::string& roomtype() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_roomtype(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_roomtype();
+  PROTOBUF_NODISCARD std::string* release_roomtype();
+  void set_allocated_roomtype(std::string* roomtype);
+  private:
+  const std::string& _internal_roomtype() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_roomtype(const std::string& value);
+  std::string* _internal_mutable_roomtype();
+  public:
+
+  // string roomIntroduction = 4;
+  void clear_roomintroduction();
+  const std::string& roomintroduction() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_roomintroduction(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_roomintroduction();
+  PROTOBUF_NODISCARD std::string* release_roomintroduction();
+  void set_allocated_roomintroduction(std::string* roomintroduction);
+  private:
+  const std::string& _internal_roomintroduction() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_roomintroduction(const std::string& value);
+  std::string* _internal_mutable_roomintroduction();
+  public:
+
   // uint32 roomId = 1;
   void clear_roomid();
   uint32_t roomid() const;
@@ -1988,7 +2099,7 @@ class RoomJoinResponsePackage final :
   void _internal_set_roomid(uint32_t value);
   public:
 
-  // uint32 roomTeam = 2;
+  // uint32 roomTeam = 5;
   void clear_roomteam();
   uint32_t roomteam() const;
   void set_roomteam(uint32_t value);
@@ -2005,6 +2116,11 @@ class RoomJoinResponsePackage final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> teamaplayers_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> teambplayers_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomname_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomtype_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr roomintroduction_;
     uint32_t roomid_;
     uint32_t roomteam_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -3151,7 +3267,57 @@ inline void RoomInfoResponsePackage::set_roomid(uint32_t value) {
   // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomInfoResponsePackage.roomId)
 }
 
-// repeated string teamAPlayers = 2;
+// string roomIntroduction = 2;
+inline void RoomInfoResponsePackage::clear_roomintroduction() {
+  _impl_.roomintroduction_.ClearToEmpty();
+}
+inline const std::string& RoomInfoResponsePackage::roomintroduction() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RoomInfoResponsePackage.roomIntroduction)
+  return _internal_roomintroduction();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RoomInfoResponsePackage::set_roomintroduction(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.roomintroduction_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomInfoResponsePackage.roomIntroduction)
+}
+inline std::string* RoomInfoResponsePackage::mutable_roomintroduction() {
+  std::string* _s = _internal_mutable_roomintroduction();
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RoomInfoResponsePackage.roomIntroduction)
+  return _s;
+}
+inline const std::string& RoomInfoResponsePackage::_internal_roomintroduction() const {
+  return _impl_.roomintroduction_.Get();
+}
+inline void RoomInfoResponsePackage::_internal_set_roomintroduction(const std::string& value) {
+  
+  _impl_.roomintroduction_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RoomInfoResponsePackage::_internal_mutable_roomintroduction() {
+  
+  return _impl_.roomintroduction_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RoomInfoResponsePackage::release_roomintroduction() {
+  // @@protoc_insertion_point(field_release:LobbySyncPackage.RoomInfoResponsePackage.roomIntroduction)
+  return _impl_.roomintroduction_.Release();
+}
+inline void RoomInfoResponsePackage::set_allocated_roomintroduction(std::string* roomintroduction) {
+  if (roomintroduction != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.roomintroduction_.SetAllocated(roomintroduction, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.roomintroduction_.IsDefault()) {
+    _impl_.roomintroduction_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:LobbySyncPackage.RoomInfoResponsePackage.roomIntroduction)
+}
+
+// repeated string teamAPlayers = 3;
 inline int RoomInfoResponsePackage::_internal_teamaplayers_size() const {
   return _impl_.teamaplayers_.size();
 }
@@ -3226,7 +3392,7 @@ RoomInfoResponsePackage::mutable_teamaplayers() {
   return &_impl_.teamaplayers_;
 }
 
-// repeated string teamBPlayers = 3;
+// repeated string teamBPlayers = 4;
 inline int RoomInfoResponsePackage::_internal_teambplayers_size() const {
   return _impl_.teambplayers_.size();
 }
@@ -3325,7 +3491,157 @@ inline void RoomJoinResponsePackage::set_roomid(uint32_t value) {
   // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomJoinResponsePackage.roomId)
 }
 
-// uint32 roomTeam = 2;
+// string roomName = 2;
+inline void RoomJoinResponsePackage::clear_roomname() {
+  _impl_.roomname_.ClearToEmpty();
+}
+inline const std::string& RoomJoinResponsePackage::roomname() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RoomJoinResponsePackage.roomName)
+  return _internal_roomname();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RoomJoinResponsePackage::set_roomname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.roomname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomJoinResponsePackage.roomName)
+}
+inline std::string* RoomJoinResponsePackage::mutable_roomname() {
+  std::string* _s = _internal_mutable_roomname();
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RoomJoinResponsePackage.roomName)
+  return _s;
+}
+inline const std::string& RoomJoinResponsePackage::_internal_roomname() const {
+  return _impl_.roomname_.Get();
+}
+inline void RoomJoinResponsePackage::_internal_set_roomname(const std::string& value) {
+  
+  _impl_.roomname_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RoomJoinResponsePackage::_internal_mutable_roomname() {
+  
+  return _impl_.roomname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RoomJoinResponsePackage::release_roomname() {
+  // @@protoc_insertion_point(field_release:LobbySyncPackage.RoomJoinResponsePackage.roomName)
+  return _impl_.roomname_.Release();
+}
+inline void RoomJoinResponsePackage::set_allocated_roomname(std::string* roomname) {
+  if (roomname != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.roomname_.SetAllocated(roomname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.roomname_.IsDefault()) {
+    _impl_.roomname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:LobbySyncPackage.RoomJoinResponsePackage.roomName)
+}
+
+// string roomType = 3;
+inline void RoomJoinResponsePackage::clear_roomtype() {
+  _impl_.roomtype_.ClearToEmpty();
+}
+inline const std::string& RoomJoinResponsePackage::roomtype() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RoomJoinResponsePackage.roomType)
+  return _internal_roomtype();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RoomJoinResponsePackage::set_roomtype(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.roomtype_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomJoinResponsePackage.roomType)
+}
+inline std::string* RoomJoinResponsePackage::mutable_roomtype() {
+  std::string* _s = _internal_mutable_roomtype();
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RoomJoinResponsePackage.roomType)
+  return _s;
+}
+inline const std::string& RoomJoinResponsePackage::_internal_roomtype() const {
+  return _impl_.roomtype_.Get();
+}
+inline void RoomJoinResponsePackage::_internal_set_roomtype(const std::string& value) {
+  
+  _impl_.roomtype_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RoomJoinResponsePackage::_internal_mutable_roomtype() {
+  
+  return _impl_.roomtype_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RoomJoinResponsePackage::release_roomtype() {
+  // @@protoc_insertion_point(field_release:LobbySyncPackage.RoomJoinResponsePackage.roomType)
+  return _impl_.roomtype_.Release();
+}
+inline void RoomJoinResponsePackage::set_allocated_roomtype(std::string* roomtype) {
+  if (roomtype != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.roomtype_.SetAllocated(roomtype, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.roomtype_.IsDefault()) {
+    _impl_.roomtype_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:LobbySyncPackage.RoomJoinResponsePackage.roomType)
+}
+
+// string roomIntroduction = 4;
+inline void RoomJoinResponsePackage::clear_roomintroduction() {
+  _impl_.roomintroduction_.ClearToEmpty();
+}
+inline const std::string& RoomJoinResponsePackage::roomintroduction() const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RoomJoinResponsePackage.roomIntroduction)
+  return _internal_roomintroduction();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RoomJoinResponsePackage::set_roomintroduction(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.roomintroduction_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomJoinResponsePackage.roomIntroduction)
+}
+inline std::string* RoomJoinResponsePackage::mutable_roomintroduction() {
+  std::string* _s = _internal_mutable_roomintroduction();
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RoomJoinResponsePackage.roomIntroduction)
+  return _s;
+}
+inline const std::string& RoomJoinResponsePackage::_internal_roomintroduction() const {
+  return _impl_.roomintroduction_.Get();
+}
+inline void RoomJoinResponsePackage::_internal_set_roomintroduction(const std::string& value) {
+  
+  _impl_.roomintroduction_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RoomJoinResponsePackage::_internal_mutable_roomintroduction() {
+  
+  return _impl_.roomintroduction_.Mutable(GetArenaForAllocation());
+}
+inline std::string* RoomJoinResponsePackage::release_roomintroduction() {
+  // @@protoc_insertion_point(field_release:LobbySyncPackage.RoomJoinResponsePackage.roomIntroduction)
+  return _impl_.roomintroduction_.Release();
+}
+inline void RoomJoinResponsePackage::set_allocated_roomintroduction(std::string* roomintroduction) {
+  if (roomintroduction != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.roomintroduction_.SetAllocated(roomintroduction, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.roomintroduction_.IsDefault()) {
+    _impl_.roomintroduction_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:LobbySyncPackage.RoomJoinResponsePackage.roomIntroduction)
+}
+
+// uint32 roomTeam = 5;
 inline void RoomJoinResponsePackage::clear_roomteam() {
   _impl_.roomteam_ = 0u;
 }
@@ -3343,6 +3659,156 @@ inline void RoomJoinResponsePackage::_internal_set_roomteam(uint32_t value) {
 inline void RoomJoinResponsePackage::set_roomteam(uint32_t value) {
   _internal_set_roomteam(value);
   // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomJoinResponsePackage.roomTeam)
+}
+
+// repeated string teamAPlayers = 6;
+inline int RoomJoinResponsePackage::_internal_teamaplayers_size() const {
+  return _impl_.teamaplayers_.size();
+}
+inline int RoomJoinResponsePackage::teamaplayers_size() const {
+  return _internal_teamaplayers_size();
+}
+inline void RoomJoinResponsePackage::clear_teamaplayers() {
+  _impl_.teamaplayers_.Clear();
+}
+inline std::string* RoomJoinResponsePackage::add_teamaplayers() {
+  std::string* _s = _internal_add_teamaplayers();
+  // @@protoc_insertion_point(field_add_mutable:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+  return _s;
+}
+inline const std::string& RoomJoinResponsePackage::_internal_teamaplayers(int index) const {
+  return _impl_.teamaplayers_.Get(index);
+}
+inline const std::string& RoomJoinResponsePackage::teamaplayers(int index) const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+  return _internal_teamaplayers(index);
+}
+inline std::string* RoomJoinResponsePackage::mutable_teamaplayers(int index) {
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+  return _impl_.teamaplayers_.Mutable(index);
+}
+inline void RoomJoinResponsePackage::set_teamaplayers(int index, const std::string& value) {
+  _impl_.teamaplayers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+}
+inline void RoomJoinResponsePackage::set_teamaplayers(int index, std::string&& value) {
+  _impl_.teamaplayers_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+}
+inline void RoomJoinResponsePackage::set_teamaplayers(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.teamaplayers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+}
+inline void RoomJoinResponsePackage::set_teamaplayers(int index, const char* value, size_t size) {
+  _impl_.teamaplayers_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+}
+inline std::string* RoomJoinResponsePackage::_internal_add_teamaplayers() {
+  return _impl_.teamaplayers_.Add();
+}
+inline void RoomJoinResponsePackage::add_teamaplayers(const std::string& value) {
+  _impl_.teamaplayers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+}
+inline void RoomJoinResponsePackage::add_teamaplayers(std::string&& value) {
+  _impl_.teamaplayers_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+}
+inline void RoomJoinResponsePackage::add_teamaplayers(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.teamaplayers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+}
+inline void RoomJoinResponsePackage::add_teamaplayers(const char* value, size_t size) {
+  _impl_.teamaplayers_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+RoomJoinResponsePackage::teamaplayers() const {
+  // @@protoc_insertion_point(field_list:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+  return _impl_.teamaplayers_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+RoomJoinResponsePackage::mutable_teamaplayers() {
+  // @@protoc_insertion_point(field_mutable_list:LobbySyncPackage.RoomJoinResponsePackage.teamAPlayers)
+  return &_impl_.teamaplayers_;
+}
+
+// repeated string teamBPlayers = 7;
+inline int RoomJoinResponsePackage::_internal_teambplayers_size() const {
+  return _impl_.teambplayers_.size();
+}
+inline int RoomJoinResponsePackage::teambplayers_size() const {
+  return _internal_teambplayers_size();
+}
+inline void RoomJoinResponsePackage::clear_teambplayers() {
+  _impl_.teambplayers_.Clear();
+}
+inline std::string* RoomJoinResponsePackage::add_teambplayers() {
+  std::string* _s = _internal_add_teambplayers();
+  // @@protoc_insertion_point(field_add_mutable:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+  return _s;
+}
+inline const std::string& RoomJoinResponsePackage::_internal_teambplayers(int index) const {
+  return _impl_.teambplayers_.Get(index);
+}
+inline const std::string& RoomJoinResponsePackage::teambplayers(int index) const {
+  // @@protoc_insertion_point(field_get:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+  return _internal_teambplayers(index);
+}
+inline std::string* RoomJoinResponsePackage::mutable_teambplayers(int index) {
+  // @@protoc_insertion_point(field_mutable:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+  return _impl_.teambplayers_.Mutable(index);
+}
+inline void RoomJoinResponsePackage::set_teambplayers(int index, const std::string& value) {
+  _impl_.teambplayers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+}
+inline void RoomJoinResponsePackage::set_teambplayers(int index, std::string&& value) {
+  _impl_.teambplayers_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+}
+inline void RoomJoinResponsePackage::set_teambplayers(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.teambplayers_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+}
+inline void RoomJoinResponsePackage::set_teambplayers(int index, const char* value, size_t size) {
+  _impl_.teambplayers_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+}
+inline std::string* RoomJoinResponsePackage::_internal_add_teambplayers() {
+  return _impl_.teambplayers_.Add();
+}
+inline void RoomJoinResponsePackage::add_teambplayers(const std::string& value) {
+  _impl_.teambplayers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+}
+inline void RoomJoinResponsePackage::add_teambplayers(std::string&& value) {
+  _impl_.teambplayers_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+}
+inline void RoomJoinResponsePackage::add_teambplayers(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _impl_.teambplayers_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+}
+inline void RoomJoinResponsePackage::add_teambplayers(const char* value, size_t size) {
+  _impl_.teambplayers_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+RoomJoinResponsePackage::teambplayers() const {
+  // @@protoc_insertion_point(field_list:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+  return _impl_.teambplayers_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+RoomJoinResponsePackage::mutable_teambplayers() {
+  // @@protoc_insertion_point(field_mutable_list:LobbySyncPackage.RoomJoinResponsePackage.teamBPlayers)
+  return &_impl_.teambplayers_;
 }
 
 #ifdef __GNUC__

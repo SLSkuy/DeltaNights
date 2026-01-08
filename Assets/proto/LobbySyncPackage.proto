@@ -78,7 +78,7 @@ message RefreshResponsePackage{
   int32 num = 6;//人数
 }
 
-// ===== 创建房间回应包 =====
+// ===== 创建房间回应包 =====  这个暂时弃用
 message RoomCreateResponsePackage {
   uint32 roomId = 1;
   uint32 max = 2;
@@ -88,12 +88,18 @@ message RoomCreateResponsePackage {
 // ===== 房间信息回应包 =====
 message RoomInfoResponsePackage {
   uint32 roomId = 1;
-  repeated string teamAPlayers = 2;
-  repeated string teamBPlayers = 3;
+  string roomIntroduction = 2;//房间简介
+  repeated string teamAPlayers = 3;
+  repeated string teamBPlayers = 4;
 }
 
 // ===== 加入房间回应包 =====
 message RoomJoinResponsePackage {
   uint32 roomId = 1;
-  uint32 roomTeam = 2;//队伍 方便多队伍 1=A队 2=B队
+  string roomName = 2;//房间名
+  string roomType = 3;//房间类型
+  string roomIntroduction = 4;//房间简介
+  uint32 roomTeam = 5;//队伍 方便多队伍 1=A队 2=B队
+  repeated string teamAPlayers = 6;
+  repeated string teamBPlayers = 7;
 }

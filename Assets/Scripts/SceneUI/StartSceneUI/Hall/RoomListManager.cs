@@ -26,7 +26,8 @@ namespace SceneUI.StartSceneUI
             //测试用
             for (int index = 0; index != 4; index++)
             {
-                AddElement(index);
+                GameObject o=AddElement(index);
+                o.GetComponent<RoomElementComponent>().SetRoomId((uint)index);
             }
         }
         
@@ -42,6 +43,18 @@ namespace SceneUI.StartSceneUI
                 GameObject o=AddElement(i);
                 o.GetComponent<RoomElementComponent>().SetValue(room.RoomId, room.RoomName, room.RoomType, room.Owner,
                     room.Max, room.Num);
+            }
+        }
+
+        public uint GetCurrentRoomId()
+        {
+            if (_elementByIndex.ContainsKey(_currentRoomIndex))
+            {
+                return _elementByIndex[_currentRoomIndex].GetComponent<RoomElementComponent>().GetRoomId();
+            }
+            else
+            {
+                return 0;
             }
         }
         

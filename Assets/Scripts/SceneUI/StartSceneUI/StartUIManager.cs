@@ -9,6 +9,8 @@
  * ------------------------------------------------------------ */
 
 using EventProcess;
+using LobbySyncPackage;
+using Network;
 using UIFramework;
 using UIFramework.Panel;
 using UIFramework.Window;
@@ -69,7 +71,7 @@ namespace SceneUI.StartSceneUI
         {
             UIFrame.HideUI("LogInPanel");
             UIFrame.HideUI("StatusPromptWindow");
-            UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties(PanelPriority.None, "欢迎，"+ctx));
+            UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties( "欢迎，"+ctx));
         }
 
         void OnErrorPromptWindow(string ctx)
@@ -89,9 +91,23 @@ namespace SceneUI.StartSceneUI
             }
         }
 
+        //事件处理函数
+        void HallToRoom(RoomJoinResponsePackage response)
+        {
+            UIFrame.HideUI("StatusPromptWindow");
+            UIFrame.HideUI("HallPanel");
+            UIFrame.ShowUI("RoomPanel",new RoomPanelProperties(response));
+        }
+
+        void Start()
+        {
+            NetWorkManager.instance.RegisterEventHandler<RoomJoinResponsePackage>(NetEvent.LobbyRoomJoin,HallToRoom);
+        }
+        
+        //测试
         public void TestButton()
         {
-            UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties(PanelPriority.None, "启动测试"));
+            UIFrame.ShowUI("StartMainPanel",new StartMainPanelProperties( "启动测试"));
         }
     }
 }

@@ -7,6 +7,8 @@
  *  房间界面
  * 
  * ------------------------------------------------------------ */
+
+using LobbySyncPackage;
 using UIFramework.Panel;
 
 namespace SceneUI.StartSceneUI
@@ -34,6 +36,32 @@ namespace SceneUI.StartSceneUI
         {
             
         }
+
+        private void RoomEnter(RoomJoinResponsePackage response)
+        {
+            //TODO:处理房间信息显示
+        }
+        
+        protected override void SetProperties(PanelProperties props)
+        {
+            if (props is RoomPanelProperties properties)
+            {
+                RoomEnter(properties.Response);
+            }
+            base.SetProperties(props);
+        }
         
     }
+
+    public class RoomPanelProperties : PanelProperties
+    {
+        public RoomJoinResponsePackage Response;
+
+        public RoomPanelProperties(RoomJoinResponsePackage response):base(PanelPriority.None)
+        {
+            Response = response;
+        }
+
+    }
+    
 }
