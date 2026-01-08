@@ -58,6 +58,20 @@ public:
 
 public:
     const std::unordered_map<quint32, std::unique_ptr<PlayerEntity>>& players() const { return m_players; }
+    void roomName(QString roomname){m_roomName = roomname;}
+    void roomType(QString roomtype){m_roomType = roomtype;}
+    void roomIntroduction(QString roomintroduction){m_roomIntroduction = roomintroduction;}
+    void roomOwnerName(QString ownername){m_ownerName = ownername;}
+    void Max(int max){m_max= max;}
+    void min(int num){m_num= num;}
+
+    QString getRoomName(){return m_roomName;}
+    QString getRoomType(){return m_roomType;}
+    QString getRoomIntroduction(){return m_roomIntroduction;}
+    QString getRoomOwnerName(){return m_ownerName;}
+    void addNum(){m_num++;}
+    int getMax(){return m_max;}
+    int getNum(){return m_num;}
 
 signals:
     void battleSync(quint32 roomID, BattleSyncPackage::BattleSyncResponse* response);  // 发送新Tick信号，由接收者处理每一Tick产生的Protobuf事件
@@ -76,9 +90,11 @@ private:
     QString m_roomName;
     QString m_roomType;
     QString m_roomIntroduction;
-    QString m_ownerName;
-    int max=6;//房间最大人数默认为6
-    int min=0;//房间实时人数
+    QString m_ownerName;//房主
+    int m_max=6;//房间最大人数默认为6
+    int m_num=0;//房间实时人数
+
+    //QString _teamA[];
 
     // ========== Tick处理 ==========
     quint32 m_tick;
@@ -95,4 +111,6 @@ private:
     // ========== 玩家数据处理 ==========
     std::unordered_map<quint32, std::unique_ptr<PlayerEntity>> m_players; // clientID -> PlayerEntity
     std::unordered_map<quint32, PlayerInput> m_inputBuffer; // 每次同步如果有输入则覆盖PlayerEntity，没有则保持PlayerEntity中的输入
+    std::unordered_map<quint32, ClientInfo*> _teamA;//房间内分为队伍A和队伍B两个阵营
+    std::unordered_map<quint32, ClientInfo*> _teamB;
 };
