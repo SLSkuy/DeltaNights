@@ -18,6 +18,7 @@ namespace Network
         LoginResponse,
         LobbyRefresh,
         LobbyRoomInfo,
-        LobbyRoomJoin
+        LobbyRoomJoin,
+        LobbyRoomExit,
     }
 }

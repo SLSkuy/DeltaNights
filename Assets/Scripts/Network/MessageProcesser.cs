@@ -134,6 +134,9 @@ namespace Network
                 case RemoteLobbyEvent.RemoteLobbyRoomJoin:
                     Dispatch(NetEvent.LobbyRoomJoin, response.RoomJoinResponse);
                     break;
+                case RemoteLobbyEvent.RemoteLobbyRoomExit:
+                    Dispatch(NetEvent.LobbyRoomExit, response.RoomExitResponse);
+                    break;
                 default:
                     break;
             }

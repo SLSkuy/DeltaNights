@@ -32,6 +32,7 @@ namespace SceneUI.StartSceneUI
             Signals.Get<LogInPressDownSignal>().AddListener(OnLogInButtonPressDown);
             Signals.Get<ErrorPromptWindowSignal>().AddListener(OnErrorPromptWindow);
             Signals.Get<StatusPromptWindowSignal>().AddListener(OnStatusPromptWindow);
+            Signals.Get<RoomPressDownSignal>().AddListener(OnRoomButtonPressDown);
             
         }
 
@@ -42,6 +43,7 @@ namespace SceneUI.StartSceneUI
             Signals.Get<LogInPressDownSignal>().RemoveListener(OnLogInButtonPressDown);
             Signals.Get<ErrorPromptWindowSignal>().RemoveListener(OnErrorPromptWindow);
             Signals.Get<StatusPromptWindowSignal>().RemoveListener(OnStatusPromptWindow);
+            Signals.Get<RoomPressDownSignal>().RemoveListener(OnRoomButtonPressDown);
         }
         
         void OnStartButtonPressDown()
@@ -101,13 +103,9 @@ namespace SceneUI.StartSceneUI
                 case RoomOption.Exit:
                     UIFrame.HideUI("RoomPanel");
                     UIFrame.ShowUI("HallPanel");
-                    
-                    //TODO:退出发包
-                    
                     break;
                 case RoomOption.Start:
                     //TODO:开始发包
-                    
                     break;
                 default:
                     break;

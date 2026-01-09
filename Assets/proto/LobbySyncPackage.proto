@@ -11,6 +11,7 @@ enum LocalLobbyEvent {
   Local_Lobby_RoomInfo = 2;
   Local_Lobby_RoomCreate = 3;
   Local_Lobby_RoomJoin = 4;
+  Local_Lobby_RoomExit = 5;
 }
 
 // ===== 大厅操作请求包 =====
@@ -20,6 +21,7 @@ message LobbySyncRequest {
     RoomCreateRequest roomCreate = 2;
     RoomInfoRequest roomInfo = 3;
     RoomJoinRequest roomJoin = 4;
+    RoomExitRequest roomExit = 5;
   }
 }
 
@@ -40,6 +42,10 @@ message RoomJoinRequest {
   uint32 roomId = 1;
 }
 
+// ===== 退出房间请求包 =====
+message RoomExitRequest {
+  uint32 roomId = 1;
+}
 
 /* ==================================================
   顶层封装-大厅操作回应事件
@@ -50,6 +56,8 @@ enum RemoteLobbyEvent {
   Remote_Lobby_RoomInfo = 2;
   Remote_Lobby_RoomCreate = 3;
   Remote_Lobby_RoomJoin = 4;
+  Remote_Lobby_RoomUpdate = 5;
+  Remote_Lobby_RoomExit = 6;
 }
 
 // ===== 大厅操作回应包 =====
@@ -60,6 +68,7 @@ message LobbySyncResponse {
     RoomCreateResponsePackage roomCreateResponse = 3;
     RoomInfoResponsePackage roomInfoResponse = 4;
     RoomJoinResponsePackage roomJoinResponse = 5;
+    RoomExitResponsePackage roomExitResponse = 6;
   }
 }
 
@@ -102,4 +111,9 @@ message RoomJoinResponsePackage {
   uint32 roomTeam = 5;//队伍 方便多队伍 1=A队 2=B队
   repeated string teamAPlayers = 6;
   repeated string teamBPlayers = 7;
+}
+
+// ===== 房间退出回应包 =====
+message RoomExitResponsePackage{
+  uint32 roomId = 1;
 }

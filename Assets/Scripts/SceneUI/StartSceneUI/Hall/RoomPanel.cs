@@ -11,6 +11,7 @@
 using System;
 using EventProcess;
 using LobbySyncPackage;
+using Network;
 using TMPro;
 using UIFramework.Panel;
 using UnityEngine;
@@ -37,26 +38,24 @@ namespace SceneUI.StartSceneUI
         public void UI_OnExitRoom()
         {
             //TODO:退出逻辑
-            Signals.Get<RoomPressDownSignal>().Dispatch(RoomOption.Exit);
+            Signals.Get<StatusPromptWindowSignal>().Dispatch(true,"退出房间...");
         }
 
         public void UI_OnStartRoom()
         {
             //TODO:开始逻辑
+            Signals.Get<StatusPromptWindowSignal>().Dispatch(true,"开始游戏...(暂无多人局内支持，后续功能待实现)");
         }
-
-        //玩家加入
-        public void PlayerEnter()
+        
+        /*
+         * 回应包处理
+         */
+        public void RoomExit(RoomExitResponsePackage response)
         {
-            
+            Signals.Get<StatusPromptWindowSignal>().Dispatch(false,"");
+            Signals.Get<RoomPressDownSignal>().Dispatch(RoomOption.Exit);
         }
-
-        //玩家退出
-        public void PlayerExit()
-        {
-            
-        }
-
+        
         private void RoomEnter(RoomJoinResponsePackage response)
         {
             _playerListManagerA.DeleteList();
@@ -81,7 +80,11 @@ namespace SceneUI.StartSceneUI
             }
             base.SetProperties(props);
         }
-        
+
+        private void Start()
+        {
+            NetWorkManager.instance.RegisterEventHandler<RoomExitResponsePackage>(NetEvent.LobbyRoomExit,RoomExit);
+        }
     }
 
     public class RoomPanelProperties : PanelProperties
