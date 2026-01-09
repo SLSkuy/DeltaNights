@@ -145,21 +145,9 @@ void GameRoomManager::roomOwner(QTcpSocket*socket,QString roomname,QString roomt
     PlayerInfo* player = client->getPlayer();
     //PlayerInfo* player = new PlayerInfo();
 
-
     joinGameRoom(m_nextRoomID-1, player,socket);
 
-
-
-
     using namespace SyncPackage;
-    // RemoteSyncPackage response;
-    // response.set_eventid(RemoteSyncEvent::LobbyResponse);
-    // auto* type = response.mutable_lobbypackage();
-    // type->set_eventid(LobbySyncPackage::RemoteLobbyEvent::Remote_Lobby_RoomCreate);
-    // auto *createRoomResponse=type->mutable_roomcreateresponse();
-    // createRoomResponse->set_roomid(m_nextRoomID-1);
-    // createRoomResponse->set_max(m_rooms[m_nextRoomID-1]->getMax());
-    // createRoomResponse->set_num(m_rooms[m_nextRoomID-1]->getPlayerCount());
 
     RemoteSyncPackage response;
     response.set_eventid(RemoteSyncEvent::LobbyResponse);
@@ -171,26 +159,28 @@ void GameRoomManager::roomOwner(QTcpSocket*socket,QString roomname,QString roomt
     joinRoomResponse->set_roomtype(roomtype.toStdString());
     joinRoomResponse->set_roomintroduction(roomintroduction.toStdString());
     joinRoomResponse->set_roomteam(2);
-    //joinRoomResponse->
+    room->fillTeamA(joinRoomResponse);
+    room->fillTeamB(joinRoomResponse);
 
-    for(i=0;i<=room->getTeamACount();i++)
-    {
-        auto player = room->getTeamAPlayer(i);
-        if(player){
-            QString playername = player->nickname();
-            joinRoomResponse->add_teamaplayers(playername.toStdString());
-        }
+    // for(i=0;i<=room->getTeamACount();i++)
+    // {
+    //     auto player = room->getTeamAPlayer(i);
+    //     if(player){
+    //         QString playername = player->nickname();
+    //         joinRoomResponse->add_teamaplayers(playername.toStdString());
+    //     }
 
-    }
+    // }
 
-    for(i=0;i<=room->getTeamBCount();i++)
-    {
-        auto player = room->getTeamBPlayer(i);
-        if(player){
-            QString playername = player->nickname();
-            joinRoomResponse->add_teambplayers(playername.toStdString());
-        }
-    }
+
+    // for(i=0;i<=room->getTeamBCount();i++)
+    // {
+    //     auto player = room->getTeamBPlayer(i);
+    //     if(player){
+    //         QString playername = player->nickname();
+    //         joinRoomResponse->add_teambplayers(playername.toStdString());
+    //     }
+    // }
 
     Logger::Info() <<"[GameRoomManager]"<<"roomid"<<"-"<<m_nextRoomID-1;
     emit roomCreateResponse(socket,response);
@@ -250,6 +240,13 @@ void GameRoomManager::assignRooms(QTcpSocket *socket, quint32 roomid)
 
 
     emit joinRoomResponse(socket,response);
+}
+
+void GameRoomManager::exitRoom(QTcpSocket *socket, quint32 roomid)
+{
+    GameRoom *room=findGameRoomByID(roomid);
+
+
 }
 
 void GameRoomManager::roomInfo(QTcpSocket *socket, quint32 roomid)

@@ -42,6 +42,7 @@ public:
     void roomOwner(QTcpSocket*socket,QString roomname,QString roomtype,QString roomintroduction);
     void refreshGameRoom(QTcpSocket *socket);
     void assignRooms(QTcpSocket *socket,quint32 roomid);
+    void exitRoom(QTcpSocket *socket,quint32 roomid);
     void roomInfo(QTcpSocket *socket, quint32 roomid);
 
 signals:

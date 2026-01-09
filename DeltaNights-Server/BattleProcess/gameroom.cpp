@@ -15,6 +15,7 @@
 #include "../Logger/logger.h"
 #include "../ObjectPool/protopool.h"
 #include "../ClientManage/clientinfo.h"
+#include "../ClientManage/playerinfo.h"
 
 GameRoom::GameRoom(quint32 roomID, QObject* parent)
     : QObject(parent)
@@ -82,33 +83,47 @@ bool GameRoom::isRoomFull()
 
 quint32 GameRoom::addInFewPlayersTeam(PlayerInfo* player)
 {
+    qDebug()<<player;
     if(!player){
         Logger::Info() <<"addInFewPlayersTeam NULL";
         return 0;
     }
-    //int i = 0;
-    if(_teamB.size()>_teamA.size())
+
+    if(m_teamB.size()>m_teamA.size())
     {
-        _teamB[m_teamBcount++] = player;
+        m_teamB[player->uuid()]=player;
         return 2;
     }
     else
     {
-        _teamA[m_teamAcount++] = player;
+        m_teamA[player->uuid()] = player;
         return 1;
     }
 }
 
 PlayerInfo *GameRoom::getTeamAPlayer(quint32 i)
 {
-    return _teamA[i];
+    return m_teamA[i];
 }
 
 PlayerInfo *GameRoom::getTeamBPlayer(quint32 i)
 {
-    return _teamB[i];
+    return m_teamB[i];
 }
 
+void GameRoom::fillTeamA(LobbySyncPackage::RoomJoinResponsePackage *response)
+{
+    for(auto &p:m_teamA){
+        response->add_teamaplayers(p.second->nickname().toStdString());
+    }
+}
+
+void GameRoom::fillTeamB(LobbySyncPackage::RoomJoinResponsePackage *response)
+{
+    for(auto &p:m_teamB){
+        response->add_teamaplayers(p.second->nickname().toStdString());
+    }
+}
 
 /*std::unordered_map<quint32, PlayerInfo *> GameRoom::teamWithFewPlayers()
 {

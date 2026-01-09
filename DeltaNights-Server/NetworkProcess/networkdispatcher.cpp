@@ -176,27 +176,31 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
     switch (pkg.eventid())
     {
         case LocalLobbyEvent::Local_Lobby_RoomCreate:
-        qDebug() << "room create";
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomCreate";
             //客户端创建房间请求
             emit clientCreateRoom(socket,QString::fromStdString(pkg.roomcreate().roomname()),QString::fromStdString(pkg.roomcreate().roomtype()),QString::fromStdString(pkg.roomcreate().roomintroduction()));
             break;
         case LocalLobbyEvent::Local_Lobby_RoomInfo:
-        qDebug() << "room info";
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomInfo";
             //客户端房间信息请求
             emit clientRoomInfoRequest(socket,pkg.roominfo().roomid());
             break;
         case LocalLobbyEvent::Local_Lobby_RoomJoin:
-        qDebug() << "room join";
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomJoin";
             //客户端加入房间请求
             emit clientJoinRoom(socket,pkg.roomjoin().roomid());
             break;
         case LocalLobbyEvent::Local_Lobby_None:
-        qDebug() << "none";
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_None";
             break;
         case LocalLobbyEvent::Local_Lobby_Refresh:
-        qDebug() << "refresh";
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_Refresh";
             //客户端刷新房间列表请求
             emit clientRefresh(socket);
+            break;
+        case LocalLobbyEvent::Local_Lobby_RoomExit:
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomExit";
+            emit clientExitRoom(socket,pkg.roomexit().roomid());
             break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown TCP_Lobby package type:" << pkg.eventid();

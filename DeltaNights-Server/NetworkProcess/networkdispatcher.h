@@ -67,6 +67,7 @@ signals:
     void clientCreateRoom(QTcpSocket* socket,QString roomname,QString roomtype,QString roomintroduction);
     void clientRefresh(QTcpSocket* socket);
     void clientJoinRoom(QTcpSocket* socket,quint32 roomId);
+    void clientExitRoom(QTcpSocket* socket,quint32 roomId);
     void clientRoomInfoRequest(QTcpSocket* socket,quint32 roomId);
 
     // 战局同步事件
