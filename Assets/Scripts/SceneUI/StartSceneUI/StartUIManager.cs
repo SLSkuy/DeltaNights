@@ -119,6 +119,8 @@ namespace SceneUI.StartSceneUI
         {
             UIFrame.HideUI("StatusPromptWindow");
             UIFrame.HideUI("HallPanel");
+            UIFrame.HideUI("StatusPromptWindow");
+            UIFrame.HideUI("CreateRoomWindow");
             UIFrame.ShowUI("RoomPanel",new RoomPanelProperties(response));
         }
 

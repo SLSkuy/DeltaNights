@@ -35,7 +35,7 @@ public:
     void disposeGameRoom(quint32 roomID);
 
     // ========== 玩家交互操作 ==========
-    bool joinGameRoom(quint32 roomID, PlayerInfo* player);
+    bool joinGameRoom(quint32 roomID, PlayerInfo* player,QTcpSocket*socket);
     bool leaveGameRoom(quint32 roomID, PlayerInfo* player);
     void playerSyncRequest(BattleSyncPackage::BattleSyncRequest* input);
     void battleSyncResponse(quint32 roomID, BattleSyncPackage::BattleSyncResponse* pkg);

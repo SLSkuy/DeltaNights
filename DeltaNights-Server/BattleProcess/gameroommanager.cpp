@@ -77,7 +77,7 @@ void GameRoomManager::disposeGameRoom(quint32 roomID)
 /* ------------------------------------------------------------
  * 玩家交互操作
  * ------------------------------------------------------------ */
-bool GameRoomManager::joinGameRoom(quint32 roomID, PlayerInfo* player)
+bool GameRoomManager::joinGameRoom(quint32 roomID, PlayerInfo* player,QTcpSocket*socket)
 {
     GameRoom* gameRoom = findGameRoomByID(roomID);
     if (!gameRoom)
@@ -87,7 +87,7 @@ bool GameRoomManager::joinGameRoom(quint32 roomID, PlayerInfo* player)
     }
 
     auto entity = std::make_unique<PlayerEntity>(player);
-    entity->bindClient(_clientManager->findClientByID(player->uuid())); // 绑定客户端
+    entity->bindClient(_clientManager->findClientByTcp(socket)); // 绑定客户端
 
     return gameRoom->addPlayer(std::move(entity));
 }
@@ -129,6 +129,8 @@ void GameRoomManager::battleSyncResponse(quint32 roomID, BattleSyncPackage::Batt
 
 void GameRoomManager::roomOwner(QTcpSocket*socket,QString roomname,QString roomtype,QString roomintroduction)
 {
+    quint32 i = 0;
+
     GameRoom* room = createGameRoom();
     room->roomName(roomname);
     room->roomType(roomtype);
@@ -142,23 +144,58 @@ void GameRoomManager::roomOwner(QTcpSocket*socket,QString roomname,QString roomt
     ClientInfo* client = _clientManager->findClientByTcp(socket);
     PlayerInfo* player = client->getPlayer();
     //PlayerInfo* player = new PlayerInfo();
-    joinGameRoom(m_nextRoomID-1, player);
+
+
+    joinGameRoom(m_nextRoomID-1, player,socket);
+
+
 
 
     using namespace SyncPackage;
+    // RemoteSyncPackage response;
+    // response.set_eventid(RemoteSyncEvent::LobbyResponse);
+    // auto* type = response.mutable_lobbypackage();
+    // type->set_eventid(LobbySyncPackage::RemoteLobbyEvent::Remote_Lobby_RoomCreate);
+    // auto *createRoomResponse=type->mutable_roomcreateresponse();
+    // createRoomResponse->set_roomid(m_nextRoomID-1);
+    // createRoomResponse->set_max(m_rooms[m_nextRoomID-1]->getMax());
+    // createRoomResponse->set_num(m_rooms[m_nextRoomID-1]->getPlayerCount());
+
     RemoteSyncPackage response;
     response.set_eventid(RemoteSyncEvent::LobbyResponse);
     auto* type = response.mutable_lobbypackage();
-    type->set_eventid(LobbySyncPackage::RemoteLobbyEvent::Remote_Lobby_RoomCreate);
-    auto *createRoomResponse=type->mutable_roomcreateresponse();
-    createRoomResponse->set_roomid(m_nextRoomID-1);
-    createRoomResponse->set_max(m_rooms[m_nextRoomID-1]->getMax());
-    createRoomResponse->set_num(m_rooms[m_nextRoomID-1]->getPlayerCount());
+    type->set_eventid(LobbySyncPackage::RemoteLobbyEvent::Remote_Lobby_RoomJoin);
+    auto *joinRoomResponse=type->mutable_roomjoinresponse();
+    joinRoomResponse->set_roomid(m_nextRoomID-1);
+    joinRoomResponse->set_roomname(roomname.toStdString());
+    joinRoomResponse->set_roomtype(roomtype.toStdString());
+    joinRoomResponse->set_roomintroduction(roomintroduction.toStdString());
+    joinRoomResponse->set_roomteam(2);
+    //joinRoomResponse->
+
+    for(i=0;i<=room->getTeamACount();i++)
+    {
+        auto player = room->getTeamAPlayer(i);
+        if(player){
+            QString playername = player->nickname();
+            joinRoomResponse->add_teamaplayers(playername.toStdString());
+        }
+
+    }
+
+    for(i=0;i<=room->getTeamBCount();i++)
+    {
+        auto player = room->getTeamBPlayer(i);
+        if(player){
+            QString playername = player->nickname();
+            joinRoomResponse->add_teambplayers(playername.toStdString());
+        }
+    }
 
     Logger::Info() <<"[GameRoomManager]"<<"roomid"<<"-"<<m_nextRoomID-1;
     emit roomCreateResponse(socket,response);
 
-    room->start();
+    //room->start();
 }
 
 void GameRoomManager::refreshGameRoom(QTcpSocket *socket)
@@ -192,7 +229,7 @@ void GameRoomManager::refreshGameRoom(QTcpSocket *socket)
 void GameRoomManager::assignRooms(QTcpSocket *socket, quint32 roomid)
 {
     PlayerInfo *player = _clientManager->findClientByTcp(socket)->getPlayer();
-    joinGameRoom(roomid,player);
+    joinGameRoom(roomid,player,socket);
     GameRoom *room = findGameRoomByID(roomid);
 
     if(room->isRoomFull()) {

@@ -82,6 +82,10 @@ bool GameRoom::isRoomFull()
 
 quint32 GameRoom::addInFewPlayersTeam(PlayerInfo* player)
 {
+    if(!player){
+        Logger::Info() <<"addInFewPlayersTeam NULL";
+        return 0;
+    }
     //int i = 0;
     if(_teamB.size()>_teamA.size())
     {
