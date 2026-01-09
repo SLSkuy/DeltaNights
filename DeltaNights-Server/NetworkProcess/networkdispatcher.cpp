@@ -177,22 +177,26 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
     {
         case LocalLobbyEvent::Local_Lobby_RoomCreate:
         qDebug() << "room create";
-            //创建房间
-        emit clientCreateRoom(socket,QString::fromStdString(pkg.roomcreate().roomname()),QString::fromStdString(pkg.roomcreate().roomtype()),QString::fromStdString(pkg.roomcreate().roomintroduction()));
+            //客户端创建房间请求
+            emit clientCreateRoom(socket,QString::fromStdString(pkg.roomcreate().roomname()),QString::fromStdString(pkg.roomcreate().roomtype()),QString::fromStdString(pkg.roomcreate().roomintroduction()));
             break;
         case LocalLobbyEvent::Local_Lobby_RoomInfo:
         qDebug() << "room info";
-            //emit
+            //客户端房间信息请求
+            emit clientRoomInfoRequest(socket,pkg.roominfo().roomid());
             break;
         case LocalLobbyEvent::Local_Lobby_RoomJoin:
         qDebug() << "room join";
-            //emit
+            //客户端加入房间请求
+            emit clientJoinRoom(socket,pkg.roomjoin().roomid());
             break;
         case LocalLobbyEvent::Local_Lobby_None:
         qDebug() << "none";
             break;
         case LocalLobbyEvent::Local_Lobby_Refresh:
         qDebug() << "refresh";
+            //客户端刷新房间列表请求
+            emit clientRefresh(socket);
             break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown TCP_Lobby package type:" << pkg.eventid();
