@@ -145,11 +145,7 @@ void GameRoomManager::roomOwner(QTcpSocket*socket,QString roomname,QString roomt
     PlayerInfo* player = client->getPlayer();
     //PlayerInfo* player = new PlayerInfo();
 
-
     joinGameRoom(m_nextRoomID-1, player,socket);
-
-
-
 
     using namespace SyncPackage;
     // RemoteSyncPackage response;
