@@ -144,6 +144,7 @@ namespace WeaponSystem
                 Debug.LogError("未找到Rifle对象");
             }
         }
+        
 
         public WeaponType WeaponType => weaponType;
         public string WeaponName => weaponName;

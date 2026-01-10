@@ -60,30 +60,46 @@ namespace WeaponSystem.Weapon
                 audioSource.time = 0.34f;
                 audioSource.Play();
                 Destroy(fireAduio, 3);
-
-                if (_isShoulderAim && !_isAim)
+                //目前只拿一条射线做示范
+                _shoulderRay = new Ray(_muzzle.transform.position, shoulderDirection);
+                if (Physics.Raycast(_shoulderRay, out _hitInfo, 500f))
                 {
-                    _shoulderRay = new Ray(_muzzle.transform.position, shoulderDirection);
-                    if (Physics.Raycast(_shoulderRay, out _hitInfo, 500f))
+                    GameObject hitObject = _hitInfo.collider.gameObject;
+                    if (hitObject.CompareTag("Player"))//后续根据不同物体做不同处理
                     {
-                        GameObject hitObject = _hitInfo.collider.gameObject;
                         PlayerController playerController = hitObject.GetComponent<PlayerController>();
                         playerController.Wound(bullet._rifle);
                         Debug.Log(hitObject.name + "护甲: " + playerController._armor);
                         Debug.Log(hitObject.name + "Hp: " + playerController._hp);
                     }
                 }
-                else if (_isAim && !_isShoulderAim)
-                {
-                    _aimRay = new Ray(Camera.main.transform.position - Vector3.up * 0.3f, aimDirection);
-                    if (Physics.Raycast(_aimRay, out _hitInfo, 500f))
-                    {
-                        GameObject hitObject = _hitInfo.collider.gameObject;
-                        PlayerController playerController = hitObject.GetComponent<PlayerController>();
-                        playerController.Wound(bullet._rifle);
-                    }
-                }
-            }else if(_currentBulletNum == 0)
+                //暂存，之后做修改
+                //if (_isShoulderAim && !_isAim)
+                //{
+                //    _shoulderRay = new Ray(_muzzle.transform.position, shoulderDirection);
+                //    if (Physics.Raycast(_shoulderRay, out _hitInfo, 500f))
+                //    {
+                //        GameObject hitObject = _hitInfo.collider.gameObject;
+                //        if (hitObject.CompareTag("Player")){
+                //            PlayerController playerController = hitObject.GetComponent<PlayerController>();
+                //            playerController.Wound(bullet._rifle);
+                //            Debug.Log(hitObject.name + "护甲: " + playerController._armor);
+                //            Debug.Log(hitObject.name + "Hp: " + playerController._hp);
+                //        }
+                //    }
+                //}
+                //else if (_isAim && !_isShoulderAim)
+                //{
+                //    _aimRay = new Ray(Camera.main.transform.position - Vector3.up * 0.3f, aimDirection);
+                //    if (Physics.Raycast(_aimRay, out _hitInfo, 500f))
+                //    {
+                //        GameObject hitObject = _hitInfo.collider.gameObject;
+                //        PlayerController playerController = hitObject.GetComponent<PlayerController>();
+                //        playerController.Wound(bullet._rifle);
+                //    }
+                //}
+            }
+            else if(_currentBulletNum == 0)
             {
                 return;
             }

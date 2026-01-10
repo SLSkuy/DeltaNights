@@ -63,6 +63,9 @@ namespace PlayerControl
         private float _lastAttackValue;
         private float _lastActiveSkillValue;
         private float _lastUltimateSkillValue;
+        private float _lastSwitch1Value;
+        private float _lastSwitch2Value;
+        private float _lastSwitch3Value;
 
         private float _lastReloadValue;
         private bool _isReloading = false;
@@ -80,6 +83,7 @@ namespace PlayerControl
         public event Action OnReloadComplete;
         public event Action OnAim;
         public event Action OnIdle;
+        public event Action OnRifleSwitch;
         #endregion
 
         #region 周期函数
@@ -226,7 +230,7 @@ namespace PlayerControl
         }
 
         /// <summary>
-        /// 处理切枪输入,后续加入持枪换空手
+        /// 处理切枪输入
         /// </summary>
         private void HandleSwitchInput()
         {
@@ -234,21 +238,35 @@ namespace PlayerControl
             float switch2 = _attackInputSource.Switch2;
             float switch3 = _attackInputSource.Switch3;
 
-            if (switch1 != 0 && mainWeapon != null)
+            if (_lastSwitch1Value <= 0f && switch1 > 0f)  
             {
-                //切换到主武器
-                _weaponController.SwitchWeapon(mainWeapon, _playerController);
+                if (mainWeapon != null)
+                {
+                    _weaponController.SwitchWeapon(mainWeapon, _playerController);
+                    OnRifleSwitch?.Invoke();
+                }
             }
-            if (switch2 != 0 && secondaryWeapon != null)
+
+            if (_lastSwitch2Value <= 0f && switch2 > 0f)
             {
-                //切换到副武器
-                _weaponController.SwitchWeapon(secondaryWeapon, _playerController);
+                if (secondaryWeapon != null)
+                {
+                    _weaponController.SwitchWeapon(secondaryWeapon, _playerController);
+                    OnRifleSwitch?.Invoke();
+                }
             }
-            if (switch3 != 0 && meleeWeapon != null)
+            if (_lastSwitch3Value <= 0f && switch3 > 0f)
             {
-                //切换到...
-                _weaponController.SwitchWeapon(meleeWeapon, _playerController);
+                if (meleeWeapon != null)
+                {
+                    _weaponController.SwitchWeapon(meleeWeapon, _playerController);
+                    OnRifleSwitch?.Invoke();
+                }
             }
+
+            _lastSwitch1Value = switch1;
+            _lastSwitch2Value = switch2;
+            _lastSwitch3Value = switch3;
         }
 
         #endregion

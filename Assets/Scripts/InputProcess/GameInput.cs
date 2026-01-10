@@ -60,6 +60,9 @@ namespace InputProcess
         [Header("其余输入配置")]
         [Tooltip("换弹输入")]
         public InputAxis reload = InputAxis.DefaultMomentary;
+        public InputAxis switch1 = InputAxis.DefaultMomentary;
+        public InputAxis switch2 = InputAxis.DefaultMomentary;
+        public InputAxis switch3 = InputAxis.DefaultMomentary;
 
         /// <summary>
         /// 暴露属性，使用接口实现便于网络传输使用
@@ -75,6 +78,9 @@ namespace InputProcess
         public float ActiveSkill => activeSkill.Value;
         public float UltimateSkill => ultimateSkill.Value;
         public float Reload => reload.Value;
+        public float Switch1 => switch1.Value;
+        public float Switch2 => switch2.Value;
+        public float Switch3 => switch3.Value;
 
         #region cinemachine输入控制
 
@@ -95,7 +101,10 @@ namespace InputProcess
             axes.Add(new () { DrivenAxis = () => ref attack, Name = "Attack"});
             axes.Add(new () { DrivenAxis = () => ref activeSkill, Name = "ActiveSkill"});
             axes.Add(new () { DrivenAxis = () => ref ultimateSkill, Name = "UltimateSkill"});
-            axes.Add(new() { DrivenAxis = () => ref reload, Name = "Reload" });
+            axes.Add(new () { DrivenAxis = () => ref reload, Name = "Reload" });
+            axes.Add(new () { DrivenAxis = () => ref switch1, Name = "Switch1" });
+            axes.Add(new () { DrivenAxis = () => ref switch2, Name = "Switch2" });
+            axes.Add(new () { DrivenAxis = () => ref switch3, Name = "Switch3" });
         }
         
         /// <summary>
@@ -119,6 +128,9 @@ namespace InputProcess
             ultimateSkill.Validate();
 
             reload.Validate();
+            switch1.Validate();
+            switch2.Validate();
+            switch3.Validate();
         }
         
         #endregion

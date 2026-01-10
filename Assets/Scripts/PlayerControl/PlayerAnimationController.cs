@@ -64,6 +64,12 @@ namespace PlayerControl
 
         //动画rig
         public Rig _rig;
+        public TwoBoneIKConstraint _rightHandConstraint;
+        public TwoBoneIKConstraint _leftHandConstraint;
+
+        //武器位置
+        public Transform _rifleOnHand;
+        public Transform _rifleOnBack;
 
         private bool _isReloading = false;
 
@@ -90,7 +96,9 @@ namespace PlayerControl
             _attackController.OnIdle += SetIdle;
             _attackController.OnAim += SetAim;
             _attackController.OnReloadStart += SetReload;
+            _attackController.OnRifleSwitch += SetRifle;
 
+            FindGoals();
         }
 
 
@@ -104,12 +112,14 @@ namespace PlayerControl
             _attackController.OnIdle -= SetIdle;
             _attackController.OnAim -= SetAim;
             _attackController.OnReloadStart -= SetReload;
+            _attackController.OnRifleSwitch -= SetRifle;
         }
 
         private void Update()
         {
             UpdateAim();
             UpdateShoulderAimLayer();
+            SetTwoHandsWeight();
         }
 
         #endregion
@@ -144,7 +154,11 @@ namespace PlayerControl
         {
             _animator.SetBool("IsAim", false);
         }
-
+        private void SetRifle()
+        {
+            bool currentValue = _animator.GetBool("IsRifle");
+            _animator.SetBool("IsRifle", !currentValue);
+        }
         private void SetAim()
         {
             _animator.SetBool("IsAim", true);
@@ -184,6 +198,15 @@ namespace PlayerControl
             );
         }
 
+        private void SetTwoHandsWeight()
+        {
+            _rightHandConstraint.weight = _animator.GetFloat("Right Hand Weight");
+            _leftHandConstraint.weight = _animator.GetFloat("Left Hand Weight");
+        }
+
+        #endregion
+
+        #region 动画方法
         /// <summary>
         /// 简易实现换弹动画
         /// </summary>
@@ -195,12 +218,115 @@ namespace PlayerControl
 
         private void SetReloadAnimationComplete()
         {
-            if (!_isReloading) return; 
+            if (!_isReloading) return;
 
             _isReloading = false;
             _animator.SetBool("IsReload", false);
         }
 
+        private void SetRifleOnHand()
+        {
+            GameObject rifle = GameObject.FindGameObjectWithTag("Rifle");
+            if (rifle == null || _rifleOnHand == null) return;
+
+            Transform commonParent = _rifleOnHand.parent; 
+            if (commonParent != null)
+            {
+                rifle.transform.SetParent(commonParent);
+            }
+            else
+            {
+                rifle.transform.SetParent(null);
+            }
+
+            rifle.transform.position = _rifleOnHand.position;
+            rifle.transform.rotation = _rifleOnHand.rotation;
+        }
+
+        private void SetRifleOnBack()
+        {
+            GameObject rifle = GameObject.FindGameObjectWithTag("Rifle");
+            if (rifle == null || _rifleOnBack == null) return;
+
+            Transform commonParent = _rifleOnBack.parent;
+            if (commonParent != null)
+            {
+                rifle.transform.SetParent(commonParent);
+            }
+            else
+            {
+                rifle.transform.SetParent(null);
+            }
+
+            rifle.transform.position = _rifleOnBack.position;
+            rifle.transform.rotation = _rifleOnBack.rotation;
+        }
+
+        private void FindGoals()
+        {
+            Transform shoulder = RecursiveFind<Transform>(transform, "RifleOnBack");
+            Transform hand = RecursiveFind<Transform>(transform, "RifleOnHand");
+
+            _rightHandConstraint = RecursiveFind<TwoBoneIKConstraint>(transform, "Right Hand Constraint");
+            _leftHandConstraint = RecursiveFind<TwoBoneIKConstraint>(transform, "Left Hand Constraint");
+
+            if (shoulder != null && hand != null)
+            {
+                _rifleOnBack = shoulder;
+                _rifleOnHand = hand;
+            }
+            else
+            {
+                _rifleOnBack = RecursiveFind<Transform>(transform, "RifleOnBack");
+                _rifleOnHand = RecursiveFind<Transform>(transform, "RifleOnHand");
+            }
+        }
+
+        /// <summary>
+        /// 通用递归查找方法，支持查找Transform或TwoBoneIKConstraint类型
+        /// </summary>
+        /// <typeparam name="T">查找类型：Transform 或 TwoBoneIKConstraint</typeparam>
+        /// <param name="parent">起始父节点</param>
+        /// <param name="name">目标对象名称</param>
+        /// <returns>找到的组件，未找到返回null</returns>
+        private T RecursiveFind<T>(Transform parent, string name) where T : class
+        {
+            if (parent == null) return null;
+
+            //Transform类型
+            if (typeof(T) == typeof(Transform))
+            {
+
+                if (parent.name == name)
+                    return parent as T;
+
+                foreach (Transform child in parent)
+                {
+                    T result = RecursiveFind<T>(child, name);
+                    if (result != null)
+                        return result;
+                }
+            }
+            //TwoBoneIKConstraint类型
+            else if (typeof(T) == typeof(TwoBoneIKConstraint))
+            {
+                TwoBoneIKConstraint constraint = parent.GetComponent<TwoBoneIKConstraint>();
+                if (constraint != null)
+                {
+                    if (parent.name == name || (constraint.data.target != null && constraint.data.target.name == name))
+                        return constraint as T;
+                }
+ 
+                foreach (Transform child in parent)
+                {
+                    T result = RecursiveFind<T>(child, name);
+                    if (result != null)
+                        return result;
+                }
+            }
+
+            return null;
+        }
         #endregion
     }
 }

@@ -23,5 +23,9 @@ namespace InputProcess
         float ActiveSkill { get; }
         float UltimateSkill { get; }
         float Reload { get; }
+        float Switch1 { get; }
+        float Switch2 { get; }
+        float Switch3 { get; }
+
     }
 }

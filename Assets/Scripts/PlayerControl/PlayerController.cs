@@ -388,6 +388,9 @@ namespace PlayerControl
             }
         }
 
+        /// <summary>
+        /// 实现玩家死亡
+        /// </summary>
         public void Dead()
         {
             OnDead?.Invoke();
