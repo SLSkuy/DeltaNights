@@ -83,14 +83,16 @@ void GameServer::setupConnections()
     connect(_dispatcher,&NetworkDispatcher::clientRefresh, _roomMgr,&GameRoomManager::refreshGameRoom);
     connect(_dispatcher,&NetworkDispatcher::clientJoinRoom,_roomMgr,&GameRoomManager::assignRooms);
     connect(_dispatcher,&NetworkDispatcher::clientRoomInfoRequest,_roomMgr,&GameRoomManager::roomInfo);
+    connect(_dispatcher,&NetworkDispatcher::clientExitRoom,_roomMgr,&GameRoomManager::exitRoom);
 
     //发
     connect(_clientMgr,&ClientManager::clientConnectResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
     connect(_playerInfoMgr,&PlayerInfoManager::clientLoginResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
-    connect(_roomMgr,&GameRoomManager::roomCreateResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
-    connect(_roomMgr,&GameRoomManager::refeshGameRoomResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
-    connect(_roomMgr,&GameRoomManager::joinRoomResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
-    connect(_roomMgr,&GameRoomManager::roomInfoResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+    // connect(_roomMgr,&GameRoomManager::roomCreateResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+    // connect(_roomMgr,&GameRoomManager::refeshGameRoomResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+    // connect(_roomMgr,&GameRoomManager::joinRoomResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+    // connect(_roomMgr,&GameRoomManager::roomInfoResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
+    connect(_roomMgr,&GameRoomManager::roomResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);
 
     //
     connect(_playerInfoMgr,&PlayerInfoManager::clientBindPlayerInfo,_clientMgr,&ClientManager::clientBindPlayerInfo);

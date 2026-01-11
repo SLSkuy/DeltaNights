@@ -43,6 +43,7 @@ bool GameRoom::addPlayer(std::unique_ptr<PlayerEntity> player)
 
     m_players.emplace(id, std::move(player));
     ++m_playerCount;
+
     return true;
 }
 
@@ -83,7 +84,6 @@ bool GameRoom::isRoomFull()
 
 quint32 GameRoom::addInFewPlayersTeam(PlayerInfo* player)
 {
-    qDebug()<<player;
     if(!player){
         Logger::Info() <<"addInFewPlayersTeam NULL";
         return 0;
@@ -91,26 +91,27 @@ quint32 GameRoom::addInFewPlayersTeam(PlayerInfo* player)
 
     if(m_teamB.size()>m_teamA.size())
     {
-        m_teamB[player->uuid()]=player;
+        m_teamB[player->getClientID()]=player;
         return 2;
     }
     else
     {
-        m_teamA[player->uuid()] = player;
+        m_teamA[player->getClientID()] = player;
         return 1;
     }
 }
 
-PlayerInfo *GameRoom::getTeamAPlayer(quint32 i)
+PlayerInfo *GameRoom::getTeamAPlayer(quint32 clientID)
 {
-    return m_teamA[i];
+    return m_teamA.at(clientID);
 }
 
-PlayerInfo *GameRoom::getTeamBPlayer(quint32 i)
+PlayerInfo *GameRoom::getTeamBPlayer(quint32 clientID)
 {
-    return m_teamB[i];
+    return m_teamB.at(clientID);
 }
 
+//获取队伍A玩家列表
 void GameRoom::fillTeamA(LobbySyncPackage::RoomJoinResponsePackage *response)
 {
     for(auto &p:m_teamA){
@@ -118,12 +119,29 @@ void GameRoom::fillTeamA(LobbySyncPackage::RoomJoinResponsePackage *response)
     }
 }
 
+//获取队伍B玩家列表
 void GameRoom::fillTeamB(LobbySyncPackage::RoomJoinResponsePackage *response)
 {
     for(auto &p:m_teamB){
         response->add_teamaplayers(p.second->nickname().toStdString());
     }
 }
+
+bool GameRoom::removePlayerTeam(quint32 clientID)
+{
+    if(m_teamA.count(clientID)){
+        m_teamA.erase(clientID);
+        return true;
+    }
+    if(m_teamB.count(clientID)){
+        m_teamB.erase(clientID);
+        return true;
+    }
+
+    Logger::Error() << "[GameRoom ID: " << m_roomID << "]: " << "No player in team with clientID: " << clientID;
+    return false;
+}
+
 
 /*std::unordered_map<quint32, PlayerInfo *> GameRoom::teamWithFewPlayers()
 {

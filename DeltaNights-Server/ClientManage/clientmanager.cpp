@@ -87,6 +87,7 @@ void ClientManager::clientBindPlayerInfo(QTcpSocket *socket, PlayerInfo *playerI
     }
 
     client->bindPlayer(playerInfo);
+    playerInfo->setClientID(client->clientID());
 
     Logger::Info() << "[ClientManager]: Client "
                    << socket->peerAddress().toString()

@@ -17,6 +17,11 @@ bool PlayerInfo::loginAccount(QString password)
     return password==m_password;
 }
 
+void PlayerInfo::setClientID(quint32 clientId)
+{
+    m_clientID=clientId;
+}
+
 void PlayerInfo::setNickname(QString nickname)
 {
     m_nickname=nickname;

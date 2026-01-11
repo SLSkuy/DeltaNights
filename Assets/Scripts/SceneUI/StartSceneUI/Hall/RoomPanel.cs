@@ -12,6 +12,7 @@ using System;
 using EventProcess;
 using LobbySyncPackage;
 using Network;
+using SyncPackage;
 using TMPro;
 using UIFramework.Panel;
 using UnityEngine;
@@ -35,9 +36,26 @@ namespace SceneUI.StartSceneUI
         [SerializeField] private PlayerListManager _playerListManagerA;
         [SerializeField] private PlayerListManager _playerListManagerB;
         
+        private uint _id;
+        
+        
+        
         public void UI_OnExitRoom()
         {
             //TODO:退出逻辑
+            LocalSyncPackage syncPackage = new LocalSyncPackage
+            {
+                EventID = LocalSyncEvent.LobbyRequest,
+                LobbySync = new LobbySyncRequest
+                {
+                    EventID = LocalLobbyEvent.LocalLobbyRoomExit,
+                    RoomExit = new RoomExitRequest
+                    {
+                        RoomId = _id
+                    }
+                }
+            };
+            NetWorkManager.instance.SendTcp(syncPackage);
             Signals.Get<StatusPromptWindowSignal>().Dispatch(true,"退出房间...");
         }
 
@@ -63,6 +81,8 @@ namespace SceneUI.StartSceneUI
             
             _roomName.text = response.RoomName;
             _roomId.text = response.RoomId.ToString();
+            _id = response.RoomId;
+            
             _roomType.text = response.RoomType;
             _roomDescription.text = response.RoomIntroduction;
 

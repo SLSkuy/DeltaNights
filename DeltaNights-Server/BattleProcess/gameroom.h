@@ -78,10 +78,11 @@ public:
     int getPlayerCount(){return m_playerCount;}
     quint32 getTeamACount(){return m_teamA.size();}
     quint32 getTeamBCount(){return m_teamB.size();}
-    PlayerInfo* getTeamAPlayer(quint32 i);
-    PlayerInfo* getTeamBPlayer(quint32 i);
+    PlayerInfo* getTeamAPlayer(quint32 clientID);
+    PlayerInfo* getTeamBPlayer(quint32 clientID);
     void fillTeamA(LobbySyncPackage::RoomJoinResponsePackage *response);
     void fillTeamB(LobbySyncPackage::RoomJoinResponsePackage *response);
+    bool removePlayerTeam(quint32 clientID);
 
 signals:
     void battleSync(quint32 roomID, BattleSyncPackage::BattleSyncResponse* response);  // 发送新Tick信号，由接收者处理每一Tick产生的Protobuf事件

@@ -102,7 +102,7 @@ namespace SceneUI.StartSceneUI
             {
                 case RoomOption.Exit:
                     UIFrame.HideUI("RoomPanel");
-                    //UIFrame.ShowUI("HallPanel");
+                    UIFrame.ShowUI("HallPanel");
                     break;
                 case RoomOption.Start:
                     //TODO:开始发包
@@ -118,8 +118,7 @@ namespace SceneUI.StartSceneUI
         void HallToRoom(RoomJoinResponsePackage response)
         {
             UIFrame.HideUI("StatusPromptWindow");
-            //UIFrame.HideUI("HallPanel");
-            UIFrame.HideUI("StatusPromptWindow");
+            UIFrame.HideUI("HallPanel");
             UIFrame.HideUI("CreateRoomWindow");
             UIFrame.ShowUI("RoomPanel",new RoomPanelProperties(response));
         }
