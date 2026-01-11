@@ -1,4 +1,5 @@
-﻿using EventProcess;
+﻿using System;
+using EventProcess;
 using LobbySyncPackage;
 using Network;
 using SyncPackage;
@@ -13,6 +14,13 @@ namespace SceneUI.StartSceneUI
         [SerializeField] private TMP_InputField inputName;
         [SerializeField] private TMP_InputField inputType;
         [SerializeField] private TMP_InputField inputIntroduction;
+
+        void OnEnable()
+        {   //清除残留输入
+            inputName.text = string.Empty;
+            inputType.text = string.Empty;
+            inputIntroduction.text = string.Empty;
+        }
 
         public void UI_OnCreateButtonPressDown()//创建房间请求
         {
@@ -50,7 +58,7 @@ namespace SceneUI.StartSceneUI
             };
             Signals.Get<StatusPromptWindowSignal>().Dispatch(true,"创建房间中");
             NetWorkManager.instance.SendTcp(syncPackage);
-            UI_Close();
+            
         }
     }
 }

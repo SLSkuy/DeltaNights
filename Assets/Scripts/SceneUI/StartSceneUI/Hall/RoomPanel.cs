@@ -86,7 +86,7 @@ namespace SceneUI.StartSceneUI
             _roomType.text = response.RoomType;
             _roomDescription.text = response.RoomIntroduction;
             
-            Debug.Log("TeamA"+response.TeamAPlayers.Count+ " TeamB"+response.TeamBPlayers.Count);
+            Debug.Log("RoomEnter"+response);
 
             //TODO:处理房间玩家信息显示
             _playerListManagerA.RefreshList(response,0);

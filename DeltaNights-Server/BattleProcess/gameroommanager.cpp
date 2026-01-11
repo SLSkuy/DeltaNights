@@ -200,6 +200,7 @@ void GameRoomManager::refreshGameRoom(QTcpSocket *socket)
 
 void GameRoomManager::assignRooms(QTcpSocket *socket, quint32 roomid)
 {
+
     PlayerInfo *player = _clientManager->findClientByTcp(socket)->getPlayer();
     joinGameRoom(roomid,player,socket);
     GameRoom *room = findGameRoomByID(roomid);
@@ -210,14 +211,7 @@ void GameRoomManager::assignRooms(QTcpSocket *socket, quint32 roomid)
     }
 
     room->addInFewPlayersTeam(player);
-
-    // using namespace SyncPackage;
-    // RemoteSyncPackage response;
-    // response.set_eventid(RemoteSyncEvent::LobbyResponse);
-    // auto* type = response.mutable_lobbypackage();
-    // type->set_eventid(LobbySyncPackage::RemoteLobbyEvent::Remote_Lobby_RoomJoin);
-    // auto *roomJoinResponse = type->mutable_roomjoinresponse();
-    // roomJoinResponse->set_roomid(roomid);
+    Logger::Info() <<"[GameRoomManager]"<<"加入房间id:"<<roomid<<"玩家"<<player->nickname();
 
     using namespace SyncPackage;
     RemoteSyncPackage response;
@@ -225,7 +219,7 @@ void GameRoomManager::assignRooms(QTcpSocket *socket, quint32 roomid)
     auto* type = response.mutable_lobbypackage();
     type->set_eventid(LobbySyncPackage::RemoteLobbyEvent::Remote_Lobby_RoomJoin);
     auto *joinRoomResponse=type->mutable_roomjoinresponse();
-    joinRoomResponse->set_roomid(m_nextRoomID-1);
+    joinRoomResponse->set_roomid(roomid);
     joinRoomResponse->set_roomname(room->getRoomName().toStdString());
     joinRoomResponse->set_roomtype(room->getRoomType().toStdString());
     joinRoomResponse->set_roomintroduction(room->getRoomIntroduction().toStdString());
