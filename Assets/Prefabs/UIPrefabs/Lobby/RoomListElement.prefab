@@ -697,6 +697,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5e0d7c4fae4cebb563548b92800310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneUI.StartSceneUI.RoomCellComponent
+  _roomNameText: {fileID: 7442551227784068594}
+  _roomTypeText: {fileID: 2753395780175323999}
+  _ownerText: {fileID: 3845668349230553095}
+  _numText: {fileID: 1513665651129735402}
 --- !u!1 &6012743953755946833
 GameObject:
   m_ObjectHideFlags: 0

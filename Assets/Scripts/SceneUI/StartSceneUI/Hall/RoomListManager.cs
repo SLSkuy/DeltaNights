@@ -24,16 +24,16 @@ namespace SceneUI.StartSceneUI
             
             
             //测试用
-            for (int index = 0; index != 4; index++)
-            {
-                GameObject o=AddElement(index);
-                o.GetComponent<RoomElementComponent>().SetRoomId((uint)index);
-            }
+            // for (int index = 0; index != 4; index++)
+            // {
+            //     GameObject o=AddElement(index);
+            //     o.GetComponent<RoomElementComponent>().SetRoomId((uint)index);
+            // }
         }
         
         public void RefreshList(RefreshListResponsePackage response)
         {
-            Debug.Log("RoomListManager:RefreshList");
+            Debug.Log("RoomListManager:RefreshList"+response.Rooms.Count);
             if(!_preObject)Debug.Log("RoomListManager:RefreshList PreObject NULL");
 
             for (int i = 0; i < response.Rooms.Count; i++)

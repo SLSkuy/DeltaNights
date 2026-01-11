@@ -54,6 +54,7 @@ namespace SceneUI.StartSceneUI
         void RefreshList(RefreshListResponsePackage response)
         {
             //TODO:对接 接收大厅列表
+            Debug.Log("RefreshList:"+response);
             _roomListManager.RefreshList(response);
         }
 

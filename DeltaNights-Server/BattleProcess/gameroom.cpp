@@ -42,7 +42,6 @@ bool GameRoom::addPlayer(std::unique_ptr<PlayerEntity> player)
         return false;
 
     m_players.emplace(id, std::move(player));
-    ++m_playerCount;
 
     return true;
 }
@@ -79,7 +78,7 @@ void GameRoom::playerTimeout(quint32 clientID)
 
 bool GameRoom::isRoomFull()
 {
-    return m_playerCount>=m_max;
+    return m_players.size()>=m_max;
 }
 
 quint32 GameRoom::addInFewPlayersTeam(PlayerInfo* player)

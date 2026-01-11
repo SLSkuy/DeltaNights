@@ -64,7 +64,6 @@ public:
     void roomIntroduction(QString roomintroduction){m_roomIntroduction = roomintroduction;}
     void roomOwnerName(QString ownername){m_ownerName = ownername;}
     void Max(int max){m_max= max;}
-    void PlayerCount(int num){m_playerCount= num;}
     bool isRoomFull();
     //std::unordered_map<quint32, PlayerInfo*> teamWithFewPlayers();
     quint32 addInFewPlayersTeam(PlayerInfo *player);
@@ -75,7 +74,7 @@ public:
     QString getRoomOwnerName(){return m_ownerName;}
     //void addNum(){m_num++;}
     int getMax(){return m_max;}
-    int getPlayerCount(){return m_playerCount;}
+    int getPlayerCount(){return m_players.size();}
     quint32 getTeamACount(){return m_teamA.size();}
     quint32 getTeamBCount(){return m_teamB.size();}
     PlayerInfo* getTeamAPlayer(quint32 clientID);
@@ -94,7 +93,6 @@ private:
 private:
     // ========== 房间数据 ==========
     quint32 m_roomID;
-    int m_playerCount = 0;
     GameState m_state = GameState::Waiting;
     GameRoomConfig m_config;
 
