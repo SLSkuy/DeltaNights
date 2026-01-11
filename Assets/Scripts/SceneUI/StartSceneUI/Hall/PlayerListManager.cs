@@ -12,10 +12,10 @@ namespace SceneUI.StartSceneUI
             Debug.Log("PlayerListManager:DeleteList");
             
             //测试用
-            for (int index = 0; index != 4; index++)
-            {
-                this.AddElement(index);
-            }
+            // for (int index = 0; index != 4; index++)
+            // {
+            //     this.AddElement(index);
+            // }
         }
 
         private void Awake()

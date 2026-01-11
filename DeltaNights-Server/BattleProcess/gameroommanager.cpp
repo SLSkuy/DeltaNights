@@ -146,6 +146,7 @@ void GameRoomManager::roomOwner(QTcpSocket*socket,QString roomname,QString roomt
     //PlayerInfo* player = new PlayerInfo();
 
     joinGameRoom(m_nextRoomID-1, player,socket);
+    room->addInFewPlayersTeam(player);
 
     using namespace SyncPackage;
 
