@@ -50,6 +50,8 @@ namespace WeaponSystem
 
         // 添加初始化状态标记
         protected bool _isInitialized = false;
+        //层级
+        protected int _playerLayer = -1;
 
         [Header("武器类型")]
         [SerializeField] protected WeaponType weaponType;
@@ -70,6 +72,15 @@ namespace WeaponSystem
         [SerializeField] public int _currentBulletNum;//当前枪膛里子弹数
         [SerializeField] public int _bulletTotal;//剩余总量
         [SerializeField] public float _reloadTime;//换弹时间
+
+        public void OnEnable()
+        {
+            _playerLayer = LayerMask.NameToLayer("Player");
+            if (_playerLayer == -1)
+            {
+                Debug.LogWarning("未找到玩家层级");
+            }
+        }
         public void unload(PlayerController playerController)
         {
             if (_playerController != null)
@@ -140,8 +151,9 @@ namespace WeaponSystem
                 }
             }
             else
-            {
-                Debug.LogError("未找到Rifle对象");
+            {   
+                //因时序问题会产生错误
+                //Debug.LogError("未找到Rifle对象");
             }
         }
         

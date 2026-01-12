@@ -40,25 +40,26 @@ namespace PlayerControl
         [Header("动画过渡速度")]
         [SerializeField] private float moveAnimSmooth = 10f;
 
-        [Header("层级过渡速度")] 
+        [Header("层级过渡速度")]
         [SerializeField] private int shoulderAimLayerIndex = 1;
         [SerializeField] private float shoulderAimLayerSmooth = 10f;
-        
+
         // 组件引用
         private PlayerController _controller;
         private PlayerAttackController _attackController;
         private Animator _animator;
+        private PlayerMeshController _meshController;
 
         // 肩射动画层级
         private float _currentShoulderLayerWeight;
         private float _targetShoulderLayerWeight;
-        
+
         // 输入属性
         private Vector2 _currentMoveInput;
         private Vector2 _targetMoveInput;
         private int _moveZHash;
         private int _moveXHash;
-        
+
         // 跳跃哈希
         private int _jumpHash;
 
@@ -66,10 +67,6 @@ namespace PlayerControl
         public Rig _rig;
         public TwoBoneIKConstraint _rightHandConstraint;
         public TwoBoneIKConstraint _leftHandConstraint;
-
-        //武器位置
-        public Transform _rifleOnHand;
-        public Transform _rifleOnBack;
 
         private bool _isReloading = false;
 
@@ -80,7 +77,8 @@ namespace PlayerControl
             _attackController = GetComponent<PlayerAttackController>();
             _animator = GetComponent<Animator>();
             _rig = GetComponentInChildren<Rig>();
-            
+            _meshController = GetComponentInChildren<PlayerMeshController>();
+
             _moveZHash = Animator.StringToHash("MoveZ");
             _moveXHash = Animator.StringToHash("MoveX");
             _jumpHash = Animator.StringToHash("Jump");
@@ -123,9 +121,9 @@ namespace PlayerControl
         }
 
         #endregion
-        
+
         #region 成员方法
-        
+
         private void SetAnimMoveInputTarget(Vector2 inputDir)
         {
             _targetMoveInput = inputDir;
@@ -133,7 +131,7 @@ namespace PlayerControl
 
         private void SetAnimJump(int times)
         {
-            _animator.SetTrigger(_jumpHash);
+            //_animator.SetTrigger(_jumpHash);
             _animator.CrossFade("Jump", 0.1f, 0, 0f);
         }
 
@@ -144,8 +142,8 @@ namespace PlayerControl
 
         private void SetReload()
         {
-            if (_isReloading) return; 
-
+            if (_isReloading) return;
+            if (!_animator.GetBool("IsRifle")) return;
             _isReloading = true;
             _animator.SetBool("IsReload", true);
 
@@ -154,16 +152,19 @@ namespace PlayerControl
         {
             _animator.SetBool("IsAim", false);
         }
-        private void SetRifle()
+        private void SetRifle(bool isRifle)
         {
-            bool currentValue = _animator.GetBool("IsRifle");
-            _animator.SetBool("IsRifle", !currentValue);
+            Debug.Log("isRifle " +  isRifle);   
+            _animator.SetBool("IsAim", false);
+            _animator.SetBool("IsRifle", isRifle);
         }
         private void SetAim()
         {
+            if (!_animator.GetBool("IsRifle")) return;
+
             _animator.SetBool("IsAim", true);
         }
-       
+
         private void SetShoulderAimState(bool isAim) => _targetShoulderLayerWeight = isAim ? 1f : 0;
 
         /// <summary>
@@ -180,7 +181,7 @@ namespace PlayerControl
             _animator.SetFloat(_moveZHash, _currentMoveInput.y);
             _animator.SetFloat(_moveXHash, _currentMoveInput.x);
         }
-        
+
         /// <summary>
         /// 插值过渡层级状态
         /// </summary>
@@ -226,59 +227,22 @@ namespace PlayerControl
 
         private void SetRifleOnHand()
         {
-            GameObject rifle = GameObject.FindGameObjectWithTag("Rifle");
-            if (rifle == null || _rifleOnHand == null) return;
-
-            Transform commonParent = _rifleOnHand.parent; 
-            if (commonParent != null)
-            {
-                rifle.transform.SetParent(commonParent);
-            }
-            else
-            {
-                rifle.transform.SetParent(null);
-            }
-
-            rifle.transform.position = _rifleOnHand.position;
-            rifle.transform.rotation = _rifleOnHand.rotation;
+            _meshController.SetWeaponToHand();
         }
 
         private void SetRifleOnBack()
         {
-            GameObject rifle = GameObject.FindGameObjectWithTag("Rifle");
-            if (rifle == null || _rifleOnBack == null) return;
-
-            Transform commonParent = _rifleOnBack.parent;
-            if (commonParent != null)
-            {
-                rifle.transform.SetParent(commonParent);
-            }
-            else
-            {
-                rifle.transform.SetParent(null);
-            }
-
-            rifle.transform.position = _rifleOnBack.position;
-            rifle.transform.rotation = _rifleOnBack.rotation;
+            _meshController.SetWeaponToBack();
         }
 
         private void FindGoals()
         {
-            Transform shoulder = RecursiveFind<Transform>(transform, "RifleOnBack");
-            Transform hand = RecursiveFind<Transform>(transform, "RifleOnHand");
-
             _rightHandConstraint = RecursiveFind<TwoBoneIKConstraint>(transform, "Right Hand Constraint");
             _leftHandConstraint = RecursiveFind<TwoBoneIKConstraint>(transform, "Left Hand Constraint");
 
-            if (shoulder != null && hand != null)
+            if (_rightHandConstraint == null || _leftHandConstraint == null)
             {
-                _rifleOnBack = shoulder;
-                _rifleOnHand = hand;
-            }
-            else
-            {
-                _rifleOnBack = RecursiveFind<Transform>(transform, "RifleOnBack");
-                _rifleOnHand = RecursiveFind<Transform>(transform, "RifleOnHand");
+                Debug.LogWarning("未找到组件");
             }
         }
 
@@ -316,7 +280,7 @@ namespace PlayerControl
                     if (parent.name == name || (constraint.data.target != null && constraint.data.target.name == name))
                         return constraint as T;
                 }
- 
+
                 foreach (Transform child in parent)
                 {
                     T result = RecursiveFind<T>(child, name);

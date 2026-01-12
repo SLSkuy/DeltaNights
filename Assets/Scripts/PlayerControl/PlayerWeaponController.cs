@@ -47,22 +47,28 @@ namespace PlayerControl
         private bool _attackHeld;
         private bool _attackLockBySkill;
         private bool _attackLockByReloading;
+        private bool _attackLockBySwitch;
+        private bool _isWeaponInHand = false;
         private bool _isReloading;//换弹中
         private float _reloadTimer;//换弹时间
+        private float _switchTimer = 0f;//切枪时间
+        private float _switchLockTime = 3f;
         private float _idleTime = 10f;//不进行操作回到idle时间
         private float _nowTime;
 
         public event Action OnReloadComplete;
         public event Action OnIdle;
+        public event Action<bool> OnSwitchLockStateChanged;
 
         public PlayerWeaponController(PlayerAttackController attackController)
         {
             _attackController = attackController;
-            
+
             attackController.OnAttackPressed += HandleAttackPressed;
             attackController.OnAttackReleased += HandleAttackReleased;
             attackController.OnSwitchWeapon += SwitchWeapon;
             attackController.OnReloadStart += TryReload;
+            attackController.OnRifleSwitch += SetWeaponInHand;
             _nowTime = _idleTime;
 
         }
@@ -73,30 +79,56 @@ namespace PlayerControl
             _attackController.OnAttackReleased -= HandleAttackReleased;
             _attackController.OnSwitchWeapon -= SwitchWeapon;
             _attackController.OnReloadStart -= TryReload;
+            _attackController.OnRifleSwitch -= SetWeaponInHand;
         }
+
+
+        public void SetWeaponInHand(bool inHand)
+        {
+            _isWeaponInHand = inHand;
+        }
+
 
         /// <summary>
         /// 切换武器
         /// </summary>
         /// <param name="newWeapon"></param>
-        public void SwitchWeapon(WeaponData newWeapon,PlayerController playerController)
+        public void SwitchWeapon(WeaponData newWeapon, PlayerController playerController)
         {
-            if (newWeapon == null){return;}
-            if (playerController == null){return;}
-            if (_currentWeapon != null)
+            if (!_attackLockBySwitch)
             {
-                _currentWeapon.unload(playerController);
-            }
-            else {}
+                if (playerController == null) return;
 
-            _currentWeapon = newWeapon;
-            _currentWeapon.init(playerController);
-            _nowTime = _idleTime;
+                _attackLockBySwitch = true;
+                _switchTimer = _switchLockTime;
+                OnSwitchLockStateChanged?.Invoke(true);
+                _isWeaponInHand = false;
 
-            if (_currentWeapon.AttackSpeed > 0f)
-            {
-                _attackCooldown = 10f / _currentWeapon.AttackSpeed;
+                if (_currentWeapon != null)
+                {
+                    _currentWeapon.unload(playerController);
+                }
+
+                _currentWeapon = newWeapon;
+
+                if (_currentWeapon != null)
+                {
+                    _currentWeapon.init(playerController);
+                    _nowTime = _idleTime;
+
+                    if (_currentWeapon.AttackSpeed > 0f)
+                    {
+                        _attackCooldown = 10f / _currentWeapon.AttackSpeed;
+                    }
+                }
+                else
+                {
+                    _nowTime = _idleTime;
+                    _attackCooldown = 0f;
+                    _isWeaponInHand = false;
+                }
             }
+            else { return; }
         }
 
         /// <summary>
@@ -108,6 +140,7 @@ namespace PlayerControl
             {
                 _attackCooldown -= deltaTime;
             }
+
             // 只在换弹状态下更新计时器
             if (_isReloading && _reloadTimer > 0f)
             {
@@ -118,6 +151,18 @@ namespace PlayerControl
                 }
             }
 
+            //切枪计时器
+            if (_switchTimer > 0f)
+            {
+                _switchTimer -= deltaTime;
+                if (_switchTimer <= 0f)
+                {
+                    _switchTimer = 0f;
+                    _attackLockBySwitch = false;
+                    OnSwitchLockStateChanged?.Invoke(false);
+                }
+            }
+
             // 全自动武器：持续攻击
             if (_attackHeld && _currentWeapon is { FullyAutomatic: true })
             {
@@ -125,12 +170,12 @@ namespace PlayerControl
             }
 
             //不攻击idle计时器
-            if (_nowTime > 0f)  
+            if (_nowTime > 0f)
             {
                 _nowTime -= deltaTime;
                 if (_nowTime <= 0f)
                 {
-                    _nowTime = 0f;  
+                    _nowTime = 0f;
                     OnIdle?.Invoke();
                 }
             }
@@ -169,6 +214,8 @@ namespace PlayerControl
             if (_attackLockBySkill) return; // 技能瞄准状态，禁止开火
             if (_attackCooldown > 0f) return;
             if (_attackLockByReloading) return;
+            if (_attackLockBySwitch) return;
+            if (!_isWeaponInHand) return;
 
             _currentWeapon.Attack();
             _nowTime = _idleTime;
@@ -207,7 +254,7 @@ namespace PlayerControl
 
         private void CompleteReload()
         {
-            if (!_isReloading) return; 
+            if (!_isReloading) return;
 
             _isReloading = false;
 

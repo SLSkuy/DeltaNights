@@ -42,7 +42,7 @@ namespace PlayerControl
     /// </summary>
     public class PlayerAttackController : MonoBehaviour
     {
-        [Header("武器配置")] 
+        [Header("武器配置")]
         [SerializeField] private WeaponData mainWeapon;
         [SerializeField] private WeaponData secondaryWeapon;//副武器
         [SerializeField] private WeaponData meleeWeapon;//近战武器
@@ -50,14 +50,14 @@ namespace PlayerControl
         [Header("技能配置")]
         [SerializeField] private SkillConfig activeSkill;
         [SerializeField] private SkillConfig ultimateSkill;
-        
+
         // 输入来源（可替换为AI / 网络）
         private IAttackSkillInputSource _attackInputSource;
 
         // 子控制器
         private PlayerWeaponController _weaponController;
         private PlayerSkillController _skillController;
-        private PlayerController _playerController; 
+        private PlayerController _playerController;
 
         // 输入缓存
         private float _lastAttackValue;
@@ -69,13 +69,15 @@ namespace PlayerControl
 
         private float _lastReloadValue;
         private bool _isReloading = false;
+        private bool _isWeapon = false;
+        private bool _canSwitch = true;
 
         #region 事件
 
         public event Action<WeaponData, PlayerController> OnSwitchWeapon; // 切换武器    
         public event Action OnAttackPressed;    // 攻击按键按下
         public event Action OnAttackReleased;   // 攻击按键释放
-        
+
         public event Action<SkillType> OnSkillPressed;   // 技能键按下
         public event Action<SkillType> OnSkillReleased;
 
@@ -83,7 +85,7 @@ namespace PlayerControl
         public event Action OnReloadComplete;
         public event Action OnAim;
         public event Action OnIdle;
-        public event Action OnRifleSwitch;
+        public event Action<bool> OnRifleSwitch;
         #endregion
 
         #region 周期函数
@@ -93,14 +95,15 @@ namespace PlayerControl
             _playerController = GetComponent<PlayerController>();
             // 武器控制器初始化
             _weaponController = new PlayerWeaponController(this);
-            _weaponController.SwitchWeapon(mainWeapon,_playerController);
+            _weaponController.SwitchWeapon(mainWeapon, _playerController);
             _weaponController.OnIdle += ChangeToIDle;
             _weaponController.OnReloadComplete += OnWeaponReloadComplete;
+            _weaponController.OnSwitchLockStateChanged += OnSwitchLockStateChanged;
 
             // 技能控制器初始化
             _skillController = new PlayerSkillController(this);
             _skillController.OnSkillArmed += _weaponController.SetAttackLock;
-            _skillController.InitSkills(gameObject, new []{activeSkill, ultimateSkill});
+            _skillController.InitSkills(gameObject, new[] { activeSkill, ultimateSkill });
         }
 
         private void Start()
@@ -113,7 +116,7 @@ namespace PlayerControl
         {
             if (_attackInputSource == null)
                 return;
-            
+
             HandleSkillInput();
             HandleAttackInput();
             HandleReloadInput();
@@ -124,9 +127,9 @@ namespace PlayerControl
         }
 
         #endregion
-        
+
         #region 输入处理
-        
+
         /// <summary>
         /// 处理攻击输入
         /// </summary>
@@ -140,7 +143,7 @@ namespace PlayerControl
                 OnAim?.Invoke();
                 OnAttackPressed?.Invoke();
             }
-            
+
             // 攻击松开
             if (_lastAttackValue > 0f && attack <= 0f)
             {
@@ -154,7 +157,11 @@ namespace PlayerControl
         {
             OnIdle?.Invoke();
         }
-        
+        private void OnSwitchLockStateChanged(bool isLocked)
+        {
+            _canSwitch = !isLocked;  
+        }
+
         /// <summary>
         /// 处理技能输入
         /// </summary>
@@ -238,35 +245,45 @@ namespace PlayerControl
             float switch2 = _attackInputSource.Switch2;
             float switch3 = _attackInputSource.Switch3;
 
-            if (_lastSwitch1Value <= 0f && switch1 > 0f)  
+            if (_lastSwitch1Value <= 0f && switch1 > 0f)
             {
-                if (mainWeapon != null)
-                {
-                    _weaponController.SwitchWeapon(mainWeapon, _playerController);
-                    OnRifleSwitch?.Invoke();
-                }
+                HandleWeaponToggle(mainWeapon);
             }
 
             if (_lastSwitch2Value <= 0f && switch2 > 0f)
             {
-                if (secondaryWeapon != null)
-                {
-                    _weaponController.SwitchWeapon(secondaryWeapon, _playerController);
-                    OnRifleSwitch?.Invoke();
-                }
+                HandleWeaponToggle(secondaryWeapon);
             }
+
             if (_lastSwitch3Value <= 0f && switch3 > 0f)
             {
-                if (meleeWeapon != null)
-                {
-                    _weaponController.SwitchWeapon(meleeWeapon, _playerController);
-                    OnRifleSwitch?.Invoke();
-                }
+                HandleWeaponToggle(meleeWeapon);
             }
 
             _lastSwitch1Value = switch1;
             _lastSwitch2Value = switch2;
             _lastSwitch3Value = switch3;
+        }
+
+        private void HandleWeaponToggle(WeaponData weapon)
+        {
+            if (!_canSwitch) return;
+
+            if (!_isWeapon)
+            {
+                if (weapon != null)
+                {
+                    _weaponController.SwitchWeapon(weapon, _playerController);
+                    _isWeapon = true;
+                    OnRifleSwitch?.Invoke(_isWeapon);
+                }
+            }
+            else
+            {
+                _weaponController.SwitchWeapon(null, _playerController);
+                _isWeapon = false;
+                OnRifleSwitch?.Invoke(_isWeapon);
+            }
         }
 
         #endregion

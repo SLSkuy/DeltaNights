@@ -33,7 +33,19 @@ namespace WeaponSystem.Weapon
 
         public override void Attack()
         {
-            if (_currentBulletNum != 0)
+            if (_muzzle == null)
+            {
+                FindMuzzle();
+
+                if (_muzzle == null)
+                {
+                    return;
+                }
+                else
+                {
+                }
+            }
+            if (_currentBulletNum != 0 && _muzzle != null)
             {
                 //子弹数处理
                 _currentBulletNum--;
@@ -65,7 +77,7 @@ namespace WeaponSystem.Weapon
                 if (Physics.Raycast(_shoulderRay, out _hitInfo, 500f))
                 {
                     GameObject hitObject = _hitInfo.collider.gameObject;
-                    if (hitObject.CompareTag("Player"))//后续根据不同物体做不同处理
+                    if (hitObject.layer == _playerLayer)//后续根据不同物体做不同处理
                     {
                         PlayerController playerController = hitObject.GetComponent<PlayerController>();
                         playerController.Wound(bullet._rifle);
