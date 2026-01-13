@@ -144,6 +144,10 @@ namespace Network
                     Debug.Log("LobbyResponseProcess" + "RemoteLobbyEvent.RemoteLobbyRoomExit");
                     Dispatch(NetEvent.LobbyRoomExit, response.RoomExitResponse);
                     break;
+                case RemoteLobbyEvent.RemoteLobbyRoomStart:
+                    Debug.Log("LobbyResponseProcess" + "RemoteLobbyEvent.RemoteLobbyRoomStart");
+                    Dispatch(NetEvent.LobbyRoomStart, response.RoomStartResponse);
+                    break;
                 default:
                     Debug.Log("LobbyResponseProcess Default");
                     break;

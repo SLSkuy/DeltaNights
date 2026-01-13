@@ -20,5 +20,6 @@ namespace Network
         LobbyRoomInfo,
         LobbyRoomJoin,
         LobbyRoomExit,
+        LobbyRoomStart,
     }
 }

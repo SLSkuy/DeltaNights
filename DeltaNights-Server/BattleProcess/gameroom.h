@@ -83,6 +83,8 @@ public:
     void fillTeamB(LobbySyncPackage::RoomJoinResponsePackage *response);
     bool removePlayerTeam(quint32 clientID);
 
+
+
 signals:
     void battleSync(quint32 roomID, BattleSyncPackage::BattleSyncResponse* response);  // 发送新Tick信号，由接收者处理每一Tick产生的Protobuf事件
 

@@ -84,6 +84,7 @@ void GameServer::setupConnections()
     connect(_dispatcher,&NetworkDispatcher::clientJoinRoom,_roomMgr,&GameRoomManager::assignRooms);
     connect(_dispatcher,&NetworkDispatcher::clientRoomInfoRequest,_roomMgr,&GameRoomManager::roomInfo);
     connect(_dispatcher,&NetworkDispatcher::clientExitRoom,_roomMgr,&GameRoomManager::exitRoom);
+    connect(_dispatcher,&NetworkDispatcher::clientStartRoom,_roomMgr,&GameRoomManager::startRoom);
 
     //发
     connect(_clientMgr,&ClientManager::clientConnectResponse,_dispatcher,&NetworkDispatcher::sendTcpMessage);

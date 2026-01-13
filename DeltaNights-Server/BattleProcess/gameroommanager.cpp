@@ -213,6 +213,8 @@ void GameRoomManager::assignRooms(QTcpSocket *socket, quint32 roomid)
     room->addInFewPlayersTeam(player);
     Logger::Info() <<"[GameRoomManager]"<<"加入房间id:"<<roomid<<"玩家"<<player->nickname();
 
+
+    //TODO:多人时消息分发
     using namespace SyncPackage;
     RemoteSyncPackage response;
     response.set_eventid(RemoteSyncEvent::LobbyResponse);
@@ -286,4 +288,26 @@ void GameRoomManager::roomInfo(QTcpSocket *socket, quint32 roomid)
     }
 
     emit roomResponse(socket,response);
+}
+
+void GameRoomManager::startRoom(QTcpSocket *socket, quint32 roomid)
+{
+    GameRoom *room = findGameRoomByID(roomid);
+    if(!room){
+        Logger::Warning()<<"[GameRoomManager]exitRoom 无法找到房间";
+        return;
+    }
+
+
+    //TODO:多人时消息分发
+    using namespace SyncPackage;
+    RemoteSyncPackage response;
+    response.set_eventid(RemoteSyncEvent::LobbyResponse);
+    auto* type = response.mutable_lobbypackage();
+    type->set_eventid(LobbySyncPackage::RemoteLobbyEvent::Remote_Lobby_RoomStart);
+    auto *startRoomResponse=type->mutable_roomstartresponse();
+    startRoomResponse->set_roomid(roomid);
+
+    emit roomResponse(socket,response);
+    room->start();
 }

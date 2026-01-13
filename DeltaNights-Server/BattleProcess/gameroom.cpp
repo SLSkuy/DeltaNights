@@ -155,7 +155,7 @@ void GameRoom::start()
 {
     m_tick = 0;
     m_state = GameState::Running;
-    _timer->start(1000 / m_tickRate);
+    //_timer->start(1000 / m_tickRate);
 }
 
 void GameRoom::stop()

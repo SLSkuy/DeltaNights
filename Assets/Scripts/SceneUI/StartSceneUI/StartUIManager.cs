@@ -106,6 +106,8 @@ namespace SceneUI.StartSceneUI
                     break;
                 case RoomOption.Start:
                     //TODO:开始发包
+                    UIFrame.HideUI("RoomPanel");
+                    
                     break;
                 default:
                     break;

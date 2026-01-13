@@ -44,6 +44,7 @@ public:
     void assignRooms(QTcpSocket *socket,quint32 roomid);
     void exitRoom(QTcpSocket *socket,quint32 roomid);
     void roomInfo(QTcpSocket *socket, quint32 roomid);
+    void startRoom(QTcpSocket *socket, quint32 roomid);
 
 signals:
     void battleSyncGenerated(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg);  // 转发各个战局的信号

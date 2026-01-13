@@ -69,6 +69,7 @@ signals:
     void clientJoinRoom(QTcpSocket* socket,quint32 roomId);
     void clientExitRoom(QTcpSocket* socket,quint32 roomId);
     void clientRoomInfoRequest(QTcpSocket* socket,quint32 roomId);
+    void clientStartRoom(QTcpSocket* socket,quint32 roomId);
 
     // 战局同步事件
     void battleSyncRequest(BattleSyncPackage::BattleSyncRequest* pkg);

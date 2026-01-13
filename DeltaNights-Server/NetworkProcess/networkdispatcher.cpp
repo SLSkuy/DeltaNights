@@ -202,6 +202,10 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
             Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomExit";
             emit clientExitRoom(socket,pkg.roomexit().roomid());
             break;
+        case LocalLobbyEvent::Local_Lobby_RoomStart:
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomStart";
+            emit clientStartRoom(socket,pkg.roomstart().roomid());
+            break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown TCP_Lobby package type:" << pkg.eventid();
             break;

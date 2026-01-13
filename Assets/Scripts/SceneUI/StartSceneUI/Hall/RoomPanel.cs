@@ -16,6 +16,7 @@ using SyncPackage;
 using TMPro;
 using UIFramework.Panel;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SceneUI.StartSceneUI
 {
@@ -62,7 +63,21 @@ namespace SceneUI.StartSceneUI
         public void UI_OnStartRoom()
         {
             //TODO:开始逻辑
-            Signals.Get<StatusPromptWindowSignal>().Dispatch(true,"开始游戏...(暂无多人局内支持，后续功能待实现)");
+            
+            LocalSyncPackage syncPackage = new LocalSyncPackage
+            {
+                EventID = LocalSyncEvent.LobbyRequest,
+                LobbySync = new LobbySyncRequest
+                {
+                    EventID = LocalLobbyEvent.LocalLobbyRoomStart,
+                    RoomStart = new RoomStartRequest
+                    {
+                        RoomId = _id
+                    }
+                }
+            };
+            NetWorkManager.instance.SendTcp(syncPackage);
+            Signals.Get<StatusPromptWindowSignal>().Dispatch(true,"开始游戏...(暂无多人局内支持，后续功能待实现,目前为单人游戏)");
         }
         
         /*
@@ -72,6 +87,14 @@ namespace SceneUI.StartSceneUI
         {
             Signals.Get<StatusPromptWindowSignal>().Dispatch(false,"");
             Signals.Get<RoomPressDownSignal>().Dispatch(RoomOption.Exit);
+        }
+
+        public void RoomStart(RoomStartResponsePackage response)
+        {
+            Signals.Get<StatusPromptWindowSignal>().Dispatch(false,"");
+            
+            SceneManager.LoadScene("Scenes/SampleScene");
+            Signals.Get<RoomPressDownSignal>().Dispatch(RoomOption.Start);
         }
         
         private void RoomEnter(RoomJoinResponsePackage response)
@@ -105,6 +128,7 @@ namespace SceneUI.StartSceneUI
         private void Start()
         {
             NetWorkManager.instance.RegisterEventHandler<RoomExitResponsePackage>(NetEvent.LobbyRoomExit,RoomExit);
+            NetWorkManager.instance.RegisterEventHandler<RoomStartResponsePackage>(NetEvent.LobbyRoomStart,RoomStart);
         }
     }
 
