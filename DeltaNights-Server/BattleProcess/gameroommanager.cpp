@@ -184,15 +184,17 @@ void GameRoomManager::refreshGameRoom(QTcpSocket *socket)
 
     for(i=0; i< m_nextRoomID;i++)
     {
-        auto *room = refreshlistRoomResponse->add_rooms();
-        room->set_roomid(i);
-        room->set_roomname(m_rooms[i]->getRoomName().toStdString());
-        room->set_roomtype(m_rooms[i]->getRoomType().toStdString());
-        room->set_owner(m_rooms[i]->getRoomOwnerName().toStdString());
-        room->set_max(m_rooms[i]->getMax());
-        room->set_num(m_rooms[i]->getPlayerCount());
-    }
+        if(m_rooms[i]&&m_rooms[i]->getState()==GameState::Waiting){
+            auto *room = refreshlistRoomResponse->add_rooms();
+            room->set_roomid(i);
+            room->set_roomname(m_rooms[i]->getRoomName().toStdString());
+            room->set_roomtype(m_rooms[i]->getRoomType().toStdString());
+            room->set_owner(m_rooms[i]->getRoomOwnerName().toStdString());
+            room->set_max(m_rooms[i]->getMax());
+            room->set_num(m_rooms[i]->getPlayerCount());
+        }
 
+    }
 
     Logger::Info() <<"[GameRoomManager]"<<"refresh";
     emit roomResponse(socket, response);
@@ -297,7 +299,6 @@ void GameRoomManager::startRoom(QTcpSocket *socket, quint32 roomid)
         Logger::Warning()<<"[GameRoomManager]exitRoom 无法找到房间";
         return;
     }
-
 
     //TODO:多人时消息分发
     using namespace SyncPackage;

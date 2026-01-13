@@ -66,19 +66,26 @@ public:
     void Max(int max){m_max= max;}
     bool isRoomFull();
     //std::unordered_map<quint32, PlayerInfo*> teamWithFewPlayers();
+
+
     quint32 addInFewPlayersTeam(PlayerInfo *player);
+
+
 
     QString getRoomName(){return m_roomName;}
     QString getRoomType(){return m_roomType;}
     QString getRoomIntroduction(){return m_roomIntroduction;}
     QString getRoomOwnerName(){return m_ownerName;}
     //void addNum(){m_num++;}
+
     int getMax(){return m_max;}
     int getPlayerCount(){return m_players.size();}
     quint32 getTeamACount(){return m_teamA.size();}
     quint32 getTeamBCount(){return m_teamB.size();}
     PlayerInfo* getTeamAPlayer(quint32 clientID);
     PlayerInfo* getTeamBPlayer(quint32 clientID);
+    GameState getState()const{return m_state;}
+
     void fillTeamA(LobbySyncPackage::RoomJoinResponsePackage *response);
     void fillTeamB(LobbySyncPackage::RoomJoinResponsePackage *response);
     bool removePlayerTeam(quint32 clientID);
