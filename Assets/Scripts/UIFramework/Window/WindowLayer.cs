@@ -215,7 +215,7 @@ namespace UIFramework.Window
                 priorityLayerWindow.DarkenBg();
             }
             
-            controller.Show();  // 委托Controller进行窗口显示
+            controller.Show(properties);  // 委托Controller进行窗口显示
             CurrentWindow = controller;
         }
         

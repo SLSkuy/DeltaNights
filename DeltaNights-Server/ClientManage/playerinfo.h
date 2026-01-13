@@ -20,17 +20,23 @@ class PlayerInfo : public QObject
     Q_OBJECT
 public:
     explicit PlayerInfo(quint32 uuid, QObject* parent = nullptr);
-
+    explicit PlayerInfo(quint32 uuid,QString account, QObject* parent = nullptr);
     void registerAccount();
-    void loginAccount();
+    bool loginAccount(QString password);
+    void setClientID(quint32 clientId);
+    void setNickname(QString nickname);
+    void setPassword(QString password);
 
 public:
     quint32 uuid() const {return m_uuid;}
     QString nickname() const {return m_nickname;}
+    quint32 getClientID() const {return m_clientID;}
 
 private:
     quint32 m_uuid;
     QString m_nickname;
+
+    quint32 m_clientID;
 
     QString m_account;
     QString m_password;

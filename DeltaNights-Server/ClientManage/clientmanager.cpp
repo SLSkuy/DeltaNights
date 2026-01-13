@@ -10,6 +10,7 @@
 #include "clientmanager.h"
 #include "clientinfo.h"
 #include "../Logger/logger.h"
+#include "playerinfo.h"
 
 #include <QDateTime>
 
@@ -73,6 +74,25 @@ void ClientManager::clientBindUdpPort(QTcpSocket* socket, quint16 port)
                    << socket->peerAddress().toString()
                    << ":" << socket->peerPort()
                    << " bind udp port on " << port;
+}
+
+void ClientManager::clientBindPlayerInfo(QTcpSocket *socket, PlayerInfo *playerInfo)
+{
+    ClientInfo* client = findClientByTcp(socket);
+
+    if(!client)
+    {
+        Logger::Error() << "[ClientManager]: Failed to bind client PlayerInfo, can not find client";
+        return;
+    }
+
+    client->bindPlayer(playerInfo);
+    playerInfo->setClientID(client->clientID());
+
+    Logger::Info() << "[ClientManager]: Client "
+                   << socket->peerAddress().toString()
+                   << ":" << socket->peerPort()
+                   << " bind playerinfo on " << playerInfo->uuid();
 }
 
 ClientInfo* ClientManager::findClientByID(quint32 clientID)
@@ -141,16 +161,17 @@ void ClientManager::removeTimeoutClients()
         ClientInfo* client = it->second;
         if (now - client->lastActiveTime() > m_timeToRemove)
         {
-            Logger::Info() << "[ClientManager]: Client "
-                           << makeKey(client->ip(), client->port()) << " timeout";
+            // Logger::Info() << "[ClientManager]: Client "
+            //                << makeKey(client->ip(), client->port()) << " timeout";
 
-            // 触发超时信号，让战局内实体与客户端断开联系
-            emit clientTimeout(client->clientID());
+            // // 触发超时信号，让战局内实体与客户端断开联系
+            // emit clientTimeout(client->clientID());
 
-            m_clientsByTcp.erase(client->tcpSocket()); // 删除TCP索引
-            m_clientsByUdp.erase(makeKey(client->ip(), client->port()));    // 删除UDP索引
-            it = m_clientsByID.erase(it);   // 删除ID索引
-            client->deleteLater();  // 删除客户端
+            // m_clientsByTcp.erase(client->tcpSocket()); // 删除TCP索引
+            // m_clientsByUdp.erase(makeKey(client->ip(), client->port()));    // 删除UDP索引
+            // it = m_clientsByID.erase(it);   // 删除ID索引
+            // client->deleteLater();  // 删除客户端
+            ++it;
         }
         else
         {

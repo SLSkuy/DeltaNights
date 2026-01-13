@@ -15,5 +15,10 @@ namespace Network
     public enum NetEvent
     {
         ConnectResponse,    // ClientSyncPackage - RemoteClientEvent - ConnectResponse事件
+        LoginResponse,
+        LobbyRefresh,
+        LobbyRoomInfo,
+        LobbyRoomJoin,
+        LobbyRoomExit,
     }
 }

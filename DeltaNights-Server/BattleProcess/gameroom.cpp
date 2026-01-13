@@ -1,7 +1,9 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051604046 wenrenqiang
+ *           2023051604032 WangXinKai
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.8
  *
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
@@ -14,6 +16,7 @@
 #include "../Logger/logger.h"
 #include "../ObjectPool/protopool.h"
 #include "../ClientManage/clientinfo.h"
+#include "../ClientManage/playerinfo.h"
 
 GameRoom::GameRoom(quint32 roomID, QObject* parent)
     : QObject(parent)
@@ -40,7 +43,7 @@ bool GameRoom::addPlayer(std::unique_ptr<PlayerEntity> player)
         return false;
 
     m_players.emplace(id, std::move(player));
-    ++m_playerCount;
+
     return true;
 }
 
@@ -73,6 +76,78 @@ void GameRoom::playerTimeout(quint32 clientID)
 
     m_players[clientID]->unBind();
 }
+
+bool GameRoom::isRoomFull()
+{
+    return m_players.size()>=m_max;
+}
+
+quint32 GameRoom::addInFewPlayersTeam(PlayerInfo* player)
+{
+    if(!player){
+        Logger::Info() <<"addInFewPlayersTeam NULL";
+        return 0;
+    }
+
+    if(m_teamB.size()>m_teamA.size())
+    {
+        m_teamB[player->getClientID()]=player;
+        return 2;
+    }
+    else
+    {
+        m_teamA[player->getClientID()] = player;
+        return 1;
+    }
+}
+
+PlayerInfo *GameRoom::getTeamAPlayer(quint32 clientID)
+{
+    return m_teamA.at(clientID);
+}
+
+PlayerInfo *GameRoom::getTeamBPlayer(quint32 clientID)
+{
+    return m_teamB.at(clientID);
+}
+
+//获取队伍A玩家列表
+void GameRoom::fillTeamA(LobbySyncPackage::RoomJoinResponsePackage *response)
+{
+    for(auto &p:m_teamA){
+        response->add_teamaplayers(p.second->nickname().toStdString());
+    }
+}
+
+//获取队伍B玩家列表
+void GameRoom::fillTeamB(LobbySyncPackage::RoomJoinResponsePackage *response)
+{
+    for(auto &p:m_teamB){
+        response->add_teamaplayers(p.second->nickname().toStdString());
+    }
+}
+
+bool GameRoom::removePlayerTeam(quint32 clientID)
+{
+    if(m_teamA.count(clientID)){
+        m_teamA.erase(clientID);
+        return true;
+    }
+    if(m_teamB.count(clientID)){
+        m_teamB.erase(clientID);
+        return true;
+    }
+
+    Logger::Error() << "[GameRoom ID: " << m_roomID << "]: " << "No player in team with clientID: " << clientID;
+    return false;
+}
+
+
+/*std::unordered_map<quint32, PlayerInfo *> GameRoom::teamWithFewPlayers()
+{
+    return _teamB.size()>_teamA.size()?_teamB:_teamA;
+}*/
+
 /* --------------------------------------------------
  * 战局控制
  * -------------------------------------------------- */
@@ -88,6 +163,7 @@ void GameRoom::stop()
     _timer->stop();
     m_state = GameState::Finished;
 }
+
 
 void GameRoom::onTick()
 {
