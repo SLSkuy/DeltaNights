@@ -34,13 +34,9 @@
 using InputProcess;
 using System;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.InputSystem.Processors;
 using WeaponSystem;
-using WeaponSystem.Weapon;
-
 
 namespace PlayerControl
 {
@@ -107,7 +103,6 @@ namespace PlayerControl
 
         //动画rig
         public Rig _rig;
-
         
         #endregion
 
@@ -132,7 +127,7 @@ namespace PlayerControl
         {
             // 组件引用
             _characterController = GetComponent<CharacterController>();
-            _camera = Camera.main;
+            // _camera = Camera.main;
             _rig = GetComponentInChildren<Rig>();
         }
 
