@@ -1,4 +1,14 @@
-﻿using System;
+﻿/* ------------------------------------------------------------
+ *  Author:  2023051604032 WangXinKai
+ *  Date:  2026.1.6
+ *  LastUpdate:  2026.1.11
+ * 
+ *  功能简述：
+ *  创建房间窗口
+ * 
+ * ------------------------------------------------------------ */
+
+using System;
 using EventProcess;
 using LobbySyncPackage;
 using Network;
