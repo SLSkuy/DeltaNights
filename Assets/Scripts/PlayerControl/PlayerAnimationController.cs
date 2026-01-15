@@ -14,7 +14,7 @@
  *  - 通过插值方式避免动画参数突变
  *
  *  设计说明：
- *  - 动画控制采用“事件驱动”而非轮询输入，降低系统耦合
+ *  - 动画控制采用"事件驱动"而非轮询输入，降低系统耦合
  *  - 动画参数更新与动画层权重更新相互独立，便于扩展
  *  - 不直接参与角色逻辑计算，仅负责 Animator 参数映射
  *  - 肩射动画通过独立动画层实现，保证基础移动动画可复用
@@ -97,6 +97,8 @@ namespace PlayerControl
             _attackController.OnRifleSwitch += SetRifle;
 
             FindGoals();
+
+            Invoke(nameof(SetupLeftHandTarget), 0.1f);
         }
 
 
@@ -131,7 +133,6 @@ namespace PlayerControl
 
         private void SetAnimJump(int times)
         {
-            //_animator.SetTrigger(_jumpHash);
             _animator.CrossFade("Jump", 0.1f, 0, 0f);
         }
 
@@ -146,22 +147,27 @@ namespace PlayerControl
             if (!_animator.GetBool("IsRifle")) return;
             _isReloading = true;
             _animator.SetBool("IsReload", true);
-
         }
+
         private void SetIdle()
         {
             _animator.SetBool("IsAim", false);
         }
+
         private void SetRifle(bool isRifle)
         {
-            Debug.Log("isRifle " +  isRifle);   
             _animator.SetBool("IsAim", false);
             _animator.SetBool("IsRifle", isRifle);
+
+            if (isRifle)
+            {
+                Invoke(nameof(SetupLeftHandTarget), 0.1f);
+            }
         }
+
         private void SetAim()
         {
             if (!_animator.GetBool("IsRifle")) return;
-
             _animator.SetBool("IsAim", true);
         }
 
@@ -205,13 +211,52 @@ namespace PlayerControl
             _leftHandConstraint.weight = _animator.GetFloat("Left Hand Weight");
         }
 
+        /// <summary>
+        /// 设置左手IK的target到武器上的左手目标点
+        /// </summary>
+        private void SetupLeftHandTarget()
+        {
+            if (_leftHandConstraint == null || _meshController == null) return;
+
+            var weaponInstance = GetWeaponInstanceFromMeshController();
+            if (weaponInstance == null) return;
+
+            var leftHandTarget = FindLeftHandTargetOnWeapon(weaponInstance.transform);
+            if (leftHandTarget == null) return;
+
+            // 设置IK目标
+            var data = _leftHandConstraint.data;
+            data.target = leftHandTarget;
+            _leftHandConstraint.data = data;
+        }
+
+        /// <summary>
+        /// 从MeshController获取武器实例
+        /// </summary>
+        private GameObject GetWeaponInstanceFromMeshController()
+        {
+            if (_meshController == null) return null;
+
+            var weaponField = _meshController.GetType().GetField("_weaponInstance",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            if (weaponField == null) return null;
+
+            return weaponField.GetValue(_meshController) as GameObject;
+        }
+
+        /// <summary>
+        /// 在武器上查找左手目标点
+        /// </summary>
+        private Transform FindLeftHandTargetOnWeapon(Transform weaponTransform)
+        {
+            return RecursiveFind<Transform>(weaponTransform, "Left Hand Target");
+        }
+
         #endregion
 
         #region 动画方法
-        /// <summary>
-        /// 简易实现换弹动画
-        /// </summary>
-        // 以下方法由动画事件调用
+
         private void SetReloadAnimationWeight()
         {
             if (!_isReloading) return;
@@ -220,7 +265,6 @@ namespace PlayerControl
         private void SetReloadAnimationComplete()
         {
             if (!_isReloading) return;
-
             _isReloading = false;
             _animator.SetBool("IsReload", false);
         }
@@ -228,11 +272,13 @@ namespace PlayerControl
         private void SetRifleOnHand()
         {
             _meshController.SetWeaponToHand();
+            Invoke(nameof(SetupLeftHandTarget), 0.1f);
         }
 
         private void SetRifleOnBack()
         {
             _meshController.SetWeaponToBack();
+            Invoke(nameof(SetupLeftHandTarget), 0.1f);
         }
 
         private void FindGoals()
@@ -240,9 +286,9 @@ namespace PlayerControl
             _rightHandConstraint = RecursiveFind<TwoBoneIKConstraint>(transform, "Right Hand Constraint");
             _leftHandConstraint = RecursiveFind<TwoBoneIKConstraint>(transform, "Left Hand Constraint");
 
-            if (_rightHandConstraint == null || _leftHandConstraint == null)
+            if (_rightHandConstraint != null && _leftHandConstraint != null)
             {
-                Debug.LogWarning("未找到组件");
+                SetupLeftHandTarget();
             }
         }
 
@@ -260,8 +306,7 @@ namespace PlayerControl
             //Transform类型
             if (typeof(T) == typeof(Transform))
             {
-
-                if (parent.name == name)
+                if (parent.name.Contains(name))
                     return parent as T;
 
                 foreach (Transform child in parent)
@@ -277,7 +322,8 @@ namespace PlayerControl
                 TwoBoneIKConstraint constraint = parent.GetComponent<TwoBoneIKConstraint>();
                 if (constraint != null)
                 {
-                    if (parent.name == name || (constraint.data.target != null && constraint.data.target.name == name))
+                    if (parent.name.Contains(name) ||
+                        (constraint.data.target != null && constraint.data.target.name.Contains(name)))
                         return constraint as T;
                 }
 

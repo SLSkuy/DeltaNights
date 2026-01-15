@@ -61,6 +61,7 @@ namespace WeaponSystem
         [SerializeField] protected float attackSpeed;
         [SerializeField] protected bool fullyAutomatic;
         [SerializeField] protected float attenuationFactor;
+        //[SerializeField] protected float SpreadFactor//武器射击扩散属性;
 
         [Header("武器伤害")]
         [SerializeField] protected float headDamage;
@@ -163,6 +164,7 @@ namespace WeaponSystem
         public float AttackSpeed => attackSpeed;
         public bool FullyAutomatic => fullyAutomatic;
         public float AttenuationFactor => attenuationFactor;
+        //public float SpreadFactor => SpreadFactor;
         public float HeadDamage => headDamage;
         public float BodyDamage => bodyDamage;
         public float LegDamage => legDamage;

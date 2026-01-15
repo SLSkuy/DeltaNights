@@ -85,6 +85,22 @@ namespace WeaponSystem.Weapon
                         Debug.Log(hitObject.name + "Hp: " + playerController._hp);
                     }
                 }
+
+                //与上方基本一致的添加武器扩散后的实现（暂未验证可行性,且武器首发仍会偏移，故暂不予以实现）
+                //Vector3 shootDirection = shoulderDirection;
+                //shootDirection = shoulderDirection + _muzzle.TransformDirection(new Vector3(Random.Range(-SpreadFactor, SpreadFactor),Random.Range(-SpreadFactor,SpreadFactor)));
+                //if (Physics.Raycast(_muzzle.transform.position,shootDirection, out _hitInfo, 500f))
+                //{
+                //    GameObject hitObject = _hitInfo.collider.gameObject;
+                //    if (hitObject.layer == _playerLayer)//后续根据不同物体做不同处理
+                //    {
+                //        PlayerController playerController = hitObject.GetComponent<PlayerController>();
+                //        playerController.Wound(bullet._rifle);
+                //        Debug.Log(hitObject.name + "护甲: " + playerController._armor);
+                //        Debug.Log(hitObject.name + "Hp: " + playerController._hp);
+                //    }
+                //}
+
                 //暂存，之后做修改
                 //if (_isShoulderAim && !_isAim)
                 //{
