@@ -1,0 +1,16 @@
+第一行，uuid，
+第二行，nickname,
+第三行，password，
+第四行，account
+ 
+玩家账号数据
+123
+test
+123
+abc
+
+玩家账号数据
+555
+nm
+444
+eee

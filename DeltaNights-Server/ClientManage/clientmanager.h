@@ -13,6 +13,7 @@
 #include <QHostAddress>
 #include <unordered_map>
 #include <QTcpSocket>
+#include "playerinfo.h"
 
 #include "../GameEvent/SyncPackage.pb.h"
 
@@ -26,6 +27,7 @@ public:
 
     void createNewClient(QTcpSocket* socket);
     void clientBindUdpPort(QTcpSocket* socket, quint16 port);
+    void clientBindPlayerInfo(QTcpSocket* socket,PlayerInfo *playerInfo);
     ClientInfo* findClientByID(quint32 clientID);
     ClientInfo* findClientByTcp(QTcpSocket* socket);
     ClientInfo* findClientByUdp(const QHostAddress& ip, quint16 port) const;

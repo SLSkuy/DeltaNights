@@ -1,7 +1,9 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051604046 wenrenqiang
+ *           2023051604032 WangXinKai
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.6
  *
  *  网络分发器
  *  处理UDP、TCP的数据收发
@@ -156,6 +158,11 @@ void NetworkDispatcher::handleTcpClientPackage(QTcpSocket* socket, const ClientS
             // TODO: 客户端连接请求
             emit clientBindUdpPort(socket, pkg.connect().port());
             break;
+        case LocalClientEvent::LoginRequest:
+            // TODO: 客户端登录请求
+            Logger::Info()<<"[NetworkDispatcher]"<<QString::fromStdString(pkg.loginrequest().account())<<"-"<<QString::fromStdString(pkg.loginrequest().password());
+            emit clientLogin(socket,QString::fromStdString(pkg.loginrequest().account()),QString::fromStdString(pkg.loginrequest().password()));
+            break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown TCP_ACK package type:" << pkg.eventid();
             break;
@@ -169,6 +176,37 @@ void NetworkDispatcher::handleTcpLobbyPackage(QTcpSocket* socket, const LobbySyn
     // ===== 按子类型分发 =====
     switch (pkg.eventid())
     {
+        case LocalLobbyEvent::Local_Lobby_RoomCreate:
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomCreate";
+            //客户端创建房间请求
+            emit clientCreateRoom(socket,QString::fromStdString(pkg.roomcreate().roomname()),QString::fromStdString(pkg.roomcreate().roomtype()),QString::fromStdString(pkg.roomcreate().roomintroduction()));
+            break;
+        case LocalLobbyEvent::Local_Lobby_RoomInfo:
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomInfo";
+            //客户端房间信息请求
+            emit clientRoomInfoRequest(socket,pkg.roominfo().roomid());
+            break;
+        case LocalLobbyEvent::Local_Lobby_RoomJoin:
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomJoin";
+            //客户端加入房间请求
+            emit clientJoinRoom(socket,pkg.roomjoin().roomid());
+            break;
+        case LocalLobbyEvent::Local_Lobby_None:
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_None";
+            break;
+        case LocalLobbyEvent::Local_Lobby_Refresh:
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_Refresh";
+            //客户端刷新房间列表请求
+            emit clientRefresh(socket);
+            break;
+        case LocalLobbyEvent::Local_Lobby_RoomExit:
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomExit";
+            emit clientExitRoom(socket,pkg.roomexit().roomid());
+            break;
+        case LocalLobbyEvent::Local_Lobby_RoomStart:
+            Logger::Info() << "LocalLobbyEvent::Local_Lobby_RoomStart";
+            emit clientStartRoom(socket,pkg.roomstart().roomid());
+            break;
         default:
             Logger::Warning() << "[NetworkDispatcher] Unknown TCP_Lobby package type:" << pkg.eventid();
             break;

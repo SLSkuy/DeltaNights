@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.8
  *
  *  游戏战局房间管理
  *  处理房间的创建、销毁、玩家与房间之间的交互逻辑
@@ -11,10 +12,12 @@
 #pragma once
 
 #include <QObject>
+#include <qtcpsocket.h>
 #include <unordered_map>
 #include <QHostAddress>
 
 #include "../GameEvent/BattleSyncPackage.pb.h"
+#include "../GameEvent/SyncPackage.pb.h"
 
 class GameRoom;
 class PlayerInfo;
@@ -32,13 +35,24 @@ public:
     void disposeGameRoom(quint32 roomID);
 
     // ========== 玩家交互操作 ==========
-    bool joinGameRoom(quint32 roomID, PlayerInfo* player);
+    bool joinGameRoom(quint32 roomID, PlayerInfo* player,QTcpSocket*socket);
     bool leaveGameRoom(quint32 roomID, PlayerInfo* player);
     void playerSyncRequest(BattleSyncPackage::BattleSyncRequest* input);
     void battleSyncResponse(quint32 roomID, BattleSyncPackage::BattleSyncResponse* pkg);
+    void roomOwner(QTcpSocket*socket,QString roomname,QString roomtype,QString roomintroduction);
+    void refreshGameRoom(QTcpSocket *socket);
+    void assignRooms(QTcpSocket *socket,quint32 roomid);
+    void exitRoom(QTcpSocket *socket,quint32 roomid);
+    void roomInfo(QTcpSocket *socket, quint32 roomid);
+    void startRoom(QTcpSocket *socket, quint32 roomid);
 
 signals:
     void battleSyncGenerated(const QHostAddress& addr, quint16 port, BattleSyncPackage::BattleSyncResponse* pkg);  // 转发各个战局的信号
+    // void roomCreateResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
+    // void refeshGameRoomResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
+    // void joinRoomResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
+    // void roomInfoResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
+    void roomResponse(QTcpSocket* socket,const SyncPackage::RemoteSyncPackage& pkg);
 
 private:
     quint32 m_nextRoomID = 0;

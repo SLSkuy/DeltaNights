@@ -1,7 +1,8 @@
 /* ------------------------------------------------------------
  *  Author:  2023051604044 wanrui
+ *           2023051604046 wenrenqiang
  *  Date:  2025.12.23
- *  LastUpdate: 2026.1.2
+ *  LastUpdate: 2026.1.8
  *
  *  游戏战局房间示例
  *  处理每一个战局的逻辑事件
@@ -17,6 +18,7 @@
 #include <unordered_map>
 
 #include "../GameEvent/BattleSyncPackage.pb.h"
+#include "../GameEvent/LobbySyncPackage.pb.h"
 #include "../GameData/gamemap.h"
 #include "playerentity.h"
 
@@ -57,6 +59,38 @@ public:
 
 public:
     const std::unordered_map<quint32, std::unique_ptr<PlayerEntity>>& players() const { return m_players; }
+    void roomName(QString roomname){m_roomName = roomname;}
+    void roomType(QString roomtype){m_roomType = roomtype;}
+    void roomIntroduction(QString roomintroduction){m_roomIntroduction = roomintroduction;}
+    void roomOwnerName(QString ownername){m_ownerName = ownername;}
+    void Max(int max){m_max= max;}
+    bool isRoomFull();
+    //std::unordered_map<quint32, PlayerInfo*> teamWithFewPlayers();
+
+
+    quint32 addInFewPlayersTeam(PlayerInfo *player);
+
+
+
+    QString getRoomName(){return m_roomName;}
+    QString getRoomType(){return m_roomType;}
+    QString getRoomIntroduction(){return m_roomIntroduction;}
+    QString getRoomOwnerName(){return m_ownerName;}
+    //void addNum(){m_num++;}
+
+    int getMax(){return m_max;}
+    int getPlayerCount(){return m_players.size();}
+    quint32 getTeamACount(){return m_teamA.size();}
+    quint32 getTeamBCount(){return m_teamB.size();}
+    PlayerInfo* getTeamAPlayer(quint32 clientID);
+    PlayerInfo* getTeamBPlayer(quint32 clientID);
+    GameState getState()const{return m_state;}
+
+    void fillTeamA(LobbySyncPackage::RoomJoinResponsePackage *response);
+    void fillTeamB(LobbySyncPackage::RoomJoinResponsePackage *response);
+    bool removePlayerTeam(quint32 clientID);
+
+
 
 signals:
     void battleSync(quint32 roomID, BattleSyncPackage::BattleSyncResponse* response);  // 发送新Tick信号，由接收者处理每一Tick产生的Protobuf事件
@@ -68,9 +102,17 @@ private:
 private:
     // ========== 房间数据 ==========
     quint32 m_roomID;
-    int m_playerCount = 0;
     GameState m_state = GameState::Waiting;
     GameRoomConfig m_config;
+
+    QString m_roomName;
+    QString m_roomType;
+    QString m_roomIntroduction;
+    QString m_ownerName;//房主
+    int m_max=6;//房间最大人数默认为6
+    //int m_num=0;//房间实时人数
+
+    //QString _teamA[];
 
     // ========== Tick处理 ==========
     quint32 m_tick;
@@ -87,4 +129,9 @@ private:
     // ========== 玩家数据处理 ==========
     std::unordered_map<quint32, std::unique_ptr<PlayerEntity>> m_players; // clientID -> PlayerEntity
     std::unordered_map<quint32, PlayerInput> m_inputBuffer; // 每次同步如果有输入则覆盖PlayerEntity，没有则保持PlayerEntity中的输入
+
+
+    std::unordered_map<quint32,PlayerInfo*> m_teamA;//房间内分为队伍A和队伍B两个阵营
+    std::unordered_map<quint32,PlayerInfo*> m_teamB;
+
 };

@@ -10,6 +10,7 @@ enum LocalClientEvent {
   HeartBeat = 1;
   ConnectRequest = 2;
   DisconnectRequest = 3;
+  LoginRequest = 4;
 }
 
 // ===== ACK请求包 =====
@@ -18,6 +19,7 @@ message ClientSyncRequest {
   oneof content {
     HeartBeatPackage heartBeat = 2;
     ConnectRequestPackage connect = 3;
+    LoginRequestPackage loginRequest = 4;
   }
 }
 
@@ -31,12 +33,19 @@ message ConnectRequestPackage {
   int32 port = 1;
 }
 
+// ===== 登录请求包 =====
+message LoginRequestPackage {
+  string account = 1;
+  string password = 2;
+}
+
 /* ==================================================
   客户端同步回应包事件
 ================================================== */
 enum RemoteClientEvent {
   Remote_ACK_None = 0;
   ConnectResponse = 1;
+  LoginResponse = 2;
 }
 
 // ===== ACK回应包 =====
@@ -44,12 +53,19 @@ message ClientSyncResponse {
   RemoteClientEvent eventID = 1;
   oneof content {
     ConnectResponsePackage connectResponse = 2;
+    LoginResponsePackage loginResponse = 3;
   }
 }
 
 // ===== 连接回应包 =====
 message ConnectResponsePackage {
   string content = 1;
+}
+
+// ===== 登录回应包 =====
+message LoginResponsePackage {
+  uint32 uuid = 1;
+  string nickName = 2;
 }
 
 

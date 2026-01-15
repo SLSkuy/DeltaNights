@@ -4,8 +4,8 @@
  *  LastUpdate:  2025.12.23
  * 
  *  功能简述：
- *  游戏开始界面的主界面
- * 
+ *  游戏开始界面的主界面 
+ *  目前无注册页
  * ------------------------------------------------------------ */
 
 using EventProcess;
@@ -36,13 +36,28 @@ namespace SceneUI.StartSceneUI
             }
             base.SetProperties(props);
         }
+        
+        //字体自动更换
+        [SerializeField] private TMP_FontAsset font;
+        void OnEnable()
+        {
+            if (font!= null)
+            {
+                // 遍历所有子物体（包括自己）的TMP_Text组件
+                TMP_Text[] allTexts = GetComponentsInChildren<TMP_Text>(true);
+                foreach (TMP_Text text in allTexts)
+                {
+                    text.font = font;
+                }
+            }
+        }
     }
     
     public class StartMainPanelProperties : PanelProperties
     {
         public string Content;
         
-        public StartMainPanelProperties(PanelPriority priority,string content ) : base(priority)
+        public StartMainPanelProperties(string content ) : base(PanelPriority.None)
         {
             this.Content = content;
         }

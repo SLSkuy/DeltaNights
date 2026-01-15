@@ -8,15 +8,16 @@
  *  管理所有的网路同步事件
  * ------------------------------------------------------------ */
 
-using System;
-using System.Collections.Generic;
 using BattleSyncPackage;
 using ClientSyncPackage;
 using Google.Protobuf;
 using LobbySyncPackage;
 using Network.ProtoTools;
 using SyncPackage;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.LightTransport;
 
 namespace Network
 {
@@ -112,6 +113,9 @@ namespace Network
                 case RemoteClientEvent.ConnectResponse:
                     Dispatch(NetEvent.ConnectResponse, response.ConnectResponse);
                     break;
+                case RemoteClientEvent.LoginResponse:
+                    Dispatch(NetEvent.LoginResponse, response.LoginResponse);
+                    break;
                 default:
                     break;
             }
@@ -120,9 +124,32 @@ namespace Network
         /// 处理Lobby类回应消息，此处进行分发相应的网络事件
         private void LobbyResponseProcess(LobbySyncResponse response)
         {
+          
             switch (response.EventID)
             {
+             
+                case RemoteLobbyEvent.RemoteLobbyRefresh:
+                    Debug.Log("LobbyResponseProcess" + "RemoteLobbyEvent.RemoteLobbyRefresh");
+                    Dispatch(NetEvent.LobbyRefresh,response.RefreshListResponse);
+                    break;
+                case RemoteLobbyEvent.RemoteLobbyRoomInfo:
+                    Debug.Log("LobbyResponseProcess" + "RemoteLobbyEvent.RemoteLobbyRoomInfo");
+                    Dispatch(NetEvent.LobbyRoomInfo, response.RefreshListResponse);
+                    break;
+                case RemoteLobbyEvent.RemoteLobbyRoomJoin:
+                    Debug.Log("LobbyResponseProcess" + "RemoteLobbyEvent.RemoteLobbyRoomJoin");
+                    Dispatch(NetEvent.LobbyRoomJoin, response.RoomJoinResponse);
+                    break;
+                case RemoteLobbyEvent.RemoteLobbyRoomExit:
+                    Debug.Log("LobbyResponseProcess" + "RemoteLobbyEvent.RemoteLobbyRoomExit");
+                    Dispatch(NetEvent.LobbyRoomExit, response.RoomExitResponse);
+                    break;
+                case RemoteLobbyEvent.RemoteLobbyRoomStart:
+                    Debug.Log("LobbyResponseProcess" + "RemoteLobbyEvent.RemoteLobbyRoomStart");
+                    Dispatch(NetEvent.LobbyRoomStart, response.RoomStartResponse);
+                    break;
                 default:
+                    Debug.Log("LobbyResponseProcess Default");
                     break;
             }
         }
