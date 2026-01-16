@@ -34,13 +34,8 @@
 using InputProcess;
 using System;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
-using UnityEngine.InputSystem.Processors;
 using WeaponSystem;
-using WeaponSystem.Weapon;
-
 
 namespace PlayerControl
 {
@@ -76,9 +71,12 @@ namespace PlayerControl
         [Tooltip("玩家重力属性")] // 自行实现物理效果，不使用Unity自带的RigidBody，减少性能开销
         public float gravity = 9.8f;
         
+        // 网络属性
+        private bool _isLocalPlayer;
+        
         // 组件获取
         private CharacterController _characterController;
-        private Camera _camera;
+        private Transform _forward; // 哪个朝向为正前方
         
         // 玩家移动输入
         private ILocomotionInputSource _locomotionInputSource;
@@ -101,10 +99,6 @@ namespace PlayerControl
         
         // 技能限制
         private bool _locomotionLockedBySkill;
-
-        //动画rig
-        public Rig _rig;
-
         
         #endregion
 
@@ -129,8 +123,6 @@ namespace PlayerControl
         {
             // 组件引用
             _characterController = GetComponent<CharacterController>();
-            _camera = Camera.main;
-            _rig = GetComponentInChildren<Rig>();
         }
 
         private void Start()
@@ -173,6 +165,20 @@ namespace PlayerControl
         #region 成员方法
 
         /// <summary>
+        /// 初始化输入来源
+        /// </summary>
+        public void Init(ILocomotionInputSource locomotionInputSource, bool isLocalPlayer)
+        {
+            _isLocalPlayer = isLocalPlayer;
+            _locomotionInputSource = locomotionInputSource;
+
+            if(Camera.main != null)
+                _forward = _isLocalPlayer ? Camera.main.transform : transform;
+            else 
+                _forward = transform;
+        }
+
+        /// <summary>
         /// 检测玩家当前是否在移动
         /// </summary>
         public bool IsMoving()
@@ -212,12 +218,14 @@ namespace PlayerControl
         /// </summary>
         private void CalculateCurrentVelocity()
         {
+            if (_locomotionInputSource == null) return;
+            
             float x = _locomotionInputSource.MoveX;
             float z = _locomotionInputSource.MoveZ;
 
             // 根据摄像机朝向投影到水平面
-            Vector3 camForward = Vector3.ProjectOnPlane(_camera.transform.forward, Vector3.up).normalized;
-            Vector3 camRight = Vector3.ProjectOnPlane(_camera.transform.right, Vector3.up).normalized;
+            Vector3 camForward = Vector3.ProjectOnPlane(_forward.forward, Vector3.up).normalized;
+            Vector3 camRight = Vector3.ProjectOnPlane(_forward.right, Vector3.up).normalized;
 
             // 计算移动方向
             Vector3 desiredDir = camForward * z + camRight * x;
@@ -291,6 +299,8 @@ namespace PlayerControl
         /// </summary>
         private void UpdateAimState()
         {
+            if(_locomotionInputSource == null) return;
+            
             // 检测是否为肩射状态
             bool shoulderNow = _locomotionInputSource.ShoulderAim > 0.1f;
             if (_isShoulderAim != shoulderNow)
@@ -317,6 +327,8 @@ namespace PlayerControl
         /// </summary>
         private void UpdateJumpState()
         {
+            if (_locomotionInputSource == null) return;
+            
             bool jumpPressedNow = _locomotionInputSource.Jump > 0.1f;
 
             // 边沿触发
