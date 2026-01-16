@@ -95,3 +95,4 @@ ignore.conf
 protobuf/
 /Assets/Meshes/S201靛蓝逐罪
 /.vsconfig
+/Assets/Prefabs/CharacterMesh/Player.prefab
