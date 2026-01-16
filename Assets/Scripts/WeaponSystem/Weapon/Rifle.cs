@@ -17,7 +17,9 @@
  *  - 由武器控制或攻击系统调用 Attack 方法触发攻击
  * ------------------------------------------------------------ */
 
+using EventProcess;
 using PlayerControl;
+using SceneUI.GameSceneUI;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -30,6 +32,14 @@ namespace WeaponSystem.Weapon
     [CreateAssetMenu(fileName = "Rifle", menuName = "Weapon/Rifle")]
     public class Rifle : WeaponData
     {
+        private void Start()
+        {
+            _currentBulletNum = _bulletCapacity;
+            // 初始化时发送事件
+            Signals.Get<GameSceneUIManager.PlayerAmmoChangedSignal>()
+                .Dispatch(_currentBulletNum, _bulletCapacity);
+                Debug.Log("子弹数更新完毕");
+        }
 
         public override void Attack()
         {
@@ -39,6 +49,9 @@ namespace WeaponSystem.Weapon
                 _currentBulletNum--;
                 Debug.Log("当前子弹数： "+_currentBulletNum);
                 Debug.Log("当前子弹剩余数： " + _bulletTotal);
+                //发送子弹数更新事件
+                Signals.Get<GameSceneUIManager.PlayerAmmoChangedSignal>()
+                .Dispatch(_currentBulletNum, _bulletCapacity);
 
                 // 具体武器逻辑
                 //射线射向屏幕中心
