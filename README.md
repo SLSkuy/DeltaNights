@@ -100,6 +100,7 @@ git clone https://github.com/SLSkuy/DeltaNights.git
 * Protobuf仓库链接：[访问 Protobuf仓库](https://github.com/protocolbuffers/protobuf)
 * 官方文档：https://protobuf.dev/
 * 跟随教程编译后将库文件夹重命名为```protobuf```放入DeltaNights-Server文件夹中并配置cmake即可
+* 碍于篇幅长度编译教程在飞书文档上：[Protobuf-C++](https://my.feishu.cn/wiki/HcVww85qKiMXW9kavlEcwFSUn8f?from=from_copylink)
 
 > 默认cmake已配置好了protobuf库，需确保protobuf文件夹下有include和lib文件夹
 
