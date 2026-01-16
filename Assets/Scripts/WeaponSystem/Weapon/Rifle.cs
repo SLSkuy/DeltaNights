@@ -38,7 +38,6 @@ namespace WeaponSystem.Weapon
             // 初始化时发送事件
             Signals.Get<GameSceneUIManager.PlayerAmmoChangedSignal>()
                 .Dispatch(_currentBulletNum, _bulletCapacity);
-                Debug.Log("子弹数更新完毕");
         }
 
         public override void Attack()
