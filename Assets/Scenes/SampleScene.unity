@@ -701,6 +701,11 @@ MonoBehaviour:
   udpPort: 19198
   clientID: 0
   heartBeatStep: 1
+--- !u!4 &148565430 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 493509188885616006, guid: 843ee950305abff499e0a971d1a3aaa5, type: 3}
+  m_PrefabInstance: {fileID: 7498548724838105065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,7 +2305,7 @@ MonoBehaviour:
       Owner: {fileID: 1419592808}
       Enabled: 1
       Input:
-        InputAction: {fileID: 0}
+        InputAction: {fileID: -1483154708761431715, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
         CancelDeltaTime: 0
       InputValue: 0
@@ -2311,7 +2316,7 @@ MonoBehaviour:
       Owner: {fileID: 1419592808}
       Enabled: 1
       Input:
-        InputAction: {fileID: 0}
+        InputAction: {fileID: -4772555595061108109, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
         CancelDeltaTime: 0
       InputValue: 0
@@ -2322,7 +2327,7 @@ MonoBehaviour:
       Owner: {fileID: 1419592808}
       Enabled: 1
       Input:
-        InputAction: {fileID: 0}
+        InputAction: {fileID: 8230253788993527574, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
         CancelDeltaTime: 0
       InputValue: 0
@@ -2333,7 +2338,7 @@ MonoBehaviour:
       Owner: {fileID: 1419592808}
       Enabled: 1
       Input:
-        InputAction: {fileID: 0}
+        InputAction: {fileID: 8614683165534070171, guid: 052faaac586de48259a63d0c4782560b, type: 3}
         Gain: 1
         CancelDeltaTime: 0
       InputValue: 0
@@ -2734,6 +2739,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!4 &1739357806 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5979930670113388107, guid: 843ee950305abff499e0a971d1a3aaa5, type: 3}
+  m_PrefabInstance: {fileID: 7498548724838105065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1749471040
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,6 +3065,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3367141148348665502, guid: 843ee950305abff499e0a971d1a3aaa5, type: 3}
+      propertyPath: m_Data.m_Mid
+      value: 
+      objectReference: {fileID: 148565430}
+    - target: {fileID: 3367141148348665502, guid: 843ee950305abff499e0a971d1a3aaa5, type: 3}
+      propertyPath: m_Data.m_Target
+      value: 
+      objectReference: {fileID: 1739357806}
     - target: {fileID: 7017221357307966215, guid: 843ee950305abff499e0a971d1a3aaa5, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3064,7 +3082,8 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5406484455801370141, guid: 843ee950305abff499e0a971d1a3aaa5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 843ee950305abff499e0a971d1a3aaa5, type: 3}

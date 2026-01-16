@@ -45,15 +45,9 @@ namespace WeaponSystem.Weapon
             if (_muzzle == null)
             {
                 FindMuzzle();
-
-                if (_muzzle == null)
-                {
-                    return;
-                }
-                else
-                {
-                }
             }
+            else
+            {}
             if (_currentBulletNum != 0 && _muzzle != null)
             {
                 //子弹数处理

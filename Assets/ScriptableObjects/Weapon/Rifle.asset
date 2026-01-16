@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSystem.Weapon.Rifle
   _bullet: {fileID: 1592268929010682284, guid: a3c15b288fd934e4db46b66b81ccf3f4, type: 3}
-  _fireEffect: {fileID: 0}
+  _fireEffect: {fileID: 4171051858075953094, guid: 25a6bd588ee932f4f8be552fd0fae250, type: 3}
   _hitEffect: {fileID: 0}
   _fireAudio: {fileID: 2778564658906218986, guid: 0d414994d47d6fe479b3ee24eb04dc88, type: 3}
   weaponType: 0
