@@ -8,7 +8,6 @@
  * 
  * ------------------------------------------------------------ */
 
-
 using EventProcess;
 using UIFramework;
 using UIFramework.Panel;

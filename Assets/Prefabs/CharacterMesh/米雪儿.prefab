@@ -46,6 +46,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl.PlayerMeshController
   playerMesh: {fileID: 7820637759172976797}
+  weaponType: 0
+  weaponHoldPositions:
+  - weaponPrefab: {fileID: 2718768096070018846, guid: b6463e77264e53342aac2170c8b23341, type: 3}
+    weaponName: Rifle
+    positionOffset: {x: -0.00056, y: 0.00074, z: 0.00072}
+    rotationOffset: {x: -86.059, y: -167.277, z: 233.78}
+    scale: {x: 0.01, y: 0.01, z: 0.01}
+    positionOffsetBack: {x: 0.0002, y: 0.00108, z: -0.00003}
+    rotationOffsetBack: {x: 4.094, y: -358.18, z: 352.736}
 --- !u!1001 &6701837622953302569
 PrefabInstance:
   m_ObjectHideFlags: 0

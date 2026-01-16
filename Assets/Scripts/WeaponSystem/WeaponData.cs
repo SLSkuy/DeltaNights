@@ -50,6 +50,8 @@ namespace WeaponSystem
 
         // 添加初始化状态标记
         protected bool _isInitialized = false;
+        //层级
+        protected int _playerLayer = -1;
 
         [Header("武器类型")]
         [SerializeField] protected WeaponType weaponType;
@@ -59,6 +61,7 @@ namespace WeaponSystem
         [SerializeField] protected float attackSpeed;
         [SerializeField] protected bool fullyAutomatic;
         [SerializeField] protected float attenuationFactor;
+        //[SerializeField] protected float SpreadFactor//武器射击扩散属性;
 
         [Header("武器伤害")]
         [SerializeField] protected float headDamage;
@@ -70,6 +73,15 @@ namespace WeaponSystem
         [SerializeField] public int _currentBulletNum;//当前枪膛里子弹数
         [SerializeField] public int _bulletTotal;//剩余总量
         [SerializeField] public float _reloadTime;//换弹时间
+
+        public void OnEnable()
+        {
+            _playerLayer = LayerMask.NameToLayer("Player");
+            if (_playerLayer == -1)
+            {
+                Debug.LogWarning("未找到玩家层级");
+            }
+        }
         public void unload(PlayerController playerController)
         {
             if (_playerController != null)
@@ -140,16 +152,19 @@ namespace WeaponSystem
                 }
             }
             else
-            {
-                Debug.LogError("未找到Rifle对象");
+            {   
+                //因时序问题会产生错误
+                //Debug.LogError("未找到Rifle对象");
             }
         }
+        
 
         public WeaponType WeaponType => weaponType;
         public string WeaponName => weaponName;
         public float AttackSpeed => attackSpeed;
         public bool FullyAutomatic => fullyAutomatic;
         public float AttenuationFactor => attenuationFactor;
+        //public float SpreadFactor => SpreadFactor;
         public float HeadDamage => headDamage;
         public float BodyDamage => bodyDamage;
         public float LegDamage => legDamage;
