@@ -72,6 +72,11 @@ namespace WeaponSystem.Weapon
                 audioSource.time = 0.34f;
                 audioSource.Play();
                 Destroy(fireAduio, 3);
+
+                //开火特效
+                GameObject fireEffect = Instantiate(_fireEffect, _muzzle.transform.position,_muzzle.transform.rotation);
+                //Debug.Log("fire VFX");
+                Destroy(fireEffect, 0.1f);
                 //目前只拿一条射线做示范
                 _shoulderRay = new Ray(_muzzle.transform.position, shoulderDirection);
                 if (Physics.Raycast(_shoulderRay, out _hitInfo, 500f))
