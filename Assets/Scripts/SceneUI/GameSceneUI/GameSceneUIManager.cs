@@ -35,8 +35,8 @@ namespace SceneUI.GameSceneUI
         // 当前UI状态
         private float currentHealth = 100f;
         private float maxHealth = 100f;
-        private int currentAmmo = 60;
-        private int maxAmmo = 60;
+        private int currentAmmo = 30;
+        private int maxAmmo = 30;
         
         private void Start()
         {
